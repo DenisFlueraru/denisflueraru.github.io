@@ -6,15 +6,15 @@
 <title>Denis Flueraru — Portfolio</title>
 <style>
   :root{
-    --bg: #111111;
-    --grid-line: #333333;
+    --bg: #ffffff; /* background white */
+    --grid-line: #e6e6e6;
     --olive: #717b3b;
     --khaki: #b2b07a;
     --grey: #6b6b6b;
-    --black: #000000;
+    --black: #111111;
     --orange: #d66a2b;
     --fluoro: #9cff4d;
-    --grid-cell: 80px; /* bigger squares */
+    --grid-cell: 120px; /* bigger squares */
   }
 
   *{box-sizing:border-box}
@@ -40,7 +40,6 @@
     position:relative;
   }
 
-  /* full-screen grid background */
   .left {
     background:
       linear-gradient(to right, var(--grid-line) 2px, transparent 2px),
@@ -52,14 +51,13 @@
     overflow:hidden;
   }
 
-  /* Top-left name + tagline */
   .brand {
     position:absolute;
     top:18px;
     left:18px;
     font-weight:600;
     letter-spacing:0.02em;
-    color:#fff;
+    color:#111;
     z-index:10;
   }
   .brand .name { font-size:18px; }
@@ -76,16 +74,15 @@
     touch-action:none;
   }
 
-  /* shapes: filleted squares */
   .shape {
     position: absolute;
-    width:120px;
-    height:120px;
+    width:var(--grid-cell);
+    height:var(--grid-cell);
     display:flex;
     align-items:center;
     justify-content:center;
     font-weight:700;
-    font-size:13px;
+    font-size:14px;
     text-transform:uppercase;
     letter-spacing:1px;
     cursor:pointer;
@@ -100,16 +97,13 @@
   .s-install{ background: var(--grey); color:#fff; }
   .s-proto{ background: var(--orange); color:#fff; }
 
-  .shape .label { pointer-events:none; }
+  .shape .label { pointer-events:none; text-align:center; }
 
-  /* hover effect: double size + shadow with palette color */
-  .shape:hover {
-    transform: scale(2);
-  }
-  .s-sound:hover { box-shadow: 0 20px 40px var(--fluoro); }
-  .s-inter:hover { box-shadow: 0 20px 40px var(--olive); }
-  .s-install:hover { box-shadow: 0 20px 40px var(--orange); }
-  .s-proto:hover { box-shadow: 0 20px 40px var(--khaki); }
+  .shape:hover { transform: scale(1.8); }
+  .s-sound:hover { box-shadow: 0 15px 30px var(--fluoro); }
+  .s-inter:hover { box-shadow: 0 15px 30px var(--olive); }
+  .s-install:hover { box-shadow: 0 15px 30px var(--orange); }
+  .s-proto:hover { box-shadow: 0 15px 30px var(--khaki); }
 
   .right {
     padding:10px 6px;
@@ -118,9 +112,9 @@
     gap:12px;
   }
   .preview {
-    height: calc((100% - 36px) / 4);
-    min-height:120px;
-    background:#222;
+    width:var(--grid-cell);
+    height:var(--grid-cell);
+    background:#efefef;
     border-radius:6px;
     overflow:hidden;
     position:relative;
@@ -141,18 +135,18 @@
   }
   .preview .caption {
     position:absolute;
-    left:10px;
-    bottom:10px;
+    left:5px;
+    bottom:5px;
     font-weight:700;
     font-size:12px;
-    color:#fff;
-    text-shadow:0 1px 2px rgba(0,0,0,0.45);
+    color:#111;
+    text-shadow:0 1px 2px rgba(255,255,255,0.45);
   }
 
   @media (max-width:920px){
     .wrap{ grid-template-columns: 1fr; }
     .right{ order:2; flex-direction:row; gap:8px; overflow:auto; }
-    .preview{ min-width:120px; height:120px; flex:0 0 120px; }
+    .preview{ flex:0 0 var(--grid-cell); height:var(--grid-cell); }
   }
 </style>
 </head>
@@ -164,23 +158,24 @@
       <div class="tag">practice playing every field of life</div>
     </div>
     <div class="play-area" id="playArea">
-      <div class="quad" id="q1" style="left:6%; top:10%; width:42%; height:40%;">
-        <div class="shape s-sound" data-key="sound" style="left:18%; top:22%;" id="shape-sound">
+      <!-- place the 4 shapes closer together -->
+      <div class="quad" id="q1" style="left:35%; top:30%; width:15%; height:15%;">
+        <div class="shape s-sound" id="shape-sound">
           <div class="label">Sound</div>
         </div>
       </div>
-      <div class="quad" id="q2" style="right:6%; top:10%; width:42%; height:40%;">
-        <div class="shape s-inter" data-key="interactivity" style="left:58%; top:18%;" id="shape-inter">
+      <div class="quad" id="q2" style="left:50%; top:30%; width:15%; height:15%;">
+        <div class="shape s-inter" id="shape-inter">
           <div class="label">Interactivity</div>
         </div>
       </div>
-      <div class="quad" id="q3" style="left:6%; bottom:10%; width:42%; height:40%;">
-        <div class="shape s-install" data-key="installations" style="left:22%; top:18%;" id="shape-install">
+      <div class="quad" id="q3" style="left:35%; top:50%; width:15%; height:15%;">
+        <div class="shape s-install" id="shape-install">
           <div class="label">Installations</div>
         </div>
       </div>
-      <div class="quad" id="q4" style="right:6%; bottom:10%; width:42%; height:40%;">
-        <div class="shape s-proto" data-key="prototyping" style="left:62%; top:18%;" id="shape-proto">
+      <div class="quad" id="q4" style="left:50%; top:50%; width:15%; height:15%;">
+        <div class="shape s-proto" id="shape-proto">
           <div class="label">Prototyping</div>
         </div>
       </div>
@@ -196,39 +191,6 @@
 </div>
 
 <script>
-const leftArea = document.getElementById('leftArea');
-const GRID_CELL = 80;
-
-/* Build grid points */
-function buildGridPoints(container){
-  const rect = container.getBoundingClientRect();
-  const points = [];
-  const offsetX = rect.left + 36;
-  const offsetY = rect.top + 36;
-  const cols = Math.ceil((rect.width - 72) / GRID_CELL) + 1;
-  const rows = Math.ceil((rect.height - 72) / GRID_CELL) + 1;
-  for(let r=0;r<rows;r++){
-    for(let c=0;c<cols;c++){
-      const x=offsetX+c*GRID_CELL;
-      const y=offsetY+r*GRID_CELL;
-      points.push({x,y});
-    }
-  }
-  return {points, rect};
-}
-
-let gridData = buildGridPoints(leftArea);
-window.addEventListener('resize', ()=> gridData = buildGridPoints(leftArea));
-
-/* Shapes array */
-const shapes = [
-  {el: document.getElementById('shape-sound'), quad: document.getElementById('q1')},
-  {el: document.getElementById('shape-inter'), quad: document.getElementById('q2')},
-  {el: document.getElementById('shape-install'), quad: document.getElementById('q3')},
-  {el: document.getElementById('shape-proto'), quad: document.getElementById('q4')}
-];
-
-/* Right previews with random interval cycling */
 const IMAGES = {
   sound: [
     'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200',
@@ -257,20 +219,23 @@ function initPreview(previewEl, images){
   flip.appendChild(front);
   flip.appendChild(back);
 
-  let idx = 0;
-  function cycleImage(){
-    const nextIdx = Math.floor(Math.random()*images.length);
-    back.style.backgroundImage = `url('${images[nextIdx]}')`;
-    back.style.opacity = 0;
-    back.style.transition = 'opacity 600ms ease';
-    setTimeout(()=>{ back.style.opacity = 1; const tmp=front.style.backgroundImage; front.style.backgroundImage=back.style.backgroundImage; back.style.backgroundImage=tmp; },100);
-    const delay = 1000 + Math.random()*1000; // 1-2s
-    setTimeout(()=>{
-      setTimeout(cycleImage,3000); // wait 3s before next cycle
-    },delay);
-  }
   front.style.backgroundImage=`url('${images[0]}')`;
-  setTimeout(cycleImage, 1000);
+
+  function cycleImage(){
+    const nextIdx=Math.floor(Math.random()*images.length);
+    back.style.backgroundImage=`url('${images[nextIdx]}')`;
+    back.style.opacity=0;
+    back.style.transition='opacity 600ms ease';
+    setTimeout(()=>{
+      back.style.opacity=1;
+      const tmp=front.style.backgroundImage;
+      front.style.backgroundImage=back.style.backgroundImage;
+      back.style.backgroundImage=tmp;
+    },100);
+    const delay=1000 + Math.random()*1000;
+    setTimeout(()=>setTimeout(cycleImage,3000),delay);
+  }
+  setTimeout(cycleImage,1000);
 }
 
 document.querySelectorAll('.preview').forEach(p=>{
