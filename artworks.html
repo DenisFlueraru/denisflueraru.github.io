@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artworks - Denis Flueraru</title>
+  <link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"> <!-- reuse CSS if you separate it -->
+</head>
+<body>
+  <div class="header">
+    <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
+    <span class="section-title">Artworks</span>
+    <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="main-content">
+    <div class="scroll-container" id="scroll-container">
+      <div class="update">
+        <img src="images/art1.jpg" alt="Artwork 1">
+        <p>Description or title of artwork 1.</p>
+      </div>
+      <div class="update">
+        <img src="images/art2.jpg" alt="Artwork 2">
+        <p>Description or title of artwork 2.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu" id="menu">
+    <a href="artworks.html">Artworks</a>
+    <a href="workshops.html">Workshops</a>
+    <a href="sound.html">Sound</a>
+    <a href="collabs.html">Collabs</a>
+    <div style="height:20px;"></div>
+    <a href="shop.html">Shop</a>
+    <a href="services.html">Services</a>
+    <div style="height:20px;"></div>
+    <a href="biography.html">Biography</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <script src="menu.js"></script> <!-- same JS as index.html -->
+</body>
+</html>
