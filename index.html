@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Denis Flueraru – Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(2, 200px);
+      grid-gap: 80px;
+    }
+
+    .shape {
+      width: 150px;
+      height: 150px;
+      background: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 20%;
+      transition: transform 0.3s ease, background 0.3s ease;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .shape:hover {
+      transform: scale(1.5);
+      background: #555;
+    }
+
+    /* Different shape styles */
+    .circle { border-radius: 50%; }
+    .square { border-radius: 5px; }
+    .hexagon {
+      position: relative;
+      background: none;
+      width: 120px;
+      height: 69px;
+      background-color: #333;
+      margin: 40px auto;
+    }
+    .hexagon:before, .hexagon:after {
+      content: "";
+      position: absolute;
+      width: 0;
+      border-left: 60px solid transparent;
+      border-right: 60px solid transparent;
+    }
+    .hexagon:before {
+      bottom: 100%;
+      border-bottom: 35px solid #333;
+    }
+    .hexagon:after {
+      top: 100%;
+      width: 0;
+      border-top: 35px solid #333;
+    }
+    .hexagon span {
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .hexagon:hover {
+      transform: scale(1.5);
+      background-color: #555;
+    }
+    .hexagon:hover:before {
+      border-bottom-color: #555;
+    }
+    .hexagon:hover:after {
+      border-top-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="shape circle">Sound</div>
+    <div class="shape square">Interactivity</div>
+    <div class="hexagon"><span>Installations</span></div>
+    <div class="shape square">Prototyping</div>
+  </div>
+</body>
+</html>
