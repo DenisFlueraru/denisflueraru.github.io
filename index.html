@@ -42,11 +42,12 @@
     /* Menu */
     .menu {
       position:fixed; top:0; right:-25%; width:25%; height:100%;
-      color:black; transition:right 0.4s ease; z-index:200;
+      background-color:#C5D642; color:black; transition:right 0.4s ease; z-index:200;
       padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
     }
     .menu.open { right:0; }
     .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
+    .menu a:hover { color:white; }
 
     /* Grey overlay */
     .overlay {
@@ -77,16 +78,13 @@
   <div class="main-content">
     <div class="scroll-container" id="scroll-container">
       <div class="update">
-        <img src="images/photo1.jpg" alt="Example Image 1">
+        <img src="images/Beyondthenoisetheconcretespeaks2.JPG" alt="Example Image 1">
         <img src="images/photo2.jpg" alt="Example Image 2">
-        <p>Behind the scenes of Artist Play with Time 🕰️ Short behind the scenes video where I built a series of bespoke contact microphones + preamp boxes from scratch — designed to amplify the subtle ticking of clocks as instruments for performers.
-From 3D modeling & printing, to soldering, shielding, and sound testing — every detail was tuned to bring time into focus.
-</p>
+        <p>This week I completed a project on modern web design, exploring minimalist layouts and interactive menus.</p>
       </div>
       <div class="update">
-        <img src="images/photo3.jpg" alt="Example Image 3">
-        <p>Following its debut in the Unbound Echoes exhibition at WASP Bucharest, Beyond the Noise, the Concrete Speaks continues its journey with a second iteration in Brașov. This evolving series explores the memory of space through resonance, field recordings, and layered sonic narratives, offering a new voice to the overlooked textures of the urban environment.
-</p>
+        <img src="images/RYT_2.jpg" alt="Example Image 3">
+        <p>Attended an inspiring workshop on color theory and its application in web interfaces.</p>
       </div>
     </div>
   </div>
@@ -109,9 +107,7 @@ From 3D modeling & printing, to soldering, shielding, and sound testing — ever
     const menu = document.getElementById('menu');
     const scrollContainer = document.getElementById('scroll-container');
     const overlay = document.getElementById('overlay');
-    const neonColors = ['#39FF14','#FF5F1F']; // neon green, neon orange
 
-    // Toggle menu open/close
     function toggleMenu(){
       const isOpen = menu.classList.contains('open');
       if(isOpen){
@@ -122,21 +118,19 @@ From 3D modeling & printing, to soldering, shielding, and sound testing — ever
         menu.classList.add('open');
         scrollContainer.classList.add('recede');
         overlay.classList.add('active');
-        const randomColor = neonColors[Math.floor(Math.random()*neonColors.length)];
-        menu.style.backgroundColor = randomColor;
       }
     }
 
-    // Menu hover neon effect
-    document.querySelectorAll('.menu a').forEach(link => {
-      link.addEventListener('mouseenter', () => {
-        const randomColor = neonColors[Math.floor(Math.random()*neonColors.length)];
-        link.style.color = randomColor;
-      });
-      link.addEventListener('mouseleave', () => link.style.color = 'black');
+    // Clicking overlay closes menu
+    overlay.addEventListener('click', () => {
+      if(menu.classList.contains('open')){
+        menu.classList.remove('open');
+        scrollContainer.classList.remove('recede');
+        overlay.classList.remove('active');
+      }
     });
 
-    // Clicking on scroll closes menu
+    // Clicking on scroll also closes menu
     scrollContainer.addEventListener('click', () => {
       if(menu.classList.contains('open')){
         menu.classList.remove('open');

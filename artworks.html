@@ -42,11 +42,12 @@
     /* Menu */
     .menu {
       position:fixed; top:0; right:-25%; width:25%; height:100%;
-      color:black; transition:right 0.4s ease; z-index:200;
+      background-color:#f1f1f1; color:black; transition:right 0.4s ease; z-index:200;
       padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
     }
     .menu.open { right:0; }
     .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
+    .menu a:hover { color:white; }
 
     /* Grey overlay */
     .overlay {
@@ -110,9 +111,7 @@
     const menu = document.getElementById('menu');
     const scrollContainer = document.getElementById('scroll-container');
     const overlay = document.getElementById('overlay');
-    const neonColors = ['#39FF14','#FF5F1F']; // neon green, neon orange
 
-    // Toggle menu open/close
     function toggleMenu(){
       const isOpen = menu.classList.contains('open');
       if(isOpen){
@@ -123,18 +122,16 @@
         menu.classList.add('open');
         scrollContainer.classList.add('recede');
         overlay.classList.add('active');
-        const randomColor = neonColors[Math.floor(Math.random()*neonColors.length)];
-        menu.style.backgroundColor = randomColor;
       }
     }
 
-    // Menu hover neon effect
-    document.querySelectorAll('.menu a').forEach(link => {
-      link.addEventListener('mouseenter', () => {
-        const randomColor = neonColors[Math.floor(Math.random()*neonColors.length)];
-        link.style.color = randomColor;
-      });
-      link.addEventListener('mouseleave', () => link.style.color = 'black');
+    // Clicking overlay closes menu
+    overlay.addEventListener('click', () => {
+      if(menu.classList.contains('open')){
+        menu.classList.remove('open');
+        scrollContainer.classList.remove('recede');
+        overlay.classList.remove('active');
+      }
     });
 
     // Clicking on scroll closes menu
