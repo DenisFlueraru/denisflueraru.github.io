@@ -6,7 +6,7 @@
 <title>Denis Flueraru — Portfolio</title>
 <style>
   :root{
-    --bg: #ffffff; /* background white */
+    --bg: #ffffff;
     --grid-line: #e6e6e6;
     --olive: #717b3b;
     --khaki: #b2b07a;
@@ -14,44 +14,40 @@
     --black: #111111;
     --orange: #d66a2b;
     --fluoro: #9cff4d;
-    --grid-cell: 120px; /* bigger squares */
+    --grid-cell: 140px;
   }
 
-  *{box-sizing:border-box}
+  *{box-sizing:border-box;}
   body{
     margin:0;
-    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background:var(--bg);
-    color:var(--black);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    overflow-x:hidden;
+    font-family:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: var(--bg);
+    color: var(--black);
     display:flex;
     justify-content:center;
-    padding:0;
+    overflow-x:hidden;
   }
 
   .wrap{
     width:100vw;
     height:100vh;
     display:grid;
-    grid-template-columns: 1fr 320px;
+    grid-template-columns: 1fr 360px;
     gap:28px;
-    position:relative;
   }
 
-  .left {
+  .left{
+    position:relative;
+    padding:36px;
+    min-height:100vh;
     background:
       linear-gradient(to right, var(--grid-line) 2px, transparent 2px),
       linear-gradient(to bottom, var(--grid-line) 2px, transparent 2px);
     background-size: var(--grid-cell) var(--grid-cell);
-    padding:36px;
-    min-height:100vh;
-    position:relative;
     overflow:hidden;
   }
 
-  .brand {
+  .brand{
     position:absolute;
     top:18px;
     left:18px;
@@ -63,130 +59,133 @@
   .brand .name { font-size:18px; }
   .brand .tag { font-size:12px; color:var(--grey); margin-top:6px; text-transform:lowercase; }
 
-  .play-area {
-    width:100%;
-    height:100%;
-    position:relative;
-  }
+  .play-area{width:100%; height:100%; position:relative;}
 
-  .quad {
-    position:absolute;
-    touch-action:none;
-  }
+  .quad{position:absolute;}
 
-  .shape {
-    position: absolute;
+  .shape{
     width:var(--grid-cell);
     height:var(--grid-cell);
     display:flex;
     align-items:center;
     justify-content:center;
+    border-radius:20px;
     font-weight:700;
     font-size:14px;
     text-transform:uppercase;
     letter-spacing:1px;
     cursor:pointer;
     user-select:none;
-    border-radius:16px;
-    transition: transform 300ms cubic-bezier(.2,.9,.2,1), box-shadow 300ms, background 300ms;
-    will-change: transform, box-shadow;
+    background: linear-gradient(145deg,#777,#555);
+    box-shadow: inset -3px -3px 6px #999, inset 3px 3px 6px #333;
+    transition: transform 300ms ease, box-shadow 300ms ease, background 300ms ease;
+    position:absolute;
+    color:#fff;
+    text-align:center;
   }
 
-  .s-sound{ background: var(--olive); color:#fff; }
-  .s-inter{ background: var(--khaki); color:#000; }
-  .s-install{ background: var(--grey); color:#fff; }
-  .s-proto{ background: var(--orange); color:#fff; }
+  /* Colors */
+  .s-sound{background: linear-gradient(145deg,var(--olive), #556030);}
+  .s-inter{background: linear-gradient(145deg,var(--khaki), #9ea16b); color:#111;}
+  .s-install{background: linear-gradient(145deg,var(--grey), #4d4d4d);}
+  .s-proto{background: linear-gradient(145deg,var(--orange), #c05720);}
 
-  .shape .label { pointer-events:none; text-align:center; }
+  .shape:hover{
+    transform: scale(1.8);
+  }
+  .s-sound:hover{box-shadow:0 15px 30px var(--fluoro);}
+  .s-inter:hover{box-shadow:0 15px 30px var(--olive);}
+  .s-install:hover{box-shadow:0 15px 30px var(--orange);}
+  .s-proto:hover{box-shadow:0 15px 30px var(--khaki);}
 
-  .shape:hover { transform: scale(1.8); }
-  .s-sound:hover { box-shadow: 0 15px 30px var(--fluoro); }
-  .s-inter:hover { box-shadow: 0 15px 30px var(--olive); }
-  .s-install:hover { box-shadow: 0 15px 30px var(--orange); }
-  .s-proto:hover { box-shadow: 0 15px 30px var(--khaki); }
+  /* HUD overlay crosshairs */
+  .hud{
+    position:absolute;
+    top:0; left:0; width:100%; height:100%;
+    pointer-events:none;
+  }
+  .hud:after, .hud:before{
+    content:'';
+    position:absolute;
+    width:100%; height:100%;
+    background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: var(--grid-cell) var(--grid-cell);
+  }
 
-  .right {
+  .right{
     padding:10px 6px;
     display:flex;
     flex-direction:column;
     gap:12px;
   }
-  .preview {
+  .preview{
     width:var(--grid-cell);
     height:var(--grid-cell);
-    background:#efefef;
-    border-radius:6px;
+    border-radius:8px;
     overflow:hidden;
     position:relative;
+    background:#222;
     perspective:900px;
   }
-  .preview .flip {
+  .preview .flip{
     position:absolute;
     inset:0;
     display:block;
     transform-style:preserve-3d;
   }
-  .preview .img {
+  .preview .img{
     position:absolute;
     inset:0;
     background-size:cover;
     background-position:center;
     backface-visibility:hidden;
   }
-  .preview .caption {
+  .preview .caption{
     position:absolute;
-    left:5px;
-    bottom:5px;
+    left:5px; bottom:5px;
     font-weight:700;
     font-size:12px;
-    color:#111;
-    text-shadow:0 1px 2px rgba(255,255,255,0.45);
+    color:#fff;
+    text-shadow:0 1px 2px rgba(0,0,0,0.4);
   }
 
   @media (max-width:920px){
-    .wrap{ grid-template-columns: 1fr; }
-    .right{ order:2; flex-direction:row; gap:8px; overflow:auto; }
-    .preview{ flex:0 0 var(--grid-cell); height:var(--grid-cell); }
+    .wrap{grid-template-columns:1fr;}
+    .right{order:2; flex-direction:row; gap:8px; overflow:auto;}
+    .preview{flex:0 0 var(--grid-cell); height:var(--grid-cell);}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="left" id="leftArea">
+  <div class="left">
     <div class="brand">
       <div class="name">Denis Flueraru</div>
       <div class="tag">practice playing every field of life</div>
     </div>
-    <div class="play-area" id="playArea">
-      <!-- place the 4 shapes closer together -->
-      <div class="quad" id="q1" style="left:35%; top:30%; width:15%; height:15%;">
-        <div class="shape s-sound" id="shape-sound">
-          <div class="label">Sound</div>
-        </div>
+    <div class="play-area">
+      <div class="hud"></div>
+      <div class="quad" style="left:40%; top:35%;">
+        <div class="shape s-sound">Sound</div>
       </div>
-      <div class="quad" id="q2" style="left:50%; top:30%; width:15%; height:15%;">
-        <div class="shape s-inter" id="shape-inter">
-          <div class="label">Interactivity</div>
-        </div>
+      <div class="quad" style="left:55%; top:35%;">
+        <div class="shape s-inter">Interactivity</div>
       </div>
-      <div class="quad" id="q3" style="left:35%; top:50%; width:15%; height:15%;">
-        <div class="shape s-install" id="shape-install">
-          <div class="label">Installations</div>
-        </div>
+      <div class="quad" style="left:40%; top:50%;">
+        <div class="shape s-install">Installations</div>
       </div>
-      <div class="quad" id="q4" style="left:50%; top:50%; width:15%; height:15%;">
-        <div class="shape s-proto" id="shape-proto">
-          <div class="label">Prototyping</div>
-        </div>
+      <div class="quad" style="left:55%; top:50%;">
+        <div class="shape s-proto">Prototyping</div>
       </div>
     </div>
   </div>
 
-  <div class="right" id="rightCol">
-    <div class="preview" data-key="sound"><div class="flip" id="flip-sound"></div><div class="caption">Sound</div></div>
-    <div class="preview" data-key="interactivity"><div class="flip" id="flip-inter"></div><div class="caption">Interactivity</div></div>
-    <div class="preview" data-key="installations"><div class="flip" id="flip-install"></div><div class="caption">Installations</div></div>
-    <div class="preview" data-key="prototyping"><div class="flip" id="flip-proto"></div><div class="caption">Prototyping</div></div>
+  <div class="right">
+    <div class="preview" data-key="sound"><div class="flip"></div><div class="caption">Sound</div></div>
+    <div class="preview" data-key="interactivity"><div class="flip"></div><div class="caption">Interactivity</div></div>
+    <div class="preview" data-key="installations"><div class="flip"></div><div class="caption">Installations</div></div>
+    <div class="preview" data-key="prototyping"><div class="flip"></div><div class="caption">Prototyping</div></div>
   </div>
 </div>
 
@@ -196,15 +195,15 @@ const IMAGES = {
     'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200',
     'https://images.unsplash.com/photo-1511376777868-611b54f68947?q=80&w=1200'
   ],
-  interactivity: [
+  interactivity:[
     'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200',
     'https://images.unsplash.com/photo-1505238680356-667803448bb6?q=80&w=1200'
   ],
-  installations: [
+  installations:[
     'https://images.unsplash.com/photo-1518733057094-95b53136d1a2?q=80&w=1200',
     'https://images.unsplash.com/photo-1524499982521-1ffd58dd89ea?q=80&w=1200'
   ],
-  prototyping: [
+  prototyping:[
     'https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200',
     'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200'
   ]
@@ -212,30 +211,21 @@ const IMAGES = {
 
 function initPreview(previewEl, images){
   const flip = previewEl.querySelector('.flip');
-  const front = document.createElement('div');
-  front.className='img front';
-  const back = document.createElement('div');
-  back.className='img back';
-  flip.appendChild(front);
-  flip.appendChild(back);
-
+  const front=document.createElement('div'); front.className='img front';
+  const back=document.createElement('div'); back.className='img back';
+  flip.appendChild(front); flip.appendChild(back);
   front.style.backgroundImage=`url('${images[0]}')`;
 
-  function cycleImage(){
-    const nextIdx=Math.floor(Math.random()*images.length);
-    back.style.backgroundImage=`url('${images[nextIdx]}')`;
+  function cycle(){
+    const next=Math.floor(Math.random()*images.length);
+    back.style.backgroundImage=`url('${images[next]}')`;
     back.style.opacity=0;
     back.style.transition='opacity 600ms ease';
-    setTimeout(()=>{
-      back.style.opacity=1;
-      const tmp=front.style.backgroundImage;
-      front.style.backgroundImage=back.style.backgroundImage;
-      back.style.backgroundImage=tmp;
-    },100);
-    const delay=1000 + Math.random()*1000;
-    setTimeout(()=>setTimeout(cycleImage,3000),delay);
+    setTimeout(()=>{ back.style.opacity=1; const tmp=front.style.backgroundImage; front.style.backgroundImage=back.style.backgroundImage; back.style.backgroundImage=tmp; },100);
+    const delay=1000+Math.random()*1000;
+    setTimeout(()=>setTimeout(cycle,3000),delay);
   }
-  setTimeout(cycleImage,1000);
+  setTimeout(cycle,1000);
 }
 
 document.querySelectorAll('.preview').forEach(p=>{
