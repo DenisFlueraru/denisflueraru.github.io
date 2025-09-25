@@ -8,28 +8,25 @@
   <style>
     * {margin:0; padding:0; box-sizing:border-box;}
     body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
-    
+
+    /* Header */
     .header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 25px 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      position:fixed;
+      top:0;
+      width:100%;
+      padding:25px 50px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
       background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-      z-index: 100;
+      z-index:100;
     }
     .header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
     .header .section-title { font-weight:400; font-size:22px; }
     .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
-    .main-content {
-      display:flex; justify-content:center;
-      padding-top:100px; min-height:100vh;
-      position:relative;
-    }
-
+    /* Main content scroll */
+    .main-content { display:flex; justify-content:center; padding-top:100px; min-height:100vh; position:relative; }
     .scroll-container {
       display:flex; flex-direction:column; gap:60px;
       max-width:900px; scroll-behavior:smooth;
@@ -42,15 +39,15 @@
     .update img { max-width:80%; margin-bottom:10px; border-radius:4px; }
     .update p { font-size:20px; line-height:1.6; color:#333; max-width:700px; }
 
+    /* Menu */
     .menu {
       position:fixed; top:0; right:-25%; width:25%; height:100%;
-      color:black; transition:right 0.4s ease;
-      z-index:200; padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
+      color:black; transition:right 0.4s ease; z-index:200;
+      padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
     }
     .menu.open { right:0; }
+    .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
 
-    .menu a { color:black; text-decoration:none; transition:color 0.3s ease; }
-    
     /* Grey overlay */
     .overlay {
       position:fixed; top:0; left:0; width:100%; height:100%;
@@ -66,28 +63,35 @@
 </head>
 <body>
 
+  <!-- Header -->
   <div class="header">
     <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
     <span class="section-title">Home</span>
     <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
   </div>
 
+  <!-- Overlay -->
   <div class="overlay" id="overlay"></div>
 
+  <!-- Main content -->
   <div class="main-content">
     <div class="scroll-container" id="scroll-container">
       <div class="update">
         <img src="images/photo1.jpg" alt="Example Image 1">
         <img src="images/photo2.jpg" alt="Example Image 2">
-        <p>This week I completed a project on modern web design.</p>
+        <p>Behind the scenes of Artist Play with Time 🕰️ Short behind the scenes video where I built a series of bespoke contact microphones + preamp boxes from scratch — designed to amplify the subtle ticking of clocks as instruments for performers.
+From 3D modeling & printing, to soldering, shielding, and sound testing — every detail was tuned to bring time into focus.
+</p>
       </div>
       <div class="update">
         <img src="images/photo3.jpg" alt="Example Image 3">
-        <p>Attended a workshop on color theory.</p>
+        <p>Following its debut in the Unbound Echoes exhibition at WASP Bucharest, Beyond the Noise, the Concrete Speaks continues its journey with a second iteration in Brașov. This evolving series explores the memory of space through resonance, field recordings, and layered sonic narratives, offering a new voice to the overlooked textures of the urban environment.
+</p>
       </div>
     </div>
   </div>
 
+  <!-- Menu -->
   <div class="menu" id="menu">
     <a href="artworks.html">Artworks</a>
     <a href="workshops.html">Workshops</a>
@@ -105,8 +109,9 @@
     const menu = document.getElementById('menu');
     const scrollContainer = document.getElementById('scroll-container');
     const overlay = document.getElementById('overlay');
-    const militaryColors = ['#6B8E23','#4B5320','#556B2F','#F0E68C','#D2B48C'];
+    const neonColors = ['#39FF14','#FF5F1F']; // neon green, neon orange
 
+    // Toggle menu open/close
     function toggleMenu(){
       const isOpen = menu.classList.contains('open');
       if(isOpen){
@@ -117,22 +122,22 @@
         menu.classList.add('open');
         scrollContainer.classList.add('recede');
         overlay.classList.add('active');
-        const randomColor = militaryColors[Math.floor(Math.random()*militaryColors.length)];
+        const randomColor = neonColors[Math.floor(Math.random()*neonColors.length)];
         menu.style.backgroundColor = randomColor;
       }
     }
 
-    // Hover random military color for menu items
-    document.querySelectorAll('.menu a').forEach(link=>{
-      link.addEventListener('mouseenter', ()=>{
-        const randomColor = militaryColors[Math.floor(Math.random()*militaryColors.length)];
-        link.style.color=randomColor;
+    // Menu hover neon effect
+    document.querySelectorAll('.menu a').forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        const randomColor = neonColors[Math.floor(Math.random()*neonColors.length)];
+        link.style.color = randomColor;
       });
-      link.addEventListener('mouseleave', ()=> link.style.color='black');
+      link.addEventListener('mouseleave', () => link.style.color = 'black');
     });
 
     // Clicking on scroll closes menu
-    scrollContainer.addEventListener('click', ()=>{
+    scrollContainer.addEventListener('click', () => {
       if(menu.classList.contains('open')){
         menu.classList.remove('open');
         scrollContainer.classList.remove('recede');
@@ -141,10 +146,10 @@
     });
 
     // Arrow keys navigation
-    document.addEventListener('keydown', e=>{
-      const scrollAmount=200;
-      if(e.key==='ArrowDown'){ scrollContainer.scrollBy({top:scrollAmount, behavior:'smooth'}); }
-      if(e.key==='ArrowUp'){ scrollContainer.scrollBy({top:-scrollAmount, behavior:'smooth'}); }
+    document.addEventListener('keydown', e => {
+      const scrollAmount = 200;
+      if(e.key==='ArrowDown') scrollContainer.scrollBy({top:scrollAmount, behavior:'smooth'});
+      if(e.key==='ArrowUp') scrollContainer.scrollBy({top:-scrollAmount, behavior:'smooth'});
     });
   </script>
 
