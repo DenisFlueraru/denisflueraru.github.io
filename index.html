@@ -1,103 +1,464 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Denis Flueraru – Portfolio</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #111;
-      color: #fff;
-      font-family: Arial, sans-serif;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Denis Flueraru — Portfolio</title>
+<style>
+  :root{
+    --bg: #ffffff;
+    --grid-line: #e6e6e6;
+    --olive: #717b3b;
+    --khaki: #b2b07a;
+    --grey: #6b6b6b;
+    --black: #111111;
+    --orange: #d66a2b;
+    --fluoro: #9cff4d;
+    --container-w: 1100px; /* change as needed */
+  }
 
-    .container {
-      display: grid;
-      grid-template-columns: repeat(2, 200px);
-      grid-gap: 80px;
-    }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:var(--bg);
+    color:var(--black);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    padding:40px;
+    display:flex;
+    justify-content:center;
+  }
 
-    .shape {
-      width: 150px;
-      height: 150px;
-      background: #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 20%;
-      transition: transform 0.3s ease, background 0.3s ease;
-      cursor: pointer;
-      font-size: 1.1rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+  .wrap{
+    width:var(--container-w);
+    max-width:96vw;
+    display:grid;
+    grid-template-columns: 1fr 320px; /* left area + right preview column */
+    gap:28px;
+    position:relative;
+  }
 
-    .shape:hover {
-      transform: scale(1.5);
-      background: #555;
-    }
+  /* subtle graph grid overlay for the left area */
+  .left {
+    background:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px; /* grid cell size */
+    padding:36px;
+    min-height:640px;
+    position:relative;
+    overflow:hidden;
+  }
 
-    /* Different shape styles */
-    .circle { border-radius: 50%; }
-    .square { border-radius: 5px; }
-    .hexagon {
-      position: relative;
-      background: none;
-      width: 120px;
-      height: 69px;
-      background-color: #333;
-      margin: 40px auto;
-    }
-    .hexagon:before, .hexagon:after {
-      content: "";
-      position: absolute;
-      width: 0;
-      border-left: 60px solid transparent;
-      border-right: 60px solid transparent;
-    }
-    .hexagon:before {
-      bottom: 100%;
-      border-bottom: 35px solid #333;
-    }
-    .hexagon:after {
-      top: 100%;
-      width: 0;
-      border-top: 35px solid #333;
-    }
-    .hexagon span {
-      position: absolute;
-      top: 25%;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #fff;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .hexagon:hover {
-      transform: scale(1.5);
-      background-color: #555;
-    }
-    .hexagon:hover:before {
-      border-bottom-color: #555;
-    }
-    .hexagon:hover:after {
-      border-top-color: #555;
-    }
-  </style>
+  /* Top-left name + tagline */
+  .brand {
+    position:absolute;
+    top:18px;
+    left:18px;
+    font-weight:600;
+    letter-spacing:0.02em;
+  }
+  .brand .name { font-size:18px; }
+  .brand .tag { font-size:12px; color:var(--grey); margin-top:6px; text-transform:lowercase; }
+
+  /* grid area where shapes will be placed */
+  .play-area {
+    width:100%;
+    height:100%;
+    position:relative;
+    display:block;
+  }
+
+  /* reserved quadrant wrapper to avoid overlap */
+  .quad {
+    position:absolute;
+    touch-action:none;
+  }
+
+  /* base shape common styles */
+  .shape {
+    position: absolute;
+    width:120px;
+    height:120px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-weight:700;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    cursor:pointer;
+    user-select:none;
+    transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 200ms;
+    will-change: clip-path, transform;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+
+  /* color theming */
+  .s-sound{ background: linear-gradient(180deg,var(--olive), #556030); }
+  .s-inter{ background: linear-gradient(180deg,var(--khaki), #9ea16b); color:var(--black); }
+  .s-install{ background: linear-gradient(180deg,var(--grey), #4d4d4d); }
+  .s-proto{ background: linear-gradient(180deg,var(--orange), #c05720); }
+
+  .shape .label {
+    pointer-events:none;
+  }
+
+  /* subtle hover lift */
+  .shape:hover{ transform: translateY(-6px); box-shadow: 0 12px 25px rgba(0,0,0,0.12); }
+
+  /* right column previews */
+  .right {
+    padding:10px 6px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .preview {
+    height: calc((100% - 36px) / 4);
+    min-height:120px;
+    background:#efefef;
+    border-radius:6px;
+    overflow:hidden;
+    position:relative;
+    perspective:900px;
+  }
+  .preview .flip {
+    position:absolute;
+    inset:0;
+    display:block;
+    transition: transform 700ms ease;
+    transform-style:preserve-3d;
+  }
+  .preview .img {
+    position:absolute;
+    inset:0;
+    background-size:cover;
+    background-position:center;
+    backface-visibility:hidden;
+  }
+  /* backface for flip (not used but kept for extension) */
+  .preview .img.back {
+    transform: rotateY(180deg);
+  }
+
+  /* small caption in right column */
+  .preview .caption {
+    position:absolute;
+    left:10px;
+    bottom:10px;
+    font-weight:700;
+    font-size:12px;
+    color:#fff;
+    text-shadow:0 1px 2px rgba(0,0,0,0.45);
+  }
+
+  /* mobile adjustments */
+  @media (max-width:920px){
+    .wrap{ grid-template-columns: 1fr; }
+    .right{ order:2; flex-direction:row; gap:8px; overflow:auto; }
+    .preview{ min-width:120px; height:120px; flex:0 0 120px; }
+    .left{ min-height:520px; }
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="shape circle">Sound</div>
-    <div class="shape square">Interactivity</div>
-    <div class="hexagon"><span>Installations</span></div>
-    <div class="shape square">Prototyping</div>
+  <div class="wrap">
+    <div class="left" id="leftArea">
+      <div class="brand">
+        <div class="name">Denis Flueraru</div>
+        <div class="tag">practice playing every field of life</div>
+      </div>
+
+      <div class="play-area" id="playArea">
+        <!-- Quadrants: top-left, top-right, bottom-left, bottom-right -->
+        <div class="quad" id="q1" style="left:6%; top:10%; width:42%; height:40%;">
+          <div class="shape s-sound" data-key="sound" style="left:18%; top:22%;" id="shape-sound">
+            <div class="label">Sound</div>
+          </div>
+        </div>
+
+        <div class="quad" id="q2" style="right:6%; top:10%; width:42%; height:40%;">
+          <div class="shape s-inter" data-key="interactivity" style="left:58%; top:18%;" id="shape-inter">
+            <div class="label">Interactivity</div>
+          </div>
+        </div>
+
+        <div class="quad" id="q3" style="left:6%; bottom:10%; width:42%; height:40%;">
+          <div class="shape s-install" data-key="installations" style="left:22%; top:18%;" id="shape-install">
+            <div class="label">Installations</div>
+          </div>
+        </div>
+
+        <div class="quad" id="q4" style="right:6%; bottom:10%; width:42%; height:40%;">
+          <div class="shape s-proto" data-key="prototyping" style="left:62%; top:18%;" id="shape-proto">
+            <div class="label">Prototyping</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right" id="rightCol">
+      <div class="preview" data-key="sound">
+        <div class="flip" id="flip-sound"></div>
+        <div class="caption">Sound</div>
+      </div>
+      <div class="preview" data-key="interactivity">
+        <div class="flip" id="flip-inter"></div>
+        <div class="caption">Interactivity</div>
+      </div>
+      <div class="preview" data-key="installations">
+        <div class="flip" id="flip-install"></div>
+        <div class="caption">Installations</div>
+      </div>
+      <div class="preview" data-key="prototyping">
+        <div class="flip" id="flip-proto"></div>
+        <div class="caption">Prototyping</div>
+      </div>
+    </div>
   </div>
+
+<script>
+/*
+  Logic overview:
+  - Build a grid of intersection points from the left area (using the background cell size)
+  - Each shape belongs to a quadrant (reserved area). On pointer move over shape, compute nearest grid points
+    within its quadrant; order them by angle around the shape center to create a nice polygon
+  - Apply the polygon using CSS clip-path with coordinates converted to percentages relative to left area
+  - On pointer leave, smoothly revert to a compact box polygon
+  - Right column previews: simple slideshow (setInterval) for each section
+*/
+
+/* ----- CONFIG ----- */
+const GRID_CELL = 44; // must match CSS background-size on .left
+const MAX_POINTS = 8; // how many grid points to use for the polygon
+const SNAP_RADIUS = 160; // px radius to pick grid points around pointer
+const leftArea = document.getElementById('leftArea');
+const playArea = document.getElementById('playArea');
+
+function buildGridPoints(container){
+  const rect = container.getBoundingClientRect();
+  const points = [];
+  // compute intersections; offset to align with background origin (left padding 36px)
+  const offsetX = rect.left + 36; // left padding used in CSS
+  const offsetY = rect.top + 36;
+  const cols = Math.ceil((rect.width - 72) / GRID_CELL) + 1;
+  const rows = Math.ceil((rect.height - 72) / GRID_CELL) + 1;
+  for(let r=0; r<rows; r++){
+    for(let c=0; c<cols; c++){
+      const x = offsetX + c * GRID_CELL;
+      const y = offsetY + r * GRID_CELL;
+      // skip points outside the inner area
+      if(x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom){
+        points.push({x,y});
+      }
+    }
+  }
+  return {points, rect};
+}
+
+/* start with grid */
+let gridData = buildGridPoints(leftArea);
+window.addEventListener('resize', ()=> gridData = buildGridPoints(leftArea));
+
+/* utility: distance */
+function dist(a,b){ const dx=a.x-b.x; const dy=a.y-b.y; return Math.sqrt(dx*dx+dy*dy); }
+
+/* given center and available points, choose nearest ones within radius and sort by angle */
+function choosePolygonPoints(center, candidates, radius){
+  // filter by radius
+  const near = candidates.filter(p => {
+    return dist(p, center) <= radius;
+  });
+
+  // if none, fallback to nearest few globally
+  if(near.length === 0){
+    candidates.sort((a,b)=> dist(a,center)-dist(b,center));
+    return candidates.slice(0, Math.min(MAX_POINTS, candidates.length));
+  }
+  // sort by angle around center
+  const pts = near.slice(0).sort((a,b)=>{
+    const angA = Math.atan2(a.y-center.y, a.x-center.x);
+    const angB = Math.atan2(b.y-center.y, b.x-center.x);
+    return angA - angB;
+  }).slice(0, MAX_POINTS);
+
+  // if we have very few points, add nearest until we have MIN(4, MAX_POINTS)
+  if(pts.length < 4){
+    const sortedAll = candidates.slice(0).sort((a,b)=> dist(a,center)-dist(b,center));
+    for(let i=0;i<sortedAll.length && pts.length<4;i++){
+      if(!pts.includes(sortedAll[i])) pts.push(sortedAll[i]);
+    }
+    // re-sort by angle
+    pts.sort((a,b)=> Math.atan2(a.y-center.y, a.x-center.x) - Math.atan2(b.y-center.y, b.x-center.x));
+  }
+
+  return pts;
+}
+
+/* convert absolute points to percent relative to left area box for clip-path */
+function pointsToClipPath(pts, containerRect){
+  return pts.map(p=>{
+    const px = ((p.x - containerRect.left) / containerRect.width) * 100;
+    const py = ((p.y - containerRect.top) / containerRect.height) * 100;
+    return `${px.toFixed(2)}% ${py.toFixed(2)}%`;
+  }).join(', ');
+}
+
+/* shapes and quadrants (non-overlap enforced by CSS quad wrappers) */
+const shapes = [
+  {el: document.getElementById('shape-sound'), quad: document.getElementById('q1')},
+  {el: document.getElementById('shape-inter'), quad: document.getElementById('q2')},
+  {el: document.getElementById('shape-install'), quad: document.getElementById('q3')},
+  {el: document.getElementById('shape-proto'), quad: document.getElementById('q4')}
+];
+
+shapes.forEach(obj=>{
+  const el = obj.el;
+  const quad = obj.quad;
+
+  // pointer move inside shape - create polygon snapped to nearest grid points within the QUAD area
+  el.addEventListener('pointerenter', (e)=>{
+    el.setPointerCapture(e.pointerId);
+  });
+
+  el.addEventListener('pointermove', (ev)=>{
+    // find pointer relative to page
+    const pointer = {x: ev.clientX, y: ev.clientY};
+    // limit candidates to grid points that are inside the quadrant region
+    const quadRect = quad.getBoundingClientRect();
+    const candidates = gridData.points.filter(p => {
+      return p.x >= quadRect.left && p.x <= quadRect.right && p.y >= quadRect.top && p.y <= quadRect.bottom;
+    });
+
+    // compute center of shape element (use its bounding box center)
+    const elRect = el.getBoundingClientRect();
+    const center = { x: elRect.left + elRect.width/2, y: elRect.top + elRect.height/2 };
+
+    // prefer points near pointer but centered on shape; mix pointer & center
+    const focus = { x: (pointer.x*0.4 + center.x*0.6), y: (pointer.y*0.4 + center.y*0.6) };
+
+    const chosen = choosePolygonPoints(focus, candidates, SNAP_RADIUS);
+
+    // ensure polygon includes the shape center vicinity to avoid holes - add 4 corner-ish points of the element if needed
+    // convert to clip-path relative to left area
+    const clip = pointsToClipPath(chosen, gridData.rect);
+
+    el.style.transition = 'clip-path 300ms cubic-bezier(.2,.9,.2,1), transform 220ms';
+    el.style.clipPath = `polygon(${clip})`;
+    el.style.webkitClipPath = `polygon(${clip})`;
+  });
+
+  // when leaving, revert to compact square / rounded box
+  el.addEventListener('pointerleave', (ev)=>{
+    el.style.transition = 'clip-path 350ms cubic-bezier(.2,.9,.2,1), transform 220ms';
+    // small centered rectangle relative to leftArea
+    const elRect = el.getBoundingClientRect();
+    const leftRect = gridData.rect;
+    // compute rectangle coords
+    const pad = 8;
+    const points = [
+      {x: elRect.left + pad, y: elRect.top + pad},
+      {x: elRect.right - pad, y: elRect.top + pad},
+      {x: elRect.right - pad, y: elRect.bottom - pad},
+      {x: elRect.left + pad, y: elRect.bottom - pad}
+    ];
+    el.style.clipPath = `polygon(${pointsToClipPath(points, leftRect)})`;
+    el.style.webkitClipPath = `polygon(${pointsToClipPath(points, leftRect)})`;
+    try{ el.releasePointerCapture(ev.pointerId); }catch(e){}
+  });
+
+  // initial small clip to match shape box
+  (()=>{
+    const elRect = el.getBoundingClientRect();
+    const leftRect = gridData.rect;
+    const pad = 8;
+    const points = [
+      {x: elRect.left + pad, y: elRect.top + pad},
+      {x: elRect.right - pad, y: elRect.top + pad},
+      {x: elRect.right - pad, y: elRect.bottom - pad},
+      {x: elRect.left + pad, y: elRect.bottom - pad}
+    ];
+    el.style.clipPath = `polygon(${pointsToClipPath(points,leftRect)})`;
+    el.style.webkitClipPath = `polygon(${pointsToClipPath(points,leftRect)})`;
+  })();
+
+});
+
+/* ---------- right column previews (simple slideshow) ---------- */
+
+/* Replace these arrays with your image URLs (relative or absolute).
+   Put actual images into your repository under /assets/... and use those paths.
+*/
+const IMAGES = {
+  sound: [
+    'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1511376777868-611b54f68947?q=80&w=1200&auto=format&fit=crop'
+  ],
+  interactivity: [
+    'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1505238680356-667803448bb6?q=80&w=1200&auto=format&fit=crop'
+  ],
+  installations: [
+    'https://images.unsplash.com/photo-1518733057094-95b53136d1a2?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1524499982521-1ffd58dd89ea?q=80&w=1200&auto=format&fit=crop'
+  ],
+  prototyping: [
+    'https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop'
+  ]
+};
+
+function initPreview(previewEl, images, interval=3500){
+  let idx = 0;
+  const flip = previewEl.querySelector('.flip');
+
+  // create two stacked image divs for smooth crossfade
+  const front = document.createElement('div');
+  front.className = 'img front';
+  front.style.backgroundImage = `url('${images[0]}')`;
+  const back = document.createElement('div');
+  back.className = 'img back';
+  back.style.backgroundImage = `url('${images[1%images.length]}')`;
+
+  flip.appendChild(front);
+  flip.appendChild(back);
+
+  setInterval(()=>{
+    idx = (idx+1) % images.length;
+    // swap backgrounds with a fade via opacity transform
+    // simpler approach: set front to next and rotate order
+    back.style.opacity = 0;
+    back.style.transition = 'opacity 600ms ease';
+    setTimeout(()=>{
+      back.style.backgroundImage = `url('${images[idx]}')`;
+      back.style.opacity = 1;
+      // swap roles
+      const tmp = front.style.backgroundImage;
+      front.style.backgroundImage = back.style.backgroundImage;
+      back.style.backgroundImage = tmp;
+    }, 200);
+  }, interval);
+}
+
+/* connect previews */
+document.querySelectorAll('.preview').forEach(preview=>{
+  const key = preview.dataset.key;
+  const list = IMAGES[key] || [];
+  if(list.length){
+    initPreview(preview, list, 4200 + Math.floor(Math.random()*1200));
+  } else {
+    // placeholder color
+    preview.querySelector('.flip').style.background = '#ddd';
+  }
+});
+
+/* OPTIONAL: Clicking a preview or shape could scroll / link to a full section later.
+   You can add click handlers here to navigate to section pages or anchor links.
+*/
+</script>
 </body>
 </html>
