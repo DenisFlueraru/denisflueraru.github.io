@@ -4,20 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Denis Flueraru</title>
+  <link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background-color: white;
-      overflow-x: hidden;
-    }
-
-    /* Header */
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
+    
     .header {
       position: fixed;
       top: 0;
@@ -29,139 +20,83 @@
       background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
       z-index: 100;
     }
+    .header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
+    .header .section-title { font-weight:400; font-size:22px; }
+    .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
-    .header .logo {
-      font-weight: bold;
-      font-size: 20px; /* smaller header */
-      cursor: pointer;
-      text-decoration: none;
-      color: black;
-    }
-
-    .header .menu-toggle {
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 22px;
-    }
-
-    /* Main content scroll */
     .main-content {
-      display: flex;
-      justify-content: center;
-      padding-top: 100px; /* header space */
-      min-height: 100vh;
+      display:flex; justify-content:center;
+      padding-top:100px; min-height:100vh;
+      position:relative;
     }
 
     .scroll-container {
-      display: flex;
-      flex-direction: column;
-      gap: 60px;
-      max-width: 900px;
-      scroll-behavior: smooth;
-      overflow-y: auto;
-      height: calc(100vh - 100px);
+      display:flex; flex-direction:column; gap:60px;
+      max-width:900px; scroll-behavior:smooth;
+      overflow-y:auto; height:calc(100vh - 100px);
       transition: transform 0.6s ease, opacity 0.6s ease;
     }
+    .scroll-container.recede { transform:scale(0.97); opacity:0.85; }
 
-    /* Breathing effect */
-    .scroll-container.recede {
-      transform: scale(0.97);
-      opacity: 0.85;
-    }
+    .update { display:flex; flex-direction:column; align-items:center; text-align:center; }
+    .update img { max-width:80%; margin-bottom:10px; border-radius:4px; }
+    .update p { font-size:20px; line-height:1.6; color:#333; max-width:700px; }
 
-    .update {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .update img {
-      max-width: 80%;
-      margin-bottom: 10px;
-      border-radius: 4px;
-    }
-
-    .update p {
-      font-size: 20px;
-      line-height: 1.6;
-      color: #333;
-      max-width: 700px;
-    }
-
-    /* Menu */
     .menu {
-      position: fixed;
-      top: 0;
-      right: -25%;
-      width: 25%;
-      height: 100%;
-      background-color: #fff1f1f1;
-      color: black;
-      transition: right 0.4s ease;
-      z-index: 200;
-      padding: 50px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      font-size: 20px;
+      position:fixed; top:0; right:-25%; width:25%; height:100%;
+      color:black; transition:right 0.4s ease;
+      z-index:200; padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
     }
+    .menu.open { right:0; }
 
-    .menu.open {
-      right: 0;
+    .menu a { color:black; text-decoration:none; transition:color 0.3s ease; }
+    
+    /* Grey overlay */
+    .overlay {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background-color:rgba(128,128,128,0.2); display:none; z-index:150;
     }
+    .overlay.active { display:block; }
 
-    .menu a {
-      color: black;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    @media (max-width: 768px) {
-      .menu {
-        width: 50%;
-        right: -50%;
-      }
-      .menu.open {
-        right: 0;
-      }
+    @media(max-width:768px){
+      .menu{ width:50%; right:-50%; }
+      .menu.open{ right:0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
   <div class="header">
     <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
+    <span class="section-title">Home</span>
     <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
   </div>
 
-  <!-- Main content -->
+  <div class="overlay" id="overlay"></div>
+
   <div class="main-content">
     <div class="scroll-container" id="scroll-container">
-      <!-- Example updates: replace src with your own images -->
       <div class="update">
         <img src="images/photo1.jpg" alt="Example Image 1">
         <img src="images/photo2.jpg" alt="Example Image 2">
-        <p>This week I completed a project on modern web design, exploring minimalist layouts and interactive menus.</p>
+        <p>This week I completed a project on modern web design.</p>
       </div>
       <div class="update">
         <img src="images/photo3.jpg" alt="Example Image 3">
-        <p>Attended an inspiring workshop on color theory and its application in web interfaces.</p>
+        <p>Attended a workshop on color theory.</p>
       </div>
     </div>
   </div>
 
-  <!-- Menu -->
   <div class="menu" id="menu">
     <a href="artworks.html">Artworks</a>
     <a href="workshops.html">Workshops</a>
     <a href="sound.html">Sound</a>
     <a href="collabs.html">Collabs</a>
-    <div style="height:20px;"></div> <!-- break -->
+    <div style="height:20px;"></div>
     <a href="shop.html">Shop</a>
     <a href="services.html">Services</a>
-    <div style="height:20px;"></div> <!-- break -->
+    <div style="height:20px;"></div>
     <a href="biography.html">Biography</a>
     <a href="contact.html">Contact</a>
   </div>
@@ -169,48 +104,49 @@
   <script>
     const menu = document.getElementById('menu');
     const scrollContainer = document.getElementById('scroll-container');
-    const militaryColors = ['#6B8E23', '#4B5320', '#556B2F', '#F0E68C', '#D2B48C'];
+    const overlay = document.getElementById('overlay');
+    const militaryColors = ['#6B8E23','#4B5320','#556B2F','#F0E68C','#D2B48C'];
 
-    function toggleMenu() {
+    function toggleMenu(){
       const isOpen = menu.classList.contains('open');
-      if(isOpen) {
+      if(isOpen){
         menu.classList.remove('open');
         scrollContainer.classList.remove('recede');
+        overlay.classList.remove('active');
       } else {
         menu.classList.add('open');
         scrollContainer.classList.add('recede');
+        overlay.classList.add('active');
+        const randomColor = militaryColors[Math.floor(Math.random()*militaryColors.length)];
+        menu.style.backgroundColor = randomColor;
       }
     }
 
-    // Menu hover random military color
-    const menuLinks = document.querySelectorAll('.menu a');
-    menuLinks.forEach(link => {
-      link.addEventListener('mouseenter', () => {
-        const randomColor = militaryColors[Math.floor(Math.random() * militaryColors.length)];
-        link.style.color = randomColor;
+    // Hover random military color for menu items
+    document.querySelectorAll('.menu a').forEach(link=>{
+      link.addEventListener('mouseenter', ()=>{
+        const randomColor = militaryColors[Math.floor(Math.random()*militaryColors.length)];
+        link.style.color=randomColor;
       });
-      link.addEventListener('mouseleave', () => {
-        link.style.color = 'black';
-      });
+      link.addEventListener('mouseleave', ()=> link.style.color='black');
     });
 
-    // Clicking on the scroll closes menu
-    scrollContainer.addEventListener('click', () => {
-      if(menu.classList.contains('open')) {
+    // Clicking on scroll closes menu
+    scrollContainer.addEventListener('click', ()=>{
+      if(menu.classList.contains('open')){
         menu.classList.remove('open');
         scrollContainer.classList.remove('recede');
+        overlay.classList.remove('active');
       }
     });
 
-    // Keyboard navigation
-    document.addEventListener('keydown', function(e) {
-      const scrollAmount = 200;
-      if(e.key === 'ArrowDown') {
-        scrollContainer.scrollBy({top: scrollAmount, behavior:'smooth'});
-      } else if(e.key === 'ArrowUp') {
-        scrollContainer.scrollBy({top: -scrollAmount, behavior:'smooth'});
-      }
+    // Arrow keys navigation
+    document.addEventListener('keydown', e=>{
+      const scrollAmount=200;
+      if(e.key==='ArrowDown'){ scrollContainer.scrollBy({top:scrollAmount, behavior:'smooth'}); }
+      if(e.key==='ArrowUp'){ scrollContainer.scrollBy({top:-scrollAmount, behavior:'smooth'}); }
     });
   </script>
+
 </body>
 </html>
