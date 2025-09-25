@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Denis Flueraru</title>
   <style>
-    /* Reset default margins */
     * {
       margin: 0;
       padding: 0;
@@ -33,13 +32,16 @@
 
     .header .logo {
       font-weight: bold;
-      font-size: 28px; /* bigger header */
+      font-size: 28px;
+      cursor: pointer;
+      text-decoration: none;
+      color: black;
     }
 
     .header .menu-toggle {
       cursor: pointer;
       font-weight: bold;
-      font-size: 22px; /* bigger menu text */
+      font-size: 22px;
     }
 
     /* Main content scroll */
@@ -58,20 +60,12 @@
       scroll-behavior: smooth;
       overflow-y: auto;
       height: calc(100vh - 120px);
-      transition: transform 0.3s;
+      transition: transform 0.6s ease, opacity 0.6s ease;
     }
 
-    .scroll-container.mosh {
-      animation: mosh 0.3s infinite alternate;
-    }
-
-    @keyframes mosh {
-      0% { transform: translateX(0px) skewX(0deg); }
-      20% { transform: translateX(-3px) skewX(3deg); }
-      40% { transform: translateX(2px) skewX(-2deg); }
-      60% { transform: translateX(-1px) skewX(1deg); }
-      80% { transform: translateX(3px) skewX(-3deg); }
-      100% { transform: translateX(0px) skewX(0deg); }
+    .scroll-container.recede {
+      transform: scale(0.97);
+      opacity: 0.85;
     }
 
     .update {
@@ -88,7 +82,7 @@
     }
 
     .update p {
-      font-size: 20px; /* bigger text */
+      font-size: 20px;
       line-height: 1.6;
       color: #333;
       max-width: 700px;
@@ -121,28 +115,11 @@
       text-decoration: none;
     }
 
-    /* Army color overlay when menu open */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(107, 142, 35, 0.2); /* semi-transparent olive drab */
-      display: none;
-      z-index: 150;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-
     @media (max-width: 768px) {
       .menu {
         width: 50%;
         right: -50%;
       }
-
       .menu.open {
         right: 0;
       }
@@ -153,12 +130,9 @@
 
   <!-- Header -->
   <div class="header">
-    <span class="logo">Denis Flueraru</span>
+    <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
     <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
   </div>
-
-  <!-- Overlay -->
-  <div class="overlay" id="overlay"></div>
 
   <!-- Main content -->
   <div class="main-content">
@@ -192,20 +166,16 @@
 
   <script>
     const menu = document.getElementById('menu');
-    const overlay = document.getElementById('overlay');
     const scrollContainer = document.getElementById('scroll-container');
 
     function toggleMenu() {
       const isOpen = menu.classList.contains('open');
-
       if (isOpen) {
         menu.classList.remove('open');
-        overlay.classList.remove('active');
-        scrollContainer.classList.remove('mosh');
+        scrollContainer.classList.remove('recede');
       } else {
         menu.classList.add('open');
-        overlay.classList.add('active');
-        scrollContainer.classList.add('mosh'); // apply glitch effect
+        scrollContainer.classList.add('recede'); // subtle breathing effect
       }
     }
 
@@ -218,9 +188,6 @@
         scrollContainer.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
       }
     });
-
-    // Clicking overlay closes menu
-    overlay.addEventListener('click', toggleMenu);
   </script>
 
 </body>
