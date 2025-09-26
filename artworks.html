@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {margin:0; padding:0; box-sizing:border-box;}
-    body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
+    body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden; padding-top:100px;}
 
     /* Header */
     .header {
@@ -25,19 +25,42 @@
     .header .section-title { font-weight:400; font-size:22px; }
     .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
-    /* Main content scroll */
-    .main-content { display:flex; justify-content:center; padding-top:100px; min-height:100vh; position:relative; }
-    .scroll-container {
-      display:flex; flex-direction:column; gap:60px;
-      max-width:900px; scroll-behavior:smooth;
-      overflow-y:auto; height:calc(100vh - 100px);
-      transition: transform 0.6s ease, opacity 0.6s ease;
+    /* Artworks grid */
+    .artworks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 40px;
+      max-width:1200px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
-    .scroll-container.recede { transform:scale(0.97); opacity:0.85; }
 
-    .update { display:flex; flex-direction:column; align-items:center; text-align:center; }
-    .update img { max-width:80%; margin-bottom:10px; border-radius:4px; }
-    .update p { font-size:20px; line-height:1.6; color:#333; max-width:700px; }
+    .artwork {
+      text-align:center;
+      cursor:pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .artwork img {
+      width: 100%;
+      border-radius:8px;
+      transition: transform 0.3s ease;
+    }
+
+    .artwork:hover img {
+      transform: scale(1.05);
+    }
+
+    .artwork-title {
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    a.artwork-link {
+      text-decoration: none;
+      color: inherit;
+    }
 
     /* Menu */
     .menu {
@@ -74,23 +97,31 @@
   <!-- Overlay -->
   <div class="overlay" id="overlay"></div>
 
-  <!-- Main content -->
-  <div class="main-content">
-    <div class="scroll-container" id="scroll-container">
-      <div class="update">
+  <!-- Artworks grid -->
+  <div class="artworks-grid">
+
+    <a href="artwork-1.html" class="artwork-link">
+      <div class="artwork">
         <img src="images/art1.jpg" alt="Artwork 1">
-        <p>Description or title of artwork 1.</p>
+        <div class="artwork-title">Beyond the Noise</div>
       </div>
-      <div class="update">
+    </a>
+
+    <a href="artwork-2.html" class="artwork-link">
+      <div class="artwork">
         <img src="images/art2.jpg" alt="Artwork 2">
-        <p>Description or title of artwork 2.</p>
+        <div class="artwork-title">Unbound Echoes</div>
       </div>
-      <div class="update">
+    </a>
+
+    <a href="artwork-3.html" class="artwork-link">
+      <div class="artwork">
         <img src="images/art3.jpg" alt="Artwork 3">
-        <p>Description or title of artwork 3.</p>
+        <div class="artwork-title">DivAirCity</div>
       </div>
-      <!-- Add more artworks here -->
-    </div>
+    </a>
+
+    <!-- Add more artworks as needed -->
   </div>
 
   <!-- Menu -->
@@ -109,18 +140,15 @@
 
   <script>
     const menu = document.getElementById('menu');
-    const scrollContainer = document.getElementById('scroll-container');
     const overlay = document.getElementById('overlay');
 
     function toggleMenu(){
       const isOpen = menu.classList.contains('open');
       if(isOpen){
         menu.classList.remove('open');
-        scrollContainer.classList.remove('recede');
         overlay.classList.remove('active');
       } else {
         menu.classList.add('open');
-        scrollContainer.classList.add('recede');
         overlay.classList.add('active');
       }
     }
@@ -129,25 +157,8 @@
     overlay.addEventListener('click', () => {
       if(menu.classList.contains('open')){
         menu.classList.remove('open');
-        scrollContainer.classList.remove('recede');
         overlay.classList.remove('active');
       }
-    });
-
-    // Clicking on scroll closes menu
-    scrollContainer.addEventListener('click', () => {
-      if(menu.classList.contains('open')){
-        menu.classList.remove('open');
-        scrollContainer.classList.remove('recede');
-        overlay.classList.remove('active');
-      }
-    });
-
-    // Arrow keys navigation
-    document.addEventListener('keydown', e => {
-      const scrollAmount = 200;
-      if(e.key==='ArrowDown') scrollContainer.scrollBy({top:scrollAmount, behavior:'smooth'});
-      if(e.key==='ArrowUp') scrollContainer.scrollBy({top:-scrollAmount, behavior:'smooth'});
     });
   </script>
 
