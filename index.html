@@ -18,7 +18,7 @@
     .scroll-container { -ms-overflow-style:none; scrollbar-width:none; }
 
     /* Header with smooth fade */
-    .header {
+   .header {
   position: fixed;
   top: 0;
   width: 100%;
@@ -27,8 +27,8 @@
   justify-content: space-between;
   align-items: flex-start;
 
-  /* Gradient: solid white for the first ~60px, then fade to transparent */
-  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 40px, rgba(255,255,255,0) 100%);
+  /* Fade from white to transparent */
+  background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0));
 
   z-index: 100;
 }
