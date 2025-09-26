@@ -31,30 +31,58 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 40px;
       max-width:1400px;
-      margin: 160px auto 80px auto; /* top spacing to move below header */
+      margin: 160px auto 80px auto; /* spacing below header */
       padding: 0 20px;
     }
 
+    /* Individual artwork styling */
     .artwork {
+      position: relative;
       text-align:center;
       cursor:pointer;
-      transition: transform 0.2s ease;
+      overflow: hidden;
+      transition: transform 0.3s ease;
     }
 
     .artwork img {
       width: 100%;
+      height: 250px;       /* uniform size */
+      object-fit: cover;
       border-radius:8px;
+      display: block;
       transition: transform 0.3s ease;
     }
 
-    .artwork:hover img {
+    /* Overlay for tint */
+    .artwork::after {
+      content:'';
+      position:absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      border-radius:8px;
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Hover scale */
+    .artwork:hover {
       transform: scale(1.05);
+    }
+
+    /* Alternate hover tints */
+    .artworks-grid .artwork:nth-child(odd):hover::after {
+      background-color: rgba(182, 210, 40, 0.3); /* green */
+    }
+    .artworks-grid .artwork:nth-child(even):hover::after {
+      background-color: rgba(205, 108, 39, 0.3); /* brown */
     }
 
     .artwork-title {
       margin-top: 10px;
       font-weight: bold;
       font-size: 18px;
+      position: relative; /* above overlay */
+      z-index: 1;
     }
 
     a.artwork-link {
@@ -65,13 +93,13 @@
     /* Menu */
     .menu {
       position:fixed; top:0; right:-25%; width:25%; height:100%;
-      background-color:rgb(182, 210, 40); /* green army tint like index */
+      background-color:rgb(182, 210, 40); /* green like index */
       color:black; transition:right 0.4s ease; z-index:200;
       padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
     }
     .menu.open { right:0; }
     .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
-    .menu a:hover { color:#cd6c27; } /* brown hover */
+    .menu a:hover { color:#cd6c27; }
 
     /* Grey overlay */
     .overlay {
@@ -89,20 +117,18 @@
       z-index:100;
       cursor:pointer;
     }
-
     @keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
 
+    /* Responsive grid */
     @media(max-width:1200px){
       .artworks-grid { grid-template-columns: repeat(3, 1fr); gap:30px; }
     }
-
     @media(max-width:900px){
       .artworks-grid { grid-template-columns: repeat(2, 1fr); gap:25px; }
     }
-
     @media(max-width:600px){
       .artworks-grid { grid-template-columns: 1fr; gap:20px; margin-top:140px; }
       .header { padding:15px 20px; }
@@ -141,27 +167,23 @@
     <a href="metabloom.html" class="artwork-link">
       <div class="artwork">
         <img src="images/metabloom.png">
-        <div class="artwork-title">Metabloom</div>
+        <div class="artwork-title">Metabloom (2023)</div>
       </div>
     </a>
 
     <a href="auraltopographies.html" class="artwork-link">
       <div class="artwork">
         <img src="images/auraltopographies.jpeg">
-        <div class="artwork-title">Aural Topographies</div>
+        <div class="artwork-title">Aural Topographies (2023)</div>
       </div>
     </a>
-
 
     <a href="interstatic.html" class="artwork-link">
       <div class="artwork">
         <img src="images/interstatic.jpg">
-        <div class="artwork-title">Interstatic</div>
+        <div class="artwork-title">Interstatic (2023)</div>
       </div>
     </a>
-
-
-    <!-- Add more artworks as needed -->
   </div>
 
   <!-- Fixed rotating image bottom-left -->
