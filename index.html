@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Denis Flueraru</title>
   <link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/atomatfavicon.png">
+
   <style>
     * {margin:0; padding:0; box-sizing:border-box;}
     body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
@@ -24,7 +28,6 @@
       align-items:flex-start;
       background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
       z-index:100;
-      flex-direction:row;
     }
     .header-left {
       display:flex;
@@ -33,22 +36,28 @@
     }
     .header .logo {
       font-weight:bold; font-size:20px; cursor:pointer;
-      text-decoration:none; color:black; margin-bottom:5px;
+      text-decoration:none; color:black; margin-bottom:10px;
     }
     .header .atomat-logo img {
-      max-width:80px; cursor:pointer;
+      max-width:120px;  /* bigger */
+      animation: spin 20s linear infinite; /* continuous rotation */
+      cursor:pointer;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
     .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; align-self:flex-start; }
 
     /* Main content scroll */
     .main-content {
-      display:flex; justify-content:center; padding-top:120px;
+      display:flex; justify-content:center; padding-top:140px;
       min-height:100vh; position:relative;
     }
     .scroll-container {
       display:flex; flex-direction:column; gap:60px;
       max-width:900px; scroll-behavior:smooth;
-      overflow-y:auto; height:calc(100vh - 120px);
+      overflow-y:auto; height:calc(100vh - 140px);
       transition: transform 0.6s ease, opacity 0.6s ease;
     }
     .scroll-container.recede { transform:scale(0.97); opacity:0.85; }
@@ -67,12 +76,19 @@
     /* Menu */
     .menu {
       position:fixed; top:0; right:-25%; width:25%; height:100%;
-      background-color:#f1f1f1; color:black; transition:right 0.4s ease; z-index:200;
+      background-color:#ced412; /* green army tint */
+      color:black; transition:right 0.4s ease; z-index:200;
       padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
     }
     .menu.open { right:0; }
-    .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
-    .menu a:hover { color:#FF8026; }
+    .menu a {
+      color:black; text-decoration:none; transition:color 0.2s ease;
+      display:inline-flex; align-items:center;
+    }
+    .menu a:hover { color:#dc6b1a; } /* brown hover */
+    .menu-icon {
+      height:1em; margin-left:5px; vertical-align:middle;
+    }
 
     /* Grey overlay */
     .overlay {
@@ -129,7 +145,9 @@
     <a href="sound.html">Sound</a>
     <a href="collabs.html">Collabs</a>
     <div style="height:20px;"></div>
-    <a href="shop.html">Shop</a>
+    <a href="shop.html">
+      Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon">
+    </a>
     <a href="services.html">Services</a>
     <div style="height:20px;"></div>
     <a href="biography.html">Biography</a>
