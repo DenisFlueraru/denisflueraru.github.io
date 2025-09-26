@@ -58,6 +58,9 @@
       display:flex; flex-direction:column;
       padding:0 40px;
     }
+    .update .title {
+      font-weight:bold; margin-bottom:5px; max-width:80%;
+    }
     .update img { max-width:80%; margin-bottom:10px; border-radius:4px; }
     .update p { color:#333; max-width:700px; }
 
@@ -95,18 +98,13 @@
     }
     .overlay.active { display:block; }
 
-    /* Footer */
-    .footer {
-      position:relative;
-      width:100%;
-      padding:50px 50px 30px 50px;
-      display:flex; justify-content:flex-start;
-      align-items:center;
-      background: transparent;
-    }
-    .footer .atomat-logo-footer img {
-      max-width:100px; /* bigger spinning image */
+    /* Fixed spinning logo bottom-left */
+    .atomat-fixed {
+      position:fixed;
+      bottom:20px; left:20px;
+      width:120px;
       animation: spin 20s linear infinite;
+      z-index:100;
       cursor:pointer;
     }
 
@@ -118,10 +116,10 @@
     @media(max-width:768px){
       .menu{ width:50%; right:-50%; }
       .menu.open{ right:0; }
-      .header, .footer { padding:15px 20px; }
+      .header { padding:15px 20px; }
       .scroll-container { font-size:15px; gap:30px; }
       .update { padding:0 20px; }
-      .footer .atomat-logo-footer img { max-width:60px; }
+      .atomat-fixed { width:80px; bottom:15px; left:15px; }
     }
   </style>
 </head>
@@ -142,8 +140,9 @@
   <div class="main-content">
     <div class="scroll-container" id="scroll-container">
 
-      <!-- Example update block -->
+      <!-- Example update block with title -->
       <div class="update">
+        <div class="title">2025 &gt; Contact Mics and Preamps workshop at CAV Gallery, Bucharest</div>
         <img src="images/WORKSHOP_ATPWT_CAV.jpg">
         <p>
           As this year’s 
@@ -154,6 +153,7 @@
       </div>
 
       <div class="update">
+        <div class="title">Fresh Water Generator Concept for YOKOGAWA</div>
         <img src="images/YOKOGAWA1.JPG">
         <p>
           In collaboration with 
@@ -163,24 +163,22 @@
         </p>
       </div>
 
-      <!-- Add more updates below following this structure -->
+      <!-- Continue adding updates here -->
       <!-- 
-        1. Copy a <div class="update"> ... </div> block
-        2. Place your images inside the 'images/' folder in your repo
-        3. Reference them like <img src="images/yourimage.jpg">
-        4. Write your paragraph inside <p>...</p>
-        5. For links, just add class="custom-link" and href="your-link"
+        1. Copy <div class="update"> ... </div>
+        2. Add your title inside <div class="title">...</div>
+        3. Add image in images/ folder and reference with <img src="images/yourimage.jpg">
+        4. Add paragraph in <p>...</p>
+        5. Links: use class="custom-link"
       -->
 
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <a href="https://atomatlab.com" target="_blank" class="atomat-logo-footer">
-      <img src="images/atomatlab.png" alt="Atomat Lab Logo">
-    </a>
-  </div>
+  <!-- Fixed rotating image bottom-left -->
+  <a href="https://atomatlab.com" target="_blank">
+    <img src="images/atomatlab.png" alt="Atomat Lab Logo" class="atomat-fixed">
+  </a>
 
   <!-- Menu -->
   <div class="menu" id="menu">
