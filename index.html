@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images/atomatfavicon.png">
+  <link rel="icon" type="image/png" href="images/atomatlab.png">
 
   <style>
     * {margin:0; padding:0; box-sizing:border-box;}
@@ -63,20 +63,20 @@
     .scroll-container.recede { transform:scale(0.97); opacity:0.85; }
 
     .update {
-      display:flex; flex-direction:column; align-items:center;
-      text-align:center; padding:0 40px;
+      display:flex; flex-direction:column; text-align:left;
+      padding:0 40px;
     }
     .update img { max-width:80%; margin-bottom:10px; border-radius:4px; }
     .update p { font-size:20px; line-height:1.6; color:#333; max-width:700px; }
 
     /* Alternate alignment */
-    .update.left { align-items:flex-start; text-align:left; }
-    .update.right { align-items:flex-end; text-align:right; }
+    .update:nth-child(odd) { align-items:flex-start; text-align:left; }
+    .update:nth-child(even) { align-items:flex-end; text-align:right; }
 
     /* Menu */
     .menu {
       position:fixed; top:0; right:-25%; width:25%; height:100%;
-      background-color:#ced412; /* green army tint */
+      background-color:#3b5323; /* green army tint */
       color:black; transition:right 0.4s ease; z-index:200;
       padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
     }
@@ -85,7 +85,7 @@
       color:black; text-decoration:none; transition:color 0.2s ease;
       display:inline-flex; align-items:center;
     }
-    .menu a:hover { color:#dc6b1a; } /* brown hover */
+    .menu a:hover { color:#8B4513; } /* brown hover */
     .menu-icon {
       height:1em; margin-left:5px; vertical-align:middle;
     }
@@ -122,18 +122,22 @@
   <!-- Main content -->
   <div class="main-content">
     <div class="scroll-container" id="scroll-container">
-      <div class="update left">
+      <div class="update">
         <img src="images/photo1.jpg" alt="Example Image 1">
         <img src="images/photo2.jpg" alt="Example Image 2">
         <p>This week I completed a project on modern web design, exploring minimalist layouts and interactive menus.</p>
       </div>
-      <div class="update right">
+      <div class="update">
         <img src="images/photo3.jpg" alt="Example Image 3">
         <p>Attended an inspiring workshop on color theory and its application in web interfaces.</p>
       </div>
-      <div class="update left">
+      <div class="update">
         <img src="images/photo4.jpg" alt="Example Image 4">
         <p>Working on experimental compositions combining visuals and sound.</p>
+      </div>
+      <div class="update">
+        <img src="images/photo5.jpg" alt="Example Image 5">
+        <p>Exploring collaborative projects that merge art and technology.</p>
       </div>
     </div>
   </div>
