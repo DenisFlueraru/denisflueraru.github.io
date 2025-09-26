@@ -26,7 +26,7 @@
       display:flex;
       justify-content:space-between;
       align-items:flex-start;
-      background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
+      background: linear-gradient(to bottom, white 100%, rgba(255,255,255,0) 100%);
       z-index:100;
     }
     .header-left {
@@ -39,8 +39,8 @@
       text-decoration:none; color:black; margin-bottom:10px;
     }
     .header .atomat-logo img {
-      max-width:120px;  /* bigger */
-      animation: spin 20s linear infinite; /* continuous rotation */
+      max-width:120px;
+      animation: spin 20s linear infinite;
       cursor:pointer;
     }
     @keyframes spin {
@@ -55,19 +55,20 @@
       min-height:100vh; position:relative;
     }
     .scroll-container {
-      display:flex; flex-direction:column; gap:60px;
+      display:flex; flex-direction:column; gap:40px;
       max-width:900px; scroll-behavior:smooth;
       overflow-y:auto; height:calc(100vh - 140px);
+      font-size:18px; line-height:1.5;
       transition: transform 0.6s ease, opacity 0.6s ease;
     }
     .scroll-container.recede { transform:scale(0.97); opacity:0.85; }
 
     .update {
-      display:flex; flex-direction:column; text-align:left;
+      display:flex; flex-direction:column;
       padding:0 40px;
     }
     .update img { max-width:80%; margin-bottom:10px; border-radius:4px; }
-    .update p { font-size:20px; line-height:1.6; color:#333; max-width:700px; }
+    .update p { color:#333; max-width:700px; }
 
     /* Alternate alignment */
     .update:nth-child(odd) { align-items:flex-start; text-align:left; }
@@ -76,7 +77,7 @@
     /* Menu */
     .menu {
       position:fixed; top:0; right:-25%; width:25%; height:100%;
-      background-color:rgb(182, 210, 40); /* green army tint */
+      background-color:rgb(182, 210, 40);
       color:black; transition:right 0.4s ease; z-index:200;
       padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
     }
@@ -85,10 +86,8 @@
       color:black; text-decoration:none; transition:color 0.2s ease;
       display:inline-flex; align-items:center;
     }
-    .menu a:hover { color:#cd6c27; } /* brown hover */
-    .menu-icon {
-      height:1em; margin-left:5px; vertical-align:middle;
-    }
+    .menu a:hover { color:#cd6c27; }
+    .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
     /* Grey overlay */
     .overlay {
@@ -97,9 +96,28 @@
     }
     .overlay.active { display:block; }
 
+    /* Footer */
+    .footer {
+      position:relative;
+      width:100%;
+      padding:50px 50px 30px 50px;
+      display:flex; justify-content:flex-start;
+      align-items:center;
+      background: linear-gradient(to top, white 0%, rgba(255,255,255,0) 100%);
+    }
+    .footer .atomat-logo-footer img {
+      max-width:60px;
+      animation: spin 20s linear infinite;
+      cursor:pointer;
+    }
+
     @media(max-width:768px){
       .menu{ width:50%; right:-50%; }
       .menu.open{ right:0; }
+      .header, .footer { padding:15px 20px; }
+      .scroll-container { font-size:16px; gap:30px; }
+      .update { padding:0 20px; }
+      .footer .atomat-logo-footer img { max-width:40px; }
     }
   </style>
 </head>
@@ -109,9 +127,6 @@
   <div class="header">
     <div class="header-left">
       <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
-      <a href="https://atomatlab.com" class="atomat-logo" target="_blank">
-        <img src="images/atomatlab.png" alt="Atomat Lab Logo">
-      </a>
     </div>
     <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
   </div>
@@ -122,54 +137,46 @@
   <!-- Main content -->
   <div class="main-content">
     <div class="scroll-container" id="scroll-container">
+      
       <div class="update">
         <img src="images/WORKSHOP_ATPWT_CAV.jpg">
-<p>
-  As this year’s 
-  <a href="https://artistsplaywithtime.ro/" target="_blank" class="custom-link">
-    Artists Play with Time
-  </a> 
-  project came to an end, I was invited to lead a workshop on building contact microphones with preamps at CAV Gallery, Bucharest. Participants explored how to make their own devices and experiment with the hidden sounds of everyday objects.
-</p>
-</div>
+        <p>
+          As this year’s 
+          <a href="https://artistsplaywithtime.ro/" target="_blank" class="custom-link">
+            Artists Play with Time
+          </a> project came to an end, I was invited to lead a workshop on building contact microphones with preamps at CAV Gallery, Bucharest.
+        </p>
+      </div>
 
-<style>
-  .custom-link {
-    text-decoration: underline;   /* underline the text */
-    color: inherit;              /* keep same color as surrounding text */
-  }
-
-  .custom-link:hover {
-    color: rgb(182, 210, 40);                /* turns green on hover */
-  }
-</style>
       <div class="update">
         <img src="images/YOKOGAWA1.JPG">
-        <p>In collaboration with 
+        <p>
+          In collaboration with 
           <a href="https:/fablab.ro/" target="_blank" class="custom-link">
-    FabLab Bucharest
-  </a> , I worked on a Fresh Water Generator concept model for YOKOGAWA. I handled the entire LED setup, including soldering, mounting, configuring the channels and finally programmed animations to bring the model to life. Additionally, I designed and implemented sound interactions to enhance the experience of the model, integrating both light and sound for a dynamic demonstration.</p>
-  </div>
-
-<style>
-  .custom-link {
-    text-decoration: underline;   /* underline the text */
-    color: inherit;              /* keep same color as surrounding text */
-  }
-
-  .custom-link:hover {
-    color: rgb(182, 210, 40);                /* turns green on hover */
-  }
+            FabLab Bucharest
+          </a>, I worked on a Fresh Water Generator concept model for YOKOGAWA. I handled the LED setup, mounting, programming animations, and integrating sound.
+        </p>
       </div>
+
       <div class="update">
-        <img src="images/photo4.jpg" alt="Example Image 4">
+        <img src="images/photo4.jpg">
         <p>Working on experimental compositions combining visuals and sound.</p>
       </div>
+
       <div class="update">
-        <img src="images/photo5.jpg" alt="Example Image 5">
+        <img src="images/photo5.jpg">
         <p>Exploring collaborative projects that merge art and technology.</p>
       </div>
+
+      <!-- Continue adding new update blocks here -->
     </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <a href="https://atomatlab.com" target="_blank" class="atomat-logo-footer">
+      <img src="images/atomatlab.png" alt="Atomat Lab Logo">
+    </a>
   </div>
 
   <!-- Menu -->
@@ -206,7 +213,6 @@
       }
     }
 
-    // Clicking overlay closes menu
     overlay.addEventListener('click', () => {
       if(menu.classList.contains('open')){
         menu.classList.remove('open');
@@ -215,7 +221,6 @@
       }
     });
 
-    // Clicking on scroll closes menu
     scrollContainer.addEventListener('click', () => {
       if(menu.classList.contains('open')){
         menu.classList.remove('open');
@@ -224,7 +229,6 @@
       }
     });
 
-    // Arrow keys navigation
     document.addEventListener('keydown', e => {
       const scrollAmount = 200;
       if(e.key==='ArrowDown') scrollContainer.scrollBy({top:scrollAmount, behavior:'smooth'});
