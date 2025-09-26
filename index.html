@@ -38,15 +38,6 @@
       font-weight:bold; font-size:20px; cursor:pointer;
       text-decoration:none; color:black; margin-bottom:10px;
     }
-    .header .atomat-logo img {
-      max-width:120px;
-      animation: spin 20s linear infinite;
-      cursor:pointer;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
     .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; align-self:flex-start; }
 
     /* Main content scroll */
@@ -58,7 +49,7 @@
       display:flex; flex-direction:column; gap:40px;
       max-width:900px; scroll-behavior:smooth;
       overflow-y:auto; height:calc(100vh - 140px);
-      font-size:18px; line-height:1.5;
+      font-size:17px; line-height:1.5;
       transition: transform 0.6s ease, opacity 0.6s ease;
     }
     .scroll-container.recede { transform:scale(0.97); opacity:0.85; }
@@ -73,6 +64,14 @@
     /* Alternate alignment */
     .update:nth-child(odd) { align-items:flex-start; text-align:left; }
     .update:nth-child(even) { align-items:flex-end; text-align:right; }
+
+    /* Hyperlink global style for easier reuse */
+    a.custom-link {
+      text-decoration: underline;
+      color: black;
+      transition: color 0.2s ease;
+    }
+    a.custom-link:hover { color: rgb(182, 210, 40); }
 
     /* Menu */
     .menu {
@@ -103,21 +102,26 @@
       padding:50px 50px 30px 50px;
       display:flex; justify-content:flex-start;
       align-items:center;
-      background: linear-gradient(to top, white 0%, rgba(255,255,255,0) 100%);
+      background: transparent;
     }
     .footer .atomat-logo-footer img {
-      max-width:60px;
+      max-width:100px; /* bigger spinning image */
       animation: spin 20s linear infinite;
       cursor:pointer;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     @media(max-width:768px){
       .menu{ width:50%; right:-50%; }
       .menu.open{ right:0; }
       .header, .footer { padding:15px 20px; }
-      .scroll-container { font-size:16px; gap:30px; }
+      .scroll-container { font-size:15px; gap:30px; }
       .update { padding:0 20px; }
-      .footer .atomat-logo-footer img { max-width:40px; }
+      .footer .atomat-logo-footer img { max-width:60px; }
     }
   </style>
 </head>
@@ -137,14 +141,15 @@
   <!-- Main content -->
   <div class="main-content">
     <div class="scroll-container" id="scroll-container">
-      
+
+      <!-- Example update block -->
       <div class="update">
         <img src="images/WORKSHOP_ATPWT_CAV.jpg">
         <p>
           As this year’s 
           <a href="https://artistsplaywithtime.ro/" target="_blank" class="custom-link">
             Artists Play with Time
-          </a> project came to an end, I was invited to lead a workshop on building contact microphones with preamps at CAV Gallery, Bucharest.
+          </a> project came to an end, I was invited to lead a workshop on building contact microphones at CAV Gallery, Bucharest.
         </p>
       </div>
 
@@ -154,21 +159,19 @@
           In collaboration with 
           <a href="https:/fablab.ro/" target="_blank" class="custom-link">
             FabLab Bucharest
-          </a>, I worked on a Fresh Water Generator concept model for YOKOGAWA. I handled the LED setup, mounting, programming animations, and integrating sound.
+          </a>, I worked on a Fresh Water Generator concept model for YOKOGAWA.
         </p>
       </div>
 
-      <div class="update">
-        <img src="images/photo4.jpg">
-        <p>Working on experimental compositions combining visuals and sound.</p>
-      </div>
+      <!-- Add more updates below following this structure -->
+      <!-- 
+        1. Copy a <div class="update"> ... </div> block
+        2. Place your images inside the 'images/' folder in your repo
+        3. Reference them like <img src="images/yourimage.jpg">
+        4. Write your paragraph inside <p>...</p>
+        5. For links, just add class="custom-link" and href="your-link"
+      -->
 
-      <div class="update">
-        <img src="images/photo5.jpg">
-        <p>Exploring collaborative projects that merge art and technology.</p>
-      </div>
-
-      <!-- Continue adding new update blocks here -->
     </div>
   </div>
 
