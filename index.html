@@ -18,17 +18,19 @@
     .scroll-container { -ms-overflow-style:none; scrollbar-width:none; }
 
     /* Header */
-    .header {
-      position:fixed;
-      top:0;
-      width:100%;
-      padding:25px 50px;
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      background: linear-gradient(to bottom, white 100%, rgba(255,255,255,0) 100%);
-      z-index:100;
-    }
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 15px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.6); /* semi-transparent white */
+  backdrop-filter: blur(10px); /* subtle blur */
+  z-index: 100;
+  border-bottom: none; /* remove any line */
+}
     .header-left {
       display:flex;
       flex-direction:column;
@@ -153,11 +155,11 @@
       </div>
 
       <div class="update">
-        <div class="title">Fresh Water Generator Concept for YOKOGAWA</div>
+        <div class="title">2025 &gt; LED and Sound Programming for a Fresh Water Generator Concept</div>
         <img src="images/YOKOGAWA1.JPG">
         <p>
           In collaboration with 
-          <a href="https:/fablab.ro/" target="_blank" class="custom-link">
+          <a href="https://fablab.ro/" target="_blank" class="custom-link">
             FabLab Bucharest
           </a>, I worked on a Fresh Water Generator concept model for YOKOGAWA.
         </p>
