@@ -17,7 +17,7 @@
     ::-webkit-scrollbar { display:none; }
     .scroll-container { -ms-overflow-style:none; scrollbar-width:none; }
 
-    /* Header with smooth fade */
+  /* Header with fade to transparent */
     .header {
       position:fixed;
       top:0;
@@ -29,13 +29,9 @@
       background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
       z-index:100;
     }
-    .header-left { display:flex; flex-direction:column; align-items:flex-start; }
-    .header .logo {
-      font-weight:bold; font-size:20px; cursor:pointer;
-      text-decoration:none; color:black; margin-bottom:10px;
-    }
-    .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; align-self:flex-start; }
-
+    .header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
+    .header .section-title { font-weight:400; font-size:22px; }
+    .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
     /* Main content scroll */
     .main-content {
       display:flex; justify-content:center; padding-top:140px;
@@ -278,7 +274,7 @@
     <a href="sound.html">Sound</a>
     <a href="collabs.html">Collabs</a>
     <div style="height:20px;"></div>
-    <a href="shop.html">
+    <a href="https://atomatlab.com/">
       Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon">
     </a>
     <a href="services.html">Services</a>
