@@ -1,285 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Workshops - Denis Flueraru</title>
-  <link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * {margin:0; padding:0; box-sizing:border-box;}
-    body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workshops - Denis Flueraru</title>
+<link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
 
-    /* Header with fade */
-    .header {
-      position:fixed;
-      top:0;
-      width:100%;
-      padding:25px 50px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-      z-index:100;
-    }
-    .header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
-    .header .section-title { font-weight:400; font-size:22px; }
-    .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
+/* Header */
+.header {
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:25px 50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
+  z-index:100;
+}
+.header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
+.header .section-title { font-weight:700; font-size:28px; }
+.header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
-    /* Workshops container */
-    .workshops {
-      max-width:1400px;
-      margin: 160px auto 80px auto;
-      padding:0 20px;
-      display:flex;
-      flex-direction:column;
-      gap:100px;
-    }
+/* Workshops container */
+.workshops {
+  max-width:1400px;
+  margin: 160px auto 80px auto;
+  padding:0 20px;
+  display:flex;
+  flex-direction:column;
+  gap:100px;
+}
 
-    /* Each workshop row */
-    .workshop {
-      display:grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap:30px;
-      align-items:center;
-    }
+/* Each workshop row */
+.workshop {
+  display:grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap:30px;
+  align-items:center;
+}
+.workshop:nth-child(even) { grid-template-columns: 1fr 1fr 2fr; }
+.workshop.sub { margin-top:-60px; }
 
-    /* Alternate layout */
-    .workshop:nth-child(even) {
-      grid-template-columns: 1fr 1fr 2fr;
-    }
+/* Main image */
+.workshop-main img {
+  width:100%;
+  height:280px;
+  object-fit:cover;
+  border-radius:8px;
+  cursor:pointer;
+}
 
-    /* Sub-row (closer spacing) */
-    .workshop.sub {
-      margin-top:-60px; /* pull second row closer */
-    }
+/* Text */
+.workshop-text { font-size:16px; line-height:1.5; }
+.workshop-text h2 { font-size:20px; margin-bottom:10px; font-weight:bold; }
+.workshop-text p { margin-bottom:10px; }
 
-    .workshop-main img {
-      width:100%;
-      height:280px;
-      object-fit:cover;
-      border-radius:8px;
-    }
+/* Small image grid */
+.workshop-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.workshop-grid img {
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  border-radius:6px;
+  cursor:pointer;
+  transition: transform 0.3s ease;
+}
+.workshop-grid img:hover { transform: scale(1.05); }
 
-    .workshop-text {
-      font-size:16px;
-      line-height:1.5;
-    }
-    .workshop-text h2 {
-      font-size:20px;
-      margin-bottom:10px;
-      font-weight:bold;
-    }
-    .workshop-text p {
-      margin-bottom:10px;
-    }
+/* Modal */
+#modal {
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.8);
+  justify-content:center; align-items:center;
+  z-index:300;
+}
+#modal img { max-width:90%; max-height:90%; border-radius:8px; }
+#modal .close {
+  position:absolute;
+  top:20px; right:30px;
+  font-size:40px;
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
+}
 
-    /* Small image grid */
-    .workshop-grid {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-    .workshop-grid img {
-      width:100%;
-      height:140px;
-      object-fit:cover;
-      border-radius:6px;
-    }
+/* Menu */
+.menu {
+  position:fixed; top:0; right:-25%; width:25%; height:100%;
+  background-color:rgb(182, 210, 40);
+  color:black; transition:right 0.4s ease; z-index:200;
+  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
+}
+.menu.open { right:0; }
+.menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
+.menu a:hover { color:#cd6c27; }
+.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
-    /* Menu */
-    .menu {
-      position:fixed; top:0; right:-25%; width:25%; height:100%;
-      background-color:rgb(182, 210, 40);
-      color:black; transition:right 0.4s ease; z-index:200;
-      padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
-    }
-    .menu.open { right:0; }
-    .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
-    .menu a:hover { color:#cd6c27; }
-    .menu-icon {
-      height:1em;
-      margin-left:5px;
-      vertical-align:middle;
-    }
+/* Grey overlay */
+.overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
+.overlay.active { display:block; }
 
-    /* Grey overlay */
-    .overlay {
-      position:fixed; top:0; left:0; width:100%; height:100%;
-      background-color:rgba(128,128,128,0.2); display:none; z-index:150;
-    }
-    .overlay.active { display:block; }
+/* Rotating AtomatLab logo */
+.atomat-fixed {
+  position:fixed; bottom:20px; left:20px;
+  width:120px;
+  animation: spin 20s linear infinite;
+  z-index:100;
+  cursor:pointer;
+}
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-    /* Rotating AtomatLab logo */
-    .atomat-fixed {
-      position:fixed;
-      bottom:20px; left:20px;
-      width:120px;
-      animation: spin 20s linear infinite;
-      z-index:100;
-      cursor:pointer;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    /* Responsive */
-    @media(max-width:1000px){
-      .workshop { grid-template-columns: 1fr; }
-      .workshop:nth-child(even) { grid-template-columns: 1fr; }
-      .workshop-main img { height:200px; }
-      .workshop-grid { grid-template-columns:1fr 1fr; }
-    }
-  </style>
+/* Responsive */
+@media(max-width:1000px){
+  .workshop { grid-template-columns: 1fr; }
+  .workshop:nth-child(even) { grid-template-columns: 1fr; }
+  .workshop-main img { height:200px; }
+  .workshop-grid { grid-template-columns:1fr 1fr; }
+}
+</style>
 </head>
 <body>
 
-  <!-- Header -->
-  <div class="header">
-    <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
-    <span class="section-title">Workshops</span>
-    <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
+<!-- Header -->
+<div class="header">
+  <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
+  <span class="section-title">Workshops</span>
+  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Modal -->
+<div id="modal">
+  <span class="close" onclick="closeModal()">×</span>
+  <img id="modal-img" src="">
+</div>
+
+<!-- Workshops -->
+<div class="workshops">
+
+  <!-- Workshop 1 -->
+  <div class="workshop">
+    <div class="workshop-main">
+      <img src="images/workshops/CAVMAINPOST.jpg" class="clickable">
+    </div>
+    <div class="workshop-text">
+      <h2>Contact Mics & Preamps</h2>
+      <p>Participants built DIY microphones together with preamps and explored recording techniques, later composing textures and rhythms in Ableton Live.</p>
+      <p><strong>Year:</strong> 2025 – Bucharest, CAV Gallery</p>
+    </div>
+    <div class="workshop-grid">
+      <img src="images/workshops/CAV1.jpeg" class="clickable">
+      <img src="images/workshops/CAV2.jpeg" class="clickable">
+      <img src="images/workshops/CAV3.jpeg" class="clickable">
+      <img src="images/workshops/CAVMAIN.jpeg" class="clickable">
+    </div>
   </div>
 
-  <!-- Overlay -->
-  <div class="overlay" id="overlay"></div>
-
-  <!-- Workshops -->
-  <div class="workshops">
-
-    <!-- Workshop 1 -->
-    <div class="workshop">
-      <div class="workshop-main">
-        <img src="images/workshops/CAVMAINPOST.jpg">
-      </div>
-      <div class="workshop-text">
-        <h2>Contact Mics & Preamps</h2>
-        <p>Participants built DIY microphones togheter with preamps and explored recording techniques, later composing textures and rhythms in Ableton Live.</p>
-        <p><strong>Year:</strong> 2025 – Bucharest, CAV Gallery</p>
-      </div>
-      <div class="workshop-grid">
-        <img src="images/workshops/CAV1.jpeg" alt="">
-        <img src="images/workshops/CAV2.jpeg" alt="">
-        <img src="images/workshops/CAV3.jpeg" alt="">
-        <img src="images/workshops/CAVMAIN.jpeg" alt="">
-      </div>
+  <!-- Workshop 2 -->
+  <div class="workshop">
+    <div class="workshop-grid">
+      <img src="images/workshops/RYT_B_3.jpg" class="clickable">
+      <img src="images/workshops/RYT_B_4.png" class="clickable">
+      <img src="images/workshops/RYT_BV2.jpg" class="clickable">
+      <img src="images/workshops/Resita3.jpg" class="clickable">
     </div>
-
-    <!-- Workshop 2: DIY ERT Microphone Building -->
-    <div class="workshop">
-      <div class="workshop-grid">
-        <img src="images/workshops/RYT_B_3.jpg" alt="">
-        <img src="images/workshops/RYT_B_4.png" alt="">
-        <img src="images/workshops/RYT_BV2.jpg" alt="">
-        <img src="images/workshops/Resita3.jpg" alt="">
-      </div>
-      <div class="workshop-text">
-        <h2>Recycle Your Technology</h2>
-        <p>A hands-on workshop where participants soldered and assembled electromagnetic microphones, then used them to capture the electromagnetic rhythms found within the gallery space.</p>
-      </div>
-      <div class="workshop-main">
-        <img src="images/workshops/R9_MAIN.jpg" alt="">
-      </div>
+    <div class="workshop-text">
+      <h2>Recycle Your Technology</h2>
+      <p>A hands-on workshop where participants soldered and assembled electromagnetic microphones, then used them to capture electromagnetic rhythms in the gallery space.</p>
     </div>
-
-    <!-- Workshop 2 second row (series extension, closer spacing) -->
-    <div class="workshop sub">
-      <div class="workshop-main">
-        <img src="images/workshops/Resita1.jpg" alt="">
-      </div>
-      <div class="workshop-text">
-        <p>This workshop later evolved into a series across Romania, where participants from different cities learned how to build their own microphones and explore local soundscapes.</p>
-        <p><strong>Year:</strong> 2024 – Bucharest, Arad, Resita, Brasov</p>  
-      </div>
-      <div class="workshop-grid">
-        <img src="images/workshops/Resita2.jpg" alt="">
-        <img src="images/workshops/RYT_ARAD.jpg" alt="">
-        <img src="images/workshops/RYT_BV3.jpg" alt="">
-        <img src="images/workshops/Resita4.jpg" alt="">
-      </div>
+    <div class="workshop-main">
+      <img src="images/workshops/R9_MAIN.jpg" class="clickable">
     </div>
-
-    <!-- Workshop 3 -->
-    <div class="workshop">
-      <div class="workshop-main">
-        <img src="images/workshops/NOVA MAIN.jpg" alt="">
-      </div>
-      <div class="workshop-text">
-        <h2>Contact Microphones & Composition</h2>
-        <p>We explored the urban environment with microphones, creating a sonic map of the city and later transformed the sounds into a collaborative composition.</p>
-        <p><strong>Year:</strong> 2023 – NOVA Festival, Bucharest</p>
-      </div>
-      <div class="workshop-grid">
-        <img src="images/workshops/NOVA_1.png" alt="">
-        <img src="images/workshops/NOVA_2.png" alt="">
-        <img src="images/workshops/NOVA_3.png" alt="">
-        <img src="images/workshops/NOVA_4.png" alt="">
-      </div>
-    </div>
-
-    <!-- Workshop 4  MNAC-->
-    <div class="workshop">
-      <div class="workshop-grid">
-        <img src="images/workshops/MNAC2.png" alt="">
-        <img src="images/workshops/MNAC3.png" alt="">
-        <img src="images/workshops/MNAC4.png" alt="">
-        <img src="images/workshops/MNAC5.png" alt="">
-      </div>
-      <div class="workshop-text">
-        <h2>Sonic Explorations @ Pixels from a Past Future</h2>
-        <p>The pilot musique concreté workshop, where partipicants learned the foundation elements of experimental music and got to build their first contact microphone and later got familiar with Ableton Live by making a collaborative composition.</p>
-        <p><strong>Year:</strong> 2023 – National Museum of Contemporary Art (MNAC), Bucharest</p>
-      </div>
-      <div class="workshop-main">
-        <img src="images/workshops/MNAC1.png" alt="">
-      </div>
-    </div>
-
   </div>
 
-  <!-- Rotating AtomatLab logo -->
-  <a href="https://atomatlab.com" target="_blank">
-    <img src="images/atomatlab.png" alt="Atomat Lab Logo" class="atomat-fixed">
-  </a>
-
-  <!-- Menu -->
-  <div class="menu" id="menu">
-    <a href="artworks.html">Artworks</a>
-    <a href="workshops.html">Workshops</a>
-    <a href="sound.html">Sound</a>
-    <a href="collabs.html">Collabs</a>
-    <div style="height:20px;"></div>
-    <a href="https://atomatlab.com/">
-      Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon">
-    </a>
-    <a href="services.html">Services</a>
-    <div style="height:20px;"></div>
-    <a href="biography.html">Biography</a>
-    <a href="contact.html">Contact</a>
+  <!-- Workshop 2 second row -->
+  <div class="workshop sub">
+    <div class="workshop-main">
+      <img src="images/workshops/Resita1.jpg" class="clickable">
+    </div>
+    <div class="workshop-text">
+      <p>This workshop later evolved into a series across Romania, where participants from different cities learned how to build microphones and explore local soundscapes.</p>
+      <p><strong>Year:</strong> 2024 – Bucharest, Arad, Resita, Brasov</p>
+    </div>
+    <div class="workshop-grid">
+      <img src="images/workshops/Resita2.jpg" class="clickable">
+      <img src="images/workshops/RYT_ARAD.jpg" class="clickable">
+      <img src="images/workshops/RYT_BV3.jpg" class="clickable">
+      <img src="images/workshops/Resita4.jpg" class="clickable">
+    </div>
   </div>
 
-  <script>
-    const menu = document.getElementById('menu');
-    const overlay = document.getElementById('overlay');
+  <!-- Workshop 3 -->
+  <div class="workshop">
+    <div class="workshop-main">
+      <img src="images/workshops/NOVA MAIN.jpg" class="clickable">
+    </div>
+    <div class="workshop-text">
+      <h2>Contact Microphones & Composition</h2>
+      <p>We explored the urban environment with microphones, creating a sonic map of the city and later transformed the sounds into a collaborative composition.</p>
+      <p><strong>Year:</strong> 2023 – NOVA Festival, Bucharest</p>
+    </div>
+    <div class="workshop-grid">
+      <img src="images/workshops/NOVA_1.png" class="clickable">
+      <img src="images/workshops/NOVA_2.png" class="clickable">
+      <img src="images/workshops/NOVA_3.png" class="clickable">
+      <img src="images/workshops/NOVA_4.png" class="clickable">
+    </div>
+  </div>
 
-    function toggleMenu(){
-      const isOpen = menu.classList.contains('open');
-      if(isOpen){
-        menu.classList.remove('open');
-        overlay.classList.remove('active');
-      } else {
-        menu.classList.add('open');
-        overlay.classList.add('active');
-      }
-    }
+  <!-- Workshop 4 -->
+  <div class="workshop">
+    <div class="workshop-grid">
+      <img src="images/workshops/MNAC2.png" class="clickable">
+      <img src="images/workshops/MNAC3.png" class="clickable">
+      <img src="images/workshops/MNAC4.png" class="clickable">
+      <img src="images/workshops/MNAC5.png" class="clickable">
+    </div>
+    <div class="workshop-text">
+      <h2>Sonic Explorations @ Pixels from a Past Future</h2>
+      <p>The pilot musique concrète workshop, where participants learned the foundation elements of experimental music and got to build their first contact microphone and later got familiar with Ableton Live by making a collaborative composition.</p>
+      <p><strong>Year:</strong> 2023 – National Museum of Contemporary Art (MNAC), Bucharest</p>
+    </div>
+    <div class="workshop-main">
+      <img src="images/workshops/MNAC1.png" class="clickable">
+    </div>
+  </div>
 
-    overlay.addEventListener('click', () => {
-      if(menu.classList.contains('open')){
-        menu.classList.remove('open');
-        overlay.classList.remove('active');
-      }
-    });
-  </script>
+</div>
+
+<!-- Rotating AtomatLab logo -->
+<a href="https://atomatlab.com" target="_blank">
+  <img src="images/atomatlab.png" alt="Atomat Lab Logo" class="atomat-fixed">
+</a>
+
+<!-- Menu -->
+<div class="menu" id="menu">
+  <a href="artworks.html">Artworks</a>
+  <a href="workshops.html">Workshops</a>
+  <a href="sound.html">Sound</a>
+  <a href="collabs.html">Collabs</a>
+  <div style="height:20px;"></div>
+  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
+  <a href="services.html">Services</a>
+  <div style="height:20px;"></div>
+  <a href="biography.html">Biography</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<script>
+// Menu toggle
+const menu = document.getElementById('menu');
+const overlay = document.getElementById('overlay');
+function toggleMenu(){
+  const isOpen = menu.classList.contains('open');
+  if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); }
+  else{ menu.classList.add('open'); overlay.classList.add('active'); }
+}
+overlay.addEventListener('click', () => {
+  if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); }
+});
+
+// Modal functionality
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modal-img');
+
+function openModal(src){ modalImg.src = src; modal.style.display = 'flex'; }
+function closeModal(){ modal.style.display = 'none'; modalImg.src = ''; }
+
+document.querySelectorAll('.clickable').forEach(img => {
+  img.addEventListener('click', () => openModal(img.src));
+});
+
+// Close modal on ESC
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+// Close modal when clicking outside image
+modal.addEventListener('click', e => { if(e.target === modal || e.target.classList.contains('close')) closeModal(); });
+</script>
 
 </body>
 </html>
