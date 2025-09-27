@@ -11,13 +11,17 @@
 
   <style>
     * {margin:0; padding:0; box-sizing:border-box;}
-    body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
+    body {
+      font-family:'Neue Kaine', sans-serif;
+      background:white;
+      overflow-x:hidden;
+    }
 
     /* Hide scrollbar */
     ::-webkit-scrollbar { display:none; }
-    .scroll-container { -ms-overflow-style:none; scrollbar-width:none; }
+    body { -ms-overflow-style:none; scrollbar-width:none; }
 
-  /* Header with fade to transparent */
+    /* Header with fade to transparent */
     .header {
       position:fixed;
       top:0;
@@ -28,94 +32,145 @@
       align-items:center;
       background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
       z-index:100;
+      pointer-events:none; /* allow scroll underneath */
     }
-    .header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
-    .header .section-title { font-weight:400; font-size:22px; }
-    .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
-    /* Main content scroll */
+    .header * { pointer-events:auto; } /* keep links/menu clickable */
+
+    .header .logo {
+      font-weight:bold;
+      font-size:20px;
+      cursor:pointer;
+      text-decoration:none;
+      color:black;
+    }
+    .header .menu-toggle {
+      cursor:pointer;
+      font-weight:bold;
+      font-size:22px;
+    }
+
+    /* Main content scrolls with body */
     .main-content {
-      display:flex; justify-content:center; padding-top:140px;
-      min-height:100vh; position:relative;
+      display:flex;
+      justify-content:center;
+      padding-top:120px; /* prevent header overlap */
+      min-height:100vh;
+      position:relative;
     }
     .scroll-container {
-      display:flex; flex-direction:column; gap:40px;
-      max-width:900px; scroll-behavior:smooth;
-      overflow-y:auto; height:calc(100vh - 140px);
-      font-size:16px; line-height:1.5;
+      display:flex;
+      flex-direction:column;
+      gap:40px;
+      max-width:900px;
+      font-size:16px;
+      line-height:1.6;
+      margin:0 auto;
+      padding-bottom:100px;
       transition: transform 0.6s ease, opacity 0.6s ease;
     }
-    .scroll-container.recede { transform:scale(0.97); opacity:0.85; }
+    .scroll-container.recede {
+      transform:scale(0.97);
+      opacity:0.85;
+    }
 
+    /* Updates */
     .update {
-      display:flex; flex-direction:column;
+      display:flex;
+      flex-direction:column;
       padding:0 40px;
     }
     .update .title {
-      font-weight:bold; margin-bottom:5px; max-width:80%;
+      font-weight:bold;
+      margin-bottom:5px;
+      max-width:95%;
     }
-    .update img { max-width:80%; margin-bottom:10px; border-radius:4px; }
+    .update img {
+      max-width:95%;
+      margin-bottom:10px;
+      border-radius:4px;
+    }
     .update p {
       color:#333;
-      max-width:80%;       /* align paragraph width with image */
-      text-align: inherit; /* inherit left/right alignment */
+      max-width:95%;
+      text-align:inherit;
     }
 
     /* Alternate alignment */
     .update:nth-child(odd) { align-items:flex-start; text-align:left; }
     .update:nth-child(even) { align-items:flex-end; text-align:right; }
 
-    /* Hyperlink global style */
+    /* Hyperlinks */
     a.custom-link {
-      text-decoration: underline;
-      color: black;
-      transition: color 0.2s ease;
+      text-decoration:underline;
+      color:black;
+      transition:color 0.2s ease;
     }
-    a.custom-link:hover { color: rgb(182, 210, 40); }
+    a.custom-link:hover { color:rgb(182,210,40); }
 
-    /* iframe embed */
-.update iframe {
-  display: block;
-  max-width: 100%;
-  margin: 20px auto; /* center with spacing */
-  height: auto; /* optional if you want it to scale */
-}
+    /* iframe embeds */
+    .update iframe {
+      display:block;
+      max-width:95%;
+      margin:20px auto;
+      height:auto;
+    }
+
     /* Menu */
     .menu {
-      position:fixed; top:0; right:-25%; width:25%; height:100%;
-      background-color:rgb(182, 210, 40);
-      color:black; transition:right 0.4s ease; z-index:200;
-      padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
+      position:fixed;
+      top:0; right:-25%;
+      width:25%; height:100%;
+      background-color:rgb(182,210,40);
+      color:black;
+      transition:right 0.4s ease;
+      z-index:200;
+      padding:50px 20px;
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+      font-size:20px;
     }
     .menu.open { right:0; }
     .menu a {
-      color:black; text-decoration:none; transition:color 0.2s ease;
-      display:inline-flex; align-items:center;
+      color:black;
+      text-decoration:none;
+      transition:color 0.2s ease;
+      display:inline-flex;
+      align-items:center;
     }
     .menu a:hover { color:#cd6c27; }
-    .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
+    .menu-icon {
+      height:1em;
+      margin-left:5px;
+      vertical-align:middle;
+    }
 
     /* Grey overlay */
     .overlay {
-      position:fixed; top:0; left:0; width:100%; height:100%;
-      background-color:rgba(128,128,128,0.2); display:none; z-index:150;
+      position:fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background-color:rgba(128,128,128,0.2);
+      display:none;
+      z-index:150;
     }
     .overlay.active { display:block; }
 
-    /* Fixed spinning logo bottom-left */
+    /* Fixed spinning logo */
     .atomat-fixed {
       position:fixed;
       bottom:20px; left:20px;
       width:120px;
-      animation: spin 20s linear infinite;
+      animation:spin 20s linear infinite;
       z-index:100;
       cursor:pointer;
     }
-
     @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from { transform:rotate(0deg); }
+      to { transform:rotate(360deg); }
     }
 
+    /* Responsive */
     @media(max-width:768px){
       .menu{ width:50%; right:-50%; }
       .menu.open{ right:0; }
@@ -130,9 +185,7 @@
 
   <!-- Header -->
   <div class="header">
-    <div class="header-left">
-      <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
-    </div>
+    <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
     <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
   </div>
 
@@ -143,121 +196,26 @@
   <div class="main-content">
     <div class="scroll-container" id="scroll-container">
 
-      <!-- Example update block -->
+      <!-- Example updates -->
       <div class="update">
         <div class="title">2025 &gt; Contact Mics and Preamps workshop at CAV Gallery, Bucharest</div>
-        <img src="images/WORKSHOP_ATPWT_CAV.jpg">
-        <p>
-          As this year’s 
-          <a href="https://artistsplaywithtime.ro/" target="_blank" class="custom-link">
-            Artists Play with Time
-          </a> project came to an end, I was invited to lead a workshop on building contact microphones at CAV Gallery, Bucharest.
-        </p>
+        <img src="images/WORKSHOP_ATPWT_CAV.jpg" alt="Workshop at CAV Gallery">
+        <p>As this year’s <a href="https://artistsplaywithtime.ro/" target="_blank" class="custom-link">Artists Play with Time</a> project came to an end, I was invited to lead a workshop on building contact microphones at CAV Gallery, Bucharest.</p>
       </div>
 
       <div class="update">
         <div class="title">2025 &gt; LED and Sound Programming for a Fresh Water Generator Concept</div>
-        <img src="images/YOKOGAWA1.JPG">
-        <p>
-          In collaboration with 
-          <a href="https://fablab.ro/" target="_blank" class="custom-link">
-            FabLab Bucharest
-          </a>, I worked on a Fresh Water Generator concept model for YOKOGAWA.
-        </p>
+        <img src="images/YOKOGAWA1.JPG" alt="Yokogawa Project">
+        <p>In collaboration with <a href="https://fablab.ro/" target="_blank" class="custom-link">FabLab Bucharest</a>, I worked on a Fresh Water Generator concept model for YOKOGAWA.</p>
       </div>
 
-            <div class="update">
+      <div class="update">
         <div class="title">2025 &gt; The Main Point of the Horizon, Cultural Centre Reduta, Brasov</div>
-        <img src="images/Beyondthenoisetheconcretespeaks2.JPG">
-        <p>
-          Following its debut in the Unbound Echoes exhibition at WASP Bucharest, Beyond the Noise, the Concrete Speaks continues its journey with a second iteration in Brașov. This evolving series explores the memory of space through resonance, field recordings, and layered sonic narratives, offering a new voice to the overlooked textures of the urban environment.
-        </p>
+        <img src="images/Beyondthenoisetheconcretespeaks2.JPG" alt="Brasov Exhibition">
+        <p>Following its debut in the Unbound Echoes exhibition at WASP Bucharest, Beyond the Noise, the Concrete Speaks continues its journey with a second iteration in Brașov. This evolving series explores the memory of space through resonance, field recordings, and layered sonic narratives, offering a new voice to the overlooked textures of the urban environment.</p>
       </div>
 
-            <div class="update">
-        <div class="title">2025 &gt; "Unul dintre noi", Teatrul de Comedie, Bucharest</div>
-        <img src="images/UDN.jpg">
-        <p>
-          For my first theater play, Unul Dintre Noi, I got to create all the sounds and the composition — it was a really fun experience and a great way to experiment with sound in a live setting.
-        </p>
-      </div>
-
-                  <div class="update">
-        <div class="title">2024 &gt; Unbound Echoes, WASP Gallery, Bucharest</div>
-        <img src="images/BeyondBucharest.jpg">
-        <p>
-          It was a pleasure to unveil the first work in a series that explores the urban scape through sound and touch, entitled “Beyond the noise, the concrete speaks”. This first piece focusing on Bucharest.
-        </p>
-      </div>
-
-              <div class="update">
-        <div class="title">2024 &gt; Ruined Resonances, Thessaloniki, GR
-</div>
-        <img src="images/RuinedResonances_SKG.jpeg">
-        <p>
-          Ruined Resonances: Thessaloniki/GRWith the help of the Culture Moves Europe program, "Ruined Resonances" broke boundaries for the first time letting us explore and add a new set of locations to our cross-modal archive.
-        </p>
-      </div>
-
-                 <div class="update">
-        <div class="title">2024 &gt; Fusion Air, /SAC Gallery, Bucharest</div>
-        <img src="images/SOLARA1.jpeg">
-        <p>
-          During the Fusion Air Residency, I had the pleasure of collaborating with two scientists from the Institute for Space Science, Maximilian Teodorescu and Marius Echim. Our collaboration resulted in an interactive installation that explores the paradoxical relationship we have with the sun entitled Solara.
-        </p>
-      </div>
-
-                    <div class="update">
-        <div class="title">2024 &gt; E-ON at Electric Castle, Cluj
-</div>
-        <img src="images/EON1.png">
-        <p>
-          Created the sound realm for the E-On brand activation within the Electric Castle festival.
-        </p>
-      </div>
-
-                      <div class="update">
-        <div class="title">2024 &gt; Sensitive Data, Muzeul Tehnic "Dimitrie Leonida" </div>
-        <img src="images/SENSITITVE DATA1.jpg">
-        <p>
-          As part of the Sensitive Data team, I was in charge with the overall Sound Design and Interaction for “Tactile Soundscape” installation.
-
-        </p>
-      </div>
-
-                          <div class="update">
-        <div class="title">2024 &gt; Recycle your Technology, BRD Open Call
-</div>
-        <img src="images/RYT_1.jpg">
-        <p>
-          As an artist chosen by the RYT team I made an interactive installation called i:105, constructed from recycled electronic waste provided by Eco Positive Romania. I also conducted workshops in four Romanian cities (Reșița, Arad, Brașov, and Bucharest), where participants learned to create their own EMF microphones in order to capture and creatively interpret electromagnetic fields, blending environmental awareness with artistic exploration.
-        </p>
-      </div>
-
-  <div class="update">
-  <div class="title">2024 &gt; DivAirCity, Piata Italiana, Bucharest </div>
- <!-- YouTube video -->
-  <iframe width="800" height="800" 
-          src="https://www.youtube.com/embed/T5UO7QNXiLU" 
-          title="DivAirCity_PlottedGenerativeArt" 
-          frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          referrerpolicy="strict-origin-when-cross-origin" 
-          allowfullscreen>
-  </iframe>
-
-  <p>
-    A quick look from the DivAirCity Day at Piațeta Italiana in Bucharest and my stand where I used air quality values to plot a series of generative drawings.
-  </p>
-</div>
-      <!-- Add more updates here -->
-      <!-- 
-        1. Copy <div class="update"> ... </div>
-        2. Add your title inside <div class="title">...</div>
-        3. Add image in images/ folder and reference with <img src="images/yourimage.jpg">
-        4. Add paragraph in <p>...</p>
-        5. Links: use class="custom-link"
-      -->
+      <!-- More updates... -->
 
     </div>
   </div>
@@ -274,9 +232,7 @@
     <a href="sound.html">Sound</a>
     <a href="collabs.html">Collabs</a>
     <div style="height:20px;"></div>
-    <a href="https://atomatlab.com/">
-      Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon">
-    </a>
+    <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
     <a href="services.html">Services</a>
     <div style="height:20px;"></div>
     <a href="biography.html">Biography</a>
@@ -315,12 +271,6 @@
         scrollContainer.classList.remove('recede');
         overlay.classList.remove('active');
       }
-    });
-
-    document.addEventListener('keydown', e => {
-      const scrollAmount = 200;
-      if(e.key==='ArrowDown') scrollContainer.scrollBy({top:scrollAmount, behavior:'smooth'});
-      if(e.key==='ArrowUp') scrollContainer.scrollBy({top:-scrollAmount, behavior:'smooth'});
     });
   </script>
 
