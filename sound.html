@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sound - Denis Flueraru</title>
+  <link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
+
+    /* Header with fade */
+    .header {
+      position:fixed;
+      top:0;
+      width:100%;
+      padding:25px 50px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
+      z-index:100;
+    }
+    .header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
+    .header .section-title { font-weight:400; font-size:22px; }
+    .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
+
+    /* Page container */
+    .sound-page {
+      max-width:1200px;
+      margin:200px auto 80px auto; /* more space below header */
+      padding:0 20px;
+      display:flex;
+      flex-direction:column;
+      gap:100px;
+    }
+
+    /* Section */
+    .alias-section h2 {
+      font-size:26px;
+      margin-bottom:20px;
+    }
+    .alias-section p {
+      font-size:16px;
+      margin-bottom:20px;
+      line-height:1.5;
+    }
+
+    /* Embed styling */
+    .embed {
+      margin-bottom:20px;
+    }
+    iframe {
+      width:100%;
+      height:350px; /* taller, closer to square */
+      border:none;
+      border-radius:8px;
+    }
+
+    /* Grid for multiple embeds */
+    .grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+    }
+
+    /* Mixed grid images */
+    .mixed-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+      margin-top:40px;
+    }
+    .mixed-grid img {
+      width:100%;
+      height:350px;
+      object-fit:cover;
+      border-radius:8px;
+    }
+
+    /* Menu */
+    .menu {
+      position:fixed; top:0; right:-25%; width:25%; height:100%;
+      background-color:rgb(182, 210, 40);
+      color:black; transition:right 0.4s ease; z-index:200;
+      padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
+    }
+    .menu.open { right:0; }
+    .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
+    .menu a:hover { color:#cd6c27; }
+    .menu-icon {
+      height:1em;
+      margin-left:5px;
+      vertical-align:middle;
+    }
+
+    /* Grey overlay */
+    .overlay {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background-color:rgba(128,128,128,0.2); display:none; z-index:150;
+    }
+    .overlay.active { display:block; }
+
+    /* Rotating AtomatLab logo */
+    .atomat-fixed {
+      position:fixed;
+      bottom:20px; left:20px;
+      width:120px;
+      animation: spin 20s linear infinite;
+      z-index:100;
+      cursor:pointer;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive */
+    @media(max-width:900px){
+      .grid, .mixed-grid { grid-template-columns:1fr; }
+      iframe, .mixed-grid img { height:250px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
+    <span class="section-title">Sound</span>
+    <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Page content -->
+  <div class="sound-page">
+
+    <!-- Intro -->
+    <section class="alias-section">
+      <p>Through my aliases I explore different sonic identities: <strong>LESEL</strong> focuses on experimental electronic textures, while <strong>Addison Gardens</strong> opens space for blending guitar, improvisation, and live performance approaches.</p>
+    </section>
+
+    <!-- LESEL -->
+    <section class="alias-section">
+      <h2>LESEL</h2>
+
+      <!-- Release at the top -->
+      <div class="embed">
+        <iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/leselmusic/leselot001-preview&color=%23000000&inverse=false&auto_play=false&show_user=true"></iframe>
+      </div>
+
+     
+
+      <!-- Performances -->
+      <div class="grid" style="margin-top:40px;">
+        <iframe src="https://www.youtube.com/embed/NhUxxw2keDg" title="Denis Hesser - Introduction" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/NWbQPO3mKYA" title="Ruggiero (Live) - Poetovio Deep - Podcast 010" allowfullscreen></iframe>
+      </div>
+
+      <!-- Mixed Grid (4 alternating image + video) -->
+      <div class="mixed-grid">
+        <img src="images/sound/LESEL1.jpg">
+        <iframe src="https://www.youtube.com/embed/OCOhSMA0k8c" title="LESEL DJ Podcast" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/x_3DH34416c" title="LESEL DJ Podcast" allowfullscreen></iframe>
+        <img src="images/sound/LESEL2.jpg">
+        <img src="images/sound/LESEL3.jpg">
+        <iframe src="https://www.youtube.com/embed/qRL7gapq0E4" title="LESEL DJ Podcast" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/HgaK4oZQBrc" title="LESEL DJ Podcast" allowfullscreen></iframe>
+        <img src="images/sound/LESEL4.jpg">
+      </div>
+    </section>
+
+    <!-- Addison Gardens -->
+    <section class="alias-section">
+      <h2>Addison Gardens</h2>
+      <p>A project for experiments with sound — including guitar, live sets, and compositions outside of the house frameworks.</p>
+     <!-- SoundCloud embed -->
+      <div class="embed">
+        <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A925918936&color=%23000000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+        </iframe>
+      </div>
+    </section>
+  </div>
+
+  <!-- Rotating AtomatLab logo -->
+  <a href="https://atomatlab.com" target="_blank">
+    <img src="images/atomatlab.png" alt="Atomat Lab Logo" class="atomat-fixed">
+  </a>
+
+  <!-- Menu -->
+  <div class="menu" id="menu">
+    <a href="artworks.html">Artworks</a>
+    <a href="workshops.html">Workshops</a>
+    <a href="sound.html">Sound</a>
+    <a href="collabs.html">Collabs</a>
+    <div style="height:20px;"></div>
+    <a href="https://atomatlab.com/">
+      Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon">
+    </a>
+    <a href="services.html">Services</a>
+    <div style="height:20px;"></div>
+    <a href="biography.html">Biography</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <script>
+    const menu = document.getElementById('menu');
+    const overlay = document.getElementById('overlay');
+
+    function toggleMenu(){
+      const isOpen = menu.classList.contains('open');
+      if(isOpen){
+        menu.classList.remove('open');
+        overlay.classList.remove('active');
+      } else {
+        menu.classList.add('open');
+        overlay.classList.add('active');
+      }
+    }
+
+    overlay.addEventListener('click', () => {
+      if(menu.classList.contains('open')){
+        menu.classList.remove('open');
+        overlay.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>
