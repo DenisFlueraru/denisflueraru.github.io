@@ -23,7 +23,7 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
   z-index:100;
 }
 .header .logo { font-weight:bold; font-size:20px; text-decoration:none; color:black; }
-.header .section-title { font-weight:700; font-size:28px; }
+.header .section-title { font-weight:400; font-size:28px; } /* removed bold */
 .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
 /* Main content */
@@ -49,7 +49,7 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
   gap:20px;
   align-items:start;
 }
-.collab:nth-child(even) { grid-template-columns: 2fr 2fr 1fr; } /* alternate layout */
+.collab:nth-child(even) { grid-template-columns: 2fr 2fr 1fr; }
 
 /* Big image */
 .collab-main img {
@@ -67,10 +67,7 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
   line-height:1.5;
   padding:5px;
 }
-.collab-text .title {
-  font-weight:bold;
-  margin-bottom:5px;
-}
+.collab-text .title { font-weight:bold; margin-bottom:5px; }
 
 /* Small images 2x2 grid */
 .collab-small {
@@ -99,10 +96,7 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
   justify-content:center; align-items:center;
   z-index:300;
 }
-#modal img {
-  max-width:90%; max-height:90%;
-  border-radius:8px;
-}
+#modal img { max-width:90%; max-height:90%; border-radius:8px; }
 #modal .close {
   position:absolute;
   top:20px; right:30px;
@@ -135,15 +129,28 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 }
 .overlay.active { display:block; }
 
-/* Rotating logo */
-.atomat-fixed {
-  position:fixed; bottom:20px; left:20px;
-  width:120px;
-  animation:spin 20s linear infinite;
-  z-index:100;
-  cursor:pointer;
+/* Rotating/flipping logo bottom-left */
+.spin-wrapper {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 120px;
+  animation: spin 20s linear infinite;
+  transform-origin: center;
+  cursor: pointer;
 }
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes spin { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
+
+.flip-image {
+  width: 100%;
+  transition: transform 0.6s ease, opacity 0.3s ease;
+  transform-style: preserve-3d;
+}
+.flipped { transform: rotateY(180deg); }
+.spin-wrapper.clicked {
+  transform: scale(1.2) rotateZ(var(--angle, 0deg));
+  transition: transform 0.3s ease;
+}
 
 @media(max-width:1000px){
   .collab { grid-template-columns:1fr; }
@@ -174,121 +181,174 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 <div class="main-content">
   <div class="scroll-container" id="scroll-container">
 
-    <!-- Collab 1 -->
-    <div class="collab">
-      <div class="collab-text">
-        <div class="title">2024 &gt; Echoes of Presences x IQOS</div>
-        <p>My role included <strong>sound design</strong>, <strong>interactive programming</strong>, and overseeing field recordings for the project.</p>
-      </div>
-      <div class="collab-main">
-        <img src="images/collabs/EOP2.jpg" id="big1" class="clickable">
-      </div>
-      <div class="collab-small">
-        <img src="images/collabs/EOP1.jpg" data-target="big1" class="clickable">
-        <img src="images/collabs/EOP3.jpg" data-target="big1" class="clickable">
-        <img src="images/collabs/EOP4.jpg" data-target="big1" class="clickable">
-        <img src="images/collabs/EOP5.jpg" data-target="big1" class="clickable">
-      </div>
-    </div>
-
-    <!-- Collab 2 -->
-    <div class="collab">
-      <div class="collab-main">
-        <img src="images/collabs/main2.jpg" id="big2" class="clickable">
-      </div>
-      <div class="collab-small">
-        <img src="images/collabs/small2-1.jpg" data-target="big2" class="clickable">
-        <img src="images/collabs/small2-2.jpg" data-target="big2" class="clickable">
-        <img src="images/collabs/small2-3.jpg" data-target="big2" class="clickable">
-        <img src="images/collabs/small2-4.jpg" data-target="big2" class="clickable">
-      </div>
-      <div class="collab-text">
-        <div class="title">2023 &gt; Sonic Playground Collaboration</div>
-        <p>Focused on <strong>electronic music production</strong> and coordinating with visual artists for immersive experiences.</p>
-      </div>
-    </div>
-
-    <!-- Add more collabs following the alternating layout -->
-
+<!-- YOKOGAWA -->
+<div class="collab" style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+  <div class="collab-main" style="flex:2;">
+    <img src="images/collabs/YOKOGAWA1.JPG" id="bigYokogawa" class="clickable">
+  </div>
+  <div style="display:none;">
+    <img src="images/collabs/YOKOGAWA2.JPG" data-target="bigYokogawa" class="swap">
+    <img src="images/collabs/YOKOGAWA3.JPG" data-target="bigYokogawa" class="swap">
+    <img src="images/collabs/YOKOGAWA4.JPG" data-target="bigYokogawa" class="swap">
+    <img src="images/collabs/YOKOGAWA5.JPG" data-target="bigYokogawa" class="swap">
+  </div>
+  <div class="collab-video" style="flex:2;">
+    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/s9oV-_8MN6E" frameborder="0" allowfullscreen style="border-radius:8px;"></iframe>
+  </div>
+  <div class="collab-text" style="flex:1;">
+    <div class="title">2025 &gt; YOKOGAWA Fresh Water Generator @ FABLAB</div>
+    <p>Focused on <strong>LED installation and programming 5 separated animations</strong> and complementing with <strong>sound design</strong> for a dynamic presentation.</p>
   </div>
 </div>
 
-<!-- Rotating logo -->
+<!-- IQOS -->
+<div class="collab">
+  <div class="collab-text">
+    <div class="title">2024 &gt; Echoes of Presences x IQOS</div>
+    <p>My role was to create the entire <strong>sound realm</strong> for <strong>3 interconnected rooms</strong>, where visitors triggered sounds and atmospheres as they walked throughout the experience.</p>
+  </div>
+  <div class="collab-main">
+    <img src="images/collabs/EOP2.jpg" id="bigEOP" class="clickable">
+  </div>
+  <div class="collab-small">
+    <img src="images/collabs/EOP1.jpg" data-target="bigEOP" class="clickable swap">
+    <img src="images/collabs/EOP3.jpg" data-target="bigEOP" class="clickable swap">
+    <img src="images/collabs/EOP4.jpg" data-target="bigEOP" class="clickable swap">
+    <img src="images/collabs/EOP5.jpg" data-target="bigEOP" class="clickable swap">
+  </div>
+</div>
+
+<!-- E-ON / Eonec -->
+<div class="collab" style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+  <div class="collab-main" style="flex:2;">
+    <img src="images/collabs/EON1.png" id="bigEonec" class="clickable">
+  </div>
+  <div style="display:none;">
+    <img src="images/collabs/EON2.png" data-target="bigEonec" class="swap">
+    <img src="images/collabs/EON3.png" data-target="bigEonec" class="swap">
+    <img src="images/collabs/EON4.png" data-target="bigEonec" class="swap">
+  </div>
+  <div class="collab-text" style="flex:1;">
+    <div class="title">2024 &gt; E-ON, Electric Castle @ RIZI DESIGN</div>
+    <p><strong>Creative Direction:</strong> Alina Rizescu & Bogdan Stefanescu<br>
+       <strong>Scenography:</strong> Alina Rizescu<br>
+       <strong>Motion Design:</strong> Bogdan Stefanescu<br>
+       <strong>LED Programming:</strong> Dorin Cucicov<br>
+       <strong>Sound Design:</strong> Denis Flueraru</p>
+  </div>
+  <div class="collab-video" style="flex:2;">
+    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Et-eNRrX1Vk" frameborder="0" allowfullscreen style="border-radius:8px; margin-bottom:20px;"></iframe>
+    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/x8fRRIKYt0s" frameborder="0" allowfullscreen style="border-radius:8px;"></iframe>
+  </div>
+</div>
+
+<!-- NOS UTOPIES -->
+<div class="collab">
+  <div class="collab-text">
+    <div class="title">2022 &gt; Nos Utopies @ Fête des Lumières x Goethe Institut</div>
+    <p>For the 2022 edition of Fete des Lumieres, I worked on the "Nos Utopies" project, an interactive performance with performers worldwide.<br>
+    My part consisted of <strong>an interactive system using machine learning</strong> affecting the sound ensemble and <strong>performing live the musical composition</strong>.</p>
+  </div>
+  <div class="collab-main" style="flex:2;">
+    <img src="images/collabs/NOSUTOPIES1.jpg" id="bigNos" class="clickable">
+  </div>
+  <div class="collab-small">
+    <img src="images/collabs/NOSUTOPIES2.jpg" data-target="bigNos" class="clickable swap">
+    <img src="images/collabs/NOSUTOPIES3.jpg" data-target="bigNos" class="clickable swap">
+    <img src="images/collabs/NOSUTOPIES4.jpg" data-target="bigNos" class="clickable swap">
+    <img src="images/collabs/NOSUTOPIES5.jpg" data-target="bigNos" class="clickable swap">
+  </div>
+  <div class="collab-video" style="flex:2; width:100%; margin-top:20px; text-align:center;">
+    <iframe width="80%" height="480" src="https://www.youtube.com/embed/cn2Oh2Rv-yA" frameborder="0" allowfullscreen style="border-radius:8px;"></iframe>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- Rotating/flipping logo bottom-left -->
 <a href="https://atomatlab.com" target="_blank">
-  <img src="images/atomatlab.png" alt="Atomat Lab Logo" class="atomat-fixed">
+  <div class="spin-wrapper">
+    <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
+  </div>
 </a>
 
 <!-- Menu -->
-<div class="menu" id="menu">
-  <a href="artworks.html">Artworks</a>
-  <a href="workshops.html">Workshops</a>
-  <a href="sound.html">Sound</a>
-  <a href="collabs.html">Collabs</a>
-  <div style="height:20px;"></div>
-  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
-  <a href="services.html">Services</a>
-  <div style="height:20px;"></div>
-  <a href="biography.html">Biography</a>
-  <a href="contact.html">Contact</a>
-</div>
+  <div class="menu" id="menu">
+    <a href="artworks.html">Artworks</a>
+    <a href="workshops.html">Workshops</a>
+    <a href="sound.html">Sound</a>
+    <a href="collabs.html">Collabs</a>
+    <a href="exhibitions.html">Exhibitions</a>
+    <div style="height:20px;"></div>
+    <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
+    <a href="services.html">Services</a>
+    <div style="height:20px;"></div>
+    <a href="biography.html">Biography</a>
+    <a href="contact.html">Contact</a>
+  </div>
 
 <script>
 // Menu toggle
 const menu = document.getElementById('menu');
-const scrollContainer = document.getElementById('scroll-container');
 const overlay = document.getElementById('overlay');
-
 function toggleMenu(){
-  const isOpen = menu.classList.contains('open');
-  if(isOpen){
-    menu.classList.remove('open');
-    overlay.classList.remove('active');
-  } else {
-    menu.classList.add('open');
-    overlay.classList.add('active');
-  }
+  menu.classList.toggle('open');
+  overlay.classList.toggle('active');
 }
-
 overlay.addEventListener('click', () => {
-  if(menu.classList.contains('open')){
-    menu.classList.remove('open');
-    overlay.classList.remove('active');
-  }
+  menu.classList.remove('open');
+  overlay.classList.remove('active');
 });
 
-// Image swap big<->small every 3s
+// Collab swap
 function setupCollabSwap(collabId){
   const big = document.getElementById(collabId);
-  const smalls = document.querySelectorAll(`.collab-small img[data-target="${collabId}"]`);
+  const smalls = document.querySelectorAll(`img[data-target="${collabId}"]`);
   setInterval(()=>{
-    const index = Math.floor(Math.random() * smalls.length);
-    const tempSrc = big.src;
-    big.style.opacity = 0;
+    if(smalls.length===0) return;
+    const index = Math.floor(Math.random()*smalls.length);
+    const temp = big.src;
+    big.style.opacity=0;
     setTimeout(()=>{
       big.src = smalls[index].src;
-      smalls[index].src = tempSrc;
-      big.style.opacity = 1;
-    }, 500);
+      smalls[index].src = temp;
+      big.style.opacity=1;
+    },500);
   },3000);
 }
-setupCollabSwap('big1');
-setupCollabSwap('big2');
+setupCollabSwap('bigYokogawa');
+setupCollabSwap('bigEOP');
+setupCollabSwap('bigEonec');
+setupCollabSwap('bigNos');
 
-// Modal popup
+// Modal
 const modal = document.getElementById('modal');
 const modalImg = document.getElementById('modal-img');
-
 document.querySelectorAll('.clickable').forEach(img=>{
   img.addEventListener('click', ()=>{
-    modal.style.display = 'flex';
+    modal.style.display='flex';
     modalImg.src = img.src;
   });
 });
-
 function closeModal(){ modal.style.display='none'; }
-
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
-modal.addEventListener('click', e=>{ if(e.target === modal) closeModal(); });
+modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
+
+// Rotating/flipping logo
+const rotatingLogo = document.getElementById("rotating-logo");
+const spinWrapper = document.querySelector(".spin-wrapper");
+const logos = ["images/atomatlab.png","images/field5.png"];
+let index=0;
+setInterval(()=>{
+  rotatingLogo.classList.toggle("flipped");
+  setTimeout(()=>{
+    index = (index+1)%logos.length;
+    rotatingLogo.src = logos[index];
+  },300);
+},3000);
+spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
+spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
 </script>
 
 </body>
