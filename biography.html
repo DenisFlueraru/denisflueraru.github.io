@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biography - Denis Flueraru</title>
+<link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden; color:black;}
+
+/* Header */
+.header {
+  position:fixed;
+  top:0; width:100%;
+  padding:25px 50px;
+  display:flex; justify-content:space-between; align-items:center;
+  background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
+  z-index:100;
+}
+.header .logo { font-weight:bold; font-size:20px; text-decoration:none; color:black; cursor:pointer;}
+.header .section-title { font-weight:400; font-size:28px; }
+.header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
+
+/* Menu */
+.menu {
+  position:fixed; top:0; right:-25%; width:25%; height:100%;
+  background-color:rgb(182,210,40);
+  color:black; transition:right 0.4s ease; z-index:200;
+  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
+}
+.menu.open { right:0; }
+.menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
+.menu a:hover { color:#cd6c27; }
+.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
+
+/* Grey overlay */
+.overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
+
+/* Rotating logo */
+.spin-wrapper {
+  position: fixed; bottom:20px; left:20px;
+  width:120px;
+  animation: spin 20s linear infinite;
+  cursor:pointer;
+  z-index:100;
+}
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.flip-image {
+  width:100%;
+  transition: transform 0.6s ease, opacity 0.3s ease;
+  transform-style: preserve-3d;
+}
+.flipped { transform: rotateY(180deg); }
+.spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
+
+/* Bio header grid: portrait + CV */
+.bio-header {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  max-width: 900px;
+  margin: 160px auto 40px auto;
+  padding: 0 20px;
+}
+
+.bio-portrait img {
+  width: 200px;
+  border-radius: 6px;
+  display: block;
+}
+
+.bio-cv a {
+  padding: 12px 20px;
+  background: #b6d228;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bio-cv a:hover { background:#a0bf1f; }
+
+/* Bio texts */
+.bio-text {
+  max-width:900px;
+  margin: 40px auto;
+  padding:0 20px;
+  line-height:1.6;
+  font-size:18px;
+}
+
+/* Headings */
+.bio-text h2 { font-size:22px; margin-bottom:15px; font-weight:700; }
+
+/* Responsive */
+@media(max-width:1000px) {
+  .bio-header { grid-template-columns: 1fr; justify-items:center; gap:20px; }
+  .bio-portrait img { width:180px; }
+  .bio-text { font-size:16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
+  <span class="section-title">Biography</span>
+  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Bio header -->
+<div class="bio-header">
+  <div class="bio-portrait">
+    <img src="images/PortraitDF.jpg" alt="Denis Flueraru Portrait">
+  </div>
+  <div class="bio-cv">
+    <a href="https://drive.google.com/file/d/17u74ibySlv3ZqvxCbx5Mj6EJ4UvXJoNo/view?usp=drive_link" target="_blank">
+      VIEW EUROPASS CV
+    </a>
+  </div>
+</div>
+
+<!-- Bio texts -->
+<div class="bio-text">
+ 
+  <p>
+    “Even if my background is not really linked with electronics, I formed a tight bond that manifested in a growing interest for technological skills. Now it is always part of my work. This bond unveils itself in a modernist-like, interdisciplinary manner and is either interactivity as it attempts to start a dialogue between the viewer and artwork or the result of the interaction between the inhabited space and technology.
+  </p>
+  <p>
+    Peculiar moments or natural phenomena that I encounter in my everyday life can be considered the catalyst for my artworks. For example, walking past abandoned heritage buildings and spaces made me imagine all the stories contained within so I attempted to aurally store their specific patina by creating a bespoke recording tool (TRT/Aural Topographies, 2023) and give voice to their last standing remains. The conducted research made me discover the hidden layers of electrostatic rhythms and vibrations of the urban habitat especially, so I created my own recording instruments. This invisibility cloak is taken off in one of my audio installations where the soundscape morphs into the resonating materials (Concrete Whispers, 2023).”
+  </p>
+</div>
+
+<!-- Rotating Logo -->
+<a href="https://atomatlab.com" target="_blank" class="spin-wrapper">
+  <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
+</a>
+
+<!-- Menu -->
+<div class="menu" id="menu">
+  <a href="artworks.html">Artworks</a>
+  <a href="workshops.html">Workshops</a>
+  <a href="sound.html">Sound</a>
+  <a href="collabs.html">Collabs</a>
+  <a href="exhibitions.html">Exhibitions</a>
+  <div style="height:20px;"></div>
+  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
+  <a href="services.html">Services</a>
+  <div style="height:20px;"></div>
+  <a href="biography.html">Biography</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<script>
+// Menu toggle
+const menu = document.getElementById('menu');
+const overlay = document.getElementById('overlay');
+function toggleMenu(){
+  const isOpen = menu.classList.contains('open');
+  if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); }
+  else{ menu.classList.add('open'); overlay.classList.add('active'); }
+}
+overlay.addEventListener('click', () => { if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); } });
+
+// Rotating / flipping logo
+const rotatingLogo = document.getElementById("rotating-logo");
+const spinWrapper = document.querySelector(".spin-wrapper");
+const logos = ["images/atomatlab.png","images/field5.png"];
+let index = 0;
+setInterval(()=>{
+  rotatingLogo.classList.toggle("flipped");
+  setTimeout(()=>{
+    index = (index+1)%logos.length;
+    rotatingLogo.src = logos[index];
+  },300);
+},3000);
+spinWrapper.addEventListener("mousedown",()=>{spinWrapper.classList.add("clicked");});
+spinWrapper.addEventListener("mouseup",()=>{spinWrapper.classList.remove("clicked");});
+</script>
+
+</body>
+</html>
