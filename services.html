@@ -18,7 +18,7 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
   background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
   z-index:100;
 }
-.header .logo { font-weight:bold; font-size:20px; text-decoration:none; color:black; cursor:pointer;}
+.header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
 .header .section-title { font-weight:400; font-size:28px; }
 .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
@@ -192,13 +192,14 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
   <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
 </a>
 
- <!-- Menu -->
+
+  <!-- Menu -->
   <div class="menu" id="menu">
     <a href="artworks.html">Artworks</a>
     <a href="workshops.html">Workshops</a>
     <a href="sound.html">Sound</a>
     <a href="collabs.html">Collabs</a>
-    <a href="exhibitions.html">Exhibitions</a>
+    <!-- <a href="exhibitions.html">Exhibitions</a> -->
     <div style="height:20px;"></div>
     <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
     <a href="services.html">Services</a>
@@ -206,6 +207,7 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
     <a href="biography.html">Biography</a>
     <a href="contact.html">Contact</a>
   </div>
+
 
 <script>
 // Menu toggle
@@ -239,9 +241,45 @@ const tabs = document.querySelectorAll(".drawer-tab");
 
 // Replace these arrays with your 10 images per category
 const images = {
-  sound:["images/services/sound1.jpg","images/services/sound2.jpg","images/services/sound3.jpg","images/services/sound4.jpg","images/services/sound5.png","images/services/sound7.jpeg"],
-  interactivity:["images/services/interactive1.jpg","images/services/interactive2.jpg","images/services/interactive3.jpg","images/services/interactive4.jpg","images/services/interactive5.jpg","images/services/interactive6.jpeg","images/services/interactive7.jpg","images/services/interactive8.jpg","images/services/interactive9.jpg","images/services/interactive10.jpg"],
-  "3d":["https://drive.google.com/uc?id=192aouyTYUJpJtabHEjiucxQO3RWyE6fM","images/services/3d2.jpg","images/services/3d3.png","images/services/3d4.jpg","images/services/3d5.jpg","images/services/3d6.png","images/services/3d7.png","images/services/3d8.jpg","images/services/3d9.jpg","images/services/3d10.jpg","images/services/3d11.jpg","images/services/3d12.jpg"],
+  sound: [
+  "https://drive.google.com/uc?export=view&id=1gl6WIVJimOKKd6dfDH71fmu6oFkRFxvo",
+  "https://drive.google.com/uc?export=view&id=15FZXv3d8NQbw2AVUIswAfx7pvwP7y4RT",
+  "https://drive.google.com/uc?export=view&id=10erTBCAkt2Pu-cJxk4YPIOELYZEGW_ZJ",
+  "https://drive.google.com/uc?export=view&id=1nhJJRg2ATPdx4K_RrooD1evzj4ONrVr2",
+  "https://drive.google.com/uc?export=view&id=1XgKRkAnlRqoZ529jYf8zmJiVGbsi3Cct",
+  "https://drive.google.com/uc?export=view&id=1ibB6o8mdpOzlEji-ZZ3jw4WzHvimQx79",
+  "https://drive.google.com/uc?export=view&id=1wWogBzuipC4RXgJAvrrQATOZsXUXG_z-",
+  "https://drive.google.com/uc?export=view&id=1mb4H1BFoS8t3vdhA7D-tEnd9K1Rw8p3f",
+  "https://drive.google.com/uc?export=view&id=1Kef49vGuW8WJBckgN5D7LumlSh1ZxyEC",
+  "https://drive.google.com/uc?export=view&id=1rZOV5jt4Rv6zJUNe7FdnKsj6X1t6AnI3",
+  "https://drive.google.com/uc?export=view&id=1auEZ6xIf7vMhQyhGtbVTIjCrw7w5qrzO"
+],
+  interactivity: [
+  "https://lh3.googleusercontent.com/d/1T3F9rHQYiv25LiiA6dsLEcXZUzTARVtq",
+  "https://lh3.googleusercontent.com/d/1fmthwRjIS1TVinKvRqGpIlTCVXWXy5KQ",
+  "https://lh3.googleusercontent.com/d/1wASpQpMiwSu79kkEccuPMjYdehIeLge_",
+  "https://lh3.googleusercontent.com/d/1d3t07aXBTGdSnTi0T_QGNUMskdFhAv0G",
+  "https://lh3.googleusercontent.com/d/1rSJR4qGFiKUZj3gOUydcE8NMcFuUNwZ3",
+  "https://lh3.googleusercontent.com/d/1GCUsPC-yOVWesfPFBxLrljTAOy8jYxni",
+  "https://lh3.googleusercontent.com/d/1NJpVUDuMjPFVXSxHPn-NqBFYoSk7AiZA",
+  "https://lh3.googleusercontent.com/d/1nhNmXUcLOO5NlX9h5qxbOphmIYcSeuoe",
+  "https://lh3.googleusercontent.com/d/125y_qaFl6s-0HFJBJ3CSdkzcIA0W191y",
+  "https://lh3.googleusercontent.com/d/1keY83DTGN-6tnHV5cHiLS1TsfzudqQ9x"
+],
+  "3d": [
+  "https://lh3.googleusercontent.com/d/192aouyTYUJpJtabHEjiucxQO3RWyE6fM",
+  "https://lh3.googleusercontent.com/d/1kcEeua5M2p6NE39UYJM_2bIQrmoZGi8g",
+  "https://lh3.googleusercontent.com/d/1o3BRzAVKLHKUkcmaSM0HyPyPP8Vlp8N0",
+  "https://lh3.googleusercontent.com/d/1pGMrS7pJ51mJOHrZ9AEDnEP9zBhpksgE",
+  "https://lh3.googleusercontent.com/d/1gXoel-qZPkIFDmvH7qixi_lRK7VIXX8o",
+  "https://lh3.googleusercontent.com/d/1kRjuGEFNaT-M-bkuTsEQyb9w-2GYiEL7",
+  "https://lh3.googleusercontent.com/d/1Wlx7bAZtZ1f70S1bxOdYbAWJag7XUIgx",
+  "https://lh3.googleusercontent.com/d/1BsBXHFvgwpGkuhKr18x_-ySNQ0umv5ky",
+  "https://lh3.googleusercontent.com/d/1eZzHlJaB8i2LnX3BCeUtNB6QF7-kpugl",
+  "https://lh3.googleusercontent.com/d/1y5DDdOxvwzUUNCdiVIPZ8PxJZgyTmf9-",
+  "https://lh3.googleusercontent.com/d/1QHOZKlgwxwp5qxpS795B1Im7nEDchLCG",
+  "https://lh3.googleusercontent.com/d/1NzY-MhJC9-EYM2sLMHiyN8tPfRlM-LuT"
+],
   creative: [
   "https://lh3.googleusercontent.com/d/15iA5yTDTjSndJ2o88Wem7FuJZ3gk_3d5",
   "https://lh3.googleusercontent.com/d/10HoiFCV-70fovjpotw95Uqhwh3KPzN28",

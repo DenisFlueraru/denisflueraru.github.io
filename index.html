@@ -43,6 +43,14 @@
       text-decoration:none;
       color:black;
     }
+
+    .header .section-title {
+      font-weight:400;
+      font-size:22px;
+      color:black;
+      margin:0 20px; /* spacing between logo and menu */
+    }
+
     .header .menu-toggle {
       cursor:pointer;
       font-weight:bold;
@@ -186,6 +194,7 @@
   <!-- Header -->
   <div class="header">
     <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
+    <span class="section-title">Feed</span>
     <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
   </div>
 
@@ -220,14 +229,13 @@
     </div>
   </div>
 
-
   <!-- Menu -->
   <div class="menu" id="menu">
     <a href="artworks.html">Artworks</a>
     <a href="workshops.html">Workshops</a>
     <a href="sound.html">Sound</a>
     <a href="collabs.html">Collabs</a>
-    <a href="exhibitions.html">Exhibitions</a>
+    <!-- <a href="exhibitions.html">Exhibitions</a> -->
     <div style="height:20px;"></div>
     <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
     <a href="services.html">Services</a>
@@ -270,53 +278,54 @@
       }
     });
   </script>
-<!-- Rotating/flipping logo bottom-left -->
-<a href="https://atomatlab.com" target="_blank">
-  <div class="spin-wrapper">
-    <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
-  </div>
-</a>
 
-<style>
-.spin-wrapper {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  width: 120px;
-  animation: spin 20s linear infinite;
-  transform-origin: center;
-  cursor: pointer;
-  z-index:100;
-}
-.flip-image {
-  width: 100%;
-  transition: transform 0.6s ease, opacity 0.3s ease;
-  transform-style: preserve-3d;
-}
-.flipped { transform: rotateY(180deg); }
-.spin-wrapper.clicked {
-  transform: scale(1.2) rotateZ(var(--angle, 0deg));
-  transition: transform 0.3s ease;
-}
-@keyframes spin { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
-</style>
+  <!-- Rotating/flipping logo bottom-left -->
+  <a href="https://atomatlab.com" target="_blank">
+    <div class="spin-wrapper">
+      <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
+    </div>
+  </a>
 
-<script>
-const rotatingLogo = document.getElementById("rotating-logo");
-const spinWrapper = document.querySelector(".spin-wrapper");
-const logos = ["images/atomatlab.png","images/field5.png"];
-let index=0;
+  <style>
+    .spin-wrapper {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 120px;
+      animation: spin 20s linear infinite;
+      transform-origin: center;
+      cursor: pointer;
+      z-index:100;
+    }
+    .flip-image {
+      width: 100%;
+      transition: transform 0.6s ease, opacity 0.3s ease;
+      transform-style: preserve-3d;
+    }
+    .flipped { transform: rotateY(180deg); }
+    .spin-wrapper.clicked {
+      transform: scale(1.2) rotateZ(var(--angle, 0deg));
+      transition: transform 0.3s ease;
+    }
+    @keyframes spin { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
+  </style>
 
-setInterval(()=>{
-  rotatingLogo.classList.toggle("flipped");
-  setTimeout(()=>{
-    index = (index+1)%logos.length;
-    rotatingLogo.src = logos[index];
-  },300);
-},3000);
+  <script>
+    const rotatingLogo = document.getElementById("rotating-logo");
+    const spinWrapper = document.querySelector(".spin-wrapper");
+    const logos = ["images/atomatlab.png","images/field5.png"];
+    let index=0;
 
-spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
-spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
-</script>
+    setInterval(()=>{
+      rotatingLogo.classList.toggle("flipped");
+      setTimeout(()=>{
+        index = (index+1)%logos.length;
+        rotatingLogo.src = logos[index];
+      },300);
+    },3000);
+
+    spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
+    spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
+  </script>
 </body>
 </html>

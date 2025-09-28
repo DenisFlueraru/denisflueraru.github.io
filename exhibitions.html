@@ -3,18 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Collabs - Denis Flueraru</title>
+<title>Exhibitions - Denis Flueraru</title>
 <link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
-* {margin:0; padding:0; box-sizing:border-box;}
-body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden; }
 
 /* Header */
 .header {
   position:fixed;
-  top:0;
-  width:100%;
+  top:0; width:100%;
   padding:25px 50px;
   display:flex;
   justify-content:space-between;
@@ -22,133 +20,66 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
   background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
   z-index:100;
 }
-.header .logo { font-weight:bold; font-size:20px; text-decoration:none; color:black; }
-.header .section-title { font-weight:700; font-size:28px; }
+.header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black; }
+.header .section-title { font-weight:400; font-size:28px; }
 .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
-/* Main content */
-.main-content {
-  display:flex;
-  justify-content:center;
-  padding-top:160px;
-  min-height:100vh;
-}
-.scroll-container {
-  display:flex;
-  flex-direction:column;
-  gap:80px;
-  max-width:1200px;
-  margin:0 auto;
-  padding-bottom:100px;
-}
-
-/* Collab row */
-.collab {
-  display:grid;
-  grid-template-columns: 1fr 2fr 2fr;
-  gap:20px;
-  align-items:start;
-}
-.collab:nth-child(even) { grid-template-columns: 2fr 2fr 1fr; } /* alternate layout */
-
-/* Big image */
-.collab-main img {
-  width:100%;
-  height: calc(160px * 2 + 10px);
-  object-fit:cover;
-  border-radius:8px;
-  cursor:pointer;
-  transition: opacity 0.5s ease;
-}
-
-/* Text block */
-.collab-text {
-  font-size:16px;
-  line-height:1.5;
-  padding:5px;
-}
-.collab-text .title {
-  font-weight:bold;
-  margin-bottom:5px;
-}
-
-/* Small images 2x2 grid */
-.collab-small {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  grid-template-rows:1fr 1fr;
-  gap:10px;
-}
-.collab-small img {
-  width:100%;
-  height:160px;
-  object-fit:cover;
-  border-radius:6px;
-  cursor:pointer;
-  transition: transform 0.3s ease;
-}
-.collab-small img:hover { transform: scale(1.05); }
-
-/* Modal */
-#modal {
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: rgba(0,0,0,0.8);
-  justify-content:center; align-items:center;
-  z-index:300;
-}
-#modal img {
-  max-width:90%; max-height:90%;
-  border-radius:8px;
-}
-#modal .close {
-  position:absolute;
-  top:20px; right:30px;
-  font-size:40px;
-  color:white;
-  cursor:pointer;
-  font-weight:bold;
-}
+/* Overlay */
+.overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
+.overlay.active { display:block; }
 
 /* Menu */
 .menu {
-  position:fixed; top:0; right:-25%;
-  width:25%; height:100%;
+  position:fixed; top:0; right:-25%; width:25%; height:100%;
   background-color:rgb(182,210,40);
-  color:black;
-  transition:right 0.4s ease;
-  z-index:200;
-  padding:50px 20px;
-  display:flex; flex-direction:column; gap:20px;
-  font-size:20px;
+  color:black; transition:right 0.4s ease; z-index:200;
+  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
 }
 .menu.open { right:0; }
-.menu a { color:black; text-decoration:none; display:inline-flex; align-items:center; transition: color 0.2s; }
+.menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
 .menu a:hover { color:#cd6c27; }
 .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
-.overlay {
-  position:fixed; top:0; left:0; width:100%; height:100%;
-  background-color:rgba(128,128,128,0.2); display:none; z-index:150;
-}
-.overlay.active { display:block; }
-
 /* Rotating logo */
-.atomat-fixed {
-  position:fixed; bottom:20px; left:20px;
+.spin-wrapper {
+  position: fixed; bottom:20px; left:20px;
   width:120px;
-  animation:spin 20s linear infinite;
-  z-index:100;
+  animation: spin 20s linear infinite;
   cursor:pointer;
+  z-index:100;
 }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.flip-image {
+  width:100%;
+  transition: transform 0.6s ease, opacity 0.3s ease;
+  transform-style: preserve-3d;
+}
+.flipped { transform: rotateY(180deg); }
+.spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
 
-@media(max-width:1000px){
-  .collab { grid-template-columns:1fr; }
-  .collab-small { grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; }
-  .collab-small img, .collab-main img { height:150px; }
+/* Exhibitions feed */
+.exhibitions-container {
+  max-width:1000px;
+  margin:160px auto 80px auto;
+  padding:0 20px;
+  display:flex;
+  flex-direction:column;
+  gap:40px;
+}
+.exhibition-section { margin-bottom:40px; }
+.exhibition-section h2 { font-size:22px; margin-bottom:20px; font-weight:bold; border-bottom:2px solid #b6d228; padding-bottom:5px; }
+.exhibition-item {
+  padding:10px 0;
+  border-bottom:1px solid #ccc;
+  font-size:16px;
+}
+.exhibition-item:last-child { border-bottom:none; }
+.exhibition-year { font-weight:bold; margin-right:10px; color:#b6d228; }
+.exhibition-details { color:#000; }
+
+/* Responsive */
+@media(max-width:800px){
+  .exhibition-year { display:block; margin-bottom:5px; }
 }
 </style>
 </head>
@@ -157,139 +88,101 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 <!-- Header -->
 <div class="header">
   <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
-  <span class="section-title">Collabs</span>
+  <span class="section-title">Exhibitions</span>
   <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
 </div>
 
 <!-- Overlay -->
 <div class="overlay" id="overlay"></div>
 
-<!-- Modal -->
-<div id="modal">
-  <span class="close" onclick="closeModal()">×</span>
-  <img id="modal-img" src="">
-</div>
+<!-- Exhibitions Feed -->
+<div class="exhibitions-container">
 
-<!-- Main content -->
-<div class="main-content">
-  <div class="scroll-container" id="scroll-container">
-
-    <!-- Collab 1 -->
-    <div class="collab">
-      <div class="collab-text">
-        <div class="title">2024 &gt; Echoes of Presences x IQOS</div>
-        <p>My role included <strong>sound design</strong>, <strong>interactive programming</strong>, and overseeing field recordings for the project.</p>
-      </div>
-      <div class="collab-main">
-        <img src="images/collabs/EOP2.jpg" id="big1" class="clickable">
-      </div>
-      <div class="collab-small">
-        <img src="images/collabs/EOP1.jpg" data-target="big1" class="clickable">
-        <img src="images/collabs/EOP3.jpg" data-target="big1" class="clickable">
-        <img src="images/collabs/EOP4.jpg" data-target="big1" class="clickable">
-        <img src="images/collabs/EOP5.jpg" data-target="big1" class="clickable">
-      </div>
+  <!-- Upcoming Exhibitions -->
+  <div class="exhibition-section">
+    <h2>Upcoming Exhibitions</h2>
+    <div class="exhibition-item">
+      <span class="exhibition-year">2025 ></span>
+      <span class="exhibition-details">"Immersive Sound Futures", Berlin, 05/10/2025 – 20/10/2025</span>
     </div>
-
-    <!-- Collab 2 -->
-    <div class="collab">
-      <div class="collab-main">
-        <img src="images/collabs/main2.jpg" id="big2" class="clickable">
-      </div>
-      <div class="collab-small">
-        <img src="images/collabs/small2-1.jpg" data-target="big2" class="clickable">
-        <img src="images/collabs/small2-2.jpg" data-target="big2" class="clickable">
-        <img src="images/collabs/small2-3.jpg" data-target="big2" class="clickable">
-        <img src="images/collabs/small2-4.jpg" data-target="big2" class="clickable">
-      </div>
-      <div class="collab-text">
-        <div class="title">2023 &gt; Sonic Playground Collaboration</div>
-        <p>Focused on <strong>electronic music production</strong> and coordinating with visual artists for immersive experiences.</p>
-      </div>
+    <div class="exhibition-item">
+      <span class="exhibition-year">2025 ></span>
+      <span class="exhibition-details">"Generative Art Show", Vienna, 15/11/2025 – 30/11/2025</span>
     </div>
-
-    <!-- Add more collabs following the alternating layout -->
-
   </div>
+
+  <!-- Past Exhibitions -->
+  <div class="exhibition-section">
+    <h2>Past Exhibitions</h2>
+    <div class="exhibition-item">
+      <span class="exhibition-year">2024 ></span>
+      <span class="exhibition-details">"Sound & Space", Bucharest, 12/03/2024 – 28/03/2024</span>
+    </div>
+    <div class="exhibition-item">
+      <span class="exhibition-year">2023 ></span>
+      <span class="exhibition-details">"Audio Landscapes", Cluj-Napoca, 05/09/2023 – 20/09/2023</span>
+    </div>
+    <div class="exhibition-item">
+      <span class="exhibition-year">2022 ></span>
+      <span class="exhibition-details">"Experimental Sound Forms", Timisoara, 10/06/2022 – 25/06/2022</span>
+    </div>
+    <!-- Add more past exhibitions here -->
+  </div>
+
 </div>
 
-<!-- Rotating logo -->
-<a href="https://atomatlab.com" target="_blank">
-  <img src="images/atomatlab.png" alt="Atomat Lab Logo" class="atomat-fixed">
-</a>
 
-<!-- Menu -->
-<div class="menu" id="menu">
-  <a href="artworks.html">Artworks</a>
-  <a href="workshops.html">Workshops</a>
-  <a href="sound.html">Sound</a>
-  <a href="collabs.html">Collabs</a>
-  <div style="height:20px;"></div>
-  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
-  <a href="services.html">Services</a>
-  <div style="height:20px;"></div>
-  <a href="biography.html">Biography</a>
-  <a href="contact.html">Contact</a>
-</div>
+  <!-- Menu -->
+  <div class="menu" id="menu">
+    <a href="artworks.html">Artworks</a>
+    <a href="workshops.html">Workshops</a>
+    <a href="sound.html">Sound</a>
+    <a href="collabs.html">Collabs</a>
+    <!-- <a href="exhibitions.html">Exhibitions</a> -->
+    <div style="height:20px;"></div>
+    <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
+    <a href="services.html">Services</a>
+    <div style="height:20px;"></div>
+    <a href="biography.html">Biography</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
 
 <script>
 // Menu toggle
 const menu = document.getElementById('menu');
-const scrollContainer = document.getElementById('scroll-container');
 const overlay = document.getElementById('overlay');
-
 function toggleMenu(){
   const isOpen = menu.classList.contains('open');
-  if(isOpen){
-    menu.classList.remove('open');
-    overlay.classList.remove('active');
-  } else {
-    menu.classList.add('open');
-    overlay.classList.add('active');
-  }
+  if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); }
+  else{ menu.classList.add('open'); overlay.classList.add('active'); }
 }
-
 overlay.addEventListener('click', () => {
-  if(menu.classList.contains('open')){
-    menu.classList.remove('open');
-    overlay.classList.remove('active');
-  }
+  if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); }
 });
 
-// Image swap big<->small every 3s
-function setupCollabSwap(collabId){
-  const big = document.getElementById(collabId);
-  const smalls = document.querySelectorAll(`.collab-small img[data-target="${collabId}"]`);
-  setInterval(()=>{
-    const index = Math.floor(Math.random() * smalls.length);
-    const tempSrc = big.src;
-    big.style.opacity = 0;
-    setTimeout(()=>{
-      big.src = smalls[index].src;
-      smalls[index].src = tempSrc;
-      big.style.opacity = 1;
-    }, 500);
-  },3000);
-}
-setupCollabSwap('big1');
-setupCollabSwap('big2');
-
-// Modal popup
-const modal = document.getElementById('modal');
-const modalImg = document.getElementById('modal-img');
-
-document.querySelectorAll('.clickable').forEach(img=>{
-  img.addEventListener('click', ()=>{
-    modal.style.display = 'flex';
-    modalImg.src = img.src;
-  });
-});
-
-function closeModal(){ modal.style.display='none'; }
-
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
-modal.addEventListener('click', e=>{ if(e.target === modal) closeModal(); });
+// Rotating / flipping logo
+const rotatingLogo = document.getElementById("rotating-logo");
+const spinWrapper = document.querySelector(".spin-wrapper");
+const logos = ["images/atomatlab.png","images/field5.png"];
+let index = 0;
+setInterval(()=>{
+  rotatingLogo.classList.toggle("flipped");
+  setTimeout(()=>{
+    index = (index+1)%logos.length;
+    rotatingLogo.src = logos[index];
+  },300);
+},3000);
+spinWrapper.addEventListener("mousedown",()=>{spinWrapper.classList.add("clicked");});
+spinWrapper.addEventListener("mouseup",()=>{spinWrapper.classList.remove("clicked");});
 </script>
+
+<!-- Rotating Logo -->
+<a href="https://atomatlab.com" target="_blank">
+  <div class="spin-wrapper">
+    <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
+  </div>
+</a>
 
 </body>
 </html>
