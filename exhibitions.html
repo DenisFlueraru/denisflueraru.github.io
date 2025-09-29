@@ -4,8 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Exhibitions - Denis Flueraru</title>
-<link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
 <style>
+     
+    @font-face {
+  font-family: 'Neue Kaine';
+  src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
+       url('fonts/neue_kaine_variable-webfont.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+body, h1, h2, h3, h4, h5, h6, p, a, span, li {
+  font-family: 'Neue Kaine', sans-serif;
+}
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden; }
 
@@ -161,28 +174,32 @@ overlay.addEventListener('click', () => {
   if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); }
 });
 
-// Rotating / flipping logo
-const rotatingLogo = document.getElementById("rotating-logo");
-const spinWrapper = document.querySelector(".spin-wrapper");
-const logos = ["images/atomatlab.png","images/FIELD5.png"];
-let index = 0;
-setInterval(()=>{
-  rotatingLogo.classList.toggle("flipped");
-  setTimeout(()=>{
-    index = (index+1)%logos.length;
-    rotatingLogo.src = logos[index];
-  },300);
-},3000);
-spinWrapper.addEventListener("mousedown",()=>{spinWrapper.classList.add("clicked");});
-spinWrapper.addEventListener("mouseup",()=>{spinWrapper.classList.remove("clicked");});
 </script>
-
 <!-- Rotating Logo -->
-<a href="https://atomatlab.com" target="_blank">
-  <div class="spin-wrapper">
-    <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
-  </div>
-</a>
+  <a href="https://atomatlab.com" target="_blank">
+    <div class="spin-wrapper">
+      <img src="images/atomatlabrotating.png" alt="Logo" class="flip-image" id="rotating-logo">
+    </div>
+  </a>
+  <script>
+    const rotatingLogo = document.getElementById("rotating-logo");
+    const spinWrapper = document.querySelector(".spin-wrapper");
+    const logos = ["images/atomatlabrotating.png","images/FIELD5.png"];
+    let index=0;
+
+    setInterval(()=>{
+      rotatingLogo.classList.toggle("flipped");
+      setTimeout(()=>{
+        index = (index+1)%logos.length;
+        rotatingLogo.src = logos[index];
+      },300);
+    },3000);
+
+    spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
+    spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
+  </script>
+
+
 
 </body>
 </html>

@@ -300,19 +300,19 @@ body { font-family:'Neue Kaine', sans-serif; }
 // Images for both carousels
 const carouselData = {
   "instruments-carousel": [
-    "https://drive.google.com/uc?export=view&id=1XQTM3Nd1_NKLke8pHa1QQ1ngooN0MQ5w",
-    "https://drive.google.com/uc?export=view&id=1G7Qc3_bLRRI7ZDTGr70UnyRfv0YoUQSK",
-    "https://drive.google.com/uc?export=view&id=1GOh7p34o8NbTMgKFLa-fTJGu1bqWr0rW",
-    "https://drive.google.com/uc?export=view&id=1cwQNX0KgOlMMv5qdjhWIq9tRVptcPKiA",
-    "https://drive.google.com/uc?export=view&id=1yCQaTTTwz6vQW0v2uVro-gEqY5B1-xLD",
-    "https://drive.google.com/uc?export=view&id=19xs2nu2QZFcXYRTaG0g6HXVygaUYU7C4"
+    '<img src="https://drive.google.com/uc?export=view&id=1XQTM3Nd1_NKLke8pHa1QQ1ngooN0MQ5w">',
+    '<img src="https://drive.google.com/uc?export=view&id=1G7Qc3_bLRRI7ZDTGr70UnyRfv0YoUQSK">',
+    '<img src="https://drive.google.com/uc?export=view&id=1GOh7p34o8NbTMgKFLa-fTJGu1bqWr0rW">',
+    '<img src="https://drive.google.com/uc?export=view&id=1cwQNX0KgOlMMv5qdjhWIq9tRVptcPKiA">',
+    '<img src="https://drive.google.com/uc?export=view&id=1yCQaTTTwz6vQW0v2uVro-gEqY5B1-xLD">',
+    '<img src="https://drive.google.com/uc?export=view&id=19xs2nu2QZFcXYRTaG0g6HXVygaUYU7C4">'
   ],
   "performances-carousel": [
-    "https://drive.google.com/uc?export=view&id=1VvmRTEU6_i7G1xzGDGP2oKZYkODqkf59",
-    "https://drive.google.com/uc?export=view&id=1wuoe6s33QoghAYqXNZW-zNE0Cm8ApoVj",
-    "https://drive.google.com/uc?export=view&id=1DOxb_KPaSpo-8MZoQ9TWI2XOC8c_8Tyq",
-    "https://drive.google.com/uc?export=view&id=1NXZFUZNo-VFMpDvq-ctkrGG6IDBVM3DU",
-    "https://drive.google.com/uc?export=view&id=1tq3_TthrP_ZJakFxDQivtpvuP8Nelunv"
+    '<img src="https://drive.google.com/uc?export=view&id=1VvmRTEU6_i7G1xzGDGP2oKZYkODqkf59">',
+    '<img src="https://drive.google.com/uc?export=view&id=1wuoe6s33QoghAYqXNZW-zNE0Cm8ApoVj">',
+    '<img src="https://drive.google.com/uc?export=view&id=1DOxb_KPaSpo-8MZoQ9TWI2XOC8c_8Tyq">',
+    '<img src="https://drive.google.com/uc?export=view&id=1NXZFUZNo-VFMpDvq-ctkrGG6IDBVM3DU">',
+    '<img src="https://drive.google.com/uc?export=view&id=1tq3_TthrP_ZJakFxDQivtpvuP8Nelunv">'
   ]
 };
 
@@ -446,7 +446,7 @@ startAutoSlide();
 
     const rotatingLogo = document.getElementById("rotating-logo");
     const spinWrapper = document.querySelector(".spin-wrapper");
-    const logos = ["images/atomatlab.png","images/FIELD5.png"];
+    const logos = ["images/atomatlabrotating.png","images/FIELD5.png"];
     let index=0;
     setInterval(()=>{
       rotatingLogo.classList.toggle("flipped");
@@ -462,7 +462,7 @@ startAutoSlide();
   <!-- Rotating/flipping logo -->
   <a href="https://atomatlab.com" target="_blank">
     <div class="spin-wrapper">
-      <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
+      <img src="images/atomatlabrotating.png" alt="Logo" class="flip-image" id="rotating-logo">
     </div>
   </a>
 <script>
