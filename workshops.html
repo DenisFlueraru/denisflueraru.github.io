@@ -4,20 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Workshops - Denis Flueraru</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
+
+<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
 * {margin:0; padding:0; box-sizing:border-box;}
 body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
 
 /* Header */
 .header {
-  position:fixed;
-  top:0;
-  width:100%;
-  padding:25px 50px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  position:fixed; top:0; width:100%; padding:25px 50px;
+  display:flex; justify-content:space-between; align-items:center;
   background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
   z-index:100;
 }
@@ -26,33 +27,17 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
 /* Workshops container */
-.workshops {
-  max-width:1400px;
-  margin: 160px auto 80px auto;
-  padding:0 20px;
-  display:flex;
-  flex-direction:column;
-  gap:100px;
-}
+.workshops { max-width:1400px; margin:160px auto 80px; padding:0 20px; display:flex; flex-direction:column; gap:100px; }
 
-/* Each workshop row */
+/* Workshop row */
 .workshop {
-  display:grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap:30px;
-  align-items:center;
+  display:grid; grid-template-columns: 2fr 1fr 1fr; gap:30px; align-items:center;
 }
 .workshop:nth-child(even) { grid-template-columns: 1fr 1fr 2fr; }
 .workshop.sub { margin-top:-60px; }
 
 /* Main image */
-.workshop-main img {
-  width:100%;
-  height:280px;
-  object-fit:cover;
-  border-radius:8px;
-  cursor:pointer;
-}
+.workshop-main img { width:100%; height:280px; object-fit:cover; border-radius:8px; cursor:pointer; }
 
 /* Text */
 .workshop-text { font-size:16px; line-height:1.5; }
@@ -61,70 +46,38 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 
 /* Small image grid */
 .workshop-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+  display:grid; grid-template-columns:1fr 1fr; gap:10px;
 }
-.workshop-grid img {
-  width:100%;
-  height:140px;
-  object-fit:cover;
-  border-radius:6px;
-  cursor:pointer;
-  transition: transform 0.3s ease;
-}
+.workshop-grid img { width:100%; height:140px; object-fit:cover; border-radius:6px; cursor:pointer; transition: transform 0.3s ease; }
 .workshop-grid img:hover { transform: scale(1.05); }
 
 /* Modal */
-#modal {
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: rgba(0,0,0,0.8);
-  justify-content:center; align-items:center;
-  z-index:300;
-}
+#modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:300; }
 #modal img { max-width:90%; max-height:90%; border-radius:8px; }
-#modal .close {
-  position:absolute;
-  top:20px; right:30px;
-  font-size:40px;
-  color:white;
-  cursor:pointer;
-  font-weight:bold;
-}
+#modal .close { position:absolute; top:20px; right:30px; font-size:40px; color:white; cursor:pointer; font-weight:bold; }
 
 /* Menu */
-.menu {
-  position:fixed; top:0; right:-25%; width:25%; height:100%;
-  background-color:rgb(182, 210, 40);
-  color:black; transition:right 0.4s ease; z-index:200;
-  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
-}
+.menu { position:fixed; top:0; right:-25%; width:25%; height:100%; background-color:rgb(182,210,40); color:black; transition:right 0.4s ease; z-index:200; padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px; }
 .menu.open { right:0; }
 .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
 .menu a:hover { color:#cd6c27; }
 .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
-/* Grey overlay */
+/* Overlay */
 .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
 .overlay.active { display:block; }
 
-/* Rotating AtomatLab logo */
-.atomat-fixed {
-  position:fixed; bottom:20px; left:20px;
-  width:120px;
-  animation: spin 20s linear infinite;
-  z-index:100;
-  cursor:pointer;
-}
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+/* Rotating logo */
+.spin-wrapper { position:fixed; bottom:20px; left:20px; width:120px; animation:spin 20s linear infinite; transform-origin:center; cursor:pointer; z-index:100; }
+.flip-image { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
+.flipped { transform: rotateY(180deg); }
+.spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition:transform 0.3s ease; }
+@keyframes spin { from{transform:rotateZ(0deg);} to{transform:rotateZ(360deg);} }
 
 /* Responsive */
 @media(max-width:1000px){
-  .workshop { grid-template-columns: 1fr; }
-  .workshop:nth-child(even) { grid-template-columns: 1fr; }
+  .workshop { grid-template-columns:1fr; }
+  .workshop:nth-child(even) { grid-template-columns:1fr; }
   .workshop-main img { height:200px; }
   .workshop-grid { grid-template-columns:1fr 1fr; }
 }
@@ -145,17 +98,14 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 <!-- Modal -->
 <div id="modal">
   <span class="close" onclick="closeModal()">×</span>
-  <img id="modal-img" src="">
+  <img id="modal-img">
 </div>
 
 <!-- Workshops -->
 <div class="workshops">
-
   <!-- Workshop 1 -->
   <div class="workshop">
-    <div class="workshop-main">
-      <img src="images/workshops/CAVMAINPOST.jpg" class="clickable">
-    </div>
+    <div class="workshop-main"><img src="images/workshops/CAVMAINPOST.jpg" class="clickable"></div>
     <div class="workshop-text">
       <h2>Contact Mics & Preamps</h2>
       <p>Participants built DIY microphones together with preamps and explored recording techniques, later composing textures and rhythms in Ableton Live.</p>
@@ -181,16 +131,12 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
       <h2>Recycle Your Technology</h2>
       <p>A hands-on workshop where participants soldered and assembled electromagnetic microphones, then used them to capture electromagnetic rhythms in the gallery space.</p>
     </div>
-    <div class="workshop-main">
-      <img src="images/workshops/R9_MAIN.jpg" class="clickable">
-    </div>
+    <div class="workshop-main"><img src="images/workshops/R9_MAIN.jpg" class="clickable"></div>
   </div>
 
-  <!-- Workshop 2 second row -->
+  <!-- Workshop 2 sub-row -->
   <div class="workshop sub">
-    <div class="workshop-main">
-      <img src="images/workshops/Resita1.jpg" class="clickable">
-    </div>
+    <div class="workshop-main"><img src="images/workshops/Resita1.jpg" class="clickable"></div>
     <div class="workshop-text">
       <p>This workshop later evolved into a series across Romania, where participants from different cities learned how to build microphones and explore local soundscapes.</p>
       <p><strong>Year:</strong> 2024 – Bucharest, Arad, Resita, Brasov</p>
@@ -205,9 +151,7 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 
   <!-- Workshop 3 -->
   <div class="workshop">
-    <div class="workshop-main">
-      <img src="images/workshops/NOVA MAIN.jpg" class="clickable">
-    </div>
+    <div class="workshop-main"><img src="images/workshops/NOVA MAIN.jpg" class="clickable"></div>
     <div class="workshop-text">
       <h2>Contact Microphones & Composition</h2>
       <p>We explored the urban environment with microphones, creating a sonic map of the city and later transformed the sounds into a collaborative composition.</p>
@@ -231,110 +175,62 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
     </div>
     <div class="workshop-text">
       <h2>Sonic Explorations @ Pixels from a Past Future</h2>
-      <p>The pilot musique concrète workshop, where participants learned the foundation elements of experimental music and got to build their first contact microphone and later got familiar with Ableton Live by making a collaborative composition.</p>
+      <p>The pilot musique concrète workshop, where participants learned the foundation elements of experimental music and built their first contact microphone, later creating a collaborative composition in Ableton Live.</p>
       <p><strong>Year:</strong> 2023 – National Museum of Contemporary Art (MNAC), Bucharest</p>
     </div>
-    <div class="workshop-main">
-      <img src="images/workshops/MNAC1.png" class="clickable">
-    </div>
+    <div class="workshop-main"><img src="images/workshops/MNAC1.png" class="clickable"></div>
   </div>
 
 </div>
 
+<!-- Menu -->
+<div class="menu" id="menu">
+  <a href="artworks.html">Artworks</a>
+  <a href="workshops.html">Workshops</a>
+  <a href="sound.html">Sound</a>
+  <a href="collabs.html">Collabs</a>
+  <div style="height:20px;"></div>
+  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" class="menu-icon"></a>
+  <a href="services.html">Services</a>
+  <div style="height:20px;"></div>
+  <a href="biography.html">Biography</a>
+  <a href="contact.html">Contact</a>
+</div>
 
-  <!-- Menu -->
-  <div class="menu" id="menu">
-    <a href="artworks.html">Artworks</a>
-    <a href="workshops.html">Workshops</a>
-    <a href="sound.html">Sound</a>
-    <a href="collabs.html">Collabs</a>
-    <!-- <a href="exhibitions.html">Exhibitions</a> -->
-    <div style="height:20px;"></div>
-    <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
-    <a href="services.html">Services</a>
-    <div style="height:20px;"></div>
-    <a href="biography.html">Biography</a>
-    <a href="contact.html">Contact</a>
+<!-- Rotating/flipping logo -->
+<a href="https://atomatlab.com" target="_blank">
+  <div class="spin-wrapper">
+    <img src="images/atomatlab.png" class="flip-image" id="rotating-logo">
   </div>
-
+</a>
 
 <script>
 // Menu toggle
 const menu = document.getElementById('menu');
 const overlay = document.getElementById('overlay');
-function toggleMenu(){
-  const isOpen = menu.classList.contains('open');
-  if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); }
-  else{ menu.classList.add('open'); overlay.classList.add('active'); }
-}
-overlay.addEventListener('click', () => {
-  if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); }
-});
+function toggleMenu() { menu.classList.toggle('open'); overlay.classList.toggle('active'); }
+overlay.addEventListener('click', ()=>{ menu.classList.remove('open'); overlay.classList.remove('active'); });
 
 // Modal functionality
 const modal = document.getElementById('modal');
 const modalImg = document.getElementById('modal-img');
+document.querySelectorAll('.clickable').forEach(img => img.addEventListener('click', () => { modalImg.src = img.src; modal.style.display='flex'; }));
+function closeModal(){ modal.style.display='none'; modalImg.src=''; }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+modal.addEventListener('click', e=>{ if(e.target===modal || e.target.classList.contains('close')) closeModal(); });
 
-function openModal(src){ modalImg.src = src; modal.style.display = 'flex'; }
-function closeModal(){ modal.style.display = 'none'; modalImg.src = ''; }
-
-document.querySelectorAll('.clickable').forEach(img => {
-  img.addEventListener('click', () => openModal(img.src));
-});
-
-// Close modal on ESC
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
-
-// Close modal when clicking outside image
-modal.addEventListener('click', e => { if(e.target === modal || e.target.classList.contains('close')) closeModal(); });
-</script>
-<!-- Rotating/flipping logo bottom-left -->
-<a href="https://atomatlab.com" target="_blank">
-  <div class="spin-wrapper">
-    <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
-  </div>
-</a>
-
-<style>
-.spin-wrapper {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  width: 120px;
-  animation: spin 20s linear infinite;
-  transform-origin: center;
-  cursor: pointer;
-  z-index:100;
-}
-.flip-image {
-  width: 100%;
-  transition: transform 0.6s ease, opacity 0.3s ease;
-  transform-style: preserve-3d;
-}
-.flipped { transform: rotateY(180deg); }
-.spin-wrapper.clicked {
-  transform: scale(1.2) rotateZ(var(--angle, 0deg));
-  transition: transform 0.3s ease;
-}
-@keyframes spin { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
-</style>
-
-<script>
+// Rotating/flipping logo
 const rotatingLogo = document.getElementById("rotating-logo");
 const spinWrapper = document.querySelector(".spin-wrapper");
 const logos = ["images/atomatlab.png","images/FIELD5.png"];
 let index=0;
-
 setInterval(()=>{
   rotatingLogo.classList.toggle("flipped");
-  setTimeout(()=>{
-    index = (index+1)%logos.length;
-    rotatingLogo.src = logos[index];
-  },300);
+  setTimeout(()=>{ index=(index+1)%logos.length; rotatingLogo.src=logos[index]; },300);
 },3000);
-
 spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
 spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
 </script>
+
 </body>
 </html>
