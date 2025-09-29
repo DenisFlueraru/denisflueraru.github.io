@@ -9,62 +9,46 @@
     * {margin:0; padding:0; box-sizing:border-box;}
     body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
 
-    /* Header with fade */
+    /* Header */
     .header {
-      position:fixed;
-      top:0;
-      width:100%;
+      position:fixed; top:0; width:100%;
       padding:25px 50px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+      display:flex; justify-content:space-between; align-items:center;
       background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
       z-index:100;
     }
-.header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
-.header .section-title { font-weight:400; font-size:28px; }
-.header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
+    .header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
+    .header .section-title { font-weight:400; font-size:28px; }
+    .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
-    /* Page container */
+    /* Page */
     .sound-page {
       max-width:1200px;
-      margin:200px auto 80px auto; /* more space below header */
+      margin:200px auto 80px auto;
       padding:0 20px;
       display:flex;
       flex-direction:column;
       gap:100px;
     }
 
-    /* Section */
-    .alias-section h2 {
-      font-size:26px;
-      margin-bottom:20px;
-    }
-    .alias-section p {
-      font-size:16px;
-      margin-bottom:20px;
-      line-height:1.5;
-    }
+    .alias-section h2 { font-size:26px; margin-bottom:20px; }
+    .alias-section p { font-size:16px; margin-bottom:20px; line-height:1.5; }
 
-    /* Embed styling */
-    .embed {
-      margin-bottom:20px;
-    }
+    /* Embed */
+    .embed { margin-bottom:20px; }
     iframe {
       width:100%;
-      height:350px; /* taller, closer to square */
+      height:350px;
       border:none;
       border-radius:8px;
     }
 
-    /* Grid for multiple embeds */
+    /* Grids */
     .grid {
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:20px;
     }
-
-    /* Mixed grid images */
     .mixed-grid {
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -72,11 +56,65 @@
       margin-top:40px;
     }
     .mixed-grid img {
-      width:100%;
-      height:350px;
-      object-fit:cover;
-      border-radius:8px;
+      width:100%; height:350px; object-fit:cover; border-radius:8px;
     }
+
+/* Grid with 2 carousels side by side */
+.carousel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin: 60px 0;
+}
+
+/* Carousel base */
+.carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid #cd6c27;
+  border-radius: 10px;
+  height: 320px;
+  background: #f9f9f9;
+}
+
+/* Images */
+.carousel img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: opacity 0.5s ease;
+}
+
+/* Arrows */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(205,108,39,0.8); /* your brown */
+  color: white;
+  border: none;
+  font-size: 28px;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.3s;
+  z-index: 2;
+}
+
+.arrow:hover {
+  background: rgba(205,108,39,1);
+}
+
+.arrow.prev { left: 10px; }
+.arrow.next { right: 10px; }
+
+/* Responsive */
+@media(max-width:900px){
+  .carousel-grid { grid-template-columns: 1fr; }
+}
 
     /* Menu */
     .menu {
@@ -88,32 +126,36 @@
     .menu.open { right:0; }
     .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
     .menu a:hover { color:#cd6c27; }
-    .menu-icon {
-      height:1em;
-      margin-left:5px;
-      vertical-align:middle;
-    }
+    .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
-    /* Grey overlay */
     .overlay {
       position:fixed; top:0; left:0; width:100%; height:100%;
-      background-color:rgba(128,128,128,0.2); display:none; z-index:150;
+      background-color:rgba(128,128,128,0.2);
+      display:none; z-index:150;
     }
     .overlay.active { display:block; }
 
     /* Rotating AtomatLab logo */
-    .atomat-fixed {
-      position:fixed;
-      bottom:20px; left:20px;
-      width:120px;
+    .spin-wrapper {
+      position: fixed;
+      bottom: 20px; left: 20px;
+      width: 120px;
       animation: spin 20s linear infinite;
-      z-index:100;
+      transform-origin: center;
       cursor:pointer;
+      z-index:100;
     }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+    .flip-image {
+      width: 100%;
+      transition: transform 0.6s ease, opacity 0.3s ease;
+      transform-style: preserve-3d;
     }
+    .flipped { transform: rotateY(180deg); }
+    .spin-wrapper.clicked {
+      transform: scale(1.2) rotateZ(var(--angle, 0deg));
+      transition: transform 0.3s ease;
+    }
+    @keyframes spin { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
 
     /* Responsive */
     @media(max-width:900px){
@@ -134,7 +176,7 @@
   <!-- Overlay -->
   <div class="overlay" id="overlay"></div>
 
-  <!-- Page content -->
+  <!-- Page -->
   <div class="sound-page">
 
     <!-- Intro -->
@@ -142,33 +184,209 @@
       <p>Through my aliases I explore different sonic identities: <strong>LESEL</strong> focuses on experimental electronic textures, while <strong>Addison Gardens</strong> opens space for blending guitar, improvisation, and live performance approaches.</p>
     </section>
 
+    <!-- Custom Instruments & Performances -->
+  <section class="alias-section">
+  <h2>Custom Instruments & Performances</h2>
+  <p>
+  I sometimes build my own bespoke microphones to record in specific environments. 
+  For more information, please visit 
+  <a href="https://atomatlab.com" target="_blank" style="display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:inherit;">
+    atomatlab.com
+    <img src="images/atomatlab.png" alt="Atomat Logo" style="height:1em; vertical-align:middle;">
+  </a>.
+</p>
+  <p>
+    My sound work has been presented in contexts such as <em>Sound Campus – Open Stream, Linz, AT</em>, where my piece <strong>Ruined Resonances</strong> was performed throughout Ars Electronica, and in <em>RADAR 2023, Bucharest, RO</em>, where I performed <strong>Sonic Imprints</strong>, an interactive audio-visual performance transcribing frequencies with a pen plotter.
+  </p>
+
+<!-- 2x1 Grid -->
+  <div class="carousel-grid">
+    <div class="carousel-container" id="instruments-carousel">
+      <button class="arrow left" onclick="prevSlide('instruments-carousel')">&#10094;</button>
+      <img src="images/FIELD5.png" alt="Instruments" onclick="openModal(this.src)">
+      <button class="arrow right" onclick="nextSlide('instruments-carousel')">&#10095;</button>
+    </div>
+    <div class="carousel-container" id="performances-carousel">
+      <button class="arrow left" onclick="prevSlide('performances-carousel')">&#10094;</button>
+      <img src="images/event1.jpg" alt="Performances" onclick="openModal(this.src)">
+      <button class="arrow right" onclick="nextSlide('performances-carousel')">&#10095;</button>
+    </div>
+  </div>
+</section>
+
+<!-- Modal Popup -->
+<div id="modal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="modal-img">
+</div>
+
+<style>
+.carousel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 30px;
+}
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 400px;
+  border-radius: 8px;
+}
+.carousel-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+}
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 2em;
+  color: #b6d228; /* green */
+  cursor: pointer;
+  z-index: 10;
+  user-select: none;
+}
+.arrow.left { left: 10px; }
+.arrow.right { right: 10px; }
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+}
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 3em;
+  color: white;
+  cursor: pointer;
+}
+</style>
+
+<script>
+// Images for both carousels
+const carouselData = {
+  "instruments-carousel": [
+    "https://drive.google.com/uc?export=view&id=1XQTM3Nd1_NKLke8pHa1QQ1ngooN0MQ5w",
+    "https://drive.google.com/uc?export=view&id=1G7Qc3_bLRRI7ZDTGr70UnyRfv0YoUQSK",
+    "https://drive.google.com/uc?export=view&id=1GOh7p34o8NbTMgKFLa-fTJGu1bqWr0rW",
+    "https://drive.google.com/uc?export=view&id=1cwQNX0KgOlMMv5qdjhWIq9tRVptcPKiA",
+    "https://drive.google.com/uc?export=view&id=1yCQaTTTwz6vQW0v2uVro-gEqY5B1-xLD",
+    "https://drive.google.com/uc?export=view&id=19xs2nu2QZFcXYRTaG0g6HXVygaUYU7C4"
+  ],
+  "performances-carousel": [
+    "https://drive.google.com/uc?export=view&id=1VvmRTEU6_i7G1xzGDGP2oKZYkODqkf59",
+    "https://drive.google.com/uc?export=view&id=1wuoe6s33QoghAYqXNZW-zNE0Cm8ApoVj",
+    "https://drive.google.com/uc?export=view&id=1DOxb_KPaSpo-8MZoQ9TWI2XOC8c_8Tyq",
+    "https://drive.google.com/uc?export=view&id=1NXZFUZNo-VFMpDvq-ctkrGG6IDBVM3DU",
+    "https://drive.google.com/uc?export=view&id=1tq3_TthrP_ZJakFxDQivtpvuP8Nelunv"
+  ]
+};
+
+const currentIndex = { "instruments-carousel": 0, "performances-carousel": 0 };
+let autoSlideInterval;
+
+// Update carousel image with fade
+function updateCarousel(id) {
+  const carousel = document.getElementById(id);
+  const img = carousel.querySelector("img");
+  img.style.opacity = 0;
+  setTimeout(() => {
+    img.src = carouselData[id][currentIndex[id]];
+    img.style.opacity = 1;
+  }, 250);
+}
+
+// Navigation
+function nextSlide(id) {
+  currentIndex[id] = (currentIndex[id] + 1) % carouselData[id].length;
+  updateCarousel(id);
+  resetTimer();
+}
+
+function prevSlide(id) {
+  currentIndex[id] = (currentIndex[id] - 1 + carouselData[id].length) % carouselData[id].length;
+  updateCarousel(id);
+  resetTimer();
+}
+
+// Auto-slide every 3 seconds
+function startAutoSlide() {
+  autoSlideInterval = setInterval(() => {
+    nextSlide('instruments-carousel');
+    nextSlide('performances-carousel');
+  }, 3000);
+}
+
+function resetTimer() {
+  clearInterval(autoSlideInterval);
+  startAutoSlide();
+}
+
+// Modal popup
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("modal-img");
+
+function openModal(src) {
+  modal.style.display = "flex";
+  modalImg.src = src;
+}
+
+function closeModal() {
+  modal.style.display = "none";
+}
+
+// Close modal with ESC
+window.addEventListener("keydown", (e) => {
+  if(e.key === "Escape") closeModal();
+});
+
+// Close modal by clicking outside image
+modal.addEventListener("click", (e) => {
+  if(e.target === modal) closeModal();
+});
+
+// Start auto-slide on page load
+startAutoSlide();
+</script>
+
     <!-- LESEL -->
     <section class="alias-section">
       <h2>LESEL</h2>
-
-      <!-- Release at the top -->
       <div class="embed">
-        <iframe width="100%" height="200" scrolling="no" frameborder="no" allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/leselmusic/leselot001-preview&color=%23000000&inverse=false&auto_play=false&show_user=true"></iframe>
+        <iframe src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/leselmusic/leselot001-preview&color=%23000000&inverse=false&auto_play=false&show_user=true"></iframe>
       </div>
-
-     
-
-      <!-- Performances -->
       <div class="grid" style="margin-top:40px;">
-        <iframe src="https://www.youtube.com/embed/NhUxxw2keDg" title="Denis Hesser - Introduction" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/NWbQPO3mKYA" title="Ruggiero (Live) - Poetovio Deep - Podcast 010" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/NhUxxw2keDg" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/NWbQPO3mKYA" allowfullscreen></iframe>
       </div>
-
-      <!-- Mixed Grid (4 alternating image + video) -->
       <div class="mixed-grid">
         <img src="images/sound/LESEL1.jpg">
-        <iframe src="https://www.youtube.com/embed/OCOhSMA0k8c" title="LESEL DJ Podcast" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/x_3DH34416c" title="LESEL DJ Podcast" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/OCOhSMA0k8c" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/x_3DH34416c" allowfullscreen></iframe>
         <img src="images/sound/LESEL2.jpg">
         <img src="images/sound/LESEL3.jpg">
-        <iframe src="https://www.youtube.com/embed/qRL7gapq0E4" title="LESEL DJ Podcast" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/HgaK4oZQBrc" title="LESEL DJ Podcast" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/qRL7gapq0E4" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/HgaK4oZQBrc" allowfullscreen></iframe>
         <img src="images/sound/LESEL4.jpg">
       </div>
     </section>
@@ -176,17 +394,12 @@
     <!-- Addison Gardens -->
     <section class="alias-section">
       <h2>Addison Gardens</h2>
-      <p>A project for experiments with sound — including guitar, live sets, and compositions outside of the house frameworks.</p>
-     <!-- SoundCloud embed -->
+      <p>A project for experiments with sound — including guitar, live sets, and compositions outside of house frameworks.</p>
       <div class="embed">
-        <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A925918936&color=%23000000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
-        </iframe>
+        <iframe src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A925918936&color=%23000000&auto_play=false&visual=true"></iframe>
       </div>
     </section>
   </div>
-
-
 
   <!-- Menu -->
   <div class="menu" id="menu">
@@ -194,7 +407,6 @@
     <a href="workshops.html">Workshops</a>
     <a href="sound.html">Sound</a>
     <a href="collabs.html">Collabs</a>
-    <!-- <a href="exhibitions.html">Exhibitions</a> -->
     <div style="height:20px;"></div>
     <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
     <a href="services.html">Services</a>
@@ -203,76 +415,65 @@
     <a href="contact.html">Contact</a>
   </div>
 
-
   <script>
     const menu = document.getElementById('menu');
     const overlay = document.getElementById('overlay');
-
     function toggleMenu(){
       const isOpen = menu.classList.contains('open');
-      if(isOpen){
-        menu.classList.remove('open');
-        overlay.classList.remove('active');
-      } else {
-        menu.classList.add('open');
-        overlay.classList.add('active');
-      }
+      if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); }
+      else { menu.classList.add('open'); overlay.classList.add('active'); }
     }
-
     overlay.addEventListener('click', () => {
       if(menu.classList.contains('open')){
         menu.classList.remove('open');
         overlay.classList.remove('active');
       }
     });
+
+    const rotatingLogo = document.getElementById("rotating-logo");
+    const spinWrapper = document.querySelector(".spin-wrapper");
+    const logos = ["images/atomatlab.png","images/FIELD5.png"];
+    let index=0;
+    setInterval(()=>{
+      rotatingLogo.classList.toggle("flipped");
+      setTimeout(()=>{
+        index = (index+1)%logos.length;
+        rotatingLogo.src = logos[index];
+      },300);
+    },3000);
+    spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
+    spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
   </script>
-<!-- Rotating/flipping logo bottom-left -->
-<a href="https://atomatlab.com" target="_blank">
-  <div class="spin-wrapper">
-    <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
-  </div>
-</a>
 
-<style>
-.spin-wrapper {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  width: 120px;
-  animation: spin 20s linear infinite;
-  transform-origin: center;
-  cursor: pointer;
-  z-index:100;
-}
-.flip-image {
-  width: 100%;
-  transition: transform 0.6s ease, opacity 0.3s ease;
-  transform-style: preserve-3d;
-}
-.flipped { transform: rotateY(180deg); }
-.spin-wrapper.clicked {
-  transform: scale(1.2) rotateZ(var(--angle, 0deg));
-  transition: transform 0.3s ease;
-}
-@keyframes spin { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
-</style>
-
+  <!-- Rotating/flipping logo -->
+  <a href="https://atomatlab.com" target="_blank">
+    <div class="spin-wrapper">
+      <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
+    </div>
+  </a>
 <script>
-const rotatingLogo = document.getElementById("rotating-logo");
-const spinWrapper = document.querySelector(".spin-wrapper");
-const logos = ["images/atomatlab.png","images/FIELD5.png"];
-let index=0;
 
-setInterval(()=>{
-  rotatingLogo.classList.toggle("flipped");
-  setTimeout(()=>{
-    index = (index+1)%logos.length;
-    rotatingLogo.src = logos[index];
-  },300);
-},3000);
+  function updateCarousel(id) {
+    const carousel = document.getElementById(id);
+    const img = carousel.querySelector("img");
+    img.style.opacity = 0;
+    setTimeout(() => {
+      img.src = carouselData[id][currentIndex[id]];
+      img.style.opacity = 1;
+    }, 250);
+  }
 
-spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
-spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
+  function nextSlide(id) {
+    currentIndex[id] = (currentIndex[id] + 1) % carouselData[id].length;
+    updateCarousel(id);
+  }
+
+  function prevSlide(id) {
+    currentIndex[id] =
+      (currentIndex[id] - 1 + carouselData[id].length) % carouselData[id].length;
+    updateCarousel(id);
+  }
 </script>
+
 </body>
 </html>

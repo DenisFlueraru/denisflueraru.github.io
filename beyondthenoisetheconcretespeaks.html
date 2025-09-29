@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyond the Noise, the Concrete Speaks - Denis Flueraru</title>
+<link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
+::-webkit-scrollbar {display:none;} 
+body {-ms-overflow-style:none; scrollbar-width:none;}
+
+/* Header */
+.header {
+  position:fixed; top:0; width:100%;
+  padding:25px 50px;
+  display:flex; justify-content:space-between; align-items:center;
+  background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
+  z-index:100; pointer-events:none;
+}
+.header * { pointer-events:auto; }
+.header .logo { font-weight:bold; font-size:20px; text-decoration:none; color:black; }
+.header .section-title { font-weight:400; font-size:22px; color:black; text-align:center; flex:1; }
+.header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
+
+/* Main content */
+.main-content { display:flex; justify-content:center; padding-top:120px; min-height:100vh; position:relative; }
+.scroll-container { display:flex; flex-direction:column; gap:40px; max-width:900px; font-size:16px; line-height:1.6; margin:0 auto; padding-bottom:100px; transition: transform 0.6s ease, opacity 0.6s ease; }
+.scroll-container.recede { transform:scale(0.97); opacity:0.85; }
+
+/* Section images & text */
+.main-image { width:100%; max-height:500px; object-fit:cover; border-radius:8px; }
+.section-desc { font-size:16px; line-height:1.5; margin-bottom:40px; }
+
+/* Carousel */
+.carousel-grid { display:grid; grid-template-columns:1fr; gap:20px; margin-top:20px; }
+.carousel-container { position: relative; overflow:hidden; width:100%; height:400px; border-radius:8px; }
+.carousel-container img { width:100%; height:100%; object-fit:cover; cursor:pointer; transition:opacity 0.5s ease; }
+.arrow { position:absolute; top:50%; transform:translateY(-50%); background:none; border:none; font-size:2em; color:#b6d228; cursor:pointer; z-index:10; user-select:none; }
+.arrow.left { left:10px; } .arrow.right { right:10px; }
+
+/* Modal */
+.modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
+.modal-content { max-width:90%; max-height:90%; border-radius:8px; }
+.close { position:absolute; top:20px; right:30px; font-size:3em; color:white; cursor:pointer; }
+
+/* Menu */
+.menu { position:fixed; top:0; right:-25%; width:25%; height:100%; background-color:rgb(182,210,40); color:black; transition:right 0.4s ease; z-index:200; padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px; }
+.menu.open { right:0; }
+.menu a { color:black; text-decoration:none; transition:color 0.2s ease; display:inline-flex; align-items:center; }
+.menu a:hover { color:#cd6c27; }
+.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
+.overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
+.overlay.active { display:block; }
+
+/* Rotating logo */
+.spin-wrapper { position: fixed; bottom:20px; left:20px; width:120px; animation:spin 20s linear infinite; transform-origin:center; cursor:pointer; z-index:100; }
+.flip-image { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
+.flipped { transform: rotateY(180deg); }
+.spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
+@keyframes spin { from { transform:rotateZ(0deg); } to { transform:rotateZ(360deg); } }
+
+/* Responsive */
+@media(max-width:900px){ .carousel-grid { grid-template-columns:1fr; } .main-image { max-height:300px; } .menu{width:50%; right:-50%;} .menu.open{right:0;} }
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div class="header">
+  <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
+  <span class="section-title">Beyond the noise, the concrete speaks</span>
+  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Main content -->
+<div class="main-content">
+  <div class="scroll-container" id="scroll-container">
+
+    <!-- Main Image -->
+    <img src="https://drive.google.com/uc?export=view&id=1fOrAwAmFtkqaAlY8dDSjzL_8fXPPFhA0" alt="Main Work" class="main-image">
+
+    <!-- Description -->
+    <p class="section-desc">
+      "Beyond the noise, the concrete speaks" (2024) <br><br>
+      The series explore the urban milieu and turns the streetscape into a tactile journey through memory and place. The molds collectively resonate with the vibrant interplay between the city's history and contemporary experience, woven into a sound composition crafted from field recordings taken on location.
+    </p>
+
+    <!-- Brasov 2025 -->
+    <h2 style="text-align:center;">2025 &gt; Beyond the noise, the concrete speaks (Brasov)</h2>
+    <div class="carousel-grid">
+      <div class="carousel-container" id="brasov-carousel">
+        <button class="arrow left" onclick="prevSlide('brasov-carousel')">&#10094;</button>
+        <img src="https://drive.google.com/uc?export=view&id=1FXPJi129QXzYASn7aIac3H1B2QZKn6s5" onclick="openModal(this.src)">
+        <button class="arrow right" onclick="nextSlide('brasov-carousel')">&#10095;</button>
+      </div>
+    </div>
+
+    <!-- Bucharest 2024 -->
+    <h2 style="text-align:center;">2024 &gt; Beyond the noise, the concrete speaks (Bucharest)</h2>
+    <div class="carousel-grid">
+      <div class="carousel-container" id="bucharest-carousel">
+        <button class="arrow left" onclick="prevSlide('bucharest-carousel')">&#10094;</button>
+        <img src="https://drive.google.com/uc?export=view&id=1fOrAwAmFtkqaAlY8dDSjzL_8fXPPFhA0" onclick="openModal(this.src)">
+        <button class="arrow right" onclick="nextSlide('bucharest-carousel')">&#10095;</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="modal-img">
+</div>
+
+<!-- Sliding Menu -->
+<div class="menu" id="menu">
+  <a href="artworks.html">Artworks</a>
+  <a href="workshops.html">Workshops</a>
+  <a href="sound.html">Sound</a>
+  <a href="collabs.html">Collabs</a>
+  <div style="height:20px;"></div>
+  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" class="menu-icon"></a>
+  <a href="services.html">Services</a>
+  <div style="height:20px;"></div>
+  <a href="biography.html">Biography</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- Rotating logo -->
+<a href="https://atomatlab.com" target="_blank">
+  <div class="spin-wrapper">
+    <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
+  </div>
+</a>
+
+<script>
+const menu = document.getElementById('menu');
+const scrollContainer = document.getElementById('scroll-container');
+const overlay = document.getElementById('overlay');
+function toggleMenu(){
+  const isOpen = menu.classList.contains('open');
+  if(isOpen){ menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active'); }
+  else { menu.classList.add('open'); scrollContainer.classList.add('recede'); overlay.classList.add('active'); }
+}
+overlay.addEventListener('click',()=>{ if(menu.classList.contains('open')){ menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active'); }});
+
+// Rotating logo
+const rotatingLogo = document.getElementById("rotating-logo");
+const spinWrapper = document.querySelector(".spin-wrapper");
+const logos = ["images/atomatlab.png","images/FIELD5.png"];
+let index=0;
+setInterval(()=>{
+  rotatingLogo.classList.toggle("flipped");
+  setTimeout(()=>{ index=(index+1)%logos.length; rotatingLogo.src=logos[index]; },300);
+},3000);
+spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
+spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
+
+// Carousel
+const carouselData = {
+  "brasov-carousel":[
+    "https://drive.google.com/uc?export=view&id=1FXPJi129QXzYASn7aIac3H1B2QZKn6s5",
+    "https://drive.google.com/uc?export=view&id=18BfKXSJEAqD303zcrI7mWk6x3l2J3uco",
+    "https://drive.google.com/uc?export=view&id=1iOGqVedeAODwo-r5t7_Zr2buzPIDGD4F",
+    "https://drive.google.com/uc?export=view&id=1Um6sHlKYFcIMfZ5jbzx97PUwCG_-xugy",
+    "https://drive.google.com/uc?export=view&id=1Y7T6i5xPLjfxxIi6LjdXpXLN8FMONm-s"
+  ],
+  "bucharest-carousel":[
+    "https://drive.google.com/uc?export=view&id=1fOrAwAmFtkqaAlY8dDSjzL_8fXPPFhA0",
+    "https://drive.google.com/uc?export=view&id=1X6z1m5OAotd3GMsJxZsoMmUF135bXJ3N",
+    "https://drive.google.com/uc?export=view&id=1v89Ulwdv1IKNFfMeIykVdtmAHZlHvl2S",
+    "https://drive.google.com/uc?export=view&id=1Ssml8wZH7Y3G4U6xcCB3BiCqpKJNcFGU"
+  ]
+};
+let currentIndex = {"brasov-carousel":0,"bucharest-carousel":0};
+let autoSlideInterval;
+function updateCarousel(id){ const carousel=document.getElementById(id); const img=carousel.querySelector("img"); img.style.opacity=0; setTimeout(()=>{ img.src=carouselData[id][currentIndex[id]]; img.style.opacity=1; },250); }
+function nextSlide(id){ currentIndex[id]=(currentIndex[id]+1)%carouselData[id].length; updateCarousel(id); resetTimer(); }
+function prevSlide(id){ currentIndex[id]=(currentIndex[id]-1+carouselData[id].length)%carouselData[id].length; updateCarousel(id); resetTimer(); }
+function startAutoSlide(){ autoSlideInterval=setInterval(()=>{ nextSlide('brasov-carousel'); nextSlide('bucharest-carousel'); },3000); }
+function resetTimer(){ clearInterval(autoSlideInterval); startAutoSlide(); }
+startAutoSlide();
+
+// Modal
+const modal=document.getElementById("modal");
+const modalImg=document.getElementById("modal-img");
+function openModal(src){ modal.style.display="flex"; modalImg.src=src; }
+function closeModal(){ modal.style.display="none"; }
+window.addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeModal(); });
+modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
+</script>
+
+</body>
+</html>
