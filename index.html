@@ -4,12 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Denis Flueraru</title>
-  <link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="images/atomatlab.png">
 
+  <!-- Local font -->
   <style>
+    @font-face {
+      font-family: 'Neue Kaine';
+      src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
+           url('fonts/neue_kaine_variable-webfont.woff') format('woff');
+      font-weight: 100 900; /* variable font */
+      font-style: normal;
+      font-display: swap;
+    }
+
     * {margin:0; padding:0; box-sizing:border-box;}
     body {
       font-family:'Neue Kaine', sans-serif;
@@ -21,171 +30,87 @@
     ::-webkit-scrollbar { display:none; }
     body { -ms-overflow-style:none; scrollbar-width:none; }
 
-    /* Header with fade to transparent */
+    /* Header */
     .header {
       position:fixed;
-      top:0;
-      width:100%;
+      top:0; width:100%;
       padding:25px 50px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+      display:flex; justify-content:space-between; align-items:center;
       background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
       z-index:100;
-      pointer-events:none; /* allow scroll underneath */
+      pointer-events:none;
     }
-    .header * { pointer-events:auto; } /* keep links/menu clickable */
-
+    .header * { pointer-events:auto; }
     .header .logo {
-      font-weight:bold;
-      font-size:20px;
-      cursor:pointer;
-      text-decoration:none;
-      color:black;
+      font-weight:bold; font-size:20px; cursor:pointer;
+      text-decoration:none; color:black;
     }
-
     .header .section-title {
-      font-weight:400;
-      font-size:22px;
-      color:black;
-      margin:0 20px; /* spacing between logo and menu */
+      font-weight:400; font-size:22px; color:black;
+      margin:0 20px;
     }
+    .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
-    .header .menu-toggle {
-      cursor:pointer;
-      font-weight:bold;
-      font-size:22px;
-    }
-
-    /* Main content scrolls with body */
+    /* Main content */
     .main-content {
-      display:flex;
-      justify-content:center;
-      padding-top:120px; /* prevent header overlap */
-      min-height:100vh;
-      position:relative;
+      display:flex; justify-content:center;
+      padding-top:120px; min-height:100vh; position:relative;
     }
     .scroll-container {
-      display:flex;
-      flex-direction:column;
-      gap:40px;
-      max-width:900px;
-      font-size:16px;
-      line-height:1.6;
-      margin:0 auto;
-      padding-bottom:100px;
+      display:flex; flex-direction:column; gap:40px;
+      max-width:900px; font-size:16px; line-height:1.6;
+      margin:0 auto; padding-bottom:100px;
       transition: transform 0.6s ease, opacity 0.6s ease;
     }
-    .scroll-container.recede {
-      transform:scale(0.97);
-      opacity:0.85;
-    }
+    .scroll-container.recede { transform:scale(0.97); opacity:0.85; }
 
     /* Updates */
-    .update {
-      display:flex;
-      flex-direction:column;
-      padding:0 40px;
-    }
-    .update .title {
-      font-weight:bold;
-      margin-bottom:5px;
-      max-width:95%;
-    }
-    .update img {
-      max-width:95%;
-      margin-bottom:10px;
-      border-radius:4px;
-    }
-    .update p {
-      color:#333;
-      max-width:95%;
-      text-align:inherit;
-    }
+    .update { display:flex; flex-direction:column; padding:0 40px; }
+    .update .title { font-weight:bold; margin-bottom:5px; max-width:95%; }
+    .update img { max-width:95%; margin-bottom:10px; border-radius:4px; }
+    .update p { color:#333; max-width:95%; text-align:inherit; }
 
     /* Alternate alignment */
     .update:nth-child(odd) { align-items:flex-start; text-align:left; }
     .update:nth-child(even) { align-items:flex-end; text-align:right; }
 
-    /* Hyperlinks */
-    a.custom-link {
-      text-decoration:underline;
-      color:black;
-      transition:color 0.2s ease;
-    }
+    a.custom-link { text-decoration:underline; color:black; transition:color 0.2s ease; }
     a.custom-link:hover { color:rgb(182,210,40); }
 
-    /* iframe embeds */
-    .update iframe {
-      display:block;
-      max-width:95%;
-      margin:20px auto;
-      height:auto;
-    }
+    .update iframe { display:block; max-width:95%; margin:20px auto; height:auto; }
 
     /* Menu */
     .menu {
-      position:fixed;
-      top:0; right:-25%;
-      width:25%; height:100%;
-      background-color:rgb(182,210,40);
-      color:black;
-      transition:right 0.4s ease;
-      z-index:200;
-      padding:50px 20px;
-      display:flex;
-      flex-direction:column;
-      gap:20px;
-      font-size:20px;
+      position:fixed; top:0; right:-25%; width:25%; height:100%;
+      background-color:rgb(182,210,40); color:black;
+      transition:right 0.4s ease; z-index:200;
+      padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
     }
     .menu.open { right:0; }
-    .menu a {
-      color:black;
-      text-decoration:none;
-      transition:color 0.2s ease;
-      display:inline-flex;
-      align-items:center;
-    }
+    .menu a { color:black; text-decoration:none; transition:color 0.2s ease; display:inline-flex; align-items:center; }
     .menu a:hover { color:#cd6c27; }
-    .menu-icon {
-      height:1em;
-      margin-left:5px;
-      vertical-align:middle;
-    }
+    .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
-    /* Grey overlay */
-    .overlay {
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background-color:rgba(128,128,128,0.2);
-      display:none;
-      z-index:150;
-    }
+    /* Overlay */
+    .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
     .overlay.active { display:block; }
 
-    /* Fixed spinning logo */
-    .atomat-fixed {
-      position:fixed;
-      bottom:20px; left:20px;
-      width:120px;
-      animation:spin 20s linear infinite;
-      z-index:100;
-      cursor:pointer;
+    /* Rotating logo */
+    .spin-wrapper {
+      position: fixed; bottom:20px; left:20px;
+      width:120px; animation:spin 20s linear infinite;
+      transform-origin: center; cursor:pointer; z-index:100;
     }
-    @keyframes spin {
-      from { transform:rotate(0deg); }
-      to { transform:rotate(360deg); }
-    }
+    .flip-image { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
+    .flipped { transform: rotateY(180deg); }
+    .spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
+    @keyframes spin { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
 
     /* Responsive */
     @media(max-width:768px){
-      .menu{ width:50%; right:-50%; }
-      .menu.open{ right:0; }
-      .header { padding:15px 20px; }
-      .scroll-container { font-size:15px; gap:30px; }
-      .update { padding:0 20px; }
-      .atomat-fixed { width:80px; bottom:15px; left:15px; }
+      .menu{ width:50%; right:-50%; } .menu.open{ right:0; }
+      .header { padding:15px 20px; } .scroll-container { font-size:15px; gap:30px; }
+      .update { padding:0 20px; } .spin-wrapper { width:80px; bottom:15px; left:15px; }
     }
   </style>
 </head>
@@ -224,8 +149,6 @@
         <p>Following its debut in the Unbound Echoes exhibition at WASP Bucharest, Beyond the Noise, the Concrete Speaks continues its journey with a second iteration in Brașov. This evolving series explores the memory of space through resonance, field recordings, and layered sonic narratives, offering a new voice to the overlooked textures of the urban environment.</p>
       </div>
 
-      <!-- More updates... -->
-
     </div>
   </div>
 
@@ -235,7 +158,6 @@
     <a href="workshops.html">Workshops</a>
     <a href="sound.html">Sound</a>
     <a href="collabs.html">Collabs</a>
-    <!-- <a href="exhibitions.html">Exhibitions</a> -->
     <div style="height:20px;"></div>
     <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
     <a href="services.html">Services</a>
@@ -244,6 +166,7 @@
     <a href="contact.html">Contact</a>
   </div>
 
+  <!-- Scripts -->
   <script>
     const menu = document.getElementById('menu');
     const scrollContainer = document.getElementById('scroll-container');
@@ -252,68 +175,35 @@
     function toggleMenu(){
       const isOpen = menu.classList.contains('open');
       if(isOpen){
-        menu.classList.remove('open');
-        scrollContainer.classList.remove('recede');
-        overlay.classList.remove('active');
+        menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active');
       } else {
-        menu.classList.add('open');
-        scrollContainer.classList.add('recede');
-        overlay.classList.add('active');
+        menu.classList.add('open'); scrollContainer.classList.add('recede'); overlay.classList.add('active');
       }
     }
 
     overlay.addEventListener('click', () => {
       if(menu.classList.contains('open')){
-        menu.classList.remove('open');
-        scrollContainer.classList.remove('recede');
-        overlay.classList.remove('active');
+        menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active');
       }
     });
 
     scrollContainer.addEventListener('click', () => {
       if(menu.classList.contains('open')){
-        menu.classList.remove('open');
-        scrollContainer.classList.remove('recede');
-        overlay.classList.remove('active');
+        menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active');
       }
     });
   </script>
 
-  <!-- Rotating/flipping logo bottom-left -->
+  <!-- Rotating Logo -->
   <a href="https://atomatlab.com" target="_blank">
     <div class="spin-wrapper">
       <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
     </div>
   </a>
-
-  <style>
-    .spin-wrapper {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      width: 120px;
-      animation: spin 20s linear infinite;
-      transform-origin: center;
-      cursor: pointer;
-      z-index:100;
-    }
-    .flip-image {
-      width: 100%;
-      transition: transform 0.6s ease, opacity 0.3s ease;
-      transform-style: preserve-3d;
-    }
-    .flipped { transform: rotateY(180deg); }
-    .spin-wrapper.clicked {
-      transform: scale(1.2) rotateZ(var(--angle, 0deg));
-      transition: transform 0.3s ease;
-    }
-    @keyframes spin { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
-  </style>
-
   <script>
     const rotatingLogo = document.getElementById("rotating-logo");
     const spinWrapper = document.querySelector(".spin-wrapper");
-    const logos = ["images/atomatlab.png","images/FIELD5.png"];
+    const logos = ["images/atomatlabrotating.png","images/FIELD5.png"];
     let index=0;
 
     setInterval(()=>{
@@ -327,5 +217,6 @@
     spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
     spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
   </script>
+
 </body>
 </html>
