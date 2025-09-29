@@ -6,7 +6,7 @@
   <title>Denis Flueraru</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images/atomatlab.png">
+  <link rel="icon" type="image/png" href="images/atomatfavicon.png">
 
   <!-- Local font -->
   <style>
@@ -14,78 +14,42 @@
       font-family: 'Neue Kaine';
       src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
            url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-      font-weight: 100 900; /* variable font */
+      font-weight: 100 900;
       font-style: normal;
       font-display: swap;
     }
 
     * {margin:0; padding:0; box-sizing:border-box;}
-    body {
-      font-family:'Neue Kaine', sans-serif;
-      background:white;
-      overflow-x:hidden;
-    }
-
-    /* Hide scrollbar */
+    body { font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden; }
     ::-webkit-scrollbar { display:none; }
     body { -ms-overflow-style:none; scrollbar-width:none; }
 
     /* Header */
-    .header {
-      position:fixed;
-      top:0; width:100%;
-      padding:25px 50px;
-      display:flex; justify-content:space-between; align-items:center;
-      background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-      z-index:100;
-      pointer-events:none;
-    }
+    .header { position:fixed; top:0; width:100%; padding:25px 50px; display:flex; justify-content:space-between; align-items:center; background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%); z-index:100; pointer-events:none; }
     .header * { pointer-events:auto; }
-    .header .logo {
-      font-weight:bold; font-size:20px; cursor:pointer;
-      text-decoration:none; color:black;
-    }
-    .header .section-title {
-      font-weight:400; font-size:22px; color:black;
-      margin:0 20px;
-    }
+    .header .logo { font-weight:bold; font-size:20px; text-decoration:none; color:black; cursor:pointer; }
+    .header .section-title { font-weight:400; font-size:22px; color:black; margin:0 20px; }
     .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
     /* Main content */
-    .main-content {
-      display:flex; justify-content:center;
-      padding-top:120px; min-height:100vh; position:relative;
-    }
-    .scroll-container {
-      display:flex; flex-direction:column; gap:40px;
-      max-width:900px; font-size:16px; line-height:1.6;
-      margin:0 auto; padding-bottom:100px;
-      transition: transform 0.6s ease, opacity 0.6s ease;
-    }
+    .main-content { display:flex; justify-content:center; padding-top:120px; min-height:100vh; position:relative; }
+    .scroll-container { display:flex; flex-direction:column; gap:40px; max-width:900px; font-size:16px; line-height:1.6; margin:0 auto; padding-bottom:100px; transition: transform 0.6s ease, opacity 0.6s ease; }
     .scroll-container.recede { transform:scale(0.97); opacity:0.85; }
 
     /* Updates */
     .update { display:flex; flex-direction:column; padding:0 40px; }
     .update .title { font-weight:bold; margin-bottom:5px; max-width:95%; }
+    .update .title .year { font-weight:900; margin-right:5px; } /* bold year */
     .update img { max-width:95%; margin-bottom:10px; border-radius:4px; }
     .update p { color:#333; max-width:95%; text-align:inherit; }
-
-    /* Alternate alignment */
     .update:nth-child(odd) { align-items:flex-start; text-align:left; }
     .update:nth-child(even) { align-items:flex-end; text-align:right; }
-
     a.custom-link { text-decoration:underline; color:black; transition:color 0.2s ease; }
     a.custom-link:hover { color:rgb(182,210,40); }
-
     .update iframe { display:block; max-width:95%; margin:20px auto; height:auto; }
 
     /* Menu */
-    .menu {
-      position:fixed; top:0; right:-25%; width:25%; height:100%;
-      background-color:rgb(182,210,40); color:black;
-      transition:right 0.4s ease; z-index:200;
-      padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
-    }
+    .menu { position:fixed; top:0; right:-25%; width:25%; height:100%; background-color:rgb(182,210,40); color:black; transition:right 0.4s ease; z-index:200; padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px; }
     .menu.open { right:0; }
     .menu a { color:black; text-decoration:none; transition:color 0.2s ease; display:inline-flex; align-items:center; }
     .menu a:hover { color:#cd6c27; }
@@ -96,17 +60,12 @@
     .overlay.active { display:block; }
 
     /* Rotating logo */
-    .spin-wrapper {
-      position: fixed; bottom:20px; left:20px;
-      width:120px; animation:spin 20s linear infinite;
-      transform-origin: center; cursor:pointer; z-index:100;
-    }
+    .spin-wrapper { position: fixed; bottom:20px; left:20px; width:120px; animation:spin 20s linear infinite; transform-origin: center; cursor:pointer; z-index:100; }
     .flip-image { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
     .flipped { transform: rotateY(180deg); }
     .spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
     @keyframes spin { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
 
-    /* Responsive */
     @media(max-width:768px){
       .menu{ width:50%; right:-50%; } .menu.open{ right:0; }
       .header { padding:15px 20px; } .scroll-container { font-size:15px; gap:30px; }
@@ -123,30 +82,28 @@
     <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
   </div>
 
-  <!-- Overlay -->
   <div class="overlay" id="overlay"></div>
 
-  <!-- Main content -->
   <div class="main-content">
     <div class="scroll-container" id="scroll-container">
 
       <!-- Example updates -->
       <div class="update">
-        <div class="title">2025 &gt; Contact Mics and Preamps workshop at CAV Gallery, Bucharest</div>
+        <div class="title"><span class="year">2025 &gt;</span> Contact Mics and Preamps workshop at CAV Gallery, Bucharest</div>
         <img src="images/WORKSHOP_ATPWT_CAV.jpg" alt="Workshop at CAV Gallery">
         <p>As this year’s <a href="https://artistsplaywithtime.ro/" target="_blank" class="custom-link">Artists Play with Time</a> project came to an end, I was invited to lead a workshop on building contact microphones at CAV Gallery, Bucharest.</p>
       </div>
 
       <div class="update">
-        <div class="title">2025 &gt; LED and Sound Programming for a Fresh Water Generator Concept</div>
+        <div class="title"><span class="year">2025 &gt;</span> LED and Sound Programming for a Fresh Water Generator Concept</div>
         <img src="images/YOKOGAWA1.JPG" alt="Yokogawa Project">
         <p>In collaboration with <a href="https://fablab.ro/" target="_blank" class="custom-link">FabLab Bucharest</a>, I worked on a Fresh Water Generator concept model for YOKOGAWA.</p>
       </div>
 
       <div class="update">
-        <div class="title">2025 &gt; The Main Point of the Horizon, Cultural Centre Reduta, Brasov</div>
+        <div class="title"><span class="year">2025 &gt;</span> The Main Point of the Horizon, Cultural Centre Reduta, Brasov</div>
         <img src="images/Beyondthenoisetheconcretespeaks2.JPG" alt="Brasov Exhibition">
-        <p>Following its debut in the Unbound Echoes exhibition at WASP Bucharest, Beyond the Noise, the Concrete Speaks continues its journey with a second iteration in Brașov. This evolving series explores the memory of space through resonance, field recordings, and layered sonic narratives, offering a new voice to the overlooked textures of the urban environment.</p>
+        <p>Following its debut in the Unbound Echoes exhibition at WASP Bucharest, Beyond the Noise, the Concrete Speaks continues its journey with a second iteration in Brașov. This evolving series explores the memory of space through resonance, field recordings, and layered sonic narratives.</p>
       </div>
 
     </div>
@@ -174,24 +131,12 @@
 
     function toggleMenu(){
       const isOpen = menu.classList.contains('open');
-      if(isOpen){
-        menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active');
-      } else {
-        menu.classList.add('open'); scrollContainer.classList.add('recede'); overlay.classList.add('active');
-      }
+      if(isOpen){ menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active'); }
+      else { menu.classList.add('open'); scrollContainer.classList.add('recede'); overlay.classList.add('active'); }
     }
 
-    overlay.addEventListener('click', () => {
-      if(menu.classList.contains('open')){
-        menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active');
-      }
-    });
-
-    scrollContainer.addEventListener('click', () => {
-      if(menu.classList.contains('open')){
-        menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active');
-      }
-    });
+    overlay.addEventListener('click', () => { if(menu.classList.contains('open')){ menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active'); } });
+    scrollContainer.addEventListener('click', () => { if(menu.classList.contains('open')){ menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active'); } });
   </script>
 
   <!-- Rotating Logo -->

@@ -4,140 +4,89 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Artworks - Denis Flueraru</title>
-  <link href="https://fonts.googleapis.com/css2?family=Neue+Kaine:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * {margin:0; padding:0; box-sizing:border-box;}
-    body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
 
-    /* Header with fade to transparent */
-    .header {
-      position:fixed;
-      top:0;
-      width:100%;
-      padding:25px 50px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-      z-index:100;
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
+
+  <!-- Local font -->
+  <style>
+    @font-face {
+      font-family: 'Neue Kaine';
+      src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
+           url('fonts/neue_kaine_variable-webfont.woff') format('woff');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
     }
-    .header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
-    .header .section-title { font-weight:400; font-size:22px; }
+
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body { font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden; }
+
+    /* Header */
+    .header {
+      position:fixed; top:0; width:100%;
+      padding:25px 50px; display:flex;
+      justify-content:space-between; align-items:center;
+      background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
+      z-index:100; pointer-events:none;
+    }
+    .header * { pointer-events:auto; }
+    .header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black; }
+    .header .section-title { font-weight:400; font-size:22px; color:black; margin:0 20px; }
     .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
     /* Artworks grid */
     .artworks-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:40px;
       max-width:1400px;
-      margin: 160px auto 80px auto; /* spacing below header */
-      padding: 0 20px;
+      margin:160px auto 80px auto;
+      padding:0 20px;
     }
-
-    /* Individual artwork styling */
-    .artwork {
-      position: relative;
-      text-align:center;
-      cursor:pointer;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-    }
-
-    .artwork img {
-      width: 100%;
-      height: 250px;       /* uniform size */
-      object-fit: cover;
-      border-radius:8px;
-      display: block;
-      transition: transform 0.3s ease;
-    }
-
-    /* Overlay for tint */
+    .artwork { position:relative; text-align:center; cursor:pointer; overflow:hidden; transition:transform 0.3s ease; }
+    .artwork img { width:100%; height:250px; object-fit:cover; border-radius:8px; transition:transform 0.3s ease; }
     .artwork::after {
       content:'';
-      position:absolute;
-      top:0; left:0;
-      width:100%; height:100%;
-      border-radius:8px;
-      background-color: transparent;
-      transition: background-color 0.3s ease;
+      position:absolute; top:0; left:0; width:100%; height:100%; border-radius:8px;
+      background-color:transparent; transition: background-color 0.3s ease;
     }
-
-    /* Hover scale */
-    .artwork:hover {
-      transform: scale(1.05);
-    }
-
-    /* Alternate hover tints */
-    .artworks-grid .artwork:nth-child(odd):hover::after {
-      background-color: rgba(182, 210, 40, 0.3); /* green */
-    }
-    .artworks-grid .artwork:nth-child(even):hover::after {
-      background-color: rgba(205, 108, 39, 0.3); /* brown */
-    }
-
-    .artwork-title {
-      margin-top: 10px;
-      font-weight: bold;
-      font-size: 18px;
-      position: relative; /* above overlay */
-      z-index: 1;
-    }
-
-    a.artwork-link {
-      text-decoration: none;
-      color: inherit;
-    }
+    .artwork:hover { transform:scale(1.05); }
+    .artworks-grid .artwork:nth-child(odd):hover::after { background-color: rgba(182,210,40,0.3); }
+    .artworks-grid .artwork:nth-child(even):hover::after { background-color: rgba(205,108,39,0.3); }
+    .artwork-title { margin-top:10px; font-weight:bold; font-size:18px; position:relative; z-index:1; }
+    a.artwork-link { text-decoration:none; color:inherit; }
 
     /* Menu */
     .menu {
-      position:fixed; top:0; right:-25%; width:25%; height:100%;
-      background-color:rgb(182, 210, 40); /* green like index */
-      color:black; transition:right 0.4s ease; z-index:200;
+      position:fixed; top:0; right:-50%; width:50%; height:100%;
+      background-color:rgb(182,210,40); color:black;
+      transition:right 0.4s ease; z-index:200;
       padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
     }
     .menu.open { right:0; }
     .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
     .menu a:hover { color:#cd6c27; }
-    .menu-icon {
-      height:1em;
-      margin-left:5px;
-      vertical-align:middle;
-    }
+    .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
-    /* Grey overlay */
-    .overlay {
-      position:fixed; top:0; left:0; width:100%; height:100%;
-      background-color:rgba(128,128,128,0.2); display:none; z-index:150;
-    }
+    /* Overlay */
+    .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
     .overlay.active { display:block; }
 
-    /* Fixed spinning logo bottom-left */
-    .atomat-fixed {
-      position:fixed;
-      bottom:20px; left:20px;
-      width:120px;
-      animation: spin 20s linear infinite;
-      z-index:100;
-      cursor:pointer;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+    /* Rotating logo */
+    .spin-wrapper { position:fixed; bottom:20px; left:20px; width:120px; animation:spin 20s linear infinite; cursor:pointer; z-index:100; }
+    .flip-image { width:100%; transition:transform 0.6s ease, opacity 0.3s ease; transform-style:preserve-3d; }
+    .flipped { transform:rotateY(180deg); }
+    .spin-wrapper.clicked { transform:scale(1.2) rotateZ(var(--angle,0deg)); transition:transform 0.3s ease; }
+    @keyframes spin { from { transform:rotateZ(0deg); } to { transform:rotateZ(360deg); } }
 
-    /* Responsive grid */
-    @media(max-width:1200px){
-      .artworks-grid { grid-template-columns: repeat(3, 1fr); gap:30px; }
-    }
-    @media(max-width:900px){
-      .artworks-grid { grid-template-columns: repeat(2, 1fr); gap:25px; }
-    }
+    /* Responsive */
+    @media(max-width:1200px){ .artworks-grid { grid-template-columns:repeat(3,1fr); gap:30px; } }
+    @media(max-width:900px){ .artworks-grid { grid-template-columns:repeat(2,1fr); gap:25px; } }
     @media(max-width:600px){
-      .artworks-grid { grid-template-columns: 1fr; gap:20px; margin-top:140px; }
+      .artworks-grid { grid-template-columns:1fr; gap:20px; margin-top:140px; }
       .header { padding:15px 20px; }
-      .atomat-fixed { width:80px; bottom:15px; left:15px; }
+      .spin-wrapper { width:80px; bottom:15px; left:15px; }
     }
   </style>
 </head>
@@ -153,67 +102,57 @@
   <!-- Overlay -->
   <div class="overlay" id="overlay"></div>
 
-  <!-- Artworks grid (7 artworks) -->
+  <!-- Artworks grid -->
   <div class="artworks-grid">
-    <!-- First row (4 artworks) -->
     <a href="beyondthenoisetheconcretespeaks.html" class="artwork-link">
       <div class="artwork">
         <img src="images/Beyondthenoisetheconcretespeaks2.JPG" alt="">
         <div class="artwork-title">Beyond the noise, the concrete speaks (2024)</div>
       </div>
     </a>
-
     <a href="solara.html" class="artwork-link">
       <div class="artwork">
         <img src="images/SOLARA1.jpeg" alt="">
         <div class="artwork-title">Solara (2024)</div>
       </div>
     </a>
-
     <a href="ruinedresonances.html" class="artwork-link">
       <div class="artwork">
         <img src="images/RuinedResonances_SKG.jpeg" alt="">
         <div class="artwork-title">Ruined Resonances (2024)</div>
       </div>
     </a>
-
     <a href="metabloom.html" class="artwork-link">
       <div class="artwork">
         <img src="images/metabloom.png" alt="">
         <div class="artwork-title">Metabloom (2023)</div>
       </div>
     </a>
-
-    <!-- Second row (3 artworks) -->
     <a href="auraltopographies.html" class="artwork-link">
       <div class="artwork">
         <img src="images/auraltopographies.jpeg" alt="">
         <div class="artwork-title">Aural Topographies (2023)</div>
       </div>
     </a>
-
     <a href="interstatic.html" class="artwork-link">
       <div class="artwork">
         <img src="images/interstatic.jpg" alt="">
         <div class="artwork-title">Interstatic (2023)</div>
       </div>
     </a>
-
     <a href="particlecomposer.html" class="artwork-link">
       <div class="artwork">
         <img src="images/PARTICLE1.jpg" alt="">
         <div class="artwork-title">Particle Composer (2022)</div>
       </div>
     </a>
-
-      <a href="inverse_surveillance.html" class="artwork-link">
+    <a href="inverse_surveillance.html" class="artwork-link">
       <div class="artwork">
         <img src="images/Inverse_Surveillance.jpg" alt="">
-        <div class="artwork-title">Inverse:Surveillance (2022)</div>
+        <div class="artwork-title">Inverse: Surveillance (2022)</div>
       </div>
     </a>
-
-        <a href="rewind.html" class="artwork-link">
+    <a href="rewind.html" class="artwork-link">
       <div class="artwork">
         <img src="images/REWIND.jpg" alt="">
         <div class="artwork-title">Rewind (2022)</div>
@@ -221,16 +160,12 @@
     </a>
   </div>
 
-
-
-
   <!-- Menu -->
   <div class="menu" id="menu">
     <a href="artworks.html">Artworks</a>
     <a href="workshops.html">Workshops</a>
     <a href="sound.html">Sound</a>
     <a href="collabs.html">Collabs</a>
-    <!-- <a href="exhibitions.html">Exhibitions</a> -->
     <div style="height:20px;"></div>
     <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
     <a href="services.html">Services</a>
@@ -239,7 +174,7 @@
     <a href="contact.html">Contact</a>
   </div>
 
-
+  <!-- Scripts -->
   <script>
     const menu = document.getElementById('menu');
     const overlay = document.getElementById('overlay');
@@ -247,63 +182,43 @@
     function toggleMenu(){
       const isOpen = menu.classList.contains('open');
       if(isOpen){
-        menu.classList.remove('open');
-        overlay.classList.remove('active');
+        menu.classList.remove('open'); overlay.classList.remove('active');
       } else {
-        menu.classList.add('open');
-        overlay.classList.add('active');
+        menu.classList.add('open'); overlay.classList.add('active');
       }
     }
 
-    // Clicking overlay closes menu
     overlay.addEventListener('click', () => {
       if(menu.classList.contains('open')){
-        menu.classList.remove('open');
-        overlay.classList.remove('active');
+        menu.classList.remove('open'); overlay.classList.remove('active');
       }
     });
   </script>
 
-<style>
-.spin-wrapper {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  width: 120px;
-  animation: spin 20s linear infinite;
-  transform-origin: center;
-  cursor: pointer;
-  z-index:100;
-}
-.flip-image {
-  width: 100%;
-  transition: transform 0.6s ease, opacity 0.3s ease;
-  transform-style: preserve-3d;
-}
-.flipped { transform: rotateY(180deg); }
-.spin-wrapper.clicked {
-  transform: scale(1.2) rotateZ(var(--angle, 0deg));
-  transition: transform 0.3s ease;
-}
-@keyframes spin { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
-</style>
+  <!-- Rotating Logo -->
+  <a href="https://atomatlab.com" target="_blank">
+    <div class="spin-wrapper">
+      <img src="images/atomatlab.png" alt="Logo" class="flip-image" id="rotating-logo">
+    </div>
+  </a>
 
-<script>
-const rotatingLogo = document.getElementById("rotating-logo");
-const spinWrapper = document.querySelector(".spin-wrapper");
-const logos = ["images/atomatlab.png","images/FIELD5.png"];
-let index=0;
+  <script>
+    const rotatingLogo = document.getElementById("rotating-logo");
+    const spinWrapper = document.querySelector(".spin-wrapper");
+    const logos = ["images/atomatlab.png","images/FIELD5.png"];
+    let index=0;
 
-setInterval(()=>{
-  rotatingLogo.classList.toggle("flipped");
-  setTimeout(()=>{
-    index = (index+1)%logos.length;
-    rotatingLogo.src = logos[index];
-  },300);
-},3000);
+    setInterval(()=>{
+      rotatingLogo.classList.toggle("flipped");
+      setTimeout(()=>{
+        index = (index+1)%logos.length;
+        rotatingLogo.src = logos[index];
+      },300);
+    },3000);
 
-spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
-spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
-</script>
+    spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
+    spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
+  </script>
+
 </body>
 </html>
