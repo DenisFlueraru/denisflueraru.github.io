@@ -63,7 +63,20 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
 @keyframes spin { from { transform:rotateZ(0deg); } to { transform:rotateZ(360deg); } }
 
 /* Responsive */
-@media(max-width:900px){ .carousel-grid { grid-template-columns:1fr; } .main-image { max-height:300px; } .menu{width:50%; right:-50%;} .menu.open{right:0;} }
+@media(max-width:900px){
+  .menu{
+    width:45%; /* slightly smaller */
+    right:-45%;
+  }
+  .menu.open{
+    right:0;
+  }
+  .scroll-container{
+    font-size:15px;
+    gap:30px;
+    padding:0 10px; /* reduce horizontal padding */
+  }
+}
 </style>
 </head>
 
