@@ -10,30 +10,34 @@
 
   <!-- Local font -->
   <style>
-    
     @font-face {
-  font-family: 'Neue Kaine';
-  src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
-       url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-body, h1, h2, h3, h4, h5, h6, p, a, span, li {
-  font-family: 'Neue Kaine', sans-serif;
-}
+      font-family: 'Neue Kaine';
+      src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
+           url('fonts/neue_kaine_variable-webfont.woff') format('woff');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    body, h1, h2, h3, h4, h5, h6, p, a, span, li {
+      font-family: 'Neue Kaine', sans-serif;
+    }
 
     * {margin:0; padding:0; box-sizing:border-box;}
-    body { font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden; }
+    body { background:white; overflow-x:hidden; }
     ::-webkit-scrollbar { display:none; }
     body { -ms-overflow-style:none; scrollbar-width:none; }
 
     /* Header */
-    .header { position:fixed; top:0; width:100%; padding:25px 50px; display:flex; justify-content:space-between; align-items:center; background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%); z-index:100; pointer-events:none; }
+    .header { 
+      position:fixed; top:0; width:100%; padding:25px 50px; 
+      display:flex; justify-content:space-between; align-items:center; 
+      background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%); 
+      z-index:100; pointer-events:none; 
+    }
     .header * { pointer-events:auto; }
-    .header .logo { font-weight:bold; font-size:20px; text-decoration:none; color:black; cursor:pointer; }
-    .header .section-title { font-weight:400; font-size:22px; color:black; margin:0 20px; }
-    .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
+    .header .logo { font-weight:900; font-size:20px; text-decoration:none; color:black; cursor:pointer; }
+    .header .section-title { font-weight:900; font-size:22px; color:black; margin:0 20px; } /* Bold Feed */
+    .header .menu-toggle { cursor:pointer; font-weight:900; font-size:22px; }
 
     /* Main content */
     .main-content { display:flex; justify-content:center; padding-top:120px; min-height:100vh; position:relative; }
@@ -42,7 +46,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, li {
 
     /* Updates */
     .update { display:flex; flex-direction:column; padding:0 40px; }
-    .update .title { font-weight:bold; margin-bottom:5px; max-width:95%; }
+    .update .title { font-weight:900; margin-bottom:5px; max-width:95%; } /* bold titles */
     .update .title .year { font-weight:900; margin-right:5px; } /* bold year */
     .update img { max-width:95%; margin-bottom:10px; border-radius:4px; }
     .update p { color:#333; max-width:95%; text-align:inherit; }
@@ -135,24 +139,44 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, li {
 
     function toggleMenu(){
       const isOpen = menu.classList.contains('open');
-      if(isOpen){ menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active'); }
-      else { menu.classList.add('open'); scrollContainer.classList.add('recede'); overlay.classList.add('active'); }
+      if(isOpen){ 
+        menu.classList.remove('open'); 
+        scrollContainer.classList.remove('recede'); 
+        overlay.classList.remove('active'); 
+      }
+      else { 
+        menu.classList.add('open'); 
+        scrollContainer.classList.add('recede'); 
+        overlay.classList.add('active'); 
+      }
     }
 
-    overlay.addEventListener('click', () => { if(menu.classList.contains('open')){ menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active'); } });
-    scrollContainer.addEventListener('click', () => { if(menu.classList.contains('open')){ menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active'); } });
+    overlay.addEventListener('click', () => { 
+      if(menu.classList.contains('open')){ 
+        menu.classList.remove('open'); 
+        scrollContainer.classList.remove('recede'); 
+        overlay.classList.remove('active'); 
+      } 
+    });
+    scrollContainer.addEventListener('click', () => { 
+      if(menu.classList.contains('open')){ 
+        menu.classList.remove('open'); 
+        scrollContainer.classList.remove('recede'); 
+        overlay.classList.remove('active'); 
+      } 
+    });
   </script>
 
   <!-- Rotating Logo -->
   <a href="https://atomatlab.com" target="_blank">
     <div class="spin-wrapper">
-      <img src="images/atomatlabrotating.png" alt="Logo" class="flip-image" id="rotating-logo">
+      <img src="images/FIELD5.png" alt="Logo" class="flip-image" id="rotating-logo">
     </div>
   </a>
   <script>
     const rotatingLogo = document.getElementById("rotating-logo");
     const spinWrapper = document.querySelector(".spin-wrapper");
-    const logos = ["images/atomatlabrotating.png","images/FIELD5.png"];
+    const logos = ["images/FIELD5.png","images/atomatlabrotating.png"];
     let index=0;
 
     setInterval(()=>{
