@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
 
 <style>
-/* Font */
+/* Fonts */
 @font-face {
   font-family: 'Neue Kaine';
   src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
@@ -17,6 +17,12 @@
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
+}
+@font-face {
+  font-family: '42dot Sans';
+  src: url('fonts/42dot_sans/fonts/ttf/42dotSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
 }
 body, h1, h2, h3, h4, h5, h6, p, a, span, li {
   font-family: 'Neue Kaine', sans-serif;
@@ -41,18 +47,31 @@ body { -ms-overflow-style:none; scrollbar-width:none; }
 
 /* Main content */
 .main-content { display:flex; justify-content:center; padding-top:120px; min-height:100vh; position:relative; }
-.scroll-container { display:flex; flex-direction:column; gap:40px; max-width:900px; font-size:16px; line-height:1.6; margin:0 auto; padding-bottom:100px; transition: transform 0.6s ease, opacity 0.6s ease; }
+.scroll-container { display:flex; flex-direction:column; gap:60px; max-width:1100px; font-size:16px; line-height:1.6; margin:0 auto; padding-bottom:100px; transition: transform 0.6s ease, opacity 0.6s ease; }
 .scroll-container.recede { transform:scale(0.97); opacity:0.85; }
 
 /* Updates */
-.update { display:flex; flex-direction:column; padding:0 40px; text-align:left; align-items:flex-start; }
-.update .title { font-weight:900; text-decoration:underline; margin-bottom:5px; max-width:95%; }
-.update .title .year { font-weight:900; margin-right:5px; }
-.update img { max-width:95%; margin-bottom:10px; border-radius:4px; }
-.update p { color:#333; max-width:95%; }
+.update {
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:30px;
+  padding:0 40px;
+}
+.update:nth-child(even) { flex-direction:row-reverse; }
+.update img, .update .video-container { flex:1; max-width:50%; border-radius:4px; }
+.update .text { flex:1; text-align:left; }
+.update .title {
+  font-family: '42dot Sans', sans-serif;
+  font-weight:bold;
+  text-decoration:underline;
+  margin-bottom:10px;
+  font-size:20px;
+}
+.update .title .year { margin-right:5px; }
+.update p { color:#333; }
 a.custom-link { text-decoration:underline; color:black; transition:color 0.2s ease; font-weight:900; }
 a.custom-link:hover { color:rgb(182,210,40); }
-.update iframe { display:block; max-width:95%; margin:20px auto; height:auto; }
 
 /* Menu */
 .menu {
@@ -79,37 +98,33 @@ a.custom-link:hover { color:rgb(182,210,40); }
   z-index:100;
 }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-.flip-image {
-  width:100%;
-  transition: transform 0.6s ease, opacity 0.3s ease;
-  transform-style: preserve-3d;
-}
+.flip-image { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
 .flipped { transform: rotateY(180deg); }
 .spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
+
+/* Video */
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; /* 1:1 */
+  height: 0;
+}
+.video-container iframe {
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  border-radius:4px;
+}
 
 /* Responsive */
 @media(max-width:768px){
   .menu{ width:50%; right:-50%; }
   .menu.open{ right:0; }
   .header { padding:15px 20px; }
-  .scroll-container { font-size:15px; gap:30px; }
-  .update { padding:0 20px; }
+  .scroll-container { font-size:15px; gap:40px; }
+  .update { flex-direction:column !important; }
+  .update img, .update .video-container, .update .text { max-width:100%; }
   .spin-wrapper { width:80px; bottom:15px; left:15px; }
-}
-
-.video-container {
-  position: relative;
-  width: 95%;
-  padding-bottom: 95%; /* 1:1 aspect ratio */
-  height: 0;
-  margin-bottom: 10px;
-}
-.video-container iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 4px;
 }
 </style>
 </head>
@@ -131,76 +146,86 @@ a.custom-link:hover { color:rgb(182,210,40); }
 
     <!-- Example updates -->
     <div class="update">
-      <div class="title"><span class="year">2025 &gt;</span> Contact Mics and Preamps workshop at CAV Gallery, Bucharest</div>
       <img src="images/WORKSHOP_ATPWT_CAV.jpg" alt="Workshop at CAV Gallery">
-      <p>As this year’s <a href="https://artistsplaywithtime.ro/" target="_blank" class="custom-link">Artists Play with Time</a> project came to an end, I was invited to lead a workshop on building contact microphones at CAV Gallery, Bucharest.</p>
+      <div class="text">
+        <div class="title"><span class="year">2025 &gt;</span> Contact Mics and Preamps workshop at CAV Gallery, Bucharest</div>
+        <p>As this year’s <a href="https://artistsplaywithtime.ro/" target="_blank" class="custom-link">Artists Play with Time</a> project came to an end, I was invited to lead a workshop on building contact microphones at CAV Gallery, Bucharest.</p>
+      </div>
     </div>
 
     <div class="update">
-      <div class="title"><span class="year">2025 &gt;</span> LED and Sound Programming for a Fresh Water Generator Concept</div>
       <img src="images/YOKOGAWA1.JPG" alt="Yokogawa Project">
-      <p>In collaboration with <a href="https://fablab.ro/" target="_blank" class="custom-link">FabLab Bucharest</a>, I worked on a Fresh Water Generator concept model for YOKOGAWA.</p>
+      <div class="text">
+        <div class="title"><span class="year">2025 &gt;</span> LED and Sound Programming for a Fresh Water Generator Concept</div>
+        <p>In collaboration with <a href="https://fablab.ro/" target="_blank" class="custom-link">FabLab Bucharest</a>, I worked on a Fresh Water Generator concept model for YOKOGAWA.</p>
+      </div>
     </div>
 
     <div class="update">
-      <div class="title"><span class="year">2025 &gt;</span> The Main Point of the Horizon, Cultural Centre Reduta, Brasov</div>
       <img src="images/Beyondthenoisetheconcretespeaks2.JPG" alt="Brasov Exhibition">
-      <p>Following its debut in the <b>Unbound Echoes</b> exhibition at WASP Bucharest, <b>Beyond the Noise, the Concrete Speaks</b> continues its journey with a second iteration in Brașov. This evolving series explores the memory of space through resonance, field recordings, and layered sonic narratives.</p>
+      <div class="text">
+        <div class="title"><span class="year">2025 &gt;</span> The Main Point of the Horizon, Cultural Centre Reduta, Brasov</div>
+        <p>Following its debut in the <b>Unbound Echoes</b> exhibition at WASP Bucharest, <b>Beyond the Noise, the Concrete Speaks</b> continues its journey with a second iteration in Brașov. This evolving series explores the memory of space through resonance, field recordings, and layered sonic narratives.</p>
+      </div>
     </div>
 
-        <div class="update">
-      <div class="title"><span class="year">2025 &gt;</span> Unul Dintre Noi, Comedy Theater, Bucharest</div>
-      <img src="images/UDN.jpg" alt="Yokogawa Project">
-      <p>I had the pleasure of creating the sound realm which for the theatre play <b>“Unul dintre noi”</b> played at Teatrul de Comedie, Bucharest</p>
+    <div class="update">
+      <img src="images/UDN.jpg" alt="Unul dintre noi">
+      <div class="text">
+        <div class="title"><span class="year">2025 &gt;</span> Unul Dintre Noi, Comedy Theater, Bucharest</div>
+        <p>I had the pleasure of creating the sound realm which for the theatre play <b>“Unul dintre noi”</b> played at Teatrul de Comedie, Bucharest.</p>
+      </div>
     </div>
 
-       <div class="update">
-      <div class="title"><span class="year">2024 &gt;</span>  Unbound Echoes, WASP Bucharest</div>
-      <img src="images/BeyondBucharest.jpg" alt="Brasov Exhibition">
-      <p>As a tribute to <b>Paul Neagu and his palpable art manifesto</b> I unveiled the first work in a series that explores the urban scape through sound and touch, entitled <b>“Beyond the noise, the concrete speaks”</b>.</p>
+    <div class="update">
+      <img src="images/BeyondBucharest.jpg" alt="Beyond Bucharest">
+      <div class="text">
+        <div class="title"><span class="year">2024 &gt;</span> Unbound Echoes, WASP Bucharest</div>
+        <p>As a tribute to <b>Paul Neagu and his palpable art manifesto</b> I unveiled the first work in a series that explores the urban scape through sound and touch, entitled <b>“Beyond the noise, the concrete speaks”</b>.</p>
+      </div>
     </div>
 
-            <div class="update">
-      <div class="title"><span class="year">2024 &gt;</span> Ruined Resonances, Thessaloniki/GR</div>
-      <img src="images/RuinedResonances_SKG.jpeg" alt="Yokogawa Project">
-      <p>With the help of the <b>Culture Moves Europe mobility program</b>, "Ruined Resonances" broke boundaries for the first time letting us explore and add a new set of locations to our cross-modal archive.</p>
+    <div class="update">
+      <img src="images/RuinedResonances_SKG.jpeg" alt="Ruined Resonances">
+      <div class="text">
+        <div class="title"><span class="year">2024 &gt;</span> Ruined Resonances, Thessaloniki/GR</div>
+        <p>With the help of the <b>Culture Moves Europe mobility program</b>, "Ruined Resonances" broke boundaries for the first time letting us explore and add a new set of locations to our cross-modal archive.</p>
+      </div>
     </div>
 
-
-           <div class="update">
-      <div class="title"><span class="year">2024 &gt;</span>  Fusion Air, /SAC Bucharest</div>
-      <img src="images/SOLARA1.jpeg" alt="Brasov Exhibition">
-      <p>During the Fusion Air Residency, I had the pleasure of collaborating with two scientists from the <b>Institute for Space Science</b>, Maximilian Teodorescu and Marius Echim. Our collaboration resulted in an interactive installation that explores the paradoxical relationship we have with the sun entitled Solara.</p>
+    <div class="update">
+      <img src="images/SOLARA1.jpeg" alt="Solara">
+      <div class="text">
+        <div class="title"><span class="year">2024 &gt;</span> Fusion Air, /SAC Bucharest</div>
+        <p>During the Fusion Air Residency, I had the pleasure of collaborating with two scientists from the <b>Institute for Space Science</b>, Maximilian Teodorescu and Marius Echim. Our collaboration resulted in an interactive installation that explores the paradoxical relationship we have with the sun entitled Solara.</p>
+      </div>
     </div>
 
-
-                <div class="update">
-      <div class="title"><span class="year">2024 &gt;</span> Recycle Your Technology Open Call BRD</div>
-      <img src="images/RuinedResonances_SKG.jpeg" alt="Yokogawa Project">
-      <p>As an artist chosen by the RYT team I made <b>i:105</b> constructed from recycled electronic waste provided by Eco Positive Romania. Throughout the project I also conducted four workshops in the following Romanian cities: Reșița, Arad, Brașov, and Bucharest. Participants of the workshops learned to create their own EMF microphones in order to capture and creatively interpret electromagnetic fields, blending environmental awareness with artistic exploration.</p>
+    <div class="update">
+      <img src="images/RuinedResonances_SKG.jpeg" alt="Recycle Your Technology">
+      <div class="text">
+        <div class="title"><span class="year">2024 &gt;</span> Recycle Your Technology Open Call BRD</div>
+        <p>As an artist chosen by the RYT team I made <b>i:105</b> constructed from recycled electronic waste provided by Eco Positive Romania. Throughout the project I also conducted four workshops in the following Romanian cities: Reșița, Arad, Brașov, and Bucharest. Participants of the workshops learned to create their own EMF microphones in order to capture and creatively interpret electromagnetic fields, blending environmental awareness with artistic exploration.</p>
+      </div>
     </div>
 
-           <div class="update">
-      <div class="title"><span class="year">2024 &gt;</span>  Fusion Air, /SAC Bucharest</div>
-      <img src="images/workshops/RYT_ARAD.jpg" alt="Brasov Exhibition">
-      <p>During the Fusion Air Residency, I had the pleasure of collaborating with two scientists from the <b>Institute for Space Science</b>, Maximilian Teodorescu and Marius Echim. Our collaboration resulted in an interactive installation that explores the paradoxical relationship we have with the sun entitled Solara.</p>
+    <div class="update">
+      <img src="images/workshops/RYT_ARAD.jpg" alt="Workshop Arad">
+      <div class="text">
+        <div class="title"><span class="year">2024 &gt;</span> Fusion Air, /SAC Bucharest</div>
+        <p>During the Fusion Air Residency, I had the pleasure of collaborating with two scientists from the <b>Institute for Space Science</b>, Maximilian Teodorescu and Marius Echim. Our collaboration resulted in an interactive installation that explores the paradoxical relationship we have with the sun entitled Solara.</p>
+      </div>
     </div>
 
-<div class="update">
-  <div class="title"><span class="year">2024 &gt;</span> DivAirCity Bucharest</div>
-  
-  <!-- Square YouTube embed -->
-  <div class="video-container">
-    <iframe src="https://www.youtube.com/embed/T5UO7QNXiLU" 
-      title="YouTube video player" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen></iframe>
-  </div>
-
-  <p>A quick look from the <b>DivAirCity Day</b> at Piațeta Italiana in Bucharest and my stand where I used air quality values to plot a series of generative drawings.</p>
-</div>
-    
+    <div class="update">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/T5UO7QNXiLU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="text">
+        <div class="title"><span class="year">2024 &gt;</span> DivAirCity Bucharest</div>
+        <p>A quick look from the <b>DivAirCity Day</b> at Piațeta Italiana in Bucharest and my stand where I used air quality values to plot a series of generative drawings.</p>
+      </div>
+    </div>
 
   </div>
 </div>
