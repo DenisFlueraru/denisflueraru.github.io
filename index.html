@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Services - Denis Flueraru</title>
+<title>Denis Flueraru</title>
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
@@ -23,6 +23,8 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, li {
 }
 * {margin:0; padding:0; box-sizing:border-box;}
 body {background:white; overflow-x:hidden;}
+::-webkit-scrollbar { display:none; }
+body { -ms-overflow-style:none; scrollbar-width:none; }
 
 /* Header */
 .header {
@@ -37,58 +39,22 @@ body {background:white; overflow-x:hidden;}
 .header .section-title { font-weight:900; font-size:28px; }
 .header .menu-toggle { cursor:pointer; font-weight:900; font-size:22px; }
 
-/* Service Drawer */
-.service-drawer {
-  position: relative;
-  max-width: 900px;
-  margin: 160px auto 100px auto;
-  padding:0 20px;
-  display:flex;
-  flex-direction:column;
-  gap:25px;
-  z-index:10;
-}
-.drawer-tab {
-  position: relative;
-  background: #b6d228; /* green */
-  color: black;
-  cursor:pointer;
-  border-radius:6px;
-  overflow:hidden;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-.drawer-tab:hover { transform: scale(1.05); }
-.tab-title { padding:25px 30px; font-weight:900; font-size:22px; transition: color 0.3s ease; }
-.drawer-tab:hover .tab-title { color:#cd6c27; } /* brown on hover */
-.tab-content {
-  max-height:0;
-  padding:0 30px;
-  font-size:18px;
-  line-height:1.5;
-  background:#fff;
-  overflow:hidden;
-  transition:max-height 0.3s ease, padding 0.3s ease;
-}
-.drawer-tab:hover .tab-content {
-  max-height:300px;
-  padding:20px 30px;
-}
+/* Main content */
+.main-content { display:flex; justify-content:center; padding-top:120px; min-height:100vh; position:relative; }
+.scroll-container { display:flex; flex-direction:column; gap:40px; max-width:900px; font-size:16px; line-height:1.6; margin:0 auto; padding-bottom:100px; transition: transform 0.6s ease, opacity 0.6s ease; }
+.scroll-container.recede { transform:scale(0.97); opacity:0.85; }
 
-/* Background image */
-#hover-bg {
-  position: fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background-size: cover;
-  background-position: center;
-  opacity:0;
-  pointer-events:none;
-  transition: opacity 0.5s ease;
-  z-index:1;
-}
-
-/* Dim tabs on hover */
-.drawer-tab.hovered ~ .drawer-tab { opacity:0.5; transition: opacity 0.3s ease; }
+/* Updates */
+.update { display:flex; flex-direction:column; padding:0 40px; }
+.update .title { font-weight:900; margin-bottom:5px; max-width:95%; }
+.update .title .year { font-weight:900; margin-right:5px; }
+.update img { max-width:95%; margin-bottom:10px; border-radius:4px; }
+.update p { color:#333; max-width:95%; }
+.update:nth-child(odd) { align-items:flex-start; text-align:left; }
+.update:nth-child(even) { align-items:flex-end; text-align:right; }
+a.custom-link { text-decoration:underline; color:black; transition:color 0.2s ease; font-weight:900; }
+a.custom-link:hover { color:rgb(182,210,40); }
+.update iframe { display:block; max-width:95%; margin:20px auto; height:auto; }
 
 /* Menu */
 .menu {
@@ -124,10 +90,13 @@ body {background:white; overflow-x:hidden;}
 .spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
 
 /* Responsive */
-@media(max-width:1000px){
-  .service-drawer { margin:140px 20px 80px 20px; }
-  .tab-title { font-size:20px; padding:20px 25px; }
-  .tab-content { font-size:16px; }
+@media(max-width:768px){
+  .menu{ width:50%; right:-50%; }
+  .menu.open{ right:0; }
+  .header { padding:15px 20px; }
+  .scroll-container { font-size:15px; gap:30px; }
+  .update { padding:0 20px; }
+  .spin-wrapper { width:80px; bottom:15px; left:15px; }
 }
 </style>
 </head>
@@ -136,59 +105,38 @@ body {background:white; overflow-x:hidden;}
 <!-- Header -->
 <div class="header">
   <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
-  <span class="section-title">Services</span>
+  <span class="section-title">Feed</span>
   <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
 </div>
 
 <!-- Overlay -->
 <div class="overlay" id="overlay"></div>
 
-<!-- Background Image -->
-<div id="hover-bg"></div>
+<!-- Main Content -->
+<div class="main-content">
+  <div class="scroll-container" id="scroll-container">
 
-<!-- Services -->
-<div class="service-drawer">
-
-  <div class="drawer-tab" data-category="sound">
-    <div class="tab-title">Sound Design & Composition</div>
-    <div class="tab-content">
-      Create immersive soundscapes, field recordings, generative audio, and interactive compositions for installations, performances, and projects.
+    <!-- Example updates -->
+    <div class="update">
+      <div class="title"><span class="year">2025 &gt;</span> Contact Mics and Preamps workshop at CAV Gallery, Bucharest</div>
+      <img src="images/WORKSHOP_ATPWT_CAV.jpg" alt="Workshop at CAV Gallery">
+      <p>As this year’s <a href="https://artistsplaywithtime.ro/" target="_blank" class="custom-link">Artists Play with Time</a> project came to an end, I was invited to lead a workshop on building contact microphones at CAV Gallery, Bucharest.</p>
     </div>
-  </div>
 
-  <div class="drawer-tab" data-category="interactivity">
-    <div class="tab-title">Interactive & Software Development</div>
-    <div class="tab-content">
-      Develop interactive systems, software tools, and generative programs integrating sensors, audio, visuals, and user input.
+    <div class="update">
+      <div class="title"><span class="year">2025 &gt;</span> LED and Sound Programming for a Fresh Water Generator Concept</div>
+      <img src="images/YOKOGAWA1.JPG" alt="Yokogawa Project">
+      <p>In collaboration with <a href="https://fablab.ro/" target="_blank" class="custom-link">FabLab Bucharest</a>, I worked on a Fresh Water Generator concept model for YOKOGAWA.</p>
     </div>
-  </div>
 
-  <div class="drawer-tab" data-category="3d">
-    <div class="tab-title">3D Design & Fabrication</div>
-    <div class="tab-content">
-      Design and print prototypes, create 3D models for visualization, fabrication, and production, tailored to project needs.
+    <div class="update">
+      <div class="title"><span class="year">2025 &gt;</span> The Main Point of the Horizon, Cultural Centre Reduta, Brasov</div>
+      <img src="images/Beyondthenoisetheconcretespeaks2.JPG" alt="Brasov Exhibition">
+      <p>Following its debut in the Unbound Echoes exhibition at WASP Bucharest, Beyond the Noise, the Concrete Speaks continues its journey with a second iteration in Brașov. This evolving series explores the memory of space through resonance, field recordings, and layered sonic narratives.</p>
     </div>
-  </div>
 
-  <div class="drawer-tab" data-category="creative">
-    <div class="tab-title">Creative & Project Development</div>
-    <div class="tab-content">
-      Turn concepts into tangible projects by guiding ideation, structure, and creative solutions across disciplines.
-    </div>
   </div>
-
 </div>
-
-<!-- Call-to-action message -->
-<div style="text-align:center; margin:50px 20px; font-size:18px; color:#000000; font-weight:600;">
-  If you’d like to collaborate don’t hesitate to contact me at 
-  <a href="mailto:contact@atomatlab.com" style="color:#cd6c27; text-decoration:none;">contact@atomatlab.com</a>.
-</div>
-
-<!-- Rotating Logo -->
-<a href="https://atomatlab.com" target="_blank" class="spin-wrapper">
-  <img src="images/atomatlabrotating.png" alt="Logo" class="flip-image" id="rotating-logo">
-</a>
 
 <!-- Menu -->
 <div class="menu" id="menu">
@@ -204,16 +152,30 @@ body {background:white; overflow-x:hidden;}
   <a href="contact.html">Contact</a>
 </div>
 
+<!-- Rotating Logo -->
+<a href="https://atomatlab.com" target="_blank" class="spin-wrapper">
+  <img src="images/atomatlabrotating.png" alt="Logo" class="flip-image" id="rotating-logo">
+</a>
+
 <script>
 // Menu toggle
 const menu = document.getElementById('menu');
+const scrollContainer = document.getElementById('scroll-container');
 const overlay = document.getElementById('overlay');
 function toggleMenu(){
   const isOpen = menu.classList.contains('open');
-  if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); }
-  else{ menu.classList.add('open'); overlay.classList.add('active'); }
+  if(isOpen){
+    menu.classList.remove('open'); 
+    scrollContainer.classList.remove('recede'); 
+    overlay.classList.remove('active');
+  } else {
+    menu.classList.add('open'); 
+    scrollContainer.classList.add('recede'); 
+    overlay.classList.add('active');
+  }
 }
-overlay.addEventListener('click', () => { if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); } });
+overlay.addEventListener('click', () => { if(menu.classList.contains('open')){ menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active'); } });
+scrollContainer.addEventListener('click', () => { if(menu.classList.contains('open')){ menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active'); } });
 
 // Rotating / flipping logo
 const rotatingLogo = document.getElementById("rotating-logo");
