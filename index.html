@@ -1,195 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Denis Flueraru</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services - Denis Flueraru</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images/atomatfavicon.png">
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
 
-  <!-- Local font -->
-  <style>
-    @font-face {
-      font-family: 'Neue Kaine';
-      src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
-           url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-      font-weight: 100 900;
-      font-style: normal;
-      font-display: swap;
-    }
-    body, h1, h2, h3, h4, h5, h6, p, a, span, li {
-      font-family: 'Neue Kaine', sans-serif;
-    }
+<style>
+/* Font */
+@font-face {
+  font-family: 'Neue Kaine';
+  src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
+       url('fonts/neue_kaine_variable-webfont.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+body, h1, h2, h3, h4, h5, h6, p, a, span, li {
+  font-family: 'Neue Kaine', sans-serif;
+}
+* {margin:0; padding:0; box-sizing:border-box;}
+body {background:white; overflow-x:hidden;}
 
-    * {margin:0; padding:0; box-sizing:border-box;}
-    body { background:white; overflow-x:hidden; }
-    ::-webkit-scrollbar { display:none; }
-    body { -ms-overflow-style:none; scrollbar-width:none; }
+/* Header */
+.header {
+  position:fixed;
+  top:0; width:100%;
+  padding:25px 50px;
+  display:flex; justify-content:space-between; align-items:center;
+  background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
+  z-index:100;
+}
+.header .logo { font-weight:900; font-size:22px; cursor:pointer; text-decoration:none; color:black; }
+.header .section-title { font-weight:900; font-size:28px; }
+.header .menu-toggle { cursor:pointer; font-weight:900; font-size:22px; }
 
-    /* Header */
-    .header { 
-      position:fixed; top:0; width:100%; padding:25px 50px; 
-      display:flex; justify-content:space-between; align-items:center; 
-      background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%); 
-      z-index:100; pointer-events:none; 
-    }
-    .header * { pointer-events:auto; }
-    .header .logo { font-weight:900; font-size:20px; text-decoration:none; color:black; cursor:pointer; }
-    .header .section-title { font-weight:900; font-size:22px; color:black; margin:0 20px; } /* Bold Feed */
-    .header .menu-toggle { cursor:pointer; font-weight:900; font-size:22px; }
+/* Service Drawer */
+.service-drawer {
+  position: relative;
+  max-width: 900px;
+  margin: 160px auto 100px auto;
+  padding:0 20px;
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+  z-index:10;
+}
+.drawer-tab {
+  position: relative;
+  background: #b6d228; /* green */
+  color: black;
+  cursor:pointer;
+  border-radius:6px;
+  overflow:hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.drawer-tab:hover { transform: scale(1.05); }
+.tab-title { padding:25px 30px; font-weight:900; font-size:22px; transition: color 0.3s ease; }
+.drawer-tab:hover .tab-title { color:#cd6c27; } /* brown on hover */
+.tab-content {
+  max-height:0;
+  padding:0 30px;
+  font-size:18px;
+  line-height:1.5;
+  background:#fff;
+  overflow:hidden;
+  transition:max-height 0.3s ease, padding 0.3s ease;
+}
+.drawer-tab:hover .tab-content {
+  max-height:300px;
+  padding:20px 30px;
+}
 
-    /* Main content */
-    .main-content { display:flex; justify-content:center; padding-top:120px; min-height:100vh; position:relative; }
-    .scroll-container { display:flex; flex-direction:column; gap:40px; max-width:900px; font-size:16px; line-height:1.6; margin:0 auto; padding-bottom:100px; transition: transform 0.6s ease, opacity 0.6s ease; }
-    .scroll-container.recede { transform:scale(0.97); opacity:0.85; }
+/* Background image */
+#hover-bg {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background-size: cover;
+  background-position: center;
+  opacity:0;
+  pointer-events:none;
+  transition: opacity 0.5s ease;
+  z-index:1;
+}
 
-    /* Updates */
-    .update { display:flex; flex-direction:column; padding:0 40px; }
-    .update .title { font-weight:900; margin-bottom:5px; max-width:95%; } /* bold titles */
-    .update .title .year { font-weight:900; margin-right:5px; } /* bold year */
-    .update img { max-width:95%; margin-bottom:10px; border-radius:4px; }
-    .update p { color:#333; max-width:95%; text-align:inherit; }
-    .update:nth-child(odd) { align-items:flex-start; text-align:left; }
-    .update:nth-child(even) { align-items:flex-end; text-align:right; }
-    a.custom-link { text-decoration:underline; color:black; transition:color 0.2s ease; }
-    a.custom-link:hover { color:rgb(182,210,40); }
-    .update iframe { display:block; max-width:95%; margin:20px auto; height:auto; }
+/* Dim tabs on hover */
+.drawer-tab.hovered ~ .drawer-tab { opacity:0.5; transition: opacity 0.3s ease; }
 
-    /* Menu */
-    .menu { position:fixed; top:0; right:-25%; width:25%; height:100%; background-color:rgb(182,210,40); color:black; transition:right 0.4s ease; z-index:200; padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px; }
-    .menu.open { right:0; }
-    .menu a { color:black; text-decoration:none; transition:color 0.2s ease; display:inline-flex; align-items:center; }
-    .menu a:hover { color:#cd6c27; }
-    .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
+/* Menu */
+.menu {
+  position:fixed; top:0; right:-25%; width:25%; height:100%;
+  background-color:rgb(182,210,40);
+  color:black; transition:right 0.4s ease; z-index:200;
+  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
+}
+.menu.open { right:0; }
+.menu a { color:black; text-decoration:none; transition:color 0.2s ease; font-weight:900; }
+.menu a:hover { color:#cd6c27; }
+.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
-    /* Overlay */
-    .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
-    .overlay.active { display:block; }
+/* Overlay */
+.overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
+.overlay.active { display:block; }
 
-    /* Rotating logo */
-    .spin-wrapper { position: fixed; bottom:20px; left:20px; width:120px; animation:spin 20s linear infinite; transform-origin: center; cursor:pointer; z-index:100; }
-    .flip-image { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
-    .flipped { transform: rotateY(180deg); }
-    .spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
-    @keyframes spin { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
+/* Rotating logo */
+.spin-wrapper {
+  position: fixed; bottom:20px; left:20px;
+  width:120px;
+  animation: spin 20s linear infinite;
+  cursor:pointer;
+  z-index:100;
+}
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.flip-image {
+  width:100%;
+  transition: transform 0.6s ease, opacity 0.3s ease;
+  transform-style: preserve-3d;
+}
+.flipped { transform: rotateY(180deg); }
+.spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
 
-    @media(max-width:768px){
-      .menu{ width:50%; right:-50%; } .menu.open{ right:0; }
-      .header { padding:15px 20px; } .scroll-container { font-size:15px; gap:30px; }
-      .update { padding:0 20px; } .spin-wrapper { width:80px; bottom:15px; left:15px; }
-    }
-  </style>
+/* Responsive */
+@media(max-width:1000px){
+  .service-drawer { margin:140px 20px 80px 20px; }
+  .tab-title { font-size:20px; padding:20px 25px; }
+  .tab-content { font-size:16px; }
+}
+</style>
 </head>
 <body>
 
-  <!-- Header -->
-  <div class="header">
-    <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
-    <span class="section-title">Feed</span>
-    <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
-  </div>
+<!-- Header -->
+<div class="header">
+  <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
+  <span class="section-title">Services</span>
+  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
+</div>
 
-  <div class="overlay" id="overlay"></div>
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
 
-  <div class="main-content">
-    <div class="scroll-container" id="scroll-container">
+<!-- Background Image -->
+<div id="hover-bg"></div>
 
-      <!-- Example updates -->
-      <div class="update">
-        <div class="title"><span class="year">2025 &gt;</span> Contact Mics and Preamps workshop at CAV Gallery, Bucharest</div>
-        <img src="images/WORKSHOP_ATPWT_CAV.jpg" alt="Workshop at CAV Gallery">
-        <p>As this year’s <a href="https://artistsplaywithtime.ro/" target="_blank" class="custom-link">Artists Play with Time</a> project came to an end, I was invited to lead a workshop on building contact microphones at CAV Gallery, Bucharest.</p>
-      </div>
+<!-- Services -->
+<div class="service-drawer">
 
-      <div class="update">
-        <div class="title"><span class="year">2025 &gt;</span> LED and Sound Programming for a Fresh Water Generator Concept</div>
-        <img src="images/YOKOGAWA1.JPG" alt="Yokogawa Project">
-        <p>In collaboration with <a href="https://fablab.ro/" target="_blank" class="custom-link">FabLab Bucharest</a>, I worked on a Fresh Water Generator concept model for YOKOGAWA.</p>
-      </div>
-
-      <div class="update">
-        <div class="title"><span class="year">2025 &gt;</span> The Main Point of the Horizon, Cultural Centre Reduta, Brasov</div>
-        <img src="images/Beyondthenoisetheconcretespeaks2.JPG" alt="Brasov Exhibition">
-        <p>Following its debut in the Unbound Echoes exhibition at WASP Bucharest, Beyond the Noise, the Concrete Speaks continues its journey with a second iteration in Brașov. This evolving series explores the memory of space through resonance, field recordings, and layered sonic narratives.</p>
-      </div>
-
+  <div class="drawer-tab" data-category="sound">
+    <div class="tab-title">Sound Design & Composition</div>
+    <div class="tab-content">
+      Create immersive soundscapes, field recordings, generative audio, and interactive compositions for installations, performances, and projects.
     </div>
   </div>
 
-  <!-- Menu -->
-  <div class="menu" id="menu">
-    <a href="artworks.html">Artworks</a>
-    <a href="workshops.html">Workshops</a>
-    <a href="sound.html">Sound</a>
-    <a href="collabs.html">Collabs</a>
-    <div style="height:20px;"></div>
-    <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
-    <a href="services.html">Services</a>
-    <div style="height:20px;"></div>
-    <a href="biography.html">Biography</a>
-    <a href="contact.html">Contact</a>
+  <div class="drawer-tab" data-category="interactivity">
+    <div class="tab-title">Interactive & Software Development</div>
+    <div class="tab-content">
+      Develop interactive systems, software tools, and generative programs integrating sensors, audio, visuals, and user input.
+    </div>
   </div>
 
-  <!-- Scripts -->
-  <script>
-    const menu = document.getElementById('menu');
-    const scrollContainer = document.getElementById('scroll-container');
-    const overlay = document.getElementById('overlay');
-
-    function toggleMenu(){
-      const isOpen = menu.classList.contains('open');
-      if(isOpen){ 
-        menu.classList.remove('open'); 
-        scrollContainer.classList.remove('recede'); 
-        overlay.classList.remove('active'); 
-      }
-      else { 
-        menu.classList.add('open'); 
-        scrollContainer.classList.add('recede'); 
-        overlay.classList.add('active'); 
-      }
-    }
-
-    overlay.addEventListener('click', () => { 
-      if(menu.classList.contains('open')){ 
-        menu.classList.remove('open'); 
-        scrollContainer.classList.remove('recede'); 
-        overlay.classList.remove('active'); 
-      } 
-    });
-    scrollContainer.addEventListener('click', () => { 
-      if(menu.classList.contains('open')){ 
-        menu.classList.remove('open'); 
-        scrollContainer.classList.remove('recede'); 
-        overlay.classList.remove('active'); 
-      } 
-    });
-  </script>
-
-  <!-- Rotating Logo -->
-  <a href="https://atomatlab.com" target="_blank">
-    <div class="spin-wrapper">
-      <img src="images/FIELD5.png" alt="Logo" class="flip-image" id="rotating-logo">
+  <div class="drawer-tab" data-category="3d">
+    <div class="tab-title">3D Design & Fabrication</div>
+    <div class="tab-content">
+      Design and print prototypes, create 3D models for visualization, fabrication, and production, tailored to project needs.
     </div>
-  </a>
-  <script>
-    const rotatingLogo = document.getElementById("rotating-logo");
-    const spinWrapper = document.querySelector(".spin-wrapper");
-    const logos = ["images/FIELD5.png","images/atomatlabrotating.png"];
-    let index=0;
+  </div>
 
-    setInterval(()=>{
-      rotatingLogo.classList.toggle("flipped");
-      setTimeout(()=>{
-        index = (index+1)%logos.length;
-        rotatingLogo.src = logos[index];
-      },300);
-    },3000);
+  <div class="drawer-tab" data-category="creative">
+    <div class="tab-title">Creative & Project Development</div>
+    <div class="tab-content">
+      Turn concepts into tangible projects by guiding ideation, structure, and creative solutions across disciplines.
+    </div>
+  </div>
 
-    spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
-    spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
-  </script>
+</div>
+
+<!-- Call-to-action message -->
+<div style="text-align:center; margin:50px 20px; font-size:18px; color:#000000; font-weight:600;">
+  If you’d like to collaborate don’t hesitate to contact me at 
+  <a href="mailto:contact@atomatlab.com" style="color:#cd6c27; text-decoration:none;">contact@atomatlab.com</a>.
+</div>
+
+<!-- Rotating Logo -->
+<a href="https://atomatlab.com" target="_blank" class="spin-wrapper">
+  <img src="images/atomatlabrotating.png" alt="Logo" class="flip-image" id="rotating-logo">
+</a>
+
+<!-- Menu -->
+<div class="menu" id="menu">
+  <a href="artworks.html">Artworks</a>
+  <a href="workshops.html">Workshops</a>
+  <a href="sound.html">Sound</a>
+  <a href="collabs.html">Collabs</a>
+  <div style="height:20px;"></div>
+  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
+  <a href="services.html">Services</a>
+  <div style="height:20px;"></div>
+  <a href="biography.html">Biography</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<script>
+// Menu toggle
+const menu = document.getElementById('menu');
+const overlay = document.getElementById('overlay');
+function toggleMenu(){
+  const isOpen = menu.classList.contains('open');
+  if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); }
+  else{ menu.classList.add('open'); overlay.classList.add('active'); }
+}
+overlay.addEventListener('click', () => { if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); } });
+
+// Rotating / flipping logo
+const rotatingLogo = document.getElementById("rotating-logo");
+const spinWrapper = document.querySelector(".spin-wrapper");
+const logos = ["images/atomatlabrotating.png","images/FIELD5.png"];
+let index = 0;
+
+// Preload both images
+logos.forEach(src => { const img = new Image(); img.src = src; });
+
+setInterval(()=>{
+  rotatingLogo.classList.toggle("flipped");
+  setTimeout(()=>{
+    index = (index+1)%logos.length;
+    rotatingLogo.src = logos[index];
+  },300);
+},3000);
+
+spinWrapper.addEventListener("mousedown",()=>{spinWrapper.classList.add("clicked");});
+spinWrapper.addEventListener("mouseup",()=>{spinWrapper.classList.remove("clicked");});
+</script>
 
 </body>
 </html>
