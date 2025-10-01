@@ -199,30 +199,31 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, li {
     });
   </script>
 
-  <!-- Rotating Logo -->
-  <a href="https://atomatlab.com" target="_blank">
-    <div class="spin-wrapper">
-      <img src="images/atomatlabrotating.png" alt="Logo" class="flip-image" id="rotating-logo">
-    </div>
-  </a>
-
   <script>
-    const rotatingLogo = document.getElementById("rotating-logo");
-    const spinWrapper = document.querySelector(".spin-wrapper");
-    const logos = ["images/atomatlab.png","images/FIELD5.png"];
-    let index=0;
+// Rotating / flipping logo
+const rotatingLogo = document.getElementById("rotating-logo");
+const spinWrapper = document.querySelector(".spin-wrapper");
+const logos = [
+  "https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd",
+  "images/FIELD5.png"
+];
+let index = 0;
 
-    setInterval(()=>{
-      rotatingLogo.classList.toggle("flipped");
-      setTimeout(()=>{
-        index = (index+1)%logos.length;
-        rotatingLogo.src = logos[index];
-      },300);
-    },3000);
+// Preload both images
+logos.forEach(src => { const img = new Image(); img.src = src; });
 
-    spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
-    spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
-  </script>
+setInterval(()=>{
+  rotatingLogo.classList.toggle("flipped");
+  setTimeout(()=>{
+    index = (index+1)%logos.length;
+    rotatingLogo.src = logos[index];
+  },300);
+},3000);
+
+spinWrapper.addEventListener("mousedown",()=>{spinWrapper.classList.add("clicked");});
+spinWrapper.addEventListener("mouseup",()=>{spinWrapper.classList.remove("clicked");});
+</script>
+  
 
 </body>
 </html>
