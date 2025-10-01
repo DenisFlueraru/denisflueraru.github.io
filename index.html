@@ -132,6 +132,15 @@ a.custom-link:hover { color:rgb(182,210,40); }
 }
 
 /* Responsive */
+@media (max-width: 768px) {
+  .menu {
+    width: 40%;      /* Menu takes more space on mobile */
+    right: -40%;     /* Hidden off-screen by same width */
+  }
+  .menu.open {
+    right: 0;        /* Slides in fully on mobile */
+  }
+}
 @media(max-width:768px){
   .header { padding:15px; }
   .header .logo { font-size:18px; }
@@ -142,7 +151,7 @@ a.custom-link:hover { color:rgb(182,210,40); }
   .update { flex-direction:column !important; gap:20px; }
   .update img, .update .video-container, .update .text { max-width:100%; }
   
-  .menu { width:80%; right:-80%; font-size:18px; }
+  
   .spin-wrapper { width:70px; bottom:10px; left:10px; }
 }
 </style>
