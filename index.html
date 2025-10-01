@@ -45,13 +45,11 @@ body { -ms-overflow-style:none; scrollbar-width:none; }
 .scroll-container.recede { transform:scale(0.97); opacity:0.85; }
 
 /* Updates */
-.update { display:flex; flex-direction:column; padding:0 40px; }
-.update .title { font-weight:900; margin-bottom:5px; max-width:95%; }
+.update { display:flex; flex-direction:column; padding:0 40px; text-align:left; align-items:flex-start; }
+.update .title { font-weight:900; text-decoration:underline; margin-bottom:5px; max-width:95%; }
 .update .title .year { font-weight:900; margin-right:5px; }
 .update img { max-width:95%; margin-bottom:10px; border-radius:4px; }
 .update p { color:#333; max-width:95%; }
-.update:nth-child(odd) { align-items:flex-start; text-align:left; }
-.update:nth-child(even) { align-items:flex-end; text-align:right; }
 a.custom-link { text-decoration:underline; color:black; transition:color 0.2s ease; font-weight:900; }
 a.custom-link:hover { color:rgb(182,210,40); }
 .update iframe { display:block; max-width:95%; margin:20px auto; height:auto; }
@@ -98,6 +96,21 @@ a.custom-link:hover { color:rgb(182,210,40); }
   .update { padding:0 20px; }
   .spin-wrapper { width:80px; bottom:15px; left:15px; }
 }
+
+.video-container {
+  position: relative;
+  width: 95%;
+  padding-bottom: 95%; /* 1:1 aspect ratio */
+  height: 0;
+  margin-bottom: 10px;
+}
+.video-container iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
 </style>
 </head>
 <body>
@@ -132,8 +145,62 @@ a.custom-link:hover { color:rgb(182,210,40); }
     <div class="update">
       <div class="title"><span class="year">2025 &gt;</span> The Main Point of the Horizon, Cultural Centre Reduta, Brasov</div>
       <img src="images/Beyondthenoisetheconcretespeaks2.JPG" alt="Brasov Exhibition">
-      <p>Following its debut in the Unbound Echoes exhibition at WASP Bucharest, Beyond the Noise, the Concrete Speaks continues its journey with a second iteration in Brașov. This evolving series explores the memory of space through resonance, field recordings, and layered sonic narratives.</p>
+      <p>Following its debut in the <b>Unbound Echoes</b> exhibition at WASP Bucharest, <b>Beyond the Noise, the Concrete Speaks</b> continues its journey with a second iteration in Brașov. This evolving series explores the memory of space through resonance, field recordings, and layered sonic narratives.</p>
     </div>
+
+        <div class="update">
+      <div class="title"><span class="year">2025 &gt;</span> Unul Dintre Noi, Comedy Theater, Bucharest</div>
+      <img src="images/UDN.jpg" alt="Yokogawa Project">
+      <p>I had the pleasure of creating the sound realm which for the theatre play <b>“Unul dintre noi”</b> played at Teatrul de Comedie, Bucharest</p>
+    </div>
+
+       <div class="update">
+      <div class="title"><span class="year">2024 &gt;</span>  Unbound Echoes, WASP Bucharest</div>
+      <img src="images/BeyondBucharest.jpg" alt="Brasov Exhibition">
+      <p>As a tribute to <b>Paul Neagu and his palpable art manifesto</b> I unveiled the first work in a series that explores the urban scape through sound and touch, entitled <b>“Beyond the noise, the concrete speaks”</b>.</p>
+    </div>
+
+            <div class="update">
+      <div class="title"><span class="year">2024 &gt;</span> Ruined Resonances, Thessaloniki/GR</div>
+      <img src="images/RuinedResonances_SKG.jpeg" alt="Yokogawa Project">
+      <p>With the help of the <b>Culture Moves Europe mobility program</b>, "Ruined Resonances" broke boundaries for the first time letting us explore and add a new set of locations to our cross-modal archive.</p>
+    </div>
+
+
+           <div class="update">
+      <div class="title"><span class="year">2024 &gt;</span>  Fusion Air, /SAC Bucharest</div>
+      <img src="images/SOLARA1.jpeg" alt="Brasov Exhibition">
+      <p>During the Fusion Air Residency, I had the pleasure of collaborating with two scientists from the <b>Institute for Space Science</b>, Maximilian Teodorescu and Marius Echim. Our collaboration resulted in an interactive installation that explores the paradoxical relationship we have with the sun entitled Solara.</p>
+    </div>
+
+
+                <div class="update">
+      <div class="title"><span class="year">2024 &gt;</span> Recycle Your Technology Open Call BRD</div>
+      <img src="images/RuinedResonances_SKG.jpeg" alt="Yokogawa Project">
+      <p>As an artist chosen by the RYT team I made <b>i:105</b> constructed from recycled electronic waste provided by Eco Positive Romania. Throughout the project I also conducted four workshops in the following Romanian cities: Reșița, Arad, Brașov, and Bucharest. Participants of the workshops learned to create their own EMF microphones in order to capture and creatively interpret electromagnetic fields, blending environmental awareness with artistic exploration.</p>
+    </div>
+
+           <div class="update">
+      <div class="title"><span class="year">2024 &gt;</span>  Fusion Air, /SAC Bucharest</div>
+      <img src="images/workshops/RYT_ARAD.jpg" alt="Brasov Exhibition">
+      <p>During the Fusion Air Residency, I had the pleasure of collaborating with two scientists from the <b>Institute for Space Science</b>, Maximilian Teodorescu and Marius Echim. Our collaboration resulted in an interactive installation that explores the paradoxical relationship we have with the sun entitled Solara.</p>
+    </div>
+
+<div class="update">
+  <div class="title"><span class="year">2024 &gt;</span> DivAirCity Bucharest</div>
+  
+  <!-- Square YouTube embed -->
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/T5UO7QNXiLU" 
+      title="YouTube video player" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen></iframe>
+  </div>
+
+  <p>A quick look from the <b>DivAirCity Day</b> at Piațeta Italiana in Bucharest and my stand where I used air quality values to plot a series of generative drawings.</p>
+</div>
+    
 
   </div>
 </div>
