@@ -10,18 +10,17 @@
 
   <!-- Local font -->
   <style>
-   
     @font-face {
-  font-family: 'Neue Kaine';
-  src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
-       url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-body, h1, h2, h3, h4, h5, h6, p, a, span, li {
-  font-family: 'Neue Kaine', sans-serif;
-}
+      font-family: 'Neue Kaine';
+      src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
+           url('fonts/neue_kaine_variable-webfont.woff') format('woff');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    body, h1, h2, h3, h4, h5, h6, p, a, span, li {
+      font-family: 'Neue Kaine', sans-serif;
+    }
 
     * {margin:0; padding:0; box-sizing:border-box;}
     body { font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden; }
@@ -78,11 +77,27 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, li {
     .overlay.active { display:block; }
 
     /* Rotating logo */
-    .spin-wrapper { position:fixed; bottom:20px; left:20px; width:120px; animation:spin 20s linear infinite; cursor:pointer; z-index:100; }
-    .flip-image { width:100%; transition:transform 0.6s ease, opacity 0.3s ease; transform-style:preserve-3d; }
+    .spin-wrapper { 
+      position:fixed; bottom:20px; left:20px; 
+      width:120px; 
+      animation:spin 20s linear infinite; 
+      cursor:pointer; 
+      z-index:300; /* higher so it’s always visible */
+    }
+    .flip-image { 
+      width:100%; 
+      transition:transform 0.6s ease, opacity 0.3s ease; 
+      transform-style:preserve-3d; 
+    }
     .flipped { transform:rotateY(180deg); }
-    .spin-wrapper.clicked { transform:scale(1.2) rotateZ(var(--angle,0deg)); transition:transform 0.3s ease; }
-    @keyframes spin { from { transform:rotateZ(0deg); } to { transform:rotateZ(360deg); } }
+    .spin-wrapper.clicked { 
+      transform:scale(1.2) rotateZ(var(--angle,0deg)); 
+      transition:transform 0.3s ease; 
+    }
+    @keyframes spin { 
+      from { transform:rotateZ(0deg); } 
+      to { transform:rotateZ(360deg); } 
+    }
 
     /* Responsive */
     @media(max-width:1200px){ .artworks-grid { grid-template-columns:repeat(3,1fr); gap:30px; } }
@@ -199,6 +214,13 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, li {
     });
   </script>
 
+  <!-- Rotating Logo -->
+  <a href="https://atomatlab.com" target="_blank">
+    <div class="spin-wrapper">
+      <img src="images/FIELD5.png" alt="Logo" class="flip-image" id="rotating-logo">
+    </div>
+  </a>
+
   <script>
 // Rotating / flipping logo
 const rotatingLogo = document.getElementById("rotating-logo");
@@ -222,8 +244,7 @@ setInterval(()=>{
 
 spinWrapper.addEventListener("mousedown",()=>{spinWrapper.classList.add("clicked");});
 spinWrapper.addEventListener("mouseup",()=>{spinWrapper.classList.remove("clicked");});
-</script>
-  
+  </script>
 
 </body>
 </html>
