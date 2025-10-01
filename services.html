@@ -4,10 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Services - Denis Flueraru</title>
-<link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
 
 <style>
-@font-face {
+
+   
+    @font-face {
   font-family: 'Neue Kaine';
   src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
        url('fonts/neue_kaine_variable-webfont.woff') format('woff');
@@ -15,84 +18,147 @@
   font-style: normal;
   font-display: swap;
 }
-body, h1, h2, h3, h4, h5, h6, p, a, span, li { font-family: 'Neue Kaine', sans-serif; }
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:white; overflow-x:hidden; }
+body, h1, h2, h3, h4, h5, h6, p, a, span, li {
+  font-family: 'Neue Kaine', sans-serif;
+}
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
 
 /* Header */
 .header {
-  position:fixed; top:0; width:100%;
+  position:fixed;
+  top:0; width:100%;
   padding:25px 50px;
   display:flex; justify-content:space-between; align-items:center;
   background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
   z-index:100;
 }
-.header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black; }
+.header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
 .header .section-title { font-weight:400; font-size:28px; }
 .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
 /* Service Drawer */
 .service-drawer {
-  position: relative; max-width: 900px;
-  margin: 160px auto 100px auto; padding:0 20px;
-  z-index:10; display:flex; flex-direction:column; gap:25px;
+  position: relative;
+  max-width: 900px;
+  margin: 160px auto 100px auto;
+  padding:0 20px;
+  z-index:10;
+  display:flex;
+  flex-direction:column;
+  gap:25px;
 }
 
 .drawer-tab {
-  position: relative; background: #b6d228; color: black;
-  cursor:pointer; border-radius:6px; overflow:hidden;
+  position: relative;
+  background: #b6d228; /* green */
+  color: black;
+  cursor:pointer;
+  border-radius:6px;
+  overflow:hidden;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
+
 .drawer-tab:hover { transform: scale(1.05); }
 
-.tab-title { padding:25px 30px; font-weight:bold; font-size:22px; transition: color 0.3s ease; }
-.drawer-tab:hover .tab-title { color:#cd6c27; }
+.tab-title {
+  padding:25px 30px;
+  font-weight:bold;
+  font-size:22px;
+  transition: color 0.3s ease;
+}
+
+.drawer-tab:hover .tab-title { color:#cd6c27; } /* brown on hover */
 
 .tab-content {
-  max-height:0; padding:0 30px; font-size:18px; line-height:1.5;
-  background:#fff; overflow:hidden; transition:max-height 0.3s ease, padding 0.3s ease;
+  max-height:0;
+  padding:0 30px;
+  font-size:18px;
+  line-height:1.5;
+  background:#fff;
+  overflow:hidden;
+  transition:max-height 0.3s ease, padding 0.3s ease;
+}
+
+.drawer-tab:hover .tab-content {
+  max-height:300px;
+  padding:20px 30px;
 }
 
 /* Background image */
 #hover-bg {
-  position: fixed; top:0; left:0; width:100%; height:100%;
-  background-size: cover; background-position: center;
-  opacity:0; pointer-events:none; transition: opacity 0.5s ease; z-index:1;
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background-size: cover;
+  background-position: center;
+  opacity:0;
+  pointer-events:none;
+  transition: opacity 0.5s ease;
+  z-index:1;
 }
 
 /* Dim other tabs when hovered */
-.drawer-tab.hovered ~ .drawer-tab { opacity:0.5; transition: opacity 0.3s ease; }
-
-/* Menu */
-.menu {
-  position:fixed; top:0; right:-20%; width:20%; height:100%;
-  background-color:rgb(182,210,40); color:black;
-  transition:right 0.4s ease; z-index:200;
-  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
+.drawer-tab.hovered ~ .drawer-tab,
+.drawer-tab.hovered ~ .drawer-tab ~ .drawer-tab,
+.drawer-tab.hovered ~ .drawer-tab ~ .drawer-tab ~ .drawer-tab {
+  opacity:0.5;
+  transition: opacity 0.3s ease;
 }
-.menu.open { right:0; }
-.menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
-.menu a:hover { color:#cd6c27; }
-.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
-/* Grey overlay */
-.overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
-.overlay.active { display:block; }
+   /* Menu */
+    .menu {
+      position:fixed; top:0; right:-20%; width:20%; height:100%;
+      background-color:rgb(182,210,40); color:black;
+      transition:right 0.4s ease; z-index:1001;
+      padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
+    }
+    .menu.open { right:0; }
+    .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
+    .menu a:hover { color:#cd6c27; }
+    .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(128,128,128,0.2);
+  display: none;
+  z-index: 1000; /* BELOW menu but above header */
+}
+.overlay.active {
+  display: block;
+}
 
 /* Rotating logo */
 .spin-wrapper {
-  position: fixed; bottom:20px; left:20px; width:120px;
-  animation: spin 20s linear infinite; cursor:pointer; z-index:100;
+  position: fixed; bottom:20px; left:20px;
+  width:120px;
+  animation: spin 20s linear infinite;
+  cursor:pointer;
+  z-index:100;
 }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-.flip-image { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
+.flip-image {
+  width:100%;
+  transition: transform 0.6s ease, opacity 0.3s ease;
+  transform-style: preserve-3d;
+}
 .flipped { transform: rotateY(180deg); }
 .spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .menu { width: 40%; right: -40%; }
-  .menu.open { right: 0; }
+  .menu {
+    width: 40%;      /* Menu takes more space on mobile */
+    right: -40%;     /* Hidden off-screen by same width */
+  }
+  .menu.open {
+    right: 0;        /* Slides in fully on mobile */
+  }
 }
 @media(max-width:1000px){
   .service-drawer { margin:140px 20px 80px 20px; }
@@ -110,78 +176,93 @@ body { background:white; overflow-x:hidden; }
   <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
 </div>
 
+<!-- Overlay -->
 <div class="overlay" id="overlay"></div>
+
+<!-- Background Image -->
 <div id="hover-bg"></div>
 
+<!-- Services -->
 <div class="service-drawer">
+
   <div class="drawer-tab" data-category="sound">
     <div class="tab-title">Sound Design & Composition</div>
     <div class="tab-content">
-      <b>Specializing in immersive soundscapes, field recordings, generative audio, installations, performances, and bespoke compositions. Audio is crafted with Ableton Live, Pro Tools, Max MSP, MIDI systems, sensors, voiceovers, podcasts, films, jingles, commercials, live performances, workshops, audio repair, and explorations with contact mics and custom instruments.</b>
-    </div>
+<b>Specializing in immersive soundscapes, field recordings, and generative audio, projects include installations, performances, and bespoke compositions. Audio is crafted using analog media such as tape, organic recordings but also digital tools like Ableton Live, Pro Tools, and Max MSP, with integration of MIDI and live interaction systems involving both human and non-human controllers (buttons, sensors, or other interfaces). Voiceovers and post-production are developed for podcasts, films, jingles, commercials, and music productions, alongside live performances, workshops, and audio repair to deliver polished, professional results. Additional explorations incorporate contact microphones, electromagnetic sensors, and custom instruments for unique sonic experiences.</b>    </div>
   </div>
 
   <div class="drawer-tab" data-category="interactivity">
     <div class="tab-title">Interactive & Software Development</div>
     <div class="tab-content">
-      <b>Interactive experiences created with C, JavaScript, Processing, Arduino IDE, Max MSP, and machine learning for human recognition, gestures, and environment. Projects include installations, performances, and experimental systems with real-time audio-visual feedback.</b>
-    </div>
-  </div>
+<b>Dynamic interactive experiences are created through a combination of software development, sensor integration, and generative algorithms. Tools and languages include C, JavaScript, Processing, Arduino IDE, Max MSP, and machine learning interfaces for human recognition, gesture, and environmental interaction. Projects span responsive installations, interactive performances, and experimental systems, with a focus on real-time audio-visual feedback and immersive engagement.</b>  </div>
+</div>
 
   <div class="drawer-tab" data-category="3d">
     <div class="tab-title">3D Design & Fabrication</div>
     <div class="tab-content">
-      <b>3D models created in Rhino and Blender; prototypes fabricated with 3D printing, laser cutting, CNC, Dremels, power tools, painting, and interdisciplinary methods for cohesive final results.</b>
-    </div>
+<b>Models are created digitally in Rhinoceros 3D and Blender for visualization, planning, and production. Physical prototypes and installations are realized through 3D printing, laser cutting, CNC machining, and hands-on craftsmanship with Dremels and power tools. Painting, finishing, and other interdisciplinary methods are applied to refine the work, achieving a cohesive final result that integrates conceptual, technical, and aesthetic considerations.</b>  </div>
   </div>
 
   <div class="drawer-tab" data-category="creative">
     <div class="tab-title">Creative & Project Development</div>
     <div class="tab-content">
-      <b>Ideas transformed into tangible projects through sketching, research, brainstorming, collaboration, structured planning, and adaptive execution to align with client goals and project objectives.</b>
+      <b>Ideas are transformed into tangible projects through sketching, research, and iterative brainstorming, aligning with the client’s goals or the project’s objectives. Creative strategies and structured planning guide the development process, balancing conceptual exploration with practical execution. Collaboration is central, fostering effective teamwork, interdisciplinary problem-solving, and adaptive approaches that ensure projects evolve from initial vision to compelling, realized outcomes.</b>
     </div>
   </div>
+
 </div>
 
-<div style="text-align:center; margin:50px 20px; font-size:18px; color:#000; font-weight:600;">
-  Contact me at <a href="mailto:contact@atomatlab.com" style="color:#cd6c27; text-decoration:none;">contact@atomatlab.com</a>
+<!-- Call-to-action message -->
+<div style="text-align:center; margin:50px 20px; font-size:18px; color:#000000; font-weight:600;">
+  If you’d like to collaborate don’t hesitate to contact me at 
+  <a href="mailto:contact@atomatlab.com" style="color:#cd6c27; text-decoration:none;">contact@atomatlab.com</a>.
 </div>
 
+
+<!-- Rotating Logo -->
 <a href="https://atomatlab.com" target="_blank" class="spin-wrapper">
   <img src="images/atomatlabrotating.png" alt="Logo" class="flip-image" id="rotating-logo">
 </a>
 
-<div class="menu" id="menu">
-  <a href="artworks.html">Artworks</a>
-  <a href="workshops.html">Workshops</a>
-  <a href="sound.html">Sound</a>
-  <a href="collabs.html">Collabs</a>
-  <div style="height:20px;"></div>
-  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
-  <a href="services.html">Services</a>
-  <div style="height:20px;"></div>
-  <a href="biography.html">Biography</a>
-  <a href="contact.html">Contact</a>
-</div>
+
+  <!-- Menu -->
+  <div class="menu" id="menu">
+    <a href="artworks.html">Artworks</a>
+    <a href="workshops.html">Workshops</a>
+    <a href="sound.html">Sound</a>
+    <a href="collabs.html">Collabs</a>
+    <!-- <a href="exhibitions.html">Exhibitions</a> -->
+    <div style="height:20px;"></div>
+    <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
+    <a href="services.html">Services</a>
+    <div style="height:20px;"></div>
+    <a href="biography.html">Biography</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
 
 <script>
 // Menu toggle
 const menu = document.getElementById('menu');
 const overlay = document.getElementById('overlay');
-function toggleMenu() {
-  menu.classList.toggle('open');
-  overlay.classList.toggle('active');
+function toggleMenu(){
+  const isOpen = menu.classList.contains('open');
+  if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); }
+  else{ menu.classList.add('open'); overlay.classList.add('active'); }
 }
-overlay.addEventListener('click', () => { menu.classList.remove('open'); overlay.classList.remove('active'); });
+overlay.addEventListener('click', () => { if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); } });
 
-// Rotating logo
+// Rotating / flipping logo
 const rotatingLogo = document.getElementById("rotating-logo");
 const spinWrapper = document.querySelector(".spin-wrapper");
 const logos = ["https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd","images/FIELD5.png"];
 let index = 0;
 setInterval(()=>{
   rotatingLogo.classList.toggle("flipped");
-  setTimeout(()=>{ index = (index+1)%logos.length; rotatingLogo.src = logos[index]; },300);
+  setTimeout(()=>{
+    index = (index+1)%logos.length;
+    rotatingLogo.src = logos[index];
+  },300);
 },3000);
 spinWrapper.addEventListener("mousedown",()=>{spinWrapper.classList.add("clicked");});
 spinWrapper.addEventListener("mouseup",()=>{spinWrapper.classList.remove("clicked");});
@@ -189,55 +270,206 @@ spinWrapper.addEventListener("mouseup",()=>{spinWrapper.classList.remove("clicke
 // Hover background logic
 const hoverBg = document.getElementById("hover-bg");
 const tabs = document.querySelectorAll(".drawer-tab");
+
+// Replace these arrays with your 10 images per category
 const images = {
-  sound: [/*...all your sound URLs...*/],
-  interactivity: [/*...all your interactivity URLs...*/],
-  "3d": [/*...all your 3D URLs...*/],
-  creative: [/*...all your creative URLs...*/]
+  sound: [
+  "https://lh3.googleusercontent.com/d/1gl6WIVJimOKKd6dfDH71fmu6oFkRFxvo",
+  "https://lh3.googleusercontent.com/d/15FZXv3d8NQbw2AVUIswAfx7pvwP7y4RT",
+  "https://lh3.googleusercontent.com/d/10erTBCAkt2Pu-cJxk4YPIOELYZEGW_ZJ",
+  "https://lh3.googleusercontent.com/d/1nhJJRg2ATPdx4K_RrooD1evzj4ONrVr2",
+  "https://lh3.googleusercontent.com/d/16knwLXZyE_sP5c6mTdMIteC6B41C-wAJ",
+  "https://lh3.googleusercontent.com/d/1ibB6o8mdpOzlEji-ZZ3jw4WzHvimQx79",
+  "https://lh3.googleusercontent.com/d/1wWogBzuipC4RXgJAvrrQATOZsXUXG_z-",
+  "https://lh3.googleusercontent.com/d/1mb4H1BFoS8t3vdhA7D-tEnd9K1Rw8p3f",
+  "https://lh3.googleusercontent.com/d/1Kef49vGuW8WJBckgN5D7LumlSh1ZxyEC",
+  "https://lh3.googleusercontent.com/d/1rZOV5jt4Rv6zJUNe7FdnKsj6X1t6AnI3",
+  "https://lh3.googleusercontent.com/d/1auEZ6xIf7vMhQyhGtbVTIjCrw7w5qrzO",
+  "https://lh3.googleusercontent.com/d/1PY9WBULEDdRplTp0qQzmTvHzRPo2ayJ9",
+  "https://lh3.googleusercontent.com/d/1ENydqdObfXrt1e3QPnx9cROaJhVTpdgU"
+],
+  interactivity: [
+  "https://lh3.googleusercontent.com/d/1T3F9rHQYiv25LiiA6dsLEcXZUzTARVtq",
+  "https://lh3.googleusercontent.com/d/1fmthwRjIS1TVinKvRqGpIlTCVXWXy5KQ",
+  "https://lh3.googleusercontent.com/d/1wASpQpMiwSu79kkEccuPMjYdehIeLge_",
+  "https://lh3.googleusercontent.com/d/1d3t07aXBTGdSnTi0T_QGNUMskdFhAv0G",
+  "https://lh3.googleusercontent.com/d/1rSJR4qGFiKUZj3gOUydcE8NMcFuUNwZ3",
+  "https://lh3.googleusercontent.com/d/1GCUsPC-yOVWesfPFBxLrljTAOy8jYxni",
+  "https://lh3.googleusercontent.com/d/1NJpVUDuMjPFVXSxHPn-NqBFYoSk7AiZA",
+  "https://lh3.googleusercontent.com/d/1nhNmXUcLOO5NlX9h5qxbOphmIYcSeuoe",
+  "https://lh3.googleusercontent.com/d/125y_qaFl6s-0HFJBJ3CSdkzcIA0W191y",
+  "https://lh3.googleusercontent.com/d/1keY83DTGN-6tnHV5cHiLS1TsfzudqQ9x"
+],
+  "3d": [
+  "https://lh3.googleusercontent.com/d/192aouyTYUJpJtabHEjiucxQO3RWyE6fM",
+  "https://lh3.googleusercontent.com/d/1kcEeua5M2p6NE39UYJM_2bIQrmoZGi8g",
+  "https://lh3.googleusercontent.com/d/1o3BRzAVKLHKUkcmaSM0HyPyPP8Vlp8N0",
+  "https://lh3.googleusercontent.com/d/1pGMrS7pJ51mJOHrZ9AEDnEP9zBhpksgE",
+  "https://lh3.googleusercontent.com/d/1gXoel-qZPkIFDmvH7qixi_lRK7VIXX8o",
+  "https://lh3.googleusercontent.com/d/1kRjuGEFNaT-M-bkuTsEQyb9w-2GYiEL7",
+  "https://lh3.googleusercontent.com/d/1Wlx7bAZtZ1f70S1bxOdYbAWJag7XUIgx",
+  "https://lh3.googleusercontent.com/d/1BsBXHFvgwpGkuhKr18x_-ySNQ0umv5ky",
+  "https://lh3.googleusercontent.com/d/1eZzHlJaB8i2LnX3BCeUtNB6QF7-kpugl",
+  "https://lh3.googleusercontent.com/d/1y5DDdOxvwzUUNCdiVIPZ8PxJZgyTmf9-",
+  "https://lh3.googleusercontent.com/d/1QHOZKlgwxwp5qxpS795B1Im7nEDchLCG",
+  "https://lh3.googleusercontent.com/d/1NzY-MhJC9-EYM2sLMHiyN8tPfRlM-LuT"
+],
+  creative: [
+  "https://lh3.googleusercontent.com/d/15iA5yTDTjSndJ2o88Wem7FuJZ3gk_3d5",
+  "https://lh3.googleusercontent.com/d/10HoiFCV-70fovjpotw95Uqhwh3KPzN28",
+  "https://lh3.googleusercontent.com/d/1thOnUIvioqiS6Kziv_F2MRgcD8cFgqBt",
+  "https://lh3.googleusercontent.com/d/1fa9O3J6rgA4k_Or6Jtr0dQIhVBtfeosW",
+  "https://lh3.googleusercontent.com/d/1LEiXxf4bdPvVzSeHcOKa9OhqxAQL-Mwy",
+  "https://lh3.googleusercontent.com/d/1RY3SCwcAkjEMnwtge39TS2tMNEBdCYHW",
+  "https://lh3.googleusercontent.com/d/1xtqEPmB7AIFMeGN6-WT1t022q7GyjCH8",
+  "https://lh3.googleusercontent.com/d/10rMmI1Q8lEUS3IGQ_uC9dX0_AxM-M2P8",
+  "https://lh3.googleusercontent.com/d/1aY0bhwYIOyHKwYk9Yjdml3POLkZAMMxS",
+  "https://lh3.googleusercontent.com/d/1mzT0_1w0blDHsZaRxCZjjUfxeRgS0Qtl"
+],
 };
+
 const imageIndex = { sound:0, interactivity:0, "3d":0, creative:0 };
 
-// Helper to show tab
-function showTab(tab){
-  const cat = tab.dataset.category;
-  hoverBg.style.backgroundImage = `url(${images[cat][imageIndex[cat]]})`;
-  hoverBg.style.opacity = 0.5;
-  imageIndex[cat] = (imageIndex[cat]+1) % images[cat].length;
-  tabs.forEach(t => t!==tab ? t.style.opacity="0.5" : null);
-  tab.classList.add("hovered");
-  tab.querySelector(".tab-content").style.maxHeight = "300px";
-  tab.querySelector(".tab-content").style.padding = "20px 30px";
-}
+tabs.forEach(tab=>{
+  tab.addEventListener("mouseenter", ()=>{
+    const cat = tab.dataset.category;
+    hoverBg.style.backgroundImage = `url(${images[cat][imageIndex[cat]]})`;
+    hoverBg.style.opacity = 0.5;
+    imageIndex[cat] = (imageIndex[cat]+1)%images[cat].length;
 
-// Helper to hide tab
-function hideTab(tab){
-  hoverBg.style.opacity = 0;
-  tabs.forEach(t => t.style.opacity="1");
-  tab.classList.remove("hovered");
-  tab.querySelector(".tab-content").style.maxHeight = "0";
-  tab.querySelector(".tab-content").style.padding = "0 30px";
-}
-
-// Hover events
-tabs.forEach(tab => {
-  tab.addEventListener("mouseenter", () => { stopIdleHover(); showTab(tab); });
-  tab.addEventListener("mouseleave", () => { hideTab(tab); startIdleAfterDelay(); });
+    tabs.forEach(t=>{ if(t!==tab) t.style.opacity="0.5"; });
+    tab.classList.add("hovered");
+  });
+  tab.addEventListener("mouseleave", ()=>{
+    hoverBg.style.opacity = 0;
+    tabs.forEach(t=>t.style.opacity="1");
+    tab.classList.remove("hovered");
+  });
 });
 
-// Idle hover
-let idleInterval, idleTimeout, idleActive = true;
-document.addEventListener("mousemove", () => { idleActive=false; clearInterval(idleInterval); clearTimeout(idleTimeout); startIdleAfterDelay(); });
+// Hover background and dropdown for manual hover
+tabs.forEach(tab => {
+  tab.addEventListener("mouseenter", () => {
+    // Stop idle mode while interacting
+    stopIdleHover();
 
-function startIdleAfterDelay() { clearTimeout(idleTimeout); idleTimeout = setTimeout(()=>{ idleActive=true; startIdleHover(); },4000); }
-function startIdleHover(){
-  idleInterval = setInterval(()=>{
-    if(!idleActive) return;
-    const randomTab = tabs[Math.floor(Math.random()*tabs.length)];
-    showTab(randomTab);
-    setTimeout(()=>{ hideTab(randomTab); },2000);
-  },4000);
+    const cat = tab.dataset.category;
+    hoverBg.style.backgroundImage = `url(${images[cat][imageIndex[cat]]})`;
+    hoverBg.style.opacity = 0.5;
+    imageIndex[cat] = (imageIndex[cat]+1) % images[cat].length;
+
+    tabs.forEach(t => { if(t!==tab) t.style.opacity="0.5"; });
+    tab.classList.add("hovered");
+
+    // Open tab content
+    tab.querySelector(".tab-content").style.maxHeight = "300px";
+    tab.querySelector(".tab-content").style.padding = "20px 30px";
+  });
+
+  tab.addEventListener("mouseleave", () => {
+    hoverBg.style.opacity = 0;
+    tabs.forEach(t => t.style.opacity="1");
+    tab.classList.remove("hovered");
+
+    // Close tab content
+    tab.querySelector(".tab-content").style.maxHeight = "0";
+    tab.querySelector(".tab-content").style.padding = "0 30px";
+    
+    // Restart idle mode after 4 seconds of no movement
+    startIdleAfterDelay();
+  });
+});
+
+let idleInterval;
+let idleTimeout;
+let idleActive = true;
+let lastMouseTime = Date.now();
+
+// Track mouse movement anywhere
+document.addEventListener("mousemove", () => {
+  lastMouseTime = Date.now();
+  idleActive = false;
+  clearInterval(idleInterval);
+  clearTimeout(idleTimeout);
+  startIdleAfterDelay();
+});
+
+// Start idle after 4 seconds of no mouse movement
+function startIdleAfterDelay() {
+  clearTimeout(idleTimeout);
+  idleTimeout = setTimeout(() => {
+    idleActive = true;
+    startIdleHover();
+  }, 4000);
 }
+
+// Idle hover function
+function startIdleHover() {
+  idleInterval = setInterval(() => {
+    if (!idleActive) return;
+
+    const randomTab = tabs[Math.floor(Math.random() * tabs.length)];
+    const cat = randomTab.dataset.category;
+
+    // Show background image
+    hoverBg.style.backgroundImage = `url(${images[cat][imageIndex[cat]]})`;
+    hoverBg.style.opacity = 0.5;
+    imageIndex[cat] = (imageIndex[cat]+1) % images[cat].length;
+
+    // Dim other tabs
+    tabs.forEach(t => { if(t!==randomTab) t.style.opacity="0.5"; });
+    randomTab.classList.add("hovered");
+
+    // Open tab content
+    randomTab.querySelector(".tab-content").style.maxHeight = "300px";
+    randomTab.querySelector(".tab-content").style.padding = "20px 30px";
+
+    // Hide after 2s
+    setTimeout(() => {
+      hoverBg.style.opacity = 0;
+      tabs.forEach(t => t.style.opacity="1");
+      randomTab.classList.remove("hovered");
+      randomTab.querySelector(".tab-content").style.maxHeight = "0";
+      randomTab.querySelector(".tab-content").style.padding = "0 30px";
+    }, 2000);
+
+  }, 4000);
+}
+
+// Manual hover still works
+tabs.forEach(tab => {
+  tab.addEventListener("mouseenter", () => {
+    idleActive = false; // stop idle
+    clearInterval(idleInterval);
+    clearTimeout(idleTimeout);
+
+    const cat = tab.dataset.category;
+    hoverBg.style.backgroundImage = `url(${images[cat][imageIndex[cat]]})`;
+    hoverBg.style.opacity = 0.5;
+    imageIndex[cat] = (imageIndex[cat]+1) % images[cat].length;
+
+    tabs.forEach(t => { if(t!==tab) t.style.opacity="0.5"; });
+    tab.classList.add("hovered");
+
+    tab.querySelector(".tab-content").style.maxHeight = "300px";
+    tab.querySelector(".tab-content").style.padding = "20px 30px";
+  });
+
+  tab.addEventListener("mouseleave", () => {
+    hoverBg.style.opacity = 0;
+    tabs.forEach(t => t.style.opacity="1");
+    tab.classList.remove("hovered");
+
+    tab.querySelector(".tab-content").style.maxHeight = "0";
+    tab.querySelector(".tab-content").style.padding = "0 30px";
+
+    startIdleAfterDelay();
+  });
+});
+
+// Initial idle start
 startIdleAfterDelay();
+
 </script>
 
 </body>
