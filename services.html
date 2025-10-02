@@ -10,7 +10,7 @@
 <style>
 
    
-    @font-face {
+@font-face {
   font-family: 'Neue Kaine';
   src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
        url('fonts/neue_kaine_variable-webfont.woff') format('woff');
@@ -18,12 +18,18 @@
   font-style: normal;
   font-display: swap;
 }
-.bold-highlight {
-  font-family: "Neue Kaine", sans-serif;
+@font-face {
+  font-family: '42dot Sans';
+  src: url('fonts/42dot_sans/fonts/ttf/42dotSans-Bold.ttf') format('truetype');
   font-weight: bold;
+  font-style: normal;
 }
 body, h1, h2, h3, h4, h5, h6, p, a, span, li {
   font-family: 'Neue Kaine', sans-serif;
+}
+.highlight {
+  font-family: '42dot Sans', sans-serif;
+  font-weight: bold;
 }
 * {margin:0; padding:0; box-sizing:border-box;}
 body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
@@ -190,38 +196,51 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 <div class="service-drawer">
 
 <div class="drawer-tab" data-category="sound">
-  <div class="tab-title bold-highlight">Sound Design & Composition</div>
+  <div class="tab-title"><b>Sound Design & Composition</b></div>
   <div class="tab-content">
-    Specializing in 
-    <span class="bold-highlight">immersive soundscapes</span>, 
-    <span class="bold-highlight">field recordings</span>, and 
-    <span class="bold-highlight">generative audio</span>, 
-    projects include <span class="bold-highlight">installations</span>, 
-    <span class="bold-highlight">performances</span>, and 
-    <span class="bold-highlight">bespoke compositions</span>. 
-
+    Specializing in <span class="highlight">immersive soundscapes</span>, 
+    <span class="highlight">field recordings</span>, and 
+    <span class="highlight">generative audio</span>, projects include 
+    <span class="highlight">installations</span>, 
+    <span class="highlight">performances</span>, and 
+    <span class="highlight">bespoke compositions</span>. 
     Audio is crafted using analog media such as tape, organic recordings but also digital tools like 
-    <span class="bold-highlight">Ableton Live</span>, 
-    <span class="bold-highlight">Pro Tools</span>, and 
-    <span class="bold-highlight">Max MSP</span>, with integration of MIDI and live interaction systems involving both human and non-human controllers (buttons, sensors, or other interfaces). 
-
-    <span class="bold-highlight">Voiceovers</span> and 
-    <span class="bold-highlight">post-production</span> are developed for podcasts, films, jingles, commercials, and music productions, alongside 
-    <span class="bold-highlight">live performances</span>, 
-    <span class="bold-highlight">workshops</span>, and 
-    <span class="bold-highlight">audio repair</span> to deliver polished, professional results. 
-
+    <span class="highlight">Ableton Live</span>, 
+    <span class="highlight">Pro Tools</span>, and 
+    <span class="highlight">Max MSP</span>, with integration of MIDI and live interaction systems involving both human and non-human controllers (buttons, sensors, or other interfaces). 
+    <span class="highlight">Voiceovers</span> and 
+    <span class="highlight">post-production</span> are developed for podcasts, films, jingles, commercials, and music productions, alongside 
+    <span class="highlight">live performances</span>, 
+    <span class="highlight">workshops</span>, and 
+    <span class="highlight">audio repair</span> to deliver polished, professional results. 
     Additional explorations incorporate 
-    <span class="bold-highlight">contact microphones</span>,  
-    <span class="bold-highlight">electromagnetic sensors</span>, and 
-    <span class="bold-highlight">custom instruments</span> for unique sonic experiences.
+    <span class="highlight">contact microphones</span>, 
+    <span class="highlight">electromagnetic sensors</span>, and 
+    <span class="highlight">custom instruments</span> for unique sonic experiences.
   </div>
 </div>
 
   <div class="drawer-tab" data-category="interactivity">
-    <div class="tab-title">Interactive & Software Development</div>
-    <div class="tab-content">
-<b>Dynamic interactive experiences are created through a combination of software development, sensor integration, and generative algorithms. Tools and languages include C, JavaScript, Processing, Arduino IDE, Max MSP, and machine learning interfaces for human recognition, gesture, and environmental interaction. Projects span responsive installations, interactive performances, and experimental systems, with a focus on real-time audio-visual feedback and immersive engagement.</b>  </div>
+  <div class="tab-title"><b>Interactive & Software Development</b></div>
+  <div class="tab-content">
+    <span class="highlight">Dynamic interactive experiences</span> are created through a combination of 
+    <span class="highlight">software development</span>, 
+    <span class="highlight">sensor integration</span>, and 
+    <span class="highlight">generative algorithms</span>. 
+    Tools and languages include 
+    <span class="highlight">C</span>, 
+    <span class="highlight">JavaScript</span>, 
+    <span class="highlight">Processing</span>, 
+    <span class="highlight">Arduino IDE</span>, 
+    <span class="highlight">Max MSP</span>, and 
+    <span class="highlight">machine learning interfaces</span> for human recognition, gesture, and environmental interaction. 
+    Projects span 
+    <span class="highlight">responsive installations</span>, 
+    <span class="highlight">interactive performances</span>, and 
+    <span class="highlight">experimental systems</span>, with a focus on 
+    <span class="highlight">real-time audio-visual feedback</span> and 
+    <span class="highlight">immersive engagement</span>.
+  </div>
 </div>
 
   <div class="drawer-tab" data-category="3d">
