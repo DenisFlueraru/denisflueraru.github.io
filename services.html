@@ -185,11 +185,34 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 <!-- Services -->
 <div class="service-drawer">
 
-  <div class="drawer-tab" data-category="sound">
-    <div class="tab-title">Sound Design & Composition</div>
-    <div class="tab-content">
-<b>Specializing in immersive soundscapes, field recordings, and generative audio, projects include installations, performances, and bespoke compositions. Audio is crafted using analog media such as tape, organic recordings but also digital tools like Ableton Live, Pro Tools, and Max MSP, with integration of MIDI and live interaction systems involving both human and non-human controllers (buttons, sensors, or other interfaces). Voiceovers and post-production are developed for podcasts, films, jingles, commercials, and music productions, alongside live performances, workshops, and audio repair to deliver polished, professional results. Additional explorations incorporate contact microphones, electromagnetic sensors, and custom instruments for unique sonic experiences.</b>    </div>
+<div class="drawer-tab" data-category="sound">
+  <div class="tab-title" style="font-weight:bold; font-size:42px;">Sound Design & Composition</div>
+  <div class="tab-content">
+    Specializing in 
+    <span style="font-weight:bold; font-size:42px;">immersive soundscapes</span>, 
+    <span style="font-weight:bold; font-size:42px;">field recordings</span>, and 
+    <span style="font-weight:bold; font-size:42px;">generative audio</span>, 
+    projects include <span style="font-weight:bold; font-size:42px;">installations</span>, 
+    <span style="font-weight:bold; font-size:42px;">performances</span>, and 
+    <span style="font-weight:bold; font-size:42px;">bespoke compositions</span>. 
+    
+    Audio is crafted using analog media such as tape, organic recordings but also digital tools like 
+    <span style="font-weight:bold; font-size:42px;">Ableton Live</span>, 
+    <span style="font-weight:bold; font-size:42px;">Pro Tools</span>, and 
+    <span style="font-weight:bold; font-size:42px;">Max MSP</span>, with integration of MIDI and live interaction systems involving both human and non-human controllers (buttons, sensors, or other interfaces). 
+    
+    <span style="font-weight:bold; font-size:42px;">Voiceovers</span> and 
+    <span style="font-weight:bold; font-size:42px;">post-production</span> are developed for podcasts, films, jingles, commercials, and music productions, alongside 
+    <span style="font-weight:bold; font-size:42px;">live performances</span>, 
+    <span style="font-weight:bold; font-size:42px;">workshops</span>, and 
+    <span style="font-weight:bold; font-size:42px;">audio repair</span> to deliver polished, professional results. 
+    
+    Additional explorations incorporate 
+    <span style="font-weight:bold; font-size:42px;">contact microphones</span>,  
+    <span style="font-weight:bold; font-size:42px;">electromagnetic sensors</span>, and 
+    <span style="font-weight:bold; font-size:42px;">custom instruments</span> for unique sonic experiences.
   </div>
+</div>
 
   <div class="drawer-tab" data-category="interactivity">
     <div class="tab-title">Interactive & Software Development</div>
@@ -253,6 +276,9 @@ function toggleMenu(){
 overlay.addEventListener('click', () => { if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); } });
 
 // Rotating / flipping logo
+
+
+
 const rotatingLogo = document.getElementById("rotating-logo");
 const spinWrapper = document.querySelector(".spin-wrapper");
 const logos = ["https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd","images/FIELD5.png"];
