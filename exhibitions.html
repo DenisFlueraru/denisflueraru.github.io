@@ -1,47 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Exhibitions - Denis Flueraru</title>
-  <!-- Favicon -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exhibitions - Denis Flueraru</title>
   <link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
-<style>
-     
+
+  <style>
     @font-face {
-  font-family: 'Neue Kaine';
-  src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
-       url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-body, h1, h2, h3, h4, h5, h6, p, a, span, li {
-  font-family: 'Neue Kaine', sans-serif;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden; }
+      font-family: 'Neue Kaine';
+      src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
+           url('fonts/neue_kaine_variable-webfont.woff') format('woff');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    body, h1, h2, h3, h4, h5, h6, p, a, span, li {
+      font-family: 'Neue Kaine', sans-serif;
+    }
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {background:white; overflow-x:hidden;}
+    ::-webkit-scrollbar {display:none;} 
+    body {-ms-overflow-style:none; scrollbar-width:none;}
 
-/* Header */
-.header {
-  position:fixed;
-  top:0; width:100%;
-  padding:25px 50px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-  z-index:100;
-}
-.header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black; }
-.header .section-title { font-weight:400; font-size:28px; }
-.header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
+    /* Header */
+    .header {
+      position:fixed; top:0; width:100%;
+      padding:25px 50px;
+      display:flex; justify-content:space-between; align-items:center;
+      background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
+      z-index:100; pointer-events:none;
+    }
+    .header * { pointer-events:auto; }
+    .header .logo { font-weight:bold; font-size:20px; text-decoration:none; color:black; }
+    .header .section-title { font-weight:400; font-size:22px; color:black; text-align:center; flex:1; }
+    .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
-/* Overlay */
-.overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
-.overlay.active { display:block; }
+    /* Main content */
+    .main-content { display:flex; justify-content:center; padding-top:120px; min-height:100vh; position:relative; }
+    .scroll-container { display:flex; flex-direction:column; gap:60px; max-width:900px; font-size:16px; line-height:1.6; margin:0 auto; padding-bottom:150px; }
 
-   /* Menu */
+    /* Upcoming */
+    .upcoming {
+      border:3px solid #b6d228;
+      padding:20px;
+      border-radius:10px;
+      text-align:center;
+      position:relative;
+      animation: pulseBorder 2s infinite;
+    }
+    @keyframes pulseBorder {
+      0% { box-shadow:0 0 5px #b6d228; }
+      50% { box-shadow:0 0 20px #b6d228; }
+      100% { box-shadow:0 0 5px #b6d228; }
+    }
+    .upcoming h2 {
+      font-size:22px;
+      margin-bottom:15px;
+      text-transform:uppercase;
+    }
+    .marquee {
+      overflow:hidden;
+      white-space:nowrap;
+      box-sizing:border-box;
+      animation: marquee 10s linear infinite;
+      color:#cd6c27;
+      font-weight:bold;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .upcoming img {
+      max-width:100%;
+      border-radius:8px;
+      margin-top:15px;
+    }
+
+    /* Past exhibitions */
+    .past h2 { font-size:20px; font-weight:bold; margin-bottom:10px; border-bottom:2px solid black; padding-bottom:5px; }
+    .past p { margin-bottom:10px; }
+    .past img { width:100%; max-height:400px; object-fit:cover; border-radius:8px; margin:15px 0; }
+
+    /* Menu */
     .menu {
       position:fixed; top:0; right:-20%; width:20%; height:100%;
       background-color:rgb(182,210,40); color:black;
@@ -53,57 +94,19 @@ body { font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden
     .menu a:hover { color:#cd6c27; }
     .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
-/* Rotating logo */
-.spin-wrapper {
-  position: fixed; bottom:20px; left:20px;
-  width:120px;
-  animation: spin 20s linear infinite;
-  cursor:pointer;
-  z-index:100;
-}
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-.flip-image {
-  width:100%;
-  transition: transform 0.6s ease, opacity 0.3s ease;
-  transform-style: preserve-3d;
-}
-.flipped { transform: rotateY(180deg); }
-.spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
+    /* Rotating logo */
+    .spin-wrapper { position: fixed; bottom:20px; left:20px; width:120px; animation:spin 20s linear infinite; transform-origin:center; cursor:pointer; z-index:100; }
+    .flip-image { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
+    .flipped { transform: rotateY(180deg); }
+    @keyframes spin { from { transform:rotateZ(0deg); } to { transform:rotateZ(360deg); } }
 
-/* Exhibitions feed */
-.exhibitions-container {
-  max-width:1000px;
-  margin:160px auto 80px auto;
-  padding:0 20px;
-  display:flex;
-  flex-direction:column;
-  gap:40px;
-}
-.exhibition-section { margin-bottom:40px; }
-.exhibition-section h2 { font-size:22px; margin-bottom:20px; font-weight:bold; border-bottom:2px solid #b6d228; padding-bottom:5px; }
-.exhibition-item {
-  padding:10px 0;
-  border-bottom:1px solid #ccc;
-  font-size:16px;
-}
-.exhibition-item:last-child { border-bottom:none; }
-.exhibition-year { font-weight:bold; margin-right:10px; color:#b6d228; }
-.exhibition-details { color:#000; }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .menu {
-    width: 40%;      /* Menu takes more space on mobile */
-    right: -40%;     /* Hidden off-screen by same width */
-  }
-  .menu.open {
-    right: 0;        /* Slides in fully on mobile */
-  }
-}
-@media(max-width:800px){
-  .exhibition-year { display:block; margin-bottom:5px; }
-}
-</style>
+    /* Responsive */
+    @media (max-width: 768px) {
+      .menu { width:40%; right:-40%; }
+      .menu.open { right:0; }
+      .scroll-container { font-size:15px; gap:40px; padding:0 10px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -117,98 +120,73 @@ body { font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden
 <!-- Overlay -->
 <div class="overlay" id="overlay"></div>
 
-<!-- Exhibitions Feed -->
-<div class="exhibitions-container">
+<!-- Main content -->
+<div class="main-content">
+  <div class="scroll-container">
 
-  <!-- Upcoming Exhibitions -->
-  <div class="exhibition-section">
-    <h2>Upcoming Exhibitions</h2>
-    <div class="exhibition-item">
-      <span class="exhibition-year">2025 ></span>
-      <span class="exhibition-details">"Immersive Sound Futures", Berlin, 05/10/2025 – 20/10/2025</span>
+    <!-- Upcoming Exhibitions -->
+    <div class="upcoming">
+      <h2>Upcoming Exhibition</h2>
+      <div class="marquee">Don’t miss the next exhibition – details coming soon!</div>
+      <img src="images/upcoming-poster.png" alt="Upcoming Exhibition Poster">
     </div>
-    <div class="exhibition-item">
-      <span class="exhibition-year">2025 ></span>
-      <span class="exhibition-details">"Generative Art Show", Vienna, 15/11/2025 – 30/11/2025</span>
+
+    <!-- Past Exhibitions -->
+    <div class="past">
+      <h2>2024 - Solar Resonance, Bucharest</h2>
+      <p>June 12 – July 5, National Museum of Contemporary Art</p>
+      <img src="images/exhibition1.jpg" alt="Exhibition 1">
+      <img src="images/exhibition2.jpg" alt="Exhibition 2">
+
+      <h2>2023 - Resonant Matter, Berlin</h2>
+      <p>March 3 – April 1, Berlin Sound Gallery</p>
+      <img src="images/exhibition3.jpg" alt="Exhibition 3">
     </div>
+
   </div>
-
-  <!-- Past Exhibitions -->
-  <div class="exhibition-section">
-    <h2>Past Exhibitions</h2>
-    <div class="exhibition-item">
-      <span class="exhibition-year">2024 ></span>
-      <span class="exhibition-details">"Sound & Space", Bucharest, 12/03/2024 – 28/03/2024</span>
-    </div>
-    <div class="exhibition-item">
-      <span class="exhibition-year">2023 ></span>
-      <span class="exhibition-details">"Audio Landscapes", Cluj-Napoca, 05/09/2023 – 20/09/2023</span>
-    </div>
-    <div class="exhibition-item">
-      <span class="exhibition-year">2022 ></span>
-      <span class="exhibition-details">"Experimental Sound Forms", Timisoara, 10/06/2022 – 25/06/2022</span>
-    </div>
-    <!-- Add more past exhibitions here -->
-  </div>
-
 </div>
 
+<!-- Sliding Menu -->
+<div class="menu" id="menu">
+  <a href="artworks.html">Artworks</a>
+  <a href="workshops.html">Workshops</a>
+  <a href="sound.html">Sound</a>
+  <a href="collabs.html">Collabs</a>
+  <div style="height:20px;"></div>
+  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" class="menu-icon"></a>
+  <a href="services.html">Services</a>
+  <div style="height:20px;"></div>
+  <a href="biography.html">Biography</a>
+  <a href="contact.html">Contact</a>
+</div>
 
-  <!-- Menu -->
-  <div class="menu" id="menu">
-    <a href="artworks.html">Artworks</a>
-    <a href="workshops.html">Workshops</a>
-    <a href="sound.html">Sound</a>
-    <a href="collabs.html">Collabs</a>
-    <!-- <a href="exhibitions.html">Exhibitions</a> -->
-    <div style="height:20px;"></div>
-    <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
-    <a href="services.html">Services</a>
-    <div style="height:20px;"></div>
-    <a href="biography.html">Biography</a>
-    <a href="contact.html">Contact</a>
+<!-- Rotating Logo -->
+<a href="https://atomatlab.com" target="_blank">
+  <div class="spin-wrapper">
+    <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="Logo" class="flip-image" id="rotating-logo">
   </div>
-
+</a>
 
 <script>
-// Menu toggle
-const menu = document.getElementById('menu');
-const overlay = document.getElementById('overlay');
-function toggleMenu(){
-  const isOpen = menu.classList.contains('open');
-  if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); }
-  else{ menu.classList.add('open'); overlay.classList.add('active'); }
-}
-overlay.addEventListener('click', () => {
-  if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); }
-});
+  const menu=document.getElementById('menu');
+  const scrollContainer=document.querySelector('.scroll-container');
+  const overlay=document.getElementById('overlay');
+  function toggleMenu(){
+    const isOpen=menu.classList.contains('open');
+    if(isOpen){menu.classList.remove('open');overlay.classList.remove('active');}
+    else{menu.classList.add('open');overlay.classList.add('active');}
+  }
+  overlay?.addEventListener('click',()=>{if(menu.classList.contains('open')){menu.classList.remove('open');overlay.classList.remove('active');}});
 
+  // Rotating logo flip
+  const rotatingLogo=document.getElementById("rotating-logo");
+  const logos=["https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd","images/FIELD5.png"];
+  let index=0;
+  setInterval(()=>{
+    rotatingLogo.classList.toggle("flipped");
+    setTimeout(()=>{index=(index+1)%logos.length;rotatingLogo.src=logos[index];},300);
+  },3000);
 </script>
-<!-- Rotating Logo -->
-  <a href="https://atomatlab.com" target="_blank">
-    <div class="spin-wrapper">
-      <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="Logo" class="flip-image" id="rotating-logo">
-    </div>
-  </a>
-  <script>
-    const rotatingLogo = document.getElementById("rotating-logo");
-    const spinWrapper = document.querySelector(".spin-wrapper");
-    const logos = ["images/atomatlabrotating.png","images/FIELD5.png"];
-    let index=0;
-
-    setInterval(()=>{
-      rotatingLogo.classList.toggle("flipped");
-      setTimeout(()=>{
-        index = (index+1)%logos.length;
-        rotatingLogo.src = logos[index];
-      },300);
-    },3000);
-
-    spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
-    spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
-  </script>
-
-
 
 </body>
 </html>
