@@ -25,9 +25,7 @@
 body, h1, h2, p, a, span {
   font-family: 'Neue Kaine', sans-serif;
 }
-b {
-  font-family: '42dot', sans-serif;
-}
+b { font-family: '42dot', sans-serif; }
 
 /* General */
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -43,6 +41,29 @@ body { background:white; color:black; overflow-x:hidden; }
 }
 .header .logo { font-weight:bold; font-size:20px; color:black; text-decoration:none; }
 .header .section-title { font-weight:600; font-size:22px; text-align:center; flex:1; }
+.header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
+
+/* Overlay & Menu */
+.overlay {
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.4);
+  z-index:150;
+}
+.overlay.active { display:block; }
+
+.menu {
+  position:fixed; top:0; right:-20%; width:20%; height:100%;
+  background-color:rgb(182,210,40); color:black;
+  transition:right 0.4s ease; z-index:200;
+  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
+}
+.menu.open { right:0; }
+.menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
+.menu a:hover { color:#cd6c27; }
+.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
 /* Main content */
 .main-content { padding-top:120px; max-width:1000px; margin:0 auto; padding-bottom:100px; }
@@ -81,10 +102,29 @@ body { background:white; color:black; overflow-x:hidden; }
 </head>
 <body>
 
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Sliding Menu -->
+<div class="menu" id="menu">
+  <a href="artworks.html">Artworks</a>
+  <a href="workshops.html">Workshops</a>
+  <a href="sound.html">Sound</a>
+  <a href="collabs.html">Collabs</a>
+  <a href="exhibitions.html">Exhibitions</a>
+  <div style="height:20px;"></div>
+  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
+  <a href="services.html">Services</a>
+  <div style="height:20px;"></div>
+  <a href="biography.html">Biography</a>
+  <a href="contact.html">Contact</a>
+</div>
+
 <!-- Header -->
 <div class="header">
   <a href="index.html" class="logo">Denis Flueraru</a>
   <span class="section-title">Solara</span>
+  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
 </div>
 
 <!-- Main -->
@@ -120,7 +160,6 @@ body { background:white; color:black; overflow-x:hidden; }
         <img src="https://lh3.googleusercontent.com/d/1UPKVCIKONQLFX9P25ePmhwNdvkakECQh" onclick="setMainImage(this)">
         <img src="https://lh3.googleusercontent.com/d/1FBcFT_MCZHQIbAU4boCs-gIm5JDvYek9" onclick="setMainImage(this)">
         <img src="https://lh3.googleusercontent.com/d/1_mcGAK4_WUmBPpwwjbIqM5ffF3vfMXgy" onclick="setMainImage(this)">
-        
       </div>
     </div>
   </div>
@@ -133,12 +172,32 @@ body { background:white; color:black; overflow-x:hidden; }
 </div>
 
 <script>
+// Menu
+const menu = document.getElementById('menu');
+const overlay = document.getElementById('overlay');
+function toggleMenu() {
+  const isOpen = menu.classList.contains('open');
+  if(isOpen){
+    menu.classList.remove('open');
+    overlay.classList.remove('active');
+  } else {
+    menu.classList.add('open');
+    overlay.classList.add('active');
+  }
+}
+overlay?.addEventListener('click',()=>{
+  if(menu.classList.contains('open')){
+    menu.classList.remove('open');
+    overlay.classList.remove('active');
+  }
+});
+
+// Gallery
 const thumbnails = document.querySelectorAll(".thumbnails img");
 const mainImage = document.getElementById("mainImage");
 let currentIndex = 0;
 let slideInterval;
 
-// Thumbnail control
 function setMainImage(img){
   mainImage.style.opacity = 0;
   setTimeout(()=>{
@@ -158,15 +217,8 @@ function prevImage(){
   currentIndex = (currentIndex-1+thumbnails.length) % thumbnails.length;
   setMainImage(thumbnails[currentIndex]);
 }
-
-// Slideshow
-function startSlideshow(){
-  slideInterval = setInterval(nextImage, 3000);
-}
-function resetInterval(){
-  clearInterval(slideInterval);
-  startSlideshow();
-}
+function startSlideshow(){ slideInterval = setInterval(nextImage, 3000); }
+function resetInterval(){ clearInterval(slideInterval); startSlideshow(); }
 startSlideshow();
 
 // Modal
