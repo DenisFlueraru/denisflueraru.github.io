@@ -16,9 +16,20 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: '42dot';
+  src: url('fonts/42dot.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 body, h1, h2, p, a, span {
   font-family: 'Neue Kaine', sans-serif;
 }
+b {
+  font-family: '42dot', sans-serif;
+}
+
+/* General */
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:white; color:black; overflow-x:hidden; }
 
@@ -34,7 +45,7 @@ body { background:white; color:black; overflow-x:hidden; }
 .header .section-title { font-weight:600; font-size:22px; text-align:center; flex:1; }
 
 /* Main content */
-.main-content { padding-top:120px; max-width:1000px; margin:0 auto; }
+.main-content { padding-top:120px; max-width:1000px; margin:0 auto; padding-bottom:100px; }
 .main-image { width:100%; max-height:500px; object-fit:cover; border-radius:8px; margin-bottom:30px; }
 .section-desc { font-size:16px; line-height:1.6; margin-bottom:40px; }
 
@@ -43,7 +54,7 @@ body { background:white; color:black; overflow-x:hidden; }
 .gallery h2 { font-size:20px; font-weight:bold; margin-bottom:20px; }
 .gallery-container { display:flex; flex-direction:column; align-items:center; gap:20px; }
 .gallery-main { position:relative; width:100%; max-width:700px; }
-.gallery-main img { width:100%; height:400px; object-fit:cover; border-radius:8px; cursor:pointer; }
+.gallery-main img { width:100%; height:400px; object-fit:cover; border-radius:8px; cursor:pointer; opacity:1; transition:opacity 0.6s ease; }
 
 /* Arrows */
 .arrow {
@@ -66,14 +77,6 @@ body { background:white; color:black; overflow-x:hidden; }
 .modal { display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
 .modal-content { max-width:90%; max-height:90%; border-radius:8px; }
 .close { position:absolute; top:20px; right:30px; font-size:3em; color:white; cursor:pointer; }
-
-/* Mute Button */
-.mute-btn {
-  position:fixed; bottom:20px; right:20px;
-  background:rgb(182,210,40); border:none; color:black;
-  font-size:16px; padding:10px 15px; border-radius:6px;
-  cursor:pointer; z-index:3000;
-}
 </style>
 </head>
 <body>
@@ -91,8 +94,11 @@ body { background:white; color:black; overflow-x:hidden; }
 
   <!-- Description -->
   <p class="section-desc">
-    "Solara" (2025)<br><br>
-    [Write your description here about the installation...]
+    During the <b>Fusion Air Residency</b>, I worked with two scientists from the Institute for Space Science, <b>Maximilian Teodorescu</b> and <b>Marius Echim</b>.  
+    Together, we built an interactive installation called <b>Solara</b>, which looks at the mixed relationship we have with the sun.  
+    I used <b>Grasshopper</b> and <b>Rhino</b> to design the Voronoi structure of the installation, and <b>Max MSP</b> to create two sound pieces.  
+    These compositions were made using live solar flare data (CME) provided by Maximilian.  
+    Visitors explored the installation with a custom <b>EMF microphone</b>, scanning its surface to find "black spots" that revealed the dual nature of the sun — both life-giving and destructive.
   </p>
 
   <!-- Gallery -->
@@ -101,7 +107,7 @@ body { background:white; color:black; overflow-x:hidden; }
     <div class="gallery-container">
       <div class="gallery-main">
         <button class="arrow left" onclick="prevImage()">&#10094;</button>
-        <img id="mainImage" src="https://lh3.googleusercontent.com/d/1rO_WEHru-ZoNiVBxeeCwcjm13oNbnvOR" onclick="openModal(this.src)">
+        <img id="mainImage" src="https://lh3.googleusercontent.com/d/1FBcFT_MCZHQIbAU4boCs-gIm5JDvYek9" onclick="openModal(this.src)">
         <button class="arrow right" onclick="nextImage()">&#10095;</button>
       </div>
       <div class="thumbnails" id="thumbnails">
@@ -112,6 +118,8 @@ body { background:white; color:black; overflow-x:hidden; }
         <img src="https://lh3.googleusercontent.com/d/1KuX55MI1KdwHTv-gfWnc8wI8Edjc-MZG" onclick="setMainImage(this)">
         <img src="https://lh3.googleusercontent.com/d/1UPKVCIKONQLFX9P25ePmhwNdvkakECQh" onclick="setMainImage(this)">
         <img src="https://lh3.googleusercontent.com/d/1FBcFT_MCZHQIbAU4boCs-gIm5JDvYek9" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1_mcGAK4_WUmBPpwwjbIqM5ffF3vfMXgy" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1siwlv3Bioxq2XuNgusDNJ0m2JwNQ2K49" onclick="setMainImage(this)">
       </div>
     </div>
   </div>
@@ -123,23 +131,23 @@ body { background:white; color:black; overflow-x:hidden; }
   <img class="modal-content" id="modalImg">
 </div>
 
-<!-- Hidden Audio -->
-<audio id="bg-audio" autoplay loop>
-  <source src="https://lh3.googleusercontent.com/d/1Mz5wsshI9YBrIpmAKBIwXoACMI_MFEgk" type="audio/mp3">
-</audio>
-<button class="mute-btn" onclick="toggleMute()">Mute</button>
-
 <script>
 const thumbnails = document.querySelectorAll(".thumbnails img");
 const mainImage = document.getElementById("mainImage");
 let currentIndex = 0;
+let slideInterval;
 
 // Thumbnail control
 function setMainImage(img){
-  mainImage.src = img.src;
+  mainImage.style.opacity = 0;
+  setTimeout(()=>{
+    mainImage.src = img.src;
+    mainImage.style.opacity = 1;
+  },300);
   thumbnails.forEach(t => t.classList.remove("active"));
   img.classList.add("active");
   currentIndex = [...thumbnails].indexOf(img);
+  resetInterval();
 }
 function nextImage(){
   currentIndex = (currentIndex+1) % thumbnails.length;
@@ -150,6 +158,16 @@ function prevImage(){
   setMainImage(thumbnails[currentIndex]);
 }
 
+// Slideshow
+function startSlideshow(){
+  slideInterval = setInterval(nextImage, 3000);
+}
+function resetInterval(){
+  clearInterval(slideInterval);
+  startSlideshow();
+}
+startSlideshow();
+
 // Modal
 const modal = document.getElementById("modal");
 const modalImg = document.getElementById("modalImg");
@@ -157,15 +175,6 @@ function openModal(src){ modal.style.display="flex"; modalImg.src=src; }
 function closeModal(){ modal.style.display="none"; }
 window.addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeModal(); });
 modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
-
-// Audio
-const audio = document.getElementById("bg-audio");
-audio.volume = 0.2; // low volume
-const muteBtn = document.querySelector(".mute-btn");
-function toggleMute(){
-  audio.muted = !audio.muted;
-  muteBtn.textContent = audio.muted ? "Unmute" : "Mute";
-}
 </script>
 
 </body>
