@@ -29,31 +29,26 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
   padding:25px 50px;
   display:flex; justify-content:space-between; align-items:center;
   background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-  z-index:100; pointer-events:none;
+  z-index:100;
 }
-.header * { pointer-events:auto; }
 .header .logo { font-weight:bold; font-size:20px; text-decoration:none; color:black; }
-.header .section-title { font-weight:400; font-size:22px; color:black; text-align:center; flex:1; }
+.header .section-title { font-weight:400; font-size:22px; text-align:center; flex:1; }
 .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
 /* Main content */
-.main-content {
-  display:flex;
-  justify-content:center;
-  padding-top:120px;
-  position:relative;
-}
+.main-content { display:flex; justify-content:center; padding-top:120px; min-height:100vh; position:relative; }
 .scroll-container {
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-  max-width: 900px;
-  font-size: 16px;
-  line-height: 1.6;
-  margin: 0 auto;
-  padding-bottom: 200px;
-  overflow: visible;
+  display:flex;
+  flex-direction:column;
+  gap:60px;
+  max-width:900px;
+  font-size:16px;
+  line-height:1.6;
+  margin:0 auto;
+  padding-bottom:200px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
+.scroll-container.recede { transform:scale(0.97); opacity:0.85; }
 
 /* Upcoming Exhibition */
 .upcoming {
@@ -70,22 +65,20 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
   100% { box-shadow:0 0 5px #b6d228; }
 }
 .upcoming .title {
-  display: block;
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  font-size:22px;
+  font-weight:bold;
+  margin-bottom:20px;
 }
 .upcoming img {
-  display: block;
-  margin: 0 auto;
-  width: 50%;
-  height: 400px;
+  display:block;
+  margin:0 auto;
+  width:50%;
+  height:400px;
   object-fit:cover;
-  border-radius: 8px;
+  border-radius:8px;
 }
 
 /* Past exhibitions */
-.past h2 + p + .gallery + h2 { margin-top: 40px; }
 .past h2 { font-size:20px; font-weight:bold; margin-bottom:10px; border-bottom:2px solid black; padding-bottom:5px; }
 .past p { margin-bottom:20px; }
 .gallery {
@@ -137,22 +130,26 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
 .menu a:hover { color:#cd6c27; }
 .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
-/* Rotating logo */
-.spin-wrapper { position: fixed; bottom:20px; left:20px; width:120px; animation:spin 20s linear infinite; transform-origin:center; cursor:pointer; z-index:100; }
-.spin-wrapper img { width:100%; }
+/* Overlay */
+.overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
+.overlay.active { display:block; }
+
+/* Rotating Logo */
+.spin-wrapper { position: fixed; bottom:20px; left:20px; width:120px; animation: spin 20s linear infinite; transform-origin:center; cursor:pointer; z-index:100; }
+.spin-wrapper img { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
 @keyframes spin { from { transform:rotateZ(0deg); } to { transform:rotateZ(360deg); } }
+.flipped { transform: rotateY(180deg); }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .gallery { grid-template-columns: 1fr 1fr; }
-  .menu { width:40%; right:-40%; }
+@media(max-width:768px){
+  .menu { width:20%; right:-20%; } /* keep same width as desktop */
   .menu.open { right:0; }
-  .scroll-container { font-size:15px; gap:40px; padding:0 10px 200px 10px; }
+  .scroll-container { font-size:15px; gap:40px; padding:0 10px 200px; }
   .upcoming img { width:70%; height:300px; }
+  .gallery { grid-template-columns:1fr 1fr; gap:20px; }
 }
 </style>
 </head>
-
 <body>
 
 <!-- Header -->
@@ -167,7 +164,7 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
 
 <!-- Main content -->
 <div class="main-content">
-  <div class="scroll-container">
+  <div class="scroll-container" id="scroll-container">
 
     <!-- Upcoming Exhibition -->
     <div class="upcoming">
@@ -175,42 +172,45 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
       <img src="https://lh3.googleusercontent.com/d/1FXPJi129QXzYASn7aIac3H1B2QZKn6s5" alt="Upcoming Exhibition Poster">
     </div>
 
-<!-- Past Exhibitions -->
-<div class="past">
+    <!-- Past Exhibitions -->
+    <div class="past">
 
-  <h2>2025 - The Main Point of the Horizon</h2>
-  <p>April 8 – April 28, Cultural Centre Reduta, Brasov, RO</p>
-  <div class="gallery" data-gallery="expo1">
-    <img src="https://lh3.googleusercontent.com/d/1UngB1DGX1qiKS3YfFD6fMhegsXAEA4sd" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1xhbcZRHWSCylVuMMuxWFLDnczQCMku2q" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1iaZrxj2f9RSBLs-YjLIjtQgAZSbBWiSW" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1ZR-TkHW2nj_a-RffhoPxGMCuaGAOW7sW" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1ZBQpxn8CCIcf4bp7icDh9oQYW2VeBUdm" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1sTM3O6V6TaaLNhDa5rb3cg_qooRowW5f" onclick="setMainImage(this)">
+      <h2>2025 - The Main Point of the Horizon</h2>
+      <p>April 8 – April 28, Cultural Centre Reduta, Brasov, RO</p>
+      <div class="gallery" data-gallery="expo1">
+        <img src="https://lh3.googleusercontent.com/d/1UngB1DGX1qiKS3YfFD6fMhegsXAEA4sd" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1xhbcZRHWSCylVuMMuxWFLDnczQCMku2q" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1iaZrxj2f9RSBLs-YjLIjtQgAZSbBWiSW" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1ZR-TkHW2nj_a-RffhoPxGMCuaGAOW7sW" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1ZBQpxn8CCIcf4bp7icDh9oQYW2VeBUdm" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1sTM3O6V6TaaLNhDa5rb3cg_qooRowW5f" onclick="setMainImage(this)">
+      </div>
+
+      <h2>2024 - Unbound Echoes</h2>
+      <p>November 11 – November 24, WASP Studio, Bucharest, RO</p>
+      <div class="gallery" data-gallery="expo2">
+        <img src="https://lh3.googleusercontent.com/d/1YBjprrQEOX5krHQmuYQpxZa7A8NswcEP" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1rlsJ-RgRMkRv5r48_yi9ZCfO36OX_DeN" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1GkrMP_G2uk5x5tGFJOJcfJNfqpmb1Ups" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1MX6FRimjStYrMqy-uvWj_OpnWyD_nPWR" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1lJOx4jILv9ZfrHvzoDnmKwxVziEncu68" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1M_7Sqe8KfgzFwEZxUVsqC5kFcnrkvY4L" onclick="setMainImage(this)">
+      </div>
+
+      <h2>2024 - Fusion:AIR</h2>
+      <p>September 17 – October 12, /SAC, Bucharest, RO</p>
+      <div class="gallery" data-gallery="expo3">
+        <img src="https://lh3.googleusercontent.com/d/1qw7xHoC1uZCagizpYx85DVgYAeIl2vyO" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1_Nl0PcW9AsNkEhovDwL2IsS9nt4QqMva" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1zw4v1kKucst6edQ0liKZi8io3eafoS-v" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1ntMQLQ3Gwr19WljYjFjHbc2F4rBCqyoe" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1Bh4vcrz3zgvEyKdqDTlF3d_4P9VJi8-Y" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1aNFCr_fW_ivXR78frfs3IBn8SVUMpmyS" onclick="setMainImage(this)">
+      </div>
+
+    </div>
+
   </div>
-
-  <h2>2024 - Unbound Echoes</h2>
-  <p>November 11 – November 24, WASP Studio, Bucharest, RO</p>
-  <div class="gallery" data-gallery="expo2">
-    <img src="https://lh3.googleusercontent.com/d/1YBjprrQEOX5krHQmuYQpxZa7A8NswcEP" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1rlsJ-RgRMkRv5r48_yi9ZCfO36OX_DeN" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1GkrMP_G2uk5x5tGFJOJcfJNfqpmb1Ups" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1MX6FRimjStYrMqy-uvWj_OpnWyD_nPWR" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1lJOx4jILv9ZfrHvzoDnmKwxVziEncu68" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1M_7Sqe8KfgzFwEZxUVsqC5kFcnrkvY4L" onclick="setMainImage(this)">
-  </div>
-
-  <h2>2024 - Fusion:AIR</h2>
-  <p>September 17 – October 12, /SAC, Bucharest, RO</p>
-  <div class="gallery" data-gallery="expo3">
-    <img src="https://lh3.googleusercontent.com/d/1qw7xHoC1uZCagizpYx85DVgYAeIl2vyO" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1_Nl0PcW9AsNkEhovDwL2IsS9nt4QqMva" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1zw4v1kKucst6edQ0liKZi8io3eafoS-v" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1ntMQLQ3Gwr19WljYjFjHbc2F4rBCqyoe" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1Bh4vcrz3zgvEyKdqDTlF3d_4P9VJi8-Y" onclick="setMainImage(this)">
-    <img src="https://lh3.googleusercontent.com/d/1aNFCr_fW_ivXR78frfs3IBn8SVUMpmyS" onclick="setMainImage(this)">
-  </div>
-
 </div>
 
 <!-- Modal -->
@@ -229,7 +229,7 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
   <a href="collabs.html">Collabs</a>
   <a href="exhibitions.html">Exhibitions</a>
   <div style="height:20px;"></div>
-  <a href="https://atomatlab.com/">Shop</a>
+  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
   <a href="services.html">Services</a>
   <div style="height:20px;"></div>
   <a href="biography.html">Biography</a>
@@ -237,24 +237,46 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
 </div>
 
 <!-- Rotating Logo -->
-<a href="https://atomatlab.com" target="_blank">
-  <div class="spin-wrapper">
-    <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="Logo">
-  </div>
+<a href="https://atomatlab.com" target="_blank" class="spin-wrapper">
+  <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="Logo">
 </a>
 
 <script>
-/* Menu */
-const menu=document.getElementById('menu');
-const overlay=document.getElementById('overlay');
-function toggleMenu(){
-  const isOpen=menu.classList.contains('open');
-  if(isOpen){menu.classList.remove('open');overlay.classList.remove('active');}
-  else{menu.classList.add('open');overlay.classList.add('active');}
-}
-overlay?.addEventListener('click',()=>{if(menu.classList.contains('open')){menu.classList.remove('open');overlay.classList.remove('active');}});
+// Menu toggle
+const menu = document.getElementById('menu');
+const scrollContainer = document.getElementById('scroll-container');
+const overlay = document.getElementById('overlay');
 
-/* Modal Gallery */
+function toggleMenu(){
+  const isOpen = menu.classList.contains('open');
+  if(isOpen){
+    menu.classList.remove('open');
+    scrollContainer.classList.remove('recede');
+    overlay.classList.remove('active');
+  } else {
+    menu.classList.add('open');
+    scrollContainer.classList.add('recede');
+    overlay.classList.add('active');
+  }
+}
+
+// Click outside menu closes it
+overlay.addEventListener('click', () => {
+  if(menu.classList.contains('open')){
+    menu.classList.remove('open');
+    scrollContainer.classList.remove('recede');
+    overlay.classList.remove('active');
+  }
+});
+scrollContainer.addEventListener('click', () => {
+  if(menu.classList.contains('open')){
+    menu.classList.remove('open');
+    scrollContainer.classList.remove('recede');
+    overlay.classList.remove('active');
+  }
+});
+
+// Modal gallery
 const modal=document.getElementById("modal");
 const modalImg=document.getElementById("modal-img");
 let currentGallery=[],currentIndex=0;
