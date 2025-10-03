@@ -37,7 +37,12 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
 .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
 
 /* Main content */
-.main-content { display:flex; justify-content:center; padding-top:120px; min-height:100vh; position:relative; }
+.main-content {
+  display:flex;
+  justify-content:center;
+  padding-top:120px;
+  position:relative;
+}
 .scroll-container {
   display: flex;
   flex-direction: column;
@@ -68,10 +73,8 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
   display: block;
   font-size: 22px;
   font-weight: bold;
-  margin-bottom: 20px; /* space before image */
+  margin-bottom: 20px;
 }
-
-/* Fixed size upcoming image */
 .upcoming img {
   display: block;
   margin: 0 auto;
@@ -82,9 +85,7 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
 }
 
 /* Past exhibitions */
-.past h2 + p + .gallery + h2 {
-  margin-top: 40px;
-}
+.past h2 + p + .gallery + h2 { margin-top: 40px; }
 .past h2 { font-size:20px; font-weight:bold; margin-bottom:10px; border-bottom:2px solid black; padding-bottom:5px; }
 .past p { margin-bottom:20px; }
 .gallery {
@@ -146,7 +147,7 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
   .gallery { grid-template-columns: 1fr 1fr; }
   .menu { width:40%; right:-40%; }
   .menu.open { right:0; }
-  .scroll-container { font-size:15px; gap:40px; padding:0 10px; }
+  .scroll-container { font-size:15px; gap:40px; padding:0 10px 200px 10px; }
   .upcoming img { width:70%; height:300px; }
 }
 </style>
@@ -174,18 +175,42 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
       <img src="https://lh3.googleusercontent.com/d/1FXPJi129QXzYASn7aIac3H1B2QZKn6s5" alt="Upcoming Exhibition Poster">
     </div>
 
-    <!-- Past Exhibitions -->
-    <div class="past">
-      <h2>2025 - The Main Point of the Horizon</h2>
-      <p>April 8 – April 28, Cultural Centre Reduta, Brasov, RO</p>
-      <div class="gallery" data-gallery="expo1">
-        <img src="https://lh3.googleusercontent.com/d/1UngB1DGX1qiKS3YfFD6fMhegsXAEA4sd" alt="">
-        <img src="https://lh3.googleusercontent.com/d/1xhbcZRHWSCylVuMMuxWFLDnczQCMku2q" alt="">
-        <img src="https://lh3.googleusercontent.com/d/1iaZrxj2f9RSBLs-YjLIjtQgAZSbBWiSW" alt="">
-      </div>
-    </div>
+<!-- Past Exhibitions -->
+<div class="past">
 
+  <h2>2025 - The Main Point of the Horizon</h2>
+  <p>April 8 – April 28, Cultural Centre Reduta, Brasov, RO</p>
+  <div class="gallery" data-gallery="expo1">
+    <img src="https://lh3.googleusercontent.com/d/1UngB1DGX1qiKS3YfFD6fMhegsXAEA4sd" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1xhbcZRHWSCylVuMMuxWFLDnczQCMku2q" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1iaZrxj2f9RSBLs-YjLIjtQgAZSbBWiSW" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1ZR-TkHW2nj_a-RffhoPxGMCuaGAOW7sW" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1ZBQpxn8CCIcf4bp7icDh9oQYW2VeBUdm" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1sTM3O6V6TaaLNhDa5rb3cg_qooRowW5f" onclick="setMainImage(this)">
   </div>
+
+  <h2>2024 - Unbound Echoes</h2>
+  <p>November 11 – November 24, WASP Studio, Bucharest, RO</p>
+  <div class="gallery" data-gallery="expo2">
+    <img src="https://lh3.googleusercontent.com/d/1YBjprrQEOX5krHQmuYQpxZa7A8NswcEP" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1rlsJ-RgRMkRv5r48_yi9ZCfO36OX_DeN" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1GkrMP_G2uk5x5tGFJOJcfJNfqpmb1Ups" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1MX6FRimjStYrMqy-uvWj_OpnWyD_nPWR" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1lJOx4jILv9ZfrHvzoDnmKwxVziEncu68" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1M_7Sqe8KfgzFwEZxUVsqC5kFcnrkvY4L" onclick="setMainImage(this)">
+  </div>
+
+  <h2>2024 - Fusion:AIR</h2>
+  <p>September 17 – October 12, /SAC, Bucharest, RO</p>
+  <div class="gallery" data-gallery="expo3">
+    <img src="https://lh3.googleusercontent.com/d/1qw7xHoC1uZCagizpYx85DVgYAeIl2vyO" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1_Nl0PcW9AsNkEhovDwL2IsS9nt4QqMva" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1zw4v1kKucst6edQ0liKZi8io3eafoS-v" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1ntMQLQ3Gwr19WljYjFjHbc2F4rBCqyoe" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1Bh4vcrz3zgvEyKdqDTlF3d_4P9VJi8-Y" onclick="setMainImage(this)">
+    <img src="https://lh3.googleusercontent.com/d/1aNFCr_fW_ivXR78frfs3IBn8SVUMpmyS" onclick="setMainImage(this)">
+  </div>
+
 </div>
 
 <!-- Modal -->
