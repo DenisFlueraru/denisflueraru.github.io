@@ -112,6 +112,43 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
     right: 0;        /* Slides in fully on mobile */
   }
 }
+@media(max-width:768px){
+  .header { padding:15px; }
+  .header .logo { font-size:18px; }
+  .header .section-title { font-size:20px; }
+  .header .menu-toggle { font-size:18px; }
+  
+  .scroll-container { font-size:15px; gap:30px; padding:0 15px 80px; }
+  .update { flex-direction:column !important; gap:20px; }
+    .update img, .update .video-container {
+    width:85%;           /* smaller width for mobile */
+    aspect-ratio:1/1;    /* force square shape */
+    object-fit:cover;    /* crop and fill nicely */
+    border-radius:4px;
+    margin:0 auto;       /* center horizontally */
+  }
+  .update .text {
+    width:90%;           /* text slightly smaller */
+    text-align:center;   /* center text */
+  }
+    .update { 
+    flex-direction:column !important; 
+    gap:20px; 
+    align-items:center; /* center images and text */
+  }
+  
+  
+  .spin-wrapper { width:70px; bottom:10px; left:10px; }
+}
+@media (max-width: 768px) {
+  .menu {
+    width: 40%;      /* Menu takes more space on mobile */
+    right: -40%;     /* Hidden off-screen by same width */
+  }
+  .menu.open {
+    right: 0;        /* Slides in fully on mobile */
+  }
+}
 @media(max-width:1000px){
   .contact-folder { margin:140px 20px 80px 20px; padding:20px 25px; }
   .contact-folder h2 { font-size:22px; }
