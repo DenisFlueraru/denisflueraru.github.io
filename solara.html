@@ -35,36 +35,44 @@ body { background:white; color:black; overflow-x:hidden; }
 
 /* Main content */
 .main-content { padding-top:120px; max-width:1000px; margin:0 auto; }
+.main-image { width:100%; max-height:500px; object-fit:cover; border-radius:8px; margin-bottom:30px; }
+.section-desc { font-size:16px; line-height:1.6; margin-bottom:40px; }
 
 /* Gallery */
-.gallery { display:flex; flex-direction:column; align-items:center; gap:20px; }
-.main-image { width:100%; max-width:700px; border-radius:8px; cursor:pointer; }
-.thumbnails { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
-.thumbnails img { width:120px; height:80px; object-fit:cover; border-radius:4px; cursor:pointer; opacity:0.7; transition:opacity 0.2s; }
-.thumbnails img.active, .thumbnails img:hover { opacity:1; }
+.gallery { margin-top:40px; text-align:center; }
+.gallery h2 { font-size:20px; font-weight:bold; margin-bottom:20px; }
+.gallery-container { display:flex; flex-direction:column; align-items:center; gap:20px; }
+.gallery-main { position:relative; width:100%; max-width:700px; }
+.gallery-main img { width:100%; height:400px; object-fit:cover; border-radius:8px; cursor:pointer; }
 
 /* Arrows */
 .arrow {
   position:absolute; top:50%; transform:translateY(-50%);
-  background:rgba(182,210,40,0.9); border:none; color:black;
-  font-size:2em; cursor:pointer; padding:10px 15px; border-radius:50%;
-  z-index:10;
+  background:none; border:none; color:rgb(182,210,40);
+  font-size:2.5em; cursor:pointer; padding:5px;
 }
-.arrow.left { left:20px; }
-.arrow.right { right:20px; }
+.arrow.left { left:-40px; }
+.arrow.right { right:-40px; }
+
+/* Thumbnails */
+.thumbnails { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+.thumbnails img {
+  width:120px; height:80px; object-fit:cover;
+  border-radius:4px; cursor:pointer; opacity:0.6; transition:opacity 0.2s;
+}
+.thumbnails img.active, .thumbnails img:hover { opacity:1; }
 
 /* Modal */
 .modal { display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
 .modal-content { max-width:90%; max-height:90%; border-radius:8px; }
 .close { position:absolute; top:20px; right:30px; font-size:3em; color:white; cursor:pointer; }
 
-/* Video */
-.video-section { margin-top:40px; display:flex; justify-content:center; }
-.video-section video { max-width:90%; border-radius:8px; }
-
-/* Responsive */
-@media(max-width:768px){
-  .thumbnails img { width:80px; height:60px; }
+/* Mute Button */
+.mute-btn {
+  position:fixed; bottom:20px; right:20px;
+  background:rgb(182,210,40); border:none; color:black;
+  font-size:16px; padding:10px 15px; border-radius:6px;
+  cursor:pointer; z-index:3000;
 }
 </style>
 </head>
@@ -78,32 +86,34 @@ body { background:white; color:black; overflow-x:hidden; }
 
 <!-- Main -->
 <div class="main-content">
+  <!-- Main Image -->
+  <img src="https://lh3.googleusercontent.com/d/1NrAP_IjU2pgLh01CuprZvIrZCZxXLRAf" alt="Solara Main" class="main-image">
+
+  <!-- Description -->
+  <p class="section-desc">
+    "Solara" (2025)<br><br>
+    [Write your description here about the installation...]
+  </p>
+
+  <!-- Gallery -->
   <div class="gallery">
-    <!-- Main Image -->
-    <div style="position:relative; width:100%; max-width:700px;">
-      <button class="arrow left" onclick="prevImage()">&#10094;</button>
-      <img id="mainImage" src="https://lh3.googleusercontent.com/d/1NrAP_IjU2pgLh01CuprZvIrZCZxXLRAf" class="main-image" onclick="openModal(this.src)">
-      <button class="arrow right" onclick="nextImage()">&#10095;</button>
+    <h2>Gallery</h2>
+    <div class="gallery-container">
+      <div class="gallery-main">
+        <button class="arrow left" onclick="prevImage()">&#10094;</button>
+        <img id="mainImage" src="https://lh3.googleusercontent.com/d/1rO_WEHru-ZoNiVBxeeCwcjm13oNbnvOR" onclick="openModal(this.src)">
+        <button class="arrow right" onclick="nextImage()">&#10095;</button>
+      </div>
+      <div class="thumbnails" id="thumbnails">
+        <img src="https://lh3.googleusercontent.com/d/1rO_WEHru-ZoNiVBxeeCwcjm13oNbnvOR" onclick="setMainImage(this)" class="active">
+        <img src="https://lh3.googleusercontent.com/d/16K6ILZT43OdcKc0tlff2sk0oiG1kwW2t" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1vNTrz72BqVWY6OQU0_oagsfukATsctQd" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1CscSYGMS1w-ycOuc89Cr3IM-Yeiuv9Qf" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1KuX55MI1KdwHTv-gfWnc8wI8Edjc-MZG" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1UPKVCIKONQLFX9P25ePmhwNdvkakECQh" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1FBcFT_MCZHQIbAU4boCs-gIm5JDvYek9" onclick="setMainImage(this)">
+      </div>
     </div>
-
-    <!-- Thumbnails -->
-    <div class="thumbnails" id="thumbnails">
-      <img src="https://lh3.googleusercontent.com/d/1rO_WEHru-ZoNiVBxeeCwcjm13oNbnvOR" onclick="setMainImage(this)" class="active">
-      <img src="https://lh3.googleusercontent.com/d/16K6ILZT43OdcKc0tlff2sk0oiG1kwW2t" onclick="setMainImage(this)">
-      <img src="https://lh3.googleusercontent.com/d/1NrAP_IjU2pgLh01CuprZvIrZCZxXLRAf" onclick="setMainImage(this)">
-      <img src="https://lh3.googleusercontent.com/d/1CscSYGMS1w-ycOuc89Cr3IM-Yeiuv9Qf" onclick="setMainImage(this)">
-      <img src="https://lh3.googleusercontent.com/d/1KuX55MI1KdwHTv-gfWnc8wI8Edjc-MZG" onclick="setMainImage(this)">
-      <img src="https://lh3.googleusercontent.com/d/1UPKVCIKONQLFX9P25ePmhwNdvkakECQh" onclick="setMainImage(this)">
-      <img src="https://lh3.googleusercontent.com/d/1FBcFT_MCZHQIbAU4boCs-gIm5JDvYek9" onclick="setMainImage(this)">
-    </div>
-  </div>
-
-  <!-- Video -->
-  <div class="video-section">
-    <video autoplay loop muted playsinline controls>
-      <source src="https://lh3.googleusercontent.com/d/1-4PMiwZhG_nsuDIQapmgtmRyXrZfc7qG" type="video/mp4">
-      Your browser does not support video.
-    </video>
   </div>
 </div>
 
@@ -113,18 +123,24 @@ body { background:white; color:black; overflow-x:hidden; }
   <img class="modal-content" id="modalImg">
 </div>
 
+<!-- Hidden Audio -->
+<audio id="bg-audio" autoplay loop>
+  <source src="https://lh3.googleusercontent.com/d/1Mz5wsshI9YBrIpmAKBIwXoACMI_MFEgk" type="audio/mp3">
+</audio>
+<button class="mute-btn" onclick="toggleMute()">Mute</button>
+
 <script>
 const thumbnails = document.querySelectorAll(".thumbnails img");
 const mainImage = document.getElementById("mainImage");
 let currentIndex = 0;
 
+// Thumbnail control
 function setMainImage(img){
   mainImage.src = img.src;
   thumbnails.forEach(t => t.classList.remove("active"));
   img.classList.add("active");
   currentIndex = [...thumbnails].indexOf(img);
 }
-
 function nextImage(){
   currentIndex = (currentIndex+1) % thumbnails.length;
   setMainImage(thumbnails[currentIndex]);
@@ -141,6 +157,15 @@ function openModal(src){ modal.style.display="flex"; modalImg.src=src; }
 function closeModal(){ modal.style.display="none"; }
 window.addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeModal(); });
 modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
+
+// Audio
+const audio = document.getElementById("bg-audio");
+audio.volume = 0.2; // low volume
+const muteBtn = document.querySelector(".mute-btn");
+function toggleMute(){
+  audio.muted = !audio.muted;
+  muteBtn.textContent = audio.muted ? "Unmute" : "Mute";
+}
 </script>
 
 </body>
