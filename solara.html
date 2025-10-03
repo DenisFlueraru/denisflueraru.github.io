@@ -7,6 +7,7 @@
 <link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
 
 <style>
+/* Fonts */
 @font-face {
   font-family: 'Neue Kaine';
   src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
@@ -15,13 +16,11 @@
   font-style: normal;
   font-display: swap;
 }
-body, h1, h2, h3, h4, h5, h6, p, a, span, li {
+body, h1, h2, p, a, span {
   font-family: 'Neue Kaine', sans-serif;
 }
-* {margin:0; padding:0; box-sizing:border-box;}
-body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
-::-webkit-scrollbar {display:none;} 
-body {-ms-overflow-style:none; scrollbar-width:none;}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:white; color:black; overflow-x:hidden; }
 
 /* Header */
 .header {
@@ -29,172 +28,119 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
   padding:25px 50px;
   display:flex; justify-content:space-between; align-items:center;
   background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-  z-index:100; pointer-events:none;
+  z-index:100;
 }
-.header * { pointer-events:auto; }
-.header .logo { font-weight:bold; font-size:20px; text-decoration:none; color:black; }
-.header .section-title { font-weight:400; font-size:22px; color:black; text-align:center; flex:1; }
-.header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
+.header .logo { font-weight:bold; font-size:20px; color:black; text-decoration:none; }
+.header .section-title { font-weight:600; font-size:22px; text-align:center; flex:1; }
 
 /* Main content */
-.main-content { display:flex; justify-content:center; padding-top:120px; min-height:100vh; position:relative; }
-.scroll-container { display:flex; flex-direction:column; gap:40px; max-width:900px; font-size:16px; line-height:1.6; margin:0 auto; padding-bottom:100px; transition: transform 0.6s ease, opacity 0.6s ease; }
-.scroll-container.recede { transform:scale(0.97); opacity:0.85; }
-
-/* Section images & text */
-.main-image { width:100%; max-height:500px; object-fit:cover; border-radius:8px; }
-.section-desc { font-size:16px; line-height:1.5; margin-bottom:40px; }
+.main-content { padding-top:120px; max-width:1000px; margin:0 auto; }
 
 /* Gallery */
-.gallery-grid {
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap:15px;
+.gallery { display:flex; flex-direction:column; align-items:center; gap:20px; }
+.main-image { width:100%; max-width:700px; border-radius:8px; cursor:pointer; }
+.thumbnails { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+.thumbnails img { width:120px; height:80px; object-fit:cover; border-radius:4px; cursor:pointer; opacity:0.7; transition:opacity 0.2s; }
+.thumbnails img.active, .thumbnails img:hover { opacity:1; }
+
+/* Arrows */
+.arrow {
+  position:absolute; top:50%; transform:translateY(-50%);
+  background:rgba(182,210,40,0.9); border:none; color:black;
+  font-size:2em; cursor:pointer; padding:10px 15px; border-radius:50%;
+  z-index:10;
 }
-.gallery-grid img {
-  width:100%;
-  height:200px;
-  object-fit:cover;
-  border-radius:8px;
-  cursor:pointer;
-  transition: transform 0.3s ease;
-}
-.gallery-grid img:hover { transform:scale(1.05); }
+.arrow.left { left:20px; }
+.arrow.right { right:20px; }
 
 /* Modal */
-.modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
+.modal { display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
 .modal-content { max-width:90%; max-height:90%; border-radius:8px; }
 .close { position:absolute; top:20px; right:30px; font-size:3em; color:white; cursor:pointer; }
 
-/* Menu */
-.menu {
-  position:fixed; top:0; right:-20%; width:20%; height:100%;
-  background-color:rgb(182,210,40); color:black;
-  transition:right 0.4s ease; z-index:200;
-  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
-}
-.menu.open { right:0; }
-.menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
-.menu a:hover { color:#cd6c27; }
-.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
-
-/* Rotating logo */
-.spin-wrapper { position: fixed; bottom:20px; left:20px; width:120px; animation:spin 20s linear infinite; transform-origin:center; cursor:pointer; z-index:100; }
-.flip-image { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
-.flipped { transform: rotateY(180deg); }
-.spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
-@keyframes spin { from { transform:rotateZ(0deg); } to { transform:rotateZ(360deg); } }
+/* Video */
+.video-section { margin-top:40px; display:flex; justify-content:center; }
+.video-section video { max-width:90%; border-radius:8px; }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .menu { width: 40%; right: -40%; }
-  .menu.open { right:0; }
-  .scroll-container { font-size:15px; gap:30px; padding:0 10px; }
+@media(max-width:768px){
+  .thumbnails img { width:80px; height:60px; }
 }
 </style>
 </head>
-
 <body>
 
 <!-- Header -->
 <div class="header">
-  <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
+  <a href="index.html" class="logo">Denis Flueraru</a>
   <span class="section-title">Solara</span>
-  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
 </div>
 
-<!-- Overlay -->
-<div class="overlay" id="overlay"></div>
-
-<!-- Main content -->
+<!-- Main -->
 <div class="main-content">
-  <div class="scroll-container" id="scroll-container">
-
+  <div class="gallery">
     <!-- Main Image -->
-    <img src="https://lh3.googleusercontent.com/d/1FBcFT_MCZHQIbAU4boCs-gIm5JDvYek9" alt="Solara Main Image" class="main-image">
-
-    <!-- Description -->
-    <p class="section-desc">
-      Solara (2024) <br><br>
-      During the Fusion Air Residency, I had the pleasure of collaborating with two scientists from the Institute for Space Science, Maximilian Teodorescu and Marius Echim. Our collaboration resulted in an interactive installation that explores the paradoxical relationship we have with the sun, entitled Solara.
-    </p>
-
-    <!-- Gallery -->
-    <h2 style="text-align:center;">Gallery</h2>
-    <div class="gallery-grid">
-      <img src="https://lh3.googleusercontent.com/d/1rO_WEHru-ZoNiVBxeeCwcjm13oNbnvOR">
-      <img src="https://lh3.googleusercontent.com/d/16K6ILZT43OdcKc0tlff2sk0oiG1kwW2t">
-      <img src="https://lh3.googleusercontent.com/d/1vNTrz72BqVWY6OQU0_oagsfukATsctQd">
-      <img src="https://lh3.googleusercontent.com/d/1CscSYGMS1w-ycOuc89Cr3IM-Yeiuv9Qf">
-      <img src="https://lh3.googleusercontent.com/d/1KuX55MI1KdwHTv-gfWnc8wI8Edjc-MZG">
-      <img src="https://lh3.googleusercontent.com/d/1UPKVCIKONQLFX9P25ePmhwNdvkakECQh">
-      <img src="https://lh3.googleusercontent.com/d/1FBcFT_MCZHQIbAU4boCs-gIm5JDvYek9">
-
+    <div style="position:relative; width:100%; max-width:700px;">
+      <button class="arrow left" onclick="prevImage()">&#10094;</button>
+      <img id="mainImage" src="https://lh3.googleusercontent.com/d/1NrAP_IjU2pgLh01CuprZvIrZCZxXLRAf" class="main-image" onclick="openModal(this.src)">
+      <button class="arrow right" onclick="nextImage()">&#10095;</button>
     </div>
 
+    <!-- Thumbnails -->
+    <div class="thumbnails" id="thumbnails">
+      <img src="https://lh3.googleusercontent.com/d/1rO_WEHru-ZoNiVBxeeCwcjm13oNbnvOR" onclick="setMainImage(this)" class="active">
+      <img src="https://lh3.googleusercontent.com/d/16K6ILZT43OdcKc0tlff2sk0oiG1kwW2t" onclick="setMainImage(this)">
+      <img src="https://lh3.googleusercontent.com/d/1NrAP_IjU2pgLh01CuprZvIrZCZxXLRAf" onclick="setMainImage(this)">
+      <img src="https://lh3.googleusercontent.com/d/1CscSYGMS1w-ycOuc89Cr3IM-Yeiuv9Qf" onclick="setMainImage(this)">
+      <img src="https://lh3.googleusercontent.com/d/1KuX55MI1KdwHTv-gfWnc8wI8Edjc-MZG" onclick="setMainImage(this)">
+      <img src="https://lh3.googleusercontent.com/d/1UPKVCIKONQLFX9P25ePmhwNdvkakECQh" onclick="setMainImage(this)">
+      <img src="https://lh3.googleusercontent.com/d/1FBcFT_MCZHQIbAU4boCs-gIm5JDvYek9" onclick="setMainImage(this)">
+    </div>
+  </div>
+
+  <!-- Video -->
+  <div class="video-section">
+    <video autoplay loop muted playsinline controls>
+      <source src="https://lh3.googleusercontent.com/d/1-4PMiwZhG_nsuDIQapmgtmRyXrZfc7qG" type="video/mp4">
+      Your browser does not support video.
+    </video>
   </div>
 </div>
 
 <!-- Modal -->
 <div id="modal" class="modal">
   <span class="close" onclick="closeModal()">&times;</span>
-  <img class="modal-content" id="modal-img">
-</div>
-
-<!-- Sliding Menu -->
-<div class="menu" id="menu">
-  <a href="artworks.html">Artworks</a>
-  <a href="workshops.html">Workshops</a>
-  <a href="sound.html">Sound</a>
-  <a href="collabs.html">Collabs</a>
-  <div style="height:20px;"></div>
-  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" class="menu-icon"></a>
-  <a href="services.html">Services</a>
-  <div style="height:20px;"></div>
-  <a href="biography.html">Biography</a>
-  <a href="contact.html">Contact</a>
+  <img class="modal-content" id="modalImg">
 </div>
 
 <script>
-const menu = document.getElementById('menu');
-const scrollContainer = document.getElementById('scroll-container');
-const overlay = document.getElementById('overlay');
-function toggleMenu(){
-  const isOpen = menu.classList.contains('open');
-  if(isOpen){ menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active'); }
-  else { menu.classList.add('open'); scrollContainer.classList.add('recede'); overlay.classList.add('active'); }
+const thumbnails = document.querySelectorAll(".thumbnails img");
+const mainImage = document.getElementById("mainImage");
+let currentIndex = 0;
+
+function setMainImage(img){
+  mainImage.src = img.src;
+  thumbnails.forEach(t => t.classList.remove("active"));
+  img.classList.add("active");
+  currentIndex = [...thumbnails].indexOf(img);
 }
-overlay.addEventListener('click',()=>{ if(menu.classList.contains('open')){ menu.classList.remove('open'); scrollContainer.classList.remove('recede'); overlay.classList.remove('active'); }});
+
+function nextImage(){
+  currentIndex = (currentIndex+1) % thumbnails.length;
+  setMainImage(thumbnails[currentIndex]);
+}
+function prevImage(){
+  currentIndex = (currentIndex-1+thumbnails.length) % thumbnails.length;
+  setMainImage(thumbnails[currentIndex]);
+}
 
 // Modal
-const modal=document.getElementById("modal");
-const modalImg=document.getElementById("modal-img");
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("modalImg");
 function openModal(src){ modal.style.display="flex"; modalImg.src=src; }
 function closeModal(){ modal.style.display="none"; }
 window.addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeModal(); });
 modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
-</script>
-
-<!-- Rotating Logo -->
-<a href="https://atomatlab.com" target="_blank">
-  <div class="spin-wrapper">
-    <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="Logo" class="flip-image" id="rotating-logo">
-  </div>
-</a>
-<script>
-const rotatingLogo = document.getElementById("rotating-logo");
-const spinWrapper = document.querySelector(".spin-wrapper");
-const logos = ["https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd","images/FIELD5.png"];
-let index=0;
-setInterval(()=>{
-  rotatingLogo.classList.toggle("flipped");
-  setTimeout(()=>{
-    index = (index+1)%logos.length;
-    rotatingLogo.src = logos[index];
-  },300);
-},3000);
-spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
-spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
 </script>
 
 </body>
