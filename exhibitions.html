@@ -142,11 +142,11 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
 
 /* Responsive */
 @media(max-width:768px){
-  .menu { width:20%; right:-20%; } /* keep same width as desktop */
-  .menu.open { right:0; }
-  .scroll-container { font-size:15px; gap:40px; padding:0 10px 200px; }
-  .upcoming img { width:70%; height:300px; }
-  .gallery { grid-template-columns:1fr 1fr; gap:20px; }
+  .menu { width:20%; right:-20%; } /* hidden offscreen */
+  .menu.open { right:0; }          /* fully visible */
+  .main-content { padding-left:15px; padding-right:15px; }
+  .gallery-main img { height:250px; }
+  .thumbnails img { width:80px; height:50px; }
 }
 </style>
 </head>
