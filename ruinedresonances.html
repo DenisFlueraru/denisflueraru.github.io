@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruined Resonances - Denis Flueraru</title>
+<link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
+
+<style>
+/* Fonts */
+@font-face {
+  font-family: 'Neue Kaine';
+  src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
+       url('fonts/neue_kaine_variable-webfont.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: '42dot';
+  src: url('fonts/42dot.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+body, h1, h2, p, a, span { font-family: 'Neue Kaine', sans-serif; }
+b { font-family: '42dot', sans-serif; }
+
+/* General */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:white; color:black; overflow-x:hidden; }
+
+/* Header */
+.header {
+  position:fixed; top:0; width:100%;
+  padding:25px 50px;
+  display:flex; justify-content:space-between; align-items:center;
+  background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
+  z-index:100;
+}
+.header .logo { font-weight:bold; font-size:20px; color:black; text-decoration:none; }
+.header .section-title { font-weight:600; font-size:22px; text-align:center; flex:1; }
+.header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
+
+/* Overlay & Menu */
+.overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); z-index:150; }
+.overlay.active { display:block; }
+
+.menu {
+  position:fixed; top:0; right:-20%; width:20%; height:100%;
+  background-color:rgb(182,210,40); color:black;
+  transition:right 0.4s ease; z-index:200;
+  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
+}
+.menu.open { right:0; }
+.menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
+.menu a:hover { color:#cd6c27; }
+.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
+
+/* Main content */
+.main-content { padding-top:120px; max-width:1000px; margin:0 auto; padding-bottom:100px; padding-left:20px; padding-right:20px; }
+.section-desc { font-size:16px; line-height:1.6; margin-bottom:40px; }
+.subtitle { font-size:18px; font-style:italic; margin-bottom:20px; display:block; text-align:center; }
+
+/* Gallery */
+.gallery { text-align:center; margin-bottom:50px; }
+.gallery-container { display:flex; flex-direction:column; align-items:center; gap:20px; }
+.gallery-main { position:relative; width:100%; max-width:700px; }
+.gallery-main img { width:100%; height:400px; object-fit:cover; border-radius:8px; cursor:pointer; opacity:1; transition:opacity 0.6s ease; }
+
+/* Arrows */
+.arrow { position:absolute; top:50%; transform:translateY(-50%); background:none; border:none; color:rgb(182,210,40); font-size:2.5em; cursor:pointer; padding:5px; }
+.arrow.left { left:-40px; }
+.arrow.right { right:-40px; }
+
+/* Thumbnails */
+.thumbnails { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+.thumbnails img { width:120px; height:80px; object-fit:cover; border-radius:4px; cursor:pointer; opacity:0.6; transition:opacity 0.2s; }
+.thumbnails img.active, .thumbnails img:hover { opacity:1; }
+
+/* Bandcamp Embed */
+.bandcamp-embed { margin:40px 0; text-align:center; }
+.bandcamp-embed iframe { border:0; width:100%; max-width:700px; height:120px; }
+
+/* Map */
+.map-container { margin:40px 0; text-align:center; }
+.map-container img { width:100%; max-width:700px; border-radius:8px; }
+
+/* Modal */
+.modal { display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
+.modal-content { max-width:90%; max-height:90%; border-radius:8px; }
+.close { position:absolute; top:20px; right:30px; font-size:3em; color:white; cursor:pointer; }
+
+/* Rotating logo */
+.spin-wrapper { position:fixed; bottom:15px; left:15px; width:100px; animation: spin 20s linear infinite; cursor:pointer; z-index:100; }
+.spin-wrapper img { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
+@keyframes spin { from { transform:rotateZ(0deg); } to { transform:rotateZ(360deg); } }
+.flipped { transform: rotateY(180deg); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .menu { width:40%; right:-40%; }
+  .menu.open { right:0; }
+  .main-content { padding-left:15px; padding-right:15px; }
+  .gallery-main img { height:250px; }
+  .thumbnails img { width:80px; height:50px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Sliding Menu -->
+<div class="menu" id="menu">
+  <a href="artworks.html">Artworks</a>
+  <a href="workshops.html">Workshops</a>
+  <a href="sound.html">Sound</a>
+  <a href="collabs.html">Collabs</a>
+  <a href="exhibitions.html">Exhibitions</a>
+  <div style="height:20px;"></div>
+  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
+  <a href="services.html">Services</a>
+  <div style="height:20px;"></div>
+  <a href="biography.html">Biography</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- Header -->
+<div class="header">
+  <a href="index.html" class="logo">Denis Flueraru</a>
+  <span class="section-title">Ruined Resonances</span>
+  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
+</div>
+
+<!-- Main -->
+<div class="main-content">
+
+  <span class="subtitle">A Journey Through Sound and Form</span>
+
+  <!-- Gallery at top -->
+  <div class="gallery">
+    <div class="gallery-container">
+      <div class="gallery-main">
+        <button class="arrow left" onclick="prevImage()">&#10094;</button>
+        <img id="mainImage" src="https://lh3.googleusercontent.com/d/1ZcHkWm3pe8xUKHgJ8L4jnNX4d8kIk8tX" onclick="openModal(this.src)">
+        <button class="arrow right" onclick="nextImage()">&#10095;</button>
+      </div>
+      <div class="thumbnails" id="thumbnails">
+        <img src="https://lh3.googleusercontent.com/d/1ZcHkWm3pe8xUKHgJ8L4jnNX4d8kIk8tX" onclick="setMainImage(this)" class="active">
+        <img src="https://lh3.googleusercontent.com/d/1EbNRYpePm01JMMD7CYlFJUE1JBvg082S" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1O1LAKGMnxFpnuYJRA30ugimWqdEj2BwC" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1tHDUAwA8YLC0zJJ6xi3GH2mZeASwsd7H" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1DVNSt1gzJha8haU8v-SJY3dA0LUbhdaY" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1OuEtTt-WGSkKDldUgtS2AL7yaY78WMxl" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1Tpm2JwWNkdnrOAZ0ang-zVmtcmtI9ba1" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1CiSTDxt81GKNNN6J2SMujJUfkAI74VAx" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1Aet-UwNQdRKdVa_ff3AtKvkt87osbxMH" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/114MkkOfqYeHOTcr0vco8ldFEc-b4sNoV" onclick="setMainImage(this)">
+      </div>
+    </div>
+  </div>
+
+  <p class="section-desc">
+    With the support of the <b>Culture Moves Europe</b> program, <b>Ruined Resonances</b> broke boundaries for the first time, expanding our <b>cross-modal archive</b> with new locations.  
+    This <b>object book series</b> explores the <b>memory of places</b> through both <b>sound</b> and <b>form</b>.  
+    Each edition combines <b>field recordings</b> with <b>gypsum molds</b> taken from streets and landmarks.  
+    The book synthesizes each location’s <b>acoustic signature</b> with an <b>alginate imprint</b>, attempting to <b>teleport readers</b> into spaces layered with history, and highlight the contrast between <b>past and present</b>.  
+    As readers progress, they encounter <b>casts</b> that can be touched and <b>recordings</b> that can be listened to — deepening the connection to the site.  
+    The first edition was realized in <b>Thessaloniki</b>.
+  </p>
+
+  <!-- Bandcamp Embed -->
+  <div class="bandcamp-embed">
+   <iframe style="border: 0; width: 350px; height: 588px;" src="https://bandcamp.com/EmbeddedPlayer/album=2960872114/size=large/bgcol=ffffff/linkcol=2ebd35/transparent=true/" seamless><a href="https://ruinedresonances.bandcamp.com/album/thessaloniki">Thessaloniki by Denis Flueraru, Evangelos Kosmidis</a></iframe>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="modalImg">
+</div>
+
+<!-- Rotating Logo -->
+<a href="https://atomatlab.com" target="_blank" class="spin-wrapper">
+  <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="Logo" id="rotatingLogo">
+</a>
+
+<script>
+// Menu toggle
+const menu = document.getElementById('menu');
+const overlay = document.getElementById('overlay');
+function toggleMenu() {
+  const isOpen = menu.classList.contains('open');
+  if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); } 
+  else { menu.classList.add('open'); overlay.classList.add('active'); }
+}
+overlay.addEventListener('click',()=>{ if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); } });
+
+// Gallery
+const thumbnails = document.querySelectorAll(".thumbnails img");
+const mainImage = document.getElementById("mainImage");
+let currentIndex = 0;
+let slideInterval;
+
+function setMainImage(img){
+  mainImage.style.opacity = 0;
+  setTimeout(()=>{ mainImage.src = img.src; mainImage.style.opacity = 1; },300);
+  thumbnails.forEach(t => t.classList.remove("active"));
+  img.classList.add("active");
+  currentIndex = [...thumbnails].indexOf(img);
+  resetInterval();
+}
+function nextImage(){ currentIndex = (currentIndex+1) % thumbnails.length; setMainImage(thumbnails[currentIndex]); }
+function prevImage(){ currentIndex = (currentIndex-1+thumbnails.length) % thumbnails.length; setMainImage(thumbnails[currentIndex]); }
+function startSlideshow(){ slideInterval = setInterval(nextImage, 4000); }
+function resetInterval(){ clearInterval(slideInterval); startSlideshow(); }
+startSlideshow();
+
+// Modal
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("modalImg");
+function openModal(src){ modal.style.display="flex"; modalImg.src=src; }
+function closeModal(){ modal.style.display="none"; }
+window.addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeModal(); });
+modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
+
+// Rotating logo flip effect
+const rotatingLogo = document.getElementById("rotatingLogo");
+setInterval(()=>{ rotatingLogo.classList.toggle("flipped"); },3000);
+</script>
+
+</body>
+</html>
