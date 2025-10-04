@@ -4,12 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact - Denis Flueraru</title>
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
 
 <style>
-       
-    @font-face {
+@font-face {
   font-family: 'Neue Kaine';
   src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
        url('fonts/neue_kaine_variable-webfont.woff') format('woff');
@@ -48,6 +47,16 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
   font-size:18px;
   line-height:1.8;
   position:relative;
+
+  /* Subtle green pulse animation */
+  animation: greenPulse 4s ease-in-out infinite;
+}
+
+/* Green glow pulse */
+@keyframes greenPulse {
+  0%   { box-shadow: 0 0 12px rgba(182,210,40, 0.3); }
+  50%  { box-shadow: 0 0 60px rgba(182,210,40, 0.6); }
+  100% { box-shadow: 0 0 12px rgba(182,210,40, 0.3); }
 }
 
 .contact-folder h2 {
@@ -70,17 +79,17 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
   text-decoration:underline;
 }
 
-   /* Menu */
-    .menu {
-      position:fixed; top:0; right:-20%; width:20%; height:100%;
-      background-color:rgb(182,210,40); color:black;
-      transition:right 0.4s ease; z-index:200;
-      padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
-    }
-    .menu.open { right:0; }
-    .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
-    .menu a:hover { color:#cd6c27; }
-    .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
+/* Menu */
+.menu {
+  position:fixed; top:0; right:-20%; width:20%; height:100%;
+  background-color:rgb(182,210,40); color:black;
+  transition:right 0.4s ease; z-index:200;
+  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
+}
+.menu.open { right:0; }
+.menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
+.menu a:hover { color:#cd6c27; }
+.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
 /* Grey overlay */
 .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
@@ -104,50 +113,15 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 
 /* Responsive */
 @media (max-width: 768px) {
-  .menu {
-    width: 40%;      /* Menu takes more space on mobile */
-    right: -40%;     /* Hidden off-screen by same width */
-  }
-  .menu.open {
-    right: 0;        /* Slides in fully on mobile */
-  }
+  .menu { width: 40%; right: -40%; }
+  .menu.open { right: 0; }
 }
 @media(max-width:768px){
   .header { padding:15px; }
   .header .logo { font-size:18px; }
   .header .section-title { font-size:20px; }
   .header .menu-toggle { font-size:18px; }
-  
-  .scroll-container { font-size:15px; gap:30px; padding:0 15px 80px; }
-  .update { flex-direction:column !important; gap:20px; }
-    .update img, .update .video-container {
-    width:85%;           /* smaller width for mobile */
-    aspect-ratio:1/1;    /* force square shape */
-    object-fit:cover;    /* crop and fill nicely */
-    border-radius:4px;
-    margin:0 auto;       /* center horizontally */
-  }
-  .update .text {
-    width:90%;           /* text slightly smaller */
-    text-align:center;   /* center text */
-  }
-    .update { 
-    flex-direction:column !important; 
-    gap:20px; 
-    align-items:center; /* center images and text */
-  }
-  
-  
   .spin-wrapper { width:70px; bottom:10px; left:10px; }
-}
-@media (max-width: 768px) {
-  .menu {
-    width: 40%;      /* Menu takes more space on mobile */
-    right: -40%;     /* Hidden off-screen by same width */
-  }
-  .menu.open {
-    right: 0;        /* Slides in fully on mobile */
-  }
 }
 @media(max-width:1000px){
   .contact-folder { margin:140px 20px 80px 20px; padding:20px 25px; }
@@ -180,10 +154,11 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 </div>
 
 <!-- Rotating Logo -->
-<a href="https://atomatlab.com" target="_blank" class="spin-wrapper">
-  <img src="images/atomatlabrotating.png" alt="Logo" class="flip-image" id="rotating-logo">
+<a href="https://atomatlab.com" target="_blank">
+  <div class="spin-wrapper">
+    <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="Logo" class="flip-image" id="rotating-logo">
+  </div>
 </a>
-
 
 <!-- Menu -->
 <div class="menu" id="menu">
@@ -191,7 +166,7 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
   <a href="workshops.html">Workshops</a>
   <a href="sound.html">Sound</a>
   <a href="collabs.html">Collabs</a>
-  <a href="exhibitions.html">Exhibitions</a> <!-- New link added -->
+  <a href="exhibitions.html">Exhibitions</a>
   <div style="height:20px;"></div>
   <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
   <a href="services.html">Services</a>
@@ -200,47 +175,39 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
   <a href="contact.html">Contact</a>
 </div>
 
-
 <script>
 // Menu toggle
 const menu = document.getElementById('menu');
 const overlay = document.getElementById('overlay');
 function toggleMenu(){
   const isOpen = menu.classList.contains('open');
-  if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); }
-  else{ menu.classList.add('open'); overlay.classList.add('active'); }
+  if(isOpen){ menu.classList.remove('open'); overlay.style.display="none"; }
+  else{ menu.classList.add('open'); overlay.style.display="block"; }
 }
 overlay.addEventListener('click', () => { 
   if(menu.classList.contains('open')){
     menu.classList.remove('open'); 
-    overlay.classList.remove('active'); 
+    overlay.style.display="none"; 
   } 
 });
 
+// Rotating Logo
+const rotatingLogo = document.getElementById("rotating-logo");
+const spinWrapper = document.querySelector(".spin-wrapper");
+const logos = ["images/atomatlabrotating.png","images/FIELD5.png"];
+let index=0;
+
+setInterval(()=>{
+  rotatingLogo.classList.toggle("flipped");
+  setTimeout(()=>{
+    index = (index+1)%logos.length;
+    rotatingLogo.src = logos[index];
+  },300);
+},3000);
+
+spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
+spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
 </script>
-<!-- Rotating Logo -->
-  <a href="https://atomatlab.com" target="_blank">
-    <div class="spin-wrapper">
-      <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="Logo" class="flip-image" id="rotating-logo">
-    </div>
-  </a>
-  <script>
-    const rotatingLogo = document.getElementById("rotating-logo");
-    const spinWrapper = document.querySelector(".spin-wrapper");
-    const logos = ["images/atomatlabrotating.png","images/FIELD5.png"];
-    let index=0;
-
-    setInterval(()=>{
-      rotatingLogo.classList.toggle("flipped");
-      setTimeout(()=>{
-        index = (index+1)%logos.length;
-        rotatingLogo.src = logos[index];
-      },300);
-    },3000);
-
-    spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
-    spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
-  </script>
 
 </body>
 </html>
