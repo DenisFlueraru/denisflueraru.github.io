@@ -224,7 +224,7 @@
   <div class="header">
     <a class="logo" href="https://denisflueraru.github.io/">Denis Flueraru</a>
     <div class="title">Feed</div>
-    <div class="menu-toggle" onclick="toggleMenu()">Menu</div>
+    <div class="menu-toggle">Menu</div>
   </div>
 
   <!-- Overlay & Menu -->
@@ -373,57 +373,47 @@
   </a>
 
 <script>
-  /* Menu toggle (same behavior & sizing as index) */
+  // Elements
   const menu = document.getElementById('menu');
   const overlay = document.getElementById('overlay');
-  const scrollContainer = document.querySelector('.container');
+  const menuToggle = document.querySelector('.menu-toggle');
 
-  function toggleMenu(){
-    const open = menu.classList.contains('open');
-    if(open){
-      menu.classList.remove('open');
-      overlay.classList.remove('active');
-    } else {
-      menu.classList.add('open');
-      overlay.classList.add('active');
-    }
+  // Toggle menu open/close
+  function toggleMenu() {
+    menu.classList.toggle('open');
+    overlay.classList.toggle('active');
   }
 
-  // wire menu toggle button
-  document.querySelectorAll('.menu-toggle').forEach(btn => btn.addEventListener('click', toggleMenu));
-  overlay.addEventListener('click', () => {
-    if(menu.classList.contains('open')) {
-      menu.classList.remove('open');
-      overlay.classList.remove('active');
-    }
-  });
+  // Wire click events
+  menuToggle.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
 
-  // rotate / flip logo (preload images)
+  // Rotating / flipping logo
   const rotatingLogo = document.getElementById('rotating-logo');
   const logos = [
     'https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd',
     'images/FIELD5.png'
   ];
-  logos.forEach(s => { const i = new Image(); i.src = s; });
+  logos.forEach(src => { const img = new Image(); img.src = src; });
 
   let logoIndex = 0;
   setInterval(() => {
     rotatingLogo.classList.toggle('flipped');
-    setTimeout(()=> {
+    setTimeout(() => {
       logoIndex = (logoIndex + 1) % logos.length;
       rotatingLogo.src = logos[logoIndex];
     }, 300);
   }, 3000);
 
-  // reveal-on-scroll
+  // Reveal-on-scroll
   const reveals = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if(e.isIntersecting) { e.target.classList.add('visible'); }
+      if(e.isIntersecting) e.target.classList.add('visible');
     });
   }, { threshold: 0.12 });
   reveals.forEach(r => io.observe(r));
-
 </script>
+
 </body>
 </html>
