@@ -1,269 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Denis Flueraru</title>
-<link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="https://denisflueraru.com/images/atomatlabfavicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://denisflueraru.com/images/atomatlabfavicon.png">
+<link rel="shortcut icon" href="https://denisflueraru.com/images/atomatlabfavicon.png">
+
 <style>
-  @font-face {
-    font-family: 'Neue Kaine';
-    src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
-         url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: '42dot Sans';
-    src: url('fonts/42dot_sans/fonts/ttf/42dotSans-Bold.ttf') format('truetype');
-    font-weight: bold;
-  }
+/* Fonts */
+@font-face {
+  font-family: 'Neue Kaine';
+  src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
+       url('fonts/neue_kaine_variable-webfont.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: '42dot Sans';
+  src: url('fonts/42dot_sans/fonts/ttf/42dotSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 
-  :root{
-    --olive:#b6d228;
-    --brown:#cd6c27;
-  }
+body, h1, h2, h3, h4, h5, h6, p, a, span, li {
+  font-family: 'Neue Kaine', sans-serif;
+}
+* {margin:0; padding:0; box-sizing:border-box;}
+body {background:white; overflow-x:hidden;}
+::-webkit-scrollbar { display:none; }
+body { -ms-overflow-style:none; scrollbar-width:none; }
 
-  body{
-    margin:0;
-    font-family:'Neue Kaine',sans-serif;
-    background:white;
-    color:#111;
-    overflow-x:hidden;
-  }
-  *{box-sizing:border-box;}
+/* Header */
+.header {
+  position:fixed;
+  top:0; width:100%;
+  padding:20px;
+  display:flex; justify-content:space-between; align-items:center;
+  background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
+  z-index:100;
+}
+.header .logo { font-weight:900; font-size:20px; text-decoration:none; color:black; }
+.header .section-title { font-weight:900; font-size:22px; }
+.header .menu-toggle { cursor:pointer; font-weight:900; font-size:20px; }
 
-  /* Header */
-  .header{
-    position:fixed;
-    top:0;left:0;right:0;
-    height:72px;
-    padding:18px 22px;
-    display:flex;justify-content:space-between;align-items:center;
-    background:linear-gradient(to bottom,white 0%,rgba(255,255,255,0) 100%);
-    z-index:100;
-  }
-  .header .logo{font-weight:900;text-decoration:none;color:black;}
-  .header .title{font-weight:700;}
-  .header .menu-toggle{cursor:pointer;font-weight:700;}
+/* Main content */
+.main-content {
+  display:flex;
+  justify-content:center;
+  padding-top:100px;
+  min-height:100vh;
+  position:relative;
+}
+.scroll-container {
+  display:flex;
+  flex-direction:column;
+  gap:60px;
+  max-width:1100px;
+  font-size:16px;
+  line-height:1.6;
+  margin:0 auto;
+  padding:0 20px 100px;
+}
 
-  /* Menu */
-  .menu{
-    position:fixed;top:0;right:-20%;width:20%;height:100%;
-    background:var(--olive);
-    color:black;
-    transition:right 0.4s ease;
-    z-index:200;
-    padding:50px 20px;
-    display:flex;flex-direction:column;gap:20px;font-size:20px;
-  }
-  .menu.open{right:0;}
-  .menu a{color:black;text-decoration:none;font-weight:900;}
-  .menu a:hover{color:var(--brown);}
-  .menu-icon{height:1em;margin-left:5px;vertical-align:middle;}
+/* Updates */
+.update {
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+.update .text { text-align:left; }
+.update .title {
+  font-family: '42dot Sans', sans-serif;
+  font-weight:bold;
+  text-decoration:underline;
+  margin-bottom:10px;
+  font-size:20px;
+}
+.update .title .year { margin-right:5px; }
+.update p { color:#333; }
+a.custom-link { text-decoration:underline; color:black; transition:color 0.2s ease; font-weight:900; }
+a.custom-link:hover { color:rgb(182,210,40); }
 
-  .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.18);display:none;z-index:150;}
-  .overlay.active{display:block;}
+/* Carousel */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius:4px;
+}
+.carousel-slide {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+.carousel-slide img {
+  width: 100%;
+  flex-shrink:0;
+  object-fit: cover;
+}
+.carousel-arrow {
+  position: absolute;
+  top:50%;
+  transform: translateY(-50%);
+  font-size:2em;
+  color: rgb(182,210,40);
+  cursor:pointer;
+  user-select:none;
+  padding:0 10px;
+  font-weight:bold;
+  background:none;
+}
+.carousel-arrow.left { left:5px; }
+.carousel-arrow.right { right:5px; }
 
-  /* Main */
-  .main-content{padding-top:96px;display:flex;justify-content:center;}
-  .container{width:100%;max-width:1100px;padding:0 28px 120px;}
+/* Menu */
+.menu {
+  position:fixed; top:0; right:-20%; width:20%; height:100%;
+  background-color:rgb(182,210,40);
+  color:black; transition:right 0.4s ease; z-index:200;
+  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
+}
+.menu.open { right:0; }
+.menu a { color:black; text-decoration:none; transition:color 0.2s ease; font-weight:900; }
+.menu a:hover { color:#cd6c27; }
+.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
-  /* Intro */
-  .intro{
-    max-width:820px;
-    margin:0 auto 28px;
-    padding:28px;
-    border-left:4px solid var(--olive);
-    border-radius:6px;
-    box-shadow:0 6px 22px rgba(10,10,10,0.03);
-    line-height:1.6;
-  }
-  .intro p{margin:0;font-size:18px;}
-  .intro small{display:block;margin-top:10px;color:#666;}
+/* Overlay */
+.overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
+.overlay.active { display:block; }
 
-  /* Feed */
-  .feed{display:flex;flex-direction:column;gap:36px;}
-  .year-group{display:flex;flex-direction:column;gap:18px;}
-  .year-label{font-family:'42dot Sans',sans-serif;font-weight:700;color:var(--olive);font-size:18px;}
+/* Rotating logo */
+.spin-wrapper {
+  position: fixed; bottom:15px; left:15px;
+  width:100px;
+  animation: spin 20s linear infinite;
+  cursor:pointer;
+  z-index:100;
+}
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.flip-image { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
+.flipped { transform: rotateY(180deg); }
+.spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
 
-  .post{
-    display:grid;
-    grid-template-columns:380px 1fr;
-    gap:22px;
-    align-items:center;
-    background:white;
-    border-radius:8px;
-    padding:18px;
-    box-shadow:0 6px 20px rgba(15,15,15,0.04);
-    transition:transform 0.35s ease,box-shadow 0.35s;
-  }
-  .post:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(10,10,10,0.07);}
-  .meta{font-size:13px;color:#666;padding-bottom:4px;}
-  .post h3{margin:0 0 8px;font-size:18px;}
-  .post p{margin:0;color:#222;line-height:1.55;}
+/* Video */
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; /* 1:1 */
+  height: 0;
+}
+.video-container iframe {
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  border-radius:4px;
+}
 
-  /* Gallery carousel */
-  .post-gallery{
-    position:relative;
-    overflow:hidden;
-    border-radius:6px;
-  }
-  .post-gallery img{
-    width:100%;
-    height:260px;
-    object-fit:cover;
-    display:none;
-  }
-  .post-gallery img.active{display:block;}
-
-  .carousel-btn{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    font-size:28px;
-    color:var(--olive);
-    background:none;
-    border:none;
-    cursor:pointer;
-    opacity:0.8;
-    transition:opacity 0.2s ease;
-  }
-  .carousel-btn:hover{opacity:1;}
-  .prev{left:8px;}
-  .next{right:8px;}
-
-  /* Reveal */
-  .reveal{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;}
-  .reveal.visible{opacity:1;transform:none;}
-
-  /* Rotating logo */
-  .spin-wrapper{
-    position:fixed;bottom:15px;left:15px;
-    width:100px;
-    animation:spin 20s linear infinite;
-    z-index:100;
-  }
-  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-  .flip-image{width:100%;transition:transform .6s ease;}
-  .flipped{transform:rotateY(180deg);}
-
-  @media(max-width:980px){
-    .post{grid-template-columns:1fr;}
-    .post-gallery img{height:240px;}
-  }
-  @media(max-width:768px){
-    .menu{width:40%;right:-40%;}
-    .spin-wrapper{width:76px;}
-  }
+/* Responsive */
+@media (max-width: 768px) {
+  .menu { width: 40%; right: -40%; }
+  .menu.open { right: 0; }
+  .header { padding:15px; }
+  .header .logo { font-size:18px; }
+  .header .section-title { font-size:20px; }
+  .header .menu-toggle { font-size:18px; }
+  .scroll-container { font-size:15px; gap:40px; padding:0 15px 80px; }
+  .carousel-arrow { font-size:1.5em; }
+}
 </style>
 </head>
 <body>
+
+<!-- Header -->
 <div class="header">
   <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
-  <div class="title">Feed</div>
-  <div class="menu-toggle" onclick="toggleMenu()">Menu</div>
+  <span class="section-title">Feed</span>
+  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
 </div>
 
+<!-- Overlay -->
 <div class="overlay" id="overlay"></div>
-<nav class="menu" id="menu">
+
+<!-- Main Content -->
+<div class="main-content">
+  <div class="scroll-container" id="scroll-container">
+
+    <!-- Post Template -->
+    <div class="update">
+      <div class="carousel-container" data-index="0">
+        <div class="carousel-slide">
+          <img src="images/WORKSHOP_ATPWT_CAV.jpg" alt="Workshop at CAV Gallery">
+          <img src="images/placeholder1.jpg" alt="Placeholder 1">
+          <img src="images/placeholder2.jpg" alt="Placeholder 2">
+        </div>
+        <div class="carousel-arrow left">&#10094;</div>
+        <div class="carousel-arrow right">&#10095;</div>
+      </div>
+      <div class="text">
+        <div class="title"><span class="year">2025 &gt;</span> Contact Mics and Preamps workshop at CAV Gallery, Bucharest</div>
+        <p>As this year’s <a href="https://artistsplaywithtime.ro/" target="_blank" class="custom-link">Artists Play with Time</a> project came to an end, I was invited to lead a workshop on building contact microphones at CAV Gallery, Bucharest.</p>
+      </div>
+    </div>
+
+    <!-- Repeat similar blocks for all posts, replacing images with placeholders -->
+    <div class="update">
+      <div class="carousel-container" data-index="0">
+        <div class="carousel-slide">
+          <img src="images/YOKOGAWA1.JPG" alt="Yokogawa Project">
+          <img src="images/placeholder1.jpg" alt="Placeholder 1">
+        </div>
+        <div class="carousel-arrow left">&#10094;</div>
+        <div class="carousel-arrow right">&#10095;</div>
+      </div>
+      <div class="text">
+        <div class="title"><span class="year">2025 &gt;</span> LED and Sound Programming for a Fresh Water Generator Concept</div>
+        <p>In collaboration with <a href="https://fablab.ro/" target="_blank" class="custom-link">FabLab Bucharest</a>, I worked on a Fresh Water Generator concept model for YOKOGAWA.</p>
+      </div>
+    </div>
+
+    <!-- Example for video post -->
+    <div class="update">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/T5UO7QNXiLU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="text">
+        <div class="title"><span class="year">2024 &gt;</span> DivAirCity Bucharest</div>
+        <p>A quick look from the <b style="font-family:'42dot Sans';">DivAirCity Day</b> at Piațeta Italiana in Bucharest and my stand where I used air quality values to plot a series of generative drawings.</p>
+      </div>
+    </div>
+
+    <!-- Continue adding all remaining posts similarly -->
+
+  </div>
+</div>
+
+<!-- Menu -->
+<div class="menu" id="menu">
   <a href="artworks.html">Artworks</a>
   <a href="workshops.html">Workshops</a>
   <a href="sound.html">Sound</a>
   <a href="collabs.html">Collabs</a>
   <a href="exhibitions.html">Exhibitions</a>
-  <div style="height:18px"></div>
-  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" class="menu-icon"></a>
+  <div style="height:20px;"></div>
+  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
   <a href="services.html">Services</a>
-  <div style="height:18px"></div>
+  <div style="height:20px;"></div>
   <a href="biography.html">Biography</a>
   <a href="contact.html">Contact</a>
-</nav>
+</div>
 
-<main class="main-content">
-  <div class="container">
-    <section class="intro">
-      <p>I work where sound meets material — where ordinary streets remember themselves and small objects hold the weight of place. These pages gather installations, field recordings and tactile experiments that ask you to listen slowly and touch carefully.</p>
-      <small>Subtle motion, warm tones — an archive that prefers feeling over explanation.</small>
-    </section>
-
-    <section class="feed">
-      <div class="year-group">
-        <div class="year-label">2025</div>
-
-        <article class="post reveal">
-          <div class="post-gallery">
-            <img src="images/WORKSHOP_ATPWT_CAV.jpg" class="active" alt="">
-            <img src="images/WORKSHOP_ATPWT_CAV2.jpg" alt="">
-            <button class="carousel-btn prev">&#10094;</button>
-            <button class="carousel-btn next">&#10095;</button>
-          </div>
-          <div>
-            <div class="meta">Workshop — Bucharest</div>
-            <h3>Contact Mics and Preamps workshop at CAV Gallery</h3>
-            <p>Hands-on session where participants built microphones and learned preamp circuits — tuning listening practice into making.</p>
-          </div>
-        </article>
-
-        <article class="post reveal">
-          <div class="post-gallery">
-            <img src="images/YOKOGAWA1.JPG" class="active" alt="">
-            <img src="images/YOKOGAWA2.JPG" alt="">
-            <button class="carousel-btn prev">&#10094;</button>
-            <button class="carousel-btn next">&#10095;</button>
-          </div>
-          <div>
-            <div class="meta">Commission — Yokogawa</div>
-            <h3>LED and Sound Programming for Fresh Water Generator concept</h3>
-            <p>Prototype work with FabLab Bucharest translating environmental data into light and sonic behaviour.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-  </div>
-</main>
-
+<!-- Rotating Logo -->
 <a href="https://atomatlab.com" target="_blank" class="spin-wrapper">
-  <img id="rotating-logo" class="flip-image" src="images/atomatlabrotating.png" alt="">
+  <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="Logo" class="flip-image" id="rotating-logo">
 </a>
 
 <script>
-const menu=document.getElementById('menu');
-const overlay=document.getElementById('overlay');
+// Menu toggle
+const menu = document.getElementById('menu');
+const scrollContainer = document.getElementById('scroll-container');
+const overlay = document.getElementById('overlay');
 function toggleMenu(){
-  menu.classList.toggle('open');
-  overlay.classList.toggle('active');
+  const isOpen = menu.classList.contains('open');
+  if(isOpen){
+    menu.classList.remove('open'); 
+    overlay.classList.remove('active');
+  } else {
+    menu.classList.add('open'); 
+    overlay.classList.add('active');
+  }
 }
-overlay.addEventListener('click',()=>{menu.classList.remove('open');overlay.classList.remove('active');});
+overlay.addEventListener('click', () => { 
+  if(menu.classList.contains('open')){ 
+    menu.classList.remove('open'); 
+    overlay.classList.remove('active'); 
+  } 
+});
 
-const rotatingLogo=document.getElementById('rotating-logo');
-const logos=['images/atomatlabrotating.png','images/FIELD5.png'];
-let idx=0;
+// Rotating / flipping logo
+const rotatingLogo = document.getElementById("rotating-logo");
+const spinWrapper = document.querySelector(".spin-wrapper");
+const logos = [
+  "https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd",
+  "images/FIELD5.png"
+];
+let index = 0;
+logos.forEach(src => { const img = new Image(); img.src = src; });
 setInterval(()=>{
-  rotatingLogo.classList.toggle('flipped');
+  rotatingLogo.classList.toggle("flipped");
   setTimeout(()=>{
-    idx=(idx+1)%logos.length;
-    rotatingLogo.src=logos[idx];
+    index = (index+1)%logos.length;
+    rotatingLogo.src = logos[index];
   },300);
 },3000);
+spinWrapper.addEventListener("mousedown",()=>{spinWrapper.classList.add("clicked");});
+spinWrapper.addEventListener("mouseup",()=>{spinWrapper.classList.remove("clicked");});
 
-/* Reveal on scroll */
-const observer=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
-document.querySelectorAll('.reveal').forEach(r=>observer.observe(r));
+// Carousel functionality
+document.querySelectorAll('.carousel-container').forEach(container => {
+  const slide = container.querySelector('.carousel-slide');
+  const slides = slide.children.length;
+  let currentIndex = 0;
 
-/* Carousel */
-document.querySelectorAll('.post-gallery').forEach(gallery=>{
-  const imgs=gallery.querySelectorAll('img');
-  const prev=gallery.querySelector('.prev');
-  const next=gallery.querySelector('.next');
-  if(imgs.length<=1){prev.style.display='none';next.style.display='none';return;}
-  let i=0;
-  function show(n){imgs.forEach((img,j)=>img.classList.toggle('active',j===n));}
-  prev.onclick=()=>{i=(i-1+imgs.length)%imgs.length;show(i);}
-  next.onclick=()=>{i=(i+1)%imgs.length;show(i);}
-  setInterval(()=>{i=(i+1)%imgs.length;show(i);},4000);
+  const leftArrow = container.querySelector('.carousel-arrow.left');
+  const rightArrow = container.querySelector('.carousel-arrow.right');
+
+  leftArrow.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + slides) % slides;
+    slide.style.transform = `translateX(-${currentIndex*100}%)`;
+  });
+
+  rightArrow.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % slides;
+    slide.style.transform = `translateX(-${currentIndex*100}%)`;
+  });
 });
 </script>
+
 </body>
 </html>
