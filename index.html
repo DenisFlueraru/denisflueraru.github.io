@@ -8,6 +8,28 @@
 <link rel="icon" type="image/png" sizes="16x16" href="images/atomatlabfavicon.png">
 <link rel="shortcut icon" href="images/atomatlabfavicon.png">
 <style>
+  /* Add this once in your stylesheet */
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-top: 15px;
+    max-width: 480px; /* keeps it compact */
+    box-shadow: 0 0 10px rgba(182,210,40,0.3);
+  }
+
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
+<style>
   /* Fonts */
 
   strong, h1, h2, h3, h4, h5, h6, b {
@@ -309,7 +331,7 @@
             <img src="images/YOKOGAWA1.JPG" alt="Yokogawa collaboration">
             <div>
               <div class="meta">Commission — Yokogawa</div>
-              <h3>LED and Sound Programming for Fresh Water Generator concept</h3>
+              <h3>LED and Sound Programming for a fresh water generator concept</h3>
               <p>Collaborative prototype work with FabLab Bucharest — translating environmental data into light and sonic behaviour.</p>
             </div>
           </article>
@@ -322,6 +344,31 @@
               <p>Following its run at WASP, the project traveled to Cultural Centre Reduta — resonance and memory mapped into concrete casts and recordings.</p>
             </div>
           </article>
+
+<article class="post reveal">
+  <!-- Embedded YouTube video instead of image -->
+  <div class="video-wrapper">
+    <iframe
+      src="https://www.youtube.com/embed/It5iu3jE_kM"
+      title="Artists Play with Time — Bespoke Contact Mics and Preamps"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <div>
+    <div class="meta">Commission — Bespoke Contact Mics and Preamps</div>
+    <h3>Artists Play with Time | Series of performances across the EU</h3>
+    <p>
+      Short behind the scenes video where I built a series of bespoke contact microphones and preamp boxes 
+      designed to amplify the subtle ticking of clocks as instruments for performers.  
+      From <strong>3D modeling</strong> and <strong>printing</strong>, to <strong>soldering</strong>, <strong>shielding</strong>, and <strong>sound testing</strong> — 
+      every detail was tuned to bring time into focus.
+    </p>
+  </div>
+</article>
 
         </div>
 
@@ -446,7 +493,32 @@
     </p>
   </div>
 </article>
-        </div>
+
+<article class="post reveal">
+  <!-- Embedded YouTube video instead of image -->
+  <div class="video-wrapper">
+    <iframe
+      src="https://www.youtube.com/embed/dJfU8wuCUzI"
+      title="Ruined Resonances — Thessaloniki"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <div>
+    <div class="meta">Publication / Object Book — Thessaloniki</div>
+    <h3>Ruined Resonances — a journey through sound and form</h3>
+    <p>
+      <strong>Ruined Resonances</strong> synthesizes each location’s acoustic signature with an alginate imprint, inviting readers to hold and listen to place. 
+      With support from <strong>Culture Moves Europe</strong>, the project expanded its archive and practices across new sites.
+    </p>
+  </div>
+</article>
+
+
+
 
         <!-- earlier entries / compact
         <div class="year-group">
