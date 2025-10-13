@@ -7,6 +7,20 @@
 <link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
 
 <style>
+  @font-face {
+  font-family: '42 Dot Sans';
+  src: url('fonts/42DotSans-Bold.woff2') format('woff2'),
+       url('fonts/42DotSans-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+.dot-sans {
+  font-family: '42 Dot Sans', sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+}
 @font-face {
   font-family: 'Neue Kaine';
   src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
@@ -199,10 +213,15 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
    <!-- Upcoming Exhibition -->
 <div class="upcoming">
   <div class="title">UPCOMING EXHIBITION</div>
-  <p><strong>Denis Flueraru</strong> — Upcoming show at <strong>MAMŰ Galéria</strong>, Budapest.<br>
-  <em>7 November – 28 November 2025</em></p>
-  <img src="https://lh3.googleusercontent.com/d/1qfRXIRZFXnupM8QZecgf9-EY0G2ohIAU" alt="MAMŰ Galéria Budapest Exhibition Poster">
+  <p>
+Upcoming solo show at 
+    <span class="dot-sans">MAMŰ Galéria</span>, Budapest.<br>
+    <em>7 November – 28 November 2025</em>
+  </p>
+  <img src="https://lh3.googleusercontent.com/d/1qfRXIRZFXnupM8QZecgf9-EY0G2ohIAU" 
+       alt="MAMŰ Galéria Budapest Exhibition Poster">
 </div>
+
     <!-- Past Exhibitions -->
     <div class="past">
 
