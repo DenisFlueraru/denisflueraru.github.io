@@ -57,31 +57,31 @@ body { background:white; color:black; overflow-x:hidden; }
 .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
 /* Main content */
-.main-content { padding-top:120px; max-width:1000px; margin:0 auto; padding-bottom:100px; padding-left:20px; padding-right:20px; }
-.main-image { width:100%; max-height:500px; object-fit:cover; border-radius:8px; margin-bottom:30px; }
-.section-desc { font-size:16px; line-height:1.6; margin-bottom:40px; }
+.main-content {
+  padding-top:140px;
+  max-width:800px;
+  margin:0 auto;
+  padding-bottom:100px;
+  text-align:center;
+  padding-left:20px;
+  padding-right:20px;
+}
+.section-desc {
+  font-size:16px;
+  line-height:1.6;
+  margin-bottom:40px;
+}
 
-/* Gallery */
-.gallery { margin-top:40px; text-align:center; }
-.gallery h2 { font-size:20px; font-weight:bold; margin-bottom:20px; }
-.gallery-container { display:flex; flex-direction:column; align-items:center; gap:20px; }
-.gallery-main { position:relative; width:100%; max-width:700px; }
-.gallery-main img { width:100%; height:400px; object-fit:cover; border-radius:8px; cursor:pointer; opacity:1; transition:opacity 0.6s ease; }
-
-/* Arrows */
-.arrow { position:absolute; top:50%; transform:translateY(-50%); background:none; border:none; color:rgb(182,210,40); font-size:2.5em; cursor:pointer; padding:5px; }
-.arrow.left { left:-40px; }
-.arrow.right { right:-40px; }
-
-/* Thumbnails */
-.thumbnails { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
-.thumbnails img { width:120px; height:80px; object-fit:cover; border-radius:4px; cursor:pointer; opacity:0.6; transition:opacity 0.2s; }
-.thumbnails img.active, .thumbnails img:hover { opacity:1; }
-
-/* Modal */
-.modal { display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; }
-.modal-content { max-width:90%; max-height:90%; border-radius:8px; }
-.close { position:absolute; top:20px; right:30px; font-size:3em; color:white; cursor:pointer; }
+/* Bandcamp embed */
+.bandcamp-wrapper {
+  display:flex;
+  justify-content:center;
+  margin-top:40px;
+}
+iframe {
+  border-radius:8px;
+  box-shadow:0 0 10px rgba(182,210,40,0.3);
+}
 
 /* Rotating logo */
 .spin-wrapper { position:fixed; bottom:15px; left:15px; width:100px; animation: spin 20s linear infinite; cursor:pointer; z-index:100; }
@@ -130,40 +130,20 @@ body { background:white; color:black; overflow-x:hidden; }
   <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
 </div>
 
-<!-- Main -->
+<!-- Main Content -->
 <div class="main-content">
-  <img src="https://lh3.googleusercontent.com/d/1qgKZxGdv8MfRdwcLXXKJnQ_sxfr975XR" alt="Loop Studies Main" class="main-image">
   <p class="section-desc">
     <b>Loop Studies</b> is an ongoing series of works exploring the search for the perfect loop.  
-    Each piece is based on a 30-second musical loop created through a blend of analog and digital tools, combined with field recordings.  
+    Each piece is based on a 30-second musical loop created through a blend of analogue and digital tools combined with field recordings. 
     <br><br>
-    The sound is then translated into a plotted drawing, where frequencies unfold into arcs and gestures.  
-    A surface imprint accompanies each plot, anchoring the loop in the physical world and connecting the sonic to the tactile.
+    The sound is then translated into a plotted drawing, where the frequencies are represented through time by sound-reactive rings.
   </p>
 
-  <!-- Gallery -->
-  <div class="gallery">
-    <h2>Gallery</h2>
-    <div class="gallery-container">
-      <div class="gallery-main">
-        <button class="arrow left" onclick="prevImage()">&#10094;</button>
-        <img id="mainImage" src="https://lh3.googleusercontent.com/d/13gRLmgU4Cc_zzZ3QkX-EqgVkzqpqUUMi" onclick="openModal(this.src)">
-        <button class="arrow right" onclick="nextImage()">&#10095;</button>
-      </div>
-      <div class="thumbnails" id="thumbnails">
-        <img src="https://lh3.googleusercontent.com/d/13gRLmgU4Cc_zzZ3QkX-EqgVkzqpqUUMi" onclick="setMainImage(this)" class="active">
-        <img src="https://lh3.googleusercontent.com/d/15pqLNIIj1MF5G2fc_nwtkXrhWCKEYMg1" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1xyUBLOWNYVTOZ9OmI6QrxW3St5_pGTCI" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1203-v0OgsQm26Vrdr9jXe2ctePflxMUk" onclick="setMainImage(this)">
-      </div>
-    </div>
+  <div class="bandcamp-wrapper">
+    <iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=696765584/size=large/bgcol=ffffff/linkcol=333333/tracklist=false/transparent=true/" seamless>
+      <a href="https://denisflueraru.bandcamp.com/album/loop-studies-i-iv">Loop Studies (I-IV) by Denis Flueraru</a>
+    </iframe>
   </div>
-</div>
-
-<!-- Modal -->
-<div id="modal" class="modal">
-  <span class="close" onclick="closeModal()">&times;</span>
-  <img class="modal-content" id="modalImg">
 </div>
 
 <!-- Rotating Logo -->
@@ -180,35 +160,12 @@ function toggleMenu() {
   if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); } 
   else { menu.classList.add('open'); overlay.classList.add('active'); }
 }
-overlay.addEventListener('click',()=>{ if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); } });
-
-// Gallery
-const thumbnails = document.querySelectorAll(".thumbnails img");
-const mainImage = document.getElementById("mainImage");
-let currentIndex = 0;
-let slideInterval;
-
-function setMainImage(img){
-  mainImage.style.opacity = 0;
-  setTimeout(()=>{ mainImage.src = img.src; mainImage.style.opacity = 1; },300);
-  thumbnails.forEach(t => t.classList.remove("active"));
-  img.classList.add("active");
-  currentIndex = [...thumbnails].indexOf(img);
-  resetInterval();
-}
-function nextImage(){ currentIndex = (currentIndex+1) % thumbnails.length; setMainImage(thumbnails[currentIndex]); }
-function prevImage(){ currentIndex = (currentIndex-1+thumbnails.length) % thumbnails.length; setMainImage(thumbnails[currentIndex]); }
-function startSlideshow(){ slideInterval = setInterval(nextImage, 3000); }
-function resetInterval(){ clearInterval(slideInterval); startSlideshow(); }
-startSlideshow();
-
-// Modal
-const modal = document.getElementById("modal");
-const modalImg = document.getElementById("modalImg");
-function openModal(src){ modal.style.display="flex"; modalImg.src=src; }
-function closeModal(){ modal.style.display="none"; }
-window.addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeModal(); });
-modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
+overlay.addEventListener('click',()=>{ 
+  if(menu.classList.contains('open')){
+    menu.classList.remove('open'); 
+    overlay.classList.remove('active'); 
+  }
+});
 
 // Rotating logo flip effect
 const rotatingLogo = document.getElementById("rotatingLogo");
