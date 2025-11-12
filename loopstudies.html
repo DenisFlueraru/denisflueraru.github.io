@@ -59,7 +59,7 @@ body { background:white; color:black; overflow-x:hidden; }
 /* Main content */
 .main-content {
   padding-top:140px;
-  max-width:800px;
+  max-width:1000px;
   margin:0 auto;
   padding-bottom:100px;
   text-align:center;
@@ -70,6 +70,37 @@ body { background:white; color:black; overflow-x:hidden; }
   font-size:16px;
   line-height:1.6;
   margin-bottom:40px;
+}
+
+/* Hero Image */
+.hero-image {
+  width:100%;
+  max-width:1000px;
+  height:auto;
+  margin:0 auto 40px auto;
+  display:block;
+  border-radius:12px;
+  box-shadow:0 0 20px rgba(182,210,40,0.2);
+  transition:transform 0.3s ease;
+}
+.hero-image:hover { transform:scale(1.01); }
+
+/* Image Grid */
+.image-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:50px;
+}
+.image-grid img {
+  width:100%;
+  border-radius:12px;
+  box-shadow:0 0 15px rgba(182,210,40,0.2);
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+.image-grid img:hover {
+  transform:scale(1.03);
+  box-shadow:0 0 25px rgba(182,210,40,0.3);
 }
 
 /* Bandcamp embed */
@@ -93,12 +124,10 @@ iframe {
 @media (max-width: 768px) {
   .menu { width: 40%; right: -40%; }
   .menu.open { right: 0; }
+  .image-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
 }
-@media(max-width:768px){
-  .header { padding:15px; }
-  .header .logo { font-size:18px; }
-  .header .section-title { font-size:20px; }
-  .header .menu-toggle { font-size:18px; }
+@media(max-width:480px){
+  .image-grid { grid-template-columns:1fr; }
   .spin-wrapper { width:70px; bottom:10px; left:10px; }
 }
 </style>
@@ -132,15 +161,27 @@ iframe {
 
 <!-- Main Content -->
 <div class="main-content">
+  <!-- Hero Image -->
+  <img class="hero-image" src="https://lh3.googleusercontent.com/d/1hnjBShd3nIb2AJuUqrQTyi_q4AZzpk--" alt="Loop Studies Hero Image">
+
   <p class="section-desc">
-    <b>Loop Studies</b> is an ongoing series of works exploring the search for the perfect loop.  
-    Each piece is based on a 30-second musical loop created through a blend of analogue and digital tools combined with field recordings. 
-    <br><br>
-    The sound is then translated into a plotted drawing, where the frequencies are represented through time by sound-reactive rings.
+    <b>Loop Studies</b> explores repetition, texture, and rhythm through sonic layering.  
+    Each piece emerges from an intuitive process of finding balance between analog warmth,  
+    digital precision, and the organic unpredictability of field recordings.
   </p>
 
+  <!-- Image Grid -->
+  <div class="image-grid">
+    <img src="https://lh3.googleusercontent.com/d/1uRNN5-vI8pFjjcUf7SDuELM8gGhCujtV" alt="Loop Study 1">
+    <img src="https://lh3.googleusercontent.com/d/14j4oiF2yGQ8hyaAAsob5BfvhbxA6E_Z5" alt="Loop Study 2">
+    <img src="https://lh3.googleusercontent.com/d/1WC96n2S3AWlTVplU7QR0GmOzabP0nr0O" alt="Loop Study 3">
+    <img src="https://lh3.googleusercontent.com/d/1btcyhnjH-Pci6qoH7KTpqG3BYU_6AjCI" alt="Loop Study 4">
+  </div>
+
+  <!-- Bandcamp Embed -->
   <div class="bandcamp-wrapper">
-    <iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=696765584/size=large/bgcol=ffffff/linkcol=333333/tracklist=false/transparent=true/" seamless>
+    <iframe style="border: 0; width: 350px; height: 470px;" 
+      src="https://bandcamp.com/EmbeddedPlayer/album=696765584/size=large/bgcol=ffffff/linkcol=333333/tracklist=false/transparent=true/" seamless>
       <a href="https://denisflueraru.bandcamp.com/album/loop-studies-i-iv">Loop Studies (I-IV) by Denis Flueraru</a>
     </iframe>
   </div>
