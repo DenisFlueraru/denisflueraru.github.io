@@ -84,12 +84,14 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
   margin-bottom:20px;
 }
 .upcoming img {
-  display:block;
-  margin:0 auto;
-  width:50%;
-  height:400px;
-  object-fit:cover;
-  border-radius:8px;
+  display: block;
+  margin: 20px auto 0;
+  width: 60%;
+  max-width: 200px;   /* limits the image’s max size */
+  height: auto;       /* keeps proportions */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(182, 210, 40, 0.4); /* subtle green glow */
+  object-fit: contain; /* makes sure it scales down nicely */
 }
 
 /* Past exhibitions */
@@ -215,16 +217,26 @@ body {-ms-overflow-style:none; scrollbar-width:none;}
   <div class="title">UPCOMING EXHIBITION</div>
   <p>
 Upcoming show at 
-    <span class="dot-sans">MAMŰ Galéria</span>, Budapest.<br>
-    <em>7 November – 28 November 2025</em>
+    <span class="dot-sans">START PENTRU TINEri </span>, Baia Mare, RO<br>
+    <em>10 December – 13 December 2025</em>
   </p>
-  <img src="https://lh3.googleusercontent.com/d/1qfRXIRZFXnupM8QZecgf9-EY0G2ohIAU" 
-       alt="MAMŰ Galéria Budapest Exhibition Poster">
+  <img src="https://lh3.googleusercontent.com/d/1FOUeTXq0tcjd_tEWBYUyRt4NQpRbnMoL" 
+       alt="START PENTRU TINEri">
 </div>
 
     <!-- Past Exhibitions -->
     <div class="past">
-
+       <h2>2025 - A HORIZONT LÉNYEGE II</h2>
+      <p>November 7 – November 28, MAMŰ Társaság, Budapest, HU</p>
+      <div class="gallery" data-gallery="expo1">
+        <img src="https://lh3.googleusercontent.com/d/1vN3wlfUw4dhy41UIGbQipyyTEaGpuQe9" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1mpPLuPYjQeycvFg_yTtW-cS7bFJprv73" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1HEGJ0PUe0-yfMoM1jx__lzlP2zPaeGz2" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1uR9ZzANRr1IvxCKJaWiTQf6lwv-ysjbe" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/1olvdpTB94IlYkPV1zCCYeFEt_KAt2MPa" onclick="setMainImage(this)">
+        <img src="https://lh3.googleusercontent.com/d/15YRtDi0rT_M6TdaJrArz-sb0AaHsdTiz" onclick="setMainImage(this)">
+      </div>
+<br>
       <h2>2025 - The Main Point of the Horizon</h2>
       <p>April 8 – April 28, Cultural Centre Reduta, Brasov, RO</p>
       <div class="gallery" data-gallery="expo1">
@@ -235,7 +247,7 @@ Upcoming show at
         <img src="https://lh3.googleusercontent.com/d/1ZBQpxn8CCIcf4bp7icDh9oQYW2VeBUdm" onclick="setMainImage(this)">
         <img src="https://lh3.googleusercontent.com/d/1sTM3O6V6TaaLNhDa5rb3cg_qooRowW5f" onclick="setMainImage(this)">
       </div>
-
+<br>
       <h2>2024 - Unbound Echoes</h2>
       <p>November 11 – November 24, WASP Studio, Bucharest, RO</p>
       <div class="gallery" data-gallery="expo2">
@@ -246,7 +258,7 @@ Upcoming show at
         <img src="https://lh3.googleusercontent.com/d/1lJOx4jILv9ZfrHvzoDnmKwxVziEncu68" onclick="setMainImage(this)">
         <img src="https://lh3.googleusercontent.com/d/1M_7Sqe8KfgzFwEZxUVsqC5kFcnrkvY4L" onclick="setMainImage(this)">
       </div>
-
+<br>
       <h2>2024 - Fusion:AIR</h2>
       <p>September 17 – October 12, /SAC, Bucharest, RO</p>
       <div class="gallery" data-gallery="expo3">
@@ -257,7 +269,7 @@ Upcoming show at
         <img src="https://lh3.googleusercontent.com/d/1Bh4vcrz3zgvEyKdqDTlF3d_4P9VJi8-Y" onclick="setMainImage(this)">
         <img src="https://lh3.googleusercontent.com/d/1aNFCr_fW_ivXR78frfs3IBn8SVUMpmyS" onclick="setMainImage(this)">
       </div>
-
+<br>
                   <h2>2024 - Recycle Your Technology</h2>
       <p>May 18 - Salonul de Arta si Industrie, Resita, RO</p>
       <p>June 21 - Museum of Arts, Arad, RO</p>
@@ -271,7 +283,7 @@ Upcoming show at
 <img src="https://lh3.googleusercontent.com/d/1ByRvm7mBT0uRQwoSouGbVVSuXiDdV3cx" onclick="setMainImage(this)">
 <img src="https://lh3.googleusercontent.com/d/1UVbp_shVUbqYvFv5K_csXZuGS6qOuiHd" onclick="setMainImage(this)">
       </div>
-
+<br>
             <h2>2023/4 - Fabulating About a Gelato Machine</h2>
       <p>November 10 – February 25, Museum of Art Brasov, RO</p>
       <div class="gallery" data-gallery="expo3">
@@ -282,7 +294,7 @@ Upcoming show at
 <img src="https://lh3.googleusercontent.com/d/1F1-qRpNdfw_xlZgFMYFUuH1xGkoM8-UF" onclick="setMainImage(this)">
 <img src="https://lh3.googleusercontent.com/d/1oiJ-QVkpnip0xMcQ85nLiWIsWGBRoDJP" onclick="setMainImage(this)">
       </div>
-
+<br>
                   <h2>2023 - RADAR</h2>
       <p>October 27 – October 29, Magazinul Bucuresti, RO</p>
       <div class="gallery" data-gallery="expo3">
@@ -294,7 +306,7 @@ Upcoming show at
 <img src="https://lh3.googleusercontent.com/d/1UqLbs0AP5pb0l1UJ82Fmz4ng6M17P2pA" onclick="setMainImage(this)">
       </div>
 
-
+<br>
                   <h2>2023 - Un/Living Gallery: A Tangible Art Manifesto</h2>
       <p>August 16 – October 12, WASP, Bucharest, RO</p>
       <div class="gallery" data-gallery="expo3">

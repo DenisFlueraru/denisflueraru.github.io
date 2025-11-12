@@ -8,10 +8,8 @@
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
 
-
-
 <style>
-    @font-face {
+@font-face {
   font-family: 'Neue Kaine';
   src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
        url('fonts/neue_kaine_variable-webfont.woff') format('woff');
@@ -22,9 +20,8 @@
 body, h1, h2, h3, h4, h5, h6, p, a, span, li {
   font-family: 'Neue Kaine', sans-serif;
 }
-  
 * {margin:0; padding:0; box-sizing:border-box;}
-body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
+body {background:white; overflow-x:hidden;}
 
 /* Header */
 .header {
@@ -40,15 +37,90 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 /* Workshops container */
 .workshops { max-width:1400px; margin:160px auto 80px; padding:0 20px; display:flex; flex-direction:column; gap:100px; }
 
-/* Workshop row */
+/* Upcoming Workshops section (2 side by side) */
+.upcoming-section {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 120px;
+}
+.upcoming-box {
+  flex: 1 1 420px;
+  border: 2px solid #b6d228;
+  background: rgba(255,255,255,0.95);
+  padding: 25px;
+  border-radius: 14px;
+  text-align: center;
+  position: relative;
+  animation: softGlow 3s infinite ease-in-out;
+  box-shadow: 0 0 25px rgba(182,210,40,0.25);
+  transition: transform 0.3s ease;
+}
+.upcoming-box:hover { transform: scale(1.02); }
+.upcoming-box h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #000;
+}
+.upcoming-box p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+.upcoming-box img {
+  width: 100%;
+  height: 240px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  object-fit: cover;
+  object-position: center;
+  box-shadow: 0 0 15px rgba(182,210,40,0.2);
+}
+.upcoming-box a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: #b6d228;
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+.upcoming-box a:hover {
+  background: #cd6c27;
+  color: white;
+}
+@keyframes softGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(182,210,40,0.3); }
+  50% { box-shadow: 0 0 25px rgba(182,210,40,0.6); }
+}
+
+/* Workshop rows */
 .workshop {
-  display:grid; grid-template-columns: 2fr 1fr 1fr; gap:30px; align-items:center;
+  display:grid; 
+  grid-template-columns: 2fr 1fr 1fr; 
+  gap:30px; 
+  align-items:center;
 }
 .workshop:nth-child(even) { grid-template-columns: 1fr 1fr 2fr; }
 .workshop.sub { margin-top:-60px; }
 
 /* Main image */
-.workshop-main img { width:100%; height:280px; object-fit:cover; border-radius:8px; cursor:pointer; }
+.workshop-main img { 
+  width:100%; 
+  height:280px; 
+  object-fit:cover; 
+  object-position:center;
+  border-radius:8px; 
+  cursor:pointer; 
+  transition: transform 0.3s ease; 
+}
+.workshop-main img:hover { transform: scale(1.03); }
 
 /* Text */
 .workshop-text { font-size:16px; line-height:1.5; }
@@ -57,9 +129,19 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 
 /* Small image grid */
 .workshop-grid {
-  display:grid; grid-template-columns:1fr 1fr; gap:10px;
+  display:grid; 
+  grid-template-columns:1fr 1fr; 
+  gap:10px;
 }
-.workshop-grid img { width:100%; height:140px; object-fit:cover; border-radius:6px; cursor:pointer; transition: transform 0.3s ease; }
+.workshop-grid img { 
+  width:100%; 
+  height:140px; 
+  object-fit:cover; 
+  object-position:center;
+  border-radius:6px; 
+  cursor:pointer; 
+  transition: transform 0.3s ease; 
+}
 .workshop-grid img:hover { transform: scale(1.05); }
 
 /* Modal */
@@ -67,17 +149,17 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 #modal img { max-width:90%; max-height:90%; border-radius:8px; }
 #modal .close { position:absolute; top:20px; right:30px; font-size:40px; color:white; cursor:pointer; font-weight:bold; }
 
-   /* Menu */
-    .menu {
-      position:fixed; top:0; right:-20%; width:20%; height:100%;
-      background-color:rgb(182,210,40); color:black;
-      transition:right 0.4s ease; z-index:200;
-      padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
-    }
-    .menu.open { right:0; }
-    .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
-    .menu a:hover { color:#cd6c27; }
-    .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
+/* Menu */
+.menu {
+  position:fixed; top:0; right:-20%; width:20%; height:100%;
+  background-color:rgb(182,210,40); color:black;
+  transition:right 0.4s ease; z-index:200;
+  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
+}
+.menu.open { right:0; }
+.menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
+.menu a:hover { color:#cd6c27; }
+.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
 
 /* Overlay */
 .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
@@ -92,56 +174,19 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 
 /* Responsive */
 @media (max-width: 768px) {
-  .menu {
-    width: 40%;      /* Menu takes more space on mobile */
-    right: -40%;     /* Hidden off-screen by same width */
-  }
-  .menu.open {
-    right: 0;        /* Slides in fully on mobile */
-  }
-}
-@media(max-width:768px){
+  .menu { width: 40%; right: -40%; }
+  .menu.open { right: 0; }
   .header { padding:15px; }
   .header .logo { font-size:18px; }
   .header .section-title { font-size:20px; }
   .header .menu-toggle { font-size:18px; }
-  
-  .scroll-container { font-size:15px; gap:30px; padding:0 15px 80px; }
-  .update { flex-direction:column !important; gap:20px; }
-    .update img, .update .video-container {
-    width:85%;           /* smaller width for mobile */
-    aspect-ratio:1/1;    /* force square shape */
-    object-fit:cover;    /* crop and fill nicely */
-    border-radius:4px;
-    margin:0 auto;       /* center horizontally */
-  }
-  .update .text {
-    width:90%;           /* text slightly smaller */
-    text-align:center;   /* center text */
-  }
-    .update { 
-    flex-direction:column !important; 
-    gap:20px; 
-    align-items:center; /* center images and text */
-  }
-  
-  
   .spin-wrapper { width:70px; bottom:10px; left:10px; }
-}
-@media (max-width: 768px) {
-  .menu {
-    width: 40%;      /* Menu takes more space on mobile */
-    right: -40%;     /* Hidden off-screen by same width */
-  }
-  .menu.open {
-    right: 0;        /* Slides in fully on mobile */
-  }
-}
-@media(max-width:1000px){
   .workshop { grid-template-columns:1fr; }
   .workshop:nth-child(even) { grid-template-columns:1fr; }
   .workshop-main img { height:200px; }
   .workshop-grid { grid-template-columns:1fr 1fr; }
+  .upcoming-section { flex-direction: column; gap: 30px; }
+  .upcoming-box img { height:200px; }
 }
 </style>
 </head>
@@ -165,7 +210,25 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 
 <!-- Workshops -->
 <div class="workshops">
-  <!-- Workshop 1 -->
+
+  <!-- Upcoming Workshops Section -->
+  <div class="upcoming-section">
+    <div class="upcoming-box">
+      <img src="https://lh3.googleusercontent.com/d/12dHkaedztH4Y5UtWzBAMwNi1z1PwAhqx" alt="IoT Sensors Workshop">
+      <h3>IoT Sensors in Performative Art & Theatre and Technology by TECA</h3>
+      <p>3–4 December at NOD Makerspace, Bucharest, RO</p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSd-iaS8d8Skh5kDPzYifwXxirP759bEv0Fe9Qc8RstbLGeXuA/viewform" target="_blank">Registration Link</a>
+    </div>
+
+    <div class="upcoming-box">
+      <img src="https://lh3.googleusercontent.com/d/1FOUeTXq0tcjd_tEWBYUyRt4NQpRbnMoL" alt="DIY Contact Microphones">
+      <h3>DIY Contact Microphones and Ableton Live Crash Course by stART PENTRU TINEri</h3>
+      <p>10-13 December 2025 – Baia Mare, RO</p>
+      <a href="#">Open Access</a>
+    </div>
+  </div>
+
+  <!-- Existing Workshops Follow -->
   <div class="workshop">
     <div class="workshop-main"><img src="images/workshops/CAVMAINPOST.jpg" class="clickable"></div>
     <div class="workshop-text">
@@ -181,7 +244,6 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
     </div>
   </div>
 
-  <!-- Workshop 2 -->
   <div class="workshop">
     <div class="workshop-grid">
       <img src="images/workshops/RYT_B_3.jpg" class="clickable">
@@ -196,7 +258,6 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
     <div class="workshop-main"><img src="images/workshops/R9_MAIN.jpg" class="clickable"></div>
   </div>
 
-  <!-- Workshop 2 sub-row -->
   <div class="workshop sub">
     <div class="workshop-main"><img src="images/workshops/Resita1.jpg" class="clickable"></div>
     <div class="workshop-text">
@@ -211,7 +272,6 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
     </div>
   </div>
 
-  <!-- Workshop 3 -->
   <div class="workshop">
     <div class="workshop-main"><img src="images/workshops/NOVA MAIN.jpg" class="clickable"></div>
     <div class="workshop-text">
@@ -227,7 +287,6 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
     </div>
   </div>
 
-  <!-- Workshop 4 -->
   <div class="workshop">
     <div class="workshop-grid">
       <img src="images/workshops/MNAC2.png" class="clickable">
@@ -251,7 +310,7 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
   <a href="workshops.html">Workshops</a>
   <a href="sound.html">Sound</a>
   <a href="collabs.html">Collabs</a>
-  <a href="exhibitions.html">Exhibitions</a> <!-- New link added -->
+  <a href="exhibitions.html">Exhibitions</a>
   <div style="height:20px;"></div>
   <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
   <a href="services.html">Services</a>
@@ -268,13 +327,11 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 </a>
 
 <script>
-// Menu toggle
 const menu = document.getElementById('menu');
 const overlay = document.getElementById('overlay');
 function toggleMenu() { menu.classList.toggle('open'); overlay.classList.toggle('active'); }
 overlay.addEventListener('click', ()=>{ menu.classList.remove('open'); overlay.classList.remove('active'); });
 
-// Modal functionality
 const modal = document.getElementById('modal');
 const modalImg = document.getElementById('modal-img');
 document.querySelectorAll('.clickable').forEach(img => img.addEventListener('click', () => { modalImg.src = img.src; modal.style.display='flex'; }));
@@ -282,7 +339,6 @@ function closeModal(){ modal.style.display='none'; modalImg.src=''; }
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
 modal.addEventListener('click', e=>{ if(e.target===modal || e.target.classList.contains('close')) closeModal(); });
 
-// Rotating/flipping logo
 const rotatingLogo = document.getElementById("rotating-logo");
 const spinWrapper = document.querySelector(".spin-wrapper");
 const logos = ["images/atomatlabrotating.png","images/FIELD5.png"];
