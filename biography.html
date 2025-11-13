@@ -67,47 +67,46 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
 .flipped { transform: rotateY(180deg); }
 .spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
 
-/* Bio header grid: portrait + CV */
 .bio-header {
-  display: grid;
-  grid-template-columns: auto auto;
+  display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
-  max-width: 900px;
-  margin: 160px auto 40px auto;
-  padding: 0 20px;
+  margin-top: 160px;
 }
 
 .bio-portrait img {
-  width: 200px;
+  width: 220px;
   border-radius: 6px;
   display: block;
 }
 
+.bio-text {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+.bio-cv {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0 80px;
+}
+
 .bio-cv a {
-  padding: 12px 20px;
+  padding: 14px 24px;
   background: #b6d228;
   color: black;
   font-weight: bold;
   text-decoration: none;
   border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
 }
 
-.bio-cv a:hover { background:#a0bf1f; }
-
-/* Bio texts */
-.bio-text {
-  max-width:900px;
-  margin: 40px auto;
-  padding:0 20px;
-  line-height:1.6;
-  font-size:18px;
+.bio-cv a:hover {
+  background: #a0bf1f;
 }
-
 /* Headings */
 .bio-text h2 { font-size:22px; margin-bottom:15px; font-weight:700; }
 
@@ -158,10 +157,13 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
     right: 0;        /* Slides in fully on mobile */
   }
 }
-@media(max-width:1000px) {
-  .bio-header { grid-template-columns: 1fr; justify-items:center; gap:20px; }
-  .bio-portrait img { width:180px; }
-  .bio-text { font-size:16px; }
+@media (max-width: 768px) {
+  .bio-portrait img {
+    width: 180px;
+  }
+  .bio-text {
+    font-size: 16px;
+  }
 }
 </style>
 </head>
@@ -182,24 +184,21 @@ body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;
   <div class="bio-portrait">
     <img src="images/PortraitDF.jpg" alt="Denis Flueraru Portrait">
   </div>
-  <div class="bio-cv">
-    <a href="https://drive.google.com/file/d/17u74ibySlv3ZqvxCbx5Mj6EJ4UvXJoNo/view?usp=drive_link" target="_blank">
-      VIEW EUROPASS CV
-    </a>
-  </div>
 </div>
 
 <!-- Bio texts -->
 <div class="bio-text">
- 
   <p>
     “Even if my background is not really linked with electronics, I formed a tight bond that manifested in a growing interest for technological skills. Now it is always part of my work. This bond unveils itself in a modernist-like, interdisciplinary manner and is either interactivity as it attempts to start a dialogue between the viewer and artwork or the result of the interaction between the inhabited space and technology.
   </p>
-  <p>
-    Peculiar moments or natural phenomena that I encounter in my everyday life can be considered the catalyst for my artworks. For example, walking past abandoned heritage buildings and spaces made me imagine all the stories contained within so I attempted to aurally store their specific patina by creating a bespoke recording tool (TRT/Aural Topographies, 2023) and give voice to their last standing remains. The conducted research made me discover the hidden layers of electrostatic rhythms and vibrations of the urban habitat especially, so I created my own recording instruments. This invisibility cloak is taken off in one of my audio installations where the soundscape morphs into the resonating materials (Aural Topographies, 2023).”
-  </p>
 </div>
 
+<!-- CV Button -->
+<div class="bio-cv">
+  <a href="https://drive.google.com/file/d/17u74ibySlv3ZqvxCbx5Mj6EJ4UvXJoNo/view?usp=drive_link" target="_blank">
+    VIEW EUROPASS CV
+  </a>
+</div>
 
 
 <!-- Menu -->
