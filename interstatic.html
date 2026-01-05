@@ -89,11 +89,34 @@ body { background:white; color:black; overflow-x:hidden; }
 .modal-content { max-width:90%; max-height:90%; border-radius:8px; }
 .close { position:absolute; top:20px; right:30px; font-size:3em; color:white; cursor:pointer; }
 
-/* Rotating logo */
-.spin-wrapper { position:fixed; bottom:15px; left:15px; width:100px; animation: spin 20s linear infinite; cursor:pointer; z-index:100; }
-.spin-wrapper img { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
-@keyframes spin { from { transform:rotateZ(0deg); } to { transform:rotateZ(360deg); } }
-.flipped { transform: rotateY(180deg); }
+/* Rotating logo — same as Rewind */
+.spin-wrapper { 
+  position:fixed; 
+  bottom:15px; 
+  left:15px; 
+  width:100px; 
+  animation: spin 20s linear infinite; 
+  cursor:pointer; 
+  z-index:300;
+}
+
+.flip-image { 
+  width:100%; 
+  transition:transform 0.6s ease, opacity 0.3s ease; 
+  transform-style:preserve-3d; 
+}
+
+.flipped { transform:rotateY(180deg); }
+
+.spin-wrapper.clicked { 
+  transform:scale(1.2) rotateZ(var(--angle,0deg)); 
+  transition:transform 0.3s ease; 
+}
+
+@keyframes spin { 
+  from { transform:rotateZ(0deg); } 
+  to { transform:rotateZ(360deg); } 
+}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -184,8 +207,10 @@ body { background:white; color:black; overflow-x:hidden; }
 </div>
 
 <!-- Rotating Logo -->
-<a href="https://atomatlab.com" target="_blank" class="spin-wrapper">
-  <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="Logo" id="rotatingLogo">
+<a href="https://atomatlab.com" target="_blank">
+  <div class="spin-wrapper">
+    <img src="images/FIELD5.png" alt="Logo" class="flip-image" id="rotating-logo">
+  </div>
 </a>
 
 <script>
@@ -227,9 +252,35 @@ function closeModal(){ modal.style.display="none"; }
 window.addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeModal(); });
 modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
 
-// Rotating logo flip effect
-const rotatingLogo = document.getElementById("rotatingLogo");
-setInterval(()=>{ rotatingLogo.classList.toggle("flipped"); },3000);
+// Rotating logo flip effect — same as Rewind
+const rotatingLogo = document.getElementById("rotating-logo");
+const spinWrapper = document.querySelector(".spin-wrapper");
+
+const logos = [
+  "images/FIELD5.png",
+  "https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd"
+];
+
+// Preload images
+logos.forEach(src => { const img = new Image(); img.src = src; });
+
+let index = 0;
+
+setInterval(()=>{
+  rotatingLogo.classList.toggle("flipped");
+  setTimeout(()=>{
+    index = (index + 1) % logos.length;
+    rotatingLogo.src = logos[index];
+  },300);
+},3000);
+
+// Click feedback
+spinWrapper.addEventListener("mousedown",()=>{
+  spinWrapper.classList.add("clicked");
+});
+spinWrapper.addEventListener("mouseup",()=>{
+  spinWrapper.classList.remove("clicked");
+});
 </script>
 
 </body>
