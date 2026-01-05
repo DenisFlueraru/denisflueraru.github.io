@@ -17,12 +17,11 @@
   font-style: normal;
   font-display: swap;
 }
-body, h1, h2, p, a {
-  font-family: 'Neue Kaine', sans-serif;
-}
+body, h1, h2, p, a { font-family: 'Neue Kaine', sans-serif; }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:white; overflow-x:hidden; }
 
+/* Rotating logo */
 .spin-wrapper { 
   position:fixed; 
   bottom:15px; 
@@ -39,7 +38,7 @@ body { background:white; overflow-x:hidden; }
 }
 .flipped { transform:rotateY(180deg); }
 .spin-wrapper.clicked { 
-  transform:scale(1.2) rotateZ(var(--angle,0deg)); 
+  transform:scale(1.2); 
   transition:transform 0.3s ease; 
 }
 @keyframes spin { 
@@ -76,9 +75,7 @@ body { background:white; overflow-x:hidden; }
   gap:30px;
   align-items:center;
 }
-.collab:nth-child(even) {
-  grid-template-columns: 1fr 1fr 2fr;
-}
+.collab:nth-child(even) { grid-template-columns: 1fr 1fr 2fr; }
 
 /* Images */
 .collab-main img {
@@ -107,15 +104,8 @@ body { background:white; overflow-x:hidden; }
 .collab-grid img:hover { transform:scale(1.05); }
 
 /* Text */
-.collab-text {
-  font-size:16px;
-  line-height:1.5;
-}
-.collab-text h2 {
-  font-size:20px;
-  margin-bottom:10px;
-  font-weight:bold;
-}
+.collab-text { font-size:16px; line-height:1.5; }
+.collab-text h2 { font-size:20px; margin-bottom:10px; font-weight:bold; }
 .collab-text p { margin-bottom:10px; }
 
 /* Modal */
@@ -128,11 +118,7 @@ body { background:white; overflow-x:hidden; }
   align-items:center;
   z-index:300;
 }
-#modal img {
-  max-width:90%;
-  max-height:90%;
-  border-radius:8px;
-}
+#modal img { max-width:90%; max-height:90%; border-radius:8px; }
 #modal .close {
   position:absolute;
   top:20px;
@@ -142,7 +128,6 @@ body { background:white; overflow-x:hidden; }
   cursor:pointer;
 }
 
-/* Menu */
 /* Menu */
 .menu {
   position:fixed; top:0; right:-20%;
@@ -180,6 +165,7 @@ body { background:white; overflow-x:hidden; }
   .collab-main img { height:200px; }
   .menu { width:40%; right:-40%; }
   .menu.open { right:0; }
+  .spin-wrapper { width:70px; bottom:10px; left:10px; }
 }
 </style>
 </head>
@@ -198,114 +184,114 @@ body { background:white; overflow-x:hidden; }
 <!-- Modal -->
 <div id="modal">
   <span class="close" onclick="closeModal()">×</span>
-  <img id="modal-img">
+  <img id="modal-img" alt="Modal Image">
 </div>
 
 <!-- Content -->
 <div class="collabs">
 
-<!-- HUSH GLITCHES -->
-<div class="collab">
-  <div class="collab-main">
-    <img src="https://lh3.googleusercontent.com/d/1x8O-HLavFb0hcv_ufYeuEPb_gMrPIIxY" class="clickable">
+  <!-- HUSH GLITCHES -->
+  <div class="collab">
+    <div class="collab-main">
+      <img src="https://lh3.googleusercontent.com/d/1x8O-HLavFb0hcv_ufYeuEPb_gMrPIIxY" class="clickable" alt="Hush Glitches Main">
+    </div>
+    <div class="collab-text">
+      <h2>2023 → Hush Glitches</h2>
+      <p>
+        Developed within a larger multidisciplinary team in collaboration with the
+        <strong>Bucharest Institute of Biology</strong>, this performance explored the
+        relationship between body, environment, and digital media. I designed a
+        <strong>sensor-rigged shoe</strong> integrating humidity, temperature, pressure,
+        and light sensors, enabling dancers to influence sound and video content in real time.
+      </p>
+    </div>
+    <div class="collab-grid">
+      <img src="https://lh3.googleusercontent.com/d/1Ad460EW2CeIpUMo2Ugt3y237MzFsLXjU" class="clickable" alt="Hush Glitches Grid 1">
+      <img src="https://lh3.googleusercontent.com/d/1r2BdbkQv_1nBWX2V-E9qiWMEQNNul1ot" class="clickable" alt="Hush Glitches Grid 2">
+      <img src="https://lh3.googleusercontent.com/d/1c1vksvZCEmJu4RB_PrE0Gm3iwxPnTNjG" class="clickable" alt="Hush Glitches Grid 3">
+      <img src="https://lh3.googleusercontent.com/d/1mxMMkL_k-_O8mig2klhLpB2K45QFbjB9" class="clickable" alt="Hush Glitches Grid 4">
+    </div>
   </div>
-  <div class="collab-text">
-    <h2>2023 → Hush Glitches</h2>
-    <p>
-      Developed within a larger multidisciplinary team in collaboration with the
-      <strong>Bucharest Institute of Biology</strong>, this performance explored the
-      relationship between body, environment, and digital media. I designed a
-      <strong>sensor-rigged shoe</strong> integrating humidity, temperature, pressure,
-      and light sensors, enabling dancers to influence sound and video content in real time.
-    </p>
-  </div>
-  <div class="collab-grid">
-    <img src="https://lh3.googleusercontent.com/d/1Ad460EW2CeIpUMo2Ugt3y237MzFsLXjU" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/1r2BdbkQv_1nBWX2V-E9qiWMEQNNul1ot" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/1c1vksvZCEmJu4RB_PrE0Gm3iwxPnTNjG" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/1mxMMkL_k-_O8mig2klhLpB2K45QFbjB9" class="clickable">
-  </div>
-</div>
 
-<!-- YOKOGAWA -->
-<div class="collab">
-  <div class="collab-grid">
-    <img src="https://lh3.googleusercontent.com/d/1Ga83g032iMIwce7BYzUIeLMvNoNE--mW" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/1wCdb0xtbB1B4bvHSGPUV9XaIzANif8Pk" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/14rdTCidSeR7UMpObFf4XtD0ZBGxBE9VF" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/1YvOfAqHAah-uM2ToCw9yAy60SOcHxUWi" class="clickable">
+  <!-- YOKOGAWA -->
+  <div class="collab">
+    <div class="collab-grid">
+      <img src="https://lh3.googleusercontent.com/d/1Ga83g032iMIwce7BYzUIeLMvNoNE--mW" class="clickable" alt="Yokogawa Grid 1">
+      <img src="https://lh3.googleusercontent.com/d/1wCdb0xtbB1B4bvHSGPUV9XaIzANif8Pk" class="clickable" alt="Yokogawa Grid 2">
+      <img src="https://lh3.googleusercontent.com/d/14rdTCidSeR7UMpObFf4XtD0ZBGxBE9VF" class="clickable" alt="Yokogawa Grid 3">
+      <img src="https://lh3.googleusercontent.com/d/1YvOfAqHAah-uM2ToCw9yAy60SOcHxUWi" class="clickable" alt="Yokogawa Grid 4">
+    </div>
+    <div class="collab-text">
+      <h2>2025 → YOKOGAWA Fresh Water Generator @ FABLAB</h2>
+      <p>
+        LED installation and programming of five distinct animation states, complemented
+        by sound design for a dynamic technical presentation.
+      </p>
+    </div>
+    <div class="collab-main">
+      <img src="https://lh3.googleusercontent.com/d/1MHFCQ-KB6U12IwIGFWT-LqtEa5l6kZkO" class="clickable" alt="Yokogawa Main">
+    </div>
   </div>
-  <div class="collab-text">
-    <h2>2025 → YOKOGAWA Fresh Water Generator @ FABLAB</h2>
-    <p>
-      LED installation and programming of five distinct animation states, complemented
-      by sound design for a dynamic technical presentation.
-    </p>
-  </div>
-  <div class="collab-main">
-    <img src="https://lh3.googleusercontent.com/d/1MHFCQ-KB6U12IwIGFWT-LqtEa5l6kZkO" class="clickable">
-  </div>
-</div>
 
-<!-- IQOS -->
-<div class="collab">
-  <div class="collab-main">
-    <img src="https://lh3.googleusercontent.com/d/1OatSKFv22k8QY7MsGcR9i-4BnvksaOFh" class="clickable">
+  <!-- IQOS -->
+  <div class="collab">
+    <div class="collab-main">
+      <img src="https://lh3.googleusercontent.com/d/1OatSKFv22k8QY7MsGcR9i-4BnvksaOFh" class="clickable" alt="IQOS Main">
+    </div>
+    <div class="collab-text">
+      <h2>2024 → Echoes of Presences × IQOS</h2>
+      <p>
+        Creation of the complete sound environment across three interconnected rooms,
+        where visitor movement dynamically triggered and shaped spatial audio.
+      </p>
+    </div>
+    <div class="collab-grid">
+      <img src="https://lh3.googleusercontent.com/d/15w2rN46hEq9N4_WnK9LSLZ4M-IURg1xF" class="clickable" alt="IQOS Grid 1">
+      <img src="https://lh3.googleusercontent.com/d/1Fvz2ECaf9--dDPJfssIbFM4RnrLtp3Sa" class="clickable" alt="IQOS Grid 2">
+      <img src="https://lh3.googleusercontent.com/d/187ao1ubFxbMfAqbBDvInHj04i5JAlCmi" class="clickable" alt="IQOS Grid 3">
+      <img src="https://lh3.googleusercontent.com/d/1vN5LZSgsPu2It-78cB7kg1bNQ7ZdVXfh" class="clickable" alt="IQOS Grid 4">
+    </div>
   </div>
-  <div class="collab-text">
-    <h2>2024 → Echoes of Presences × IQOS</h2>
-    <p>
-      Creation of the complete sound environment across three interconnected rooms,
-      where visitor movement dynamically triggered and shaped spatial audio.
-    </p>
-  </div>
-  <div class="collab-grid">
-    <img src="https://lh3.googleusercontent.com/d/15w2rN46hEq9N4_WnK9LSLZ4M-IURg1xF" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/1Fvz2ECaf9--dDPJfssIbFM4RnrLtp3Sa" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/187ao1ubFxbMfAqbBDvInHj04i5JAlCmi" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/1vN5LZSgsPu2It-78cB7kg1bNQ7ZdVXfh" class="clickable">
-  </div>
-</div>
 
-<!-- E-ON -->
-<div class="collab">
-  <div class="collab-grid">
-    <img src="https://lh3.googleusercontent.com/d/1OpOq-fjR1CawgMp69qOB3qwVz2a1l6fi" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/1UOVyb8DnNwV7PadqB44oj7b4BRtYJ-lB" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/1RkmThQHUOcwLOmg-8uYKGOREEJ5SuRGA" class="clickable">
+  <!-- E-ON -->
+  <div class="collab">
+    <div class="collab-grid">
+      <img src="https://lh3.googleusercontent.com/d/1OpOq-fjR1CawgMp69qOB3qwVz2a1l6fi" class="clickable" alt="E-ON Grid 1">
+      <img src="https://lh3.googleusercontent.com/d/1UOVyb8DnNwV7PadqB44oj7b4BRtYJ-lB" class="clickable" alt="E-ON Grid 2">
+      <img src="https://lh3.googleusercontent.com/d/1RkmThQHUOcwLOmg-8uYKGOREEJ5SuRGA" class="clickable" alt="E-ON Grid 3">
+    </div>
+    <div class="collab-text">
+      <h2>2024 → E-ON, Electric Castle @ RIZI DESIGN</h2>
+      <p>
+        Sound design for a large-scale LED scenography installation.
+        <br><strong>Creative Direction:</strong> Alina Rizescu & Bogdan Stefanescu
+      </p>
+    </div>
+    <div class="collab-main">
+      <img src="https://lh3.googleusercontent.com/d/1uNKWTmCn9LdThl8it4Fdid8PAJ017737" class="clickable" alt="E-ON Main">
+    </div>
   </div>
-  <div class="collab-text">
-    <h2>2024 → E-ON, Electric Castle @ RIZI DESIGN</h2>
-    <p>
-      Sound design for a large-scale LED scenography installation.
-      <br><strong>Creative Direction:</strong> Alina Rizescu & Bogdan Stefanescu
-    </p>
-  </div>
-  <div class="collab-main">
-    <img src="https://lh3.googleusercontent.com/d/1uNKWTmCn9LdThl8it4Fdid8PAJ017737" class="clickable">
-  </div>
-</div>
 
-<!-- NOS UTOPIES -->
-<div class="collab">
-  <div class="collab-main">
-    <img src="https://lh3.googleusercontent.com/d/1n2eSmJwzC9o8TSeLZ0A_uUemEMX3omP9" class="clickable">
+  <!-- NOS UTOPIES -->
+  <div class="collab">
+    <div class="collab-main">
+      <img src="https://lh3.googleusercontent.com/d/1n2eSmJwzC9o8TSeLZ0A_uUemEMX3omP9" class="clickable" alt="Nos Utopies Main">
+    </div>
+    <div class="collab-text">
+      <h2>2022 → Nos Utopies @ Fête des Lumières × Goethe Institut</h2>
+      <p>
+        Interactive performance connecting performers worldwide. I developed a
+        machine-learning-driven system influencing the sound ensemble and performed
+        the musical composition live.
+      </p>
+    </div>
+    <div class="collab-grid">
+      <img src="https://lh3.googleusercontent.com/d/1-UzeeOrRF_ut6qEJOGcIUw95p5nhODHT" class="clickable" alt="Nos Utopies Grid 1">
+      <img src="https://lh3.googleusercontent.com/d/1cf6H_dcBlWFQ24wXc2ccI66EptgnKJeP" class="clickable" alt="Nos Utopies Grid 2">
+      <img src="https://lh3.googleusercontent.com/d/14F2CexeOlSqxtB7zuA4DG15azj3_GeHc" class="clickable" alt="Nos Utopies Grid 3">
+      <img src="https://lh3.googleusercontent.com/d/1QcddbnBbws6ze_LjqIf-Uq5cT10QZOJP" class="clickable" alt="Nos Utopies Grid 4">
+    </div>
   </div>
-  <div class="collab-text">
-    <h2>2022 → Nos Utopies @ Fête des Lumières × Goethe Institut</h2>
-    <p>
-      Interactive performance connecting performers worldwide. I developed a
-      machine-learning-driven system influencing the sound ensemble and performed
-      the musical composition live.
-    </p>
-  </div>
-  <div class="collab-grid">
-    <img src="https://lh3.googleusercontent.com/d/1-UzeeOrRF_ut6qEJOGcIUw95p5nhODHT" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/1cf6H_dcBlWFQ24wXc2ccI66EptgnKJeP" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/14F2CexeOlSqxtB7zuA4DG15azj3_GeHc" class="clickable">
-    <img src="https://lh3.googleusercontent.com/d/1QcddbnBbws6ze_LjqIf-Uq5cT10QZOJP" class="clickable">
-  </div>
-</div>
 
 </div>
 
@@ -324,87 +310,76 @@ body { background:white; overflow-x:hidden; }
   <a href="contact.html">Contact</a>
 </div>
 
-<script>
-// Menu toggle
-const menu = document.getElementById('menu');
-const overlay = document.getElementById('overlay');
-function toggleMenu() {
-  const isOpen = menu.classList.contains('open');
-  if (isOpen) {
-    menu.classList.remove('open');
-    overlay.classList.remove('active');
-  } else {
-    menu.classList.add('open');
-    overlay.classList.add('active');
-  }
-}
-overlay.addEventListener('click', () => {
-  if (menu.classList.contains('open')) {
-    menu.classList.remove('open');
-    overlay.classList.remove('active');
-  }
-});
-
-// Modal for images
-const modal = document.getElementById('modal');
-const modalImg = document.getElementById('modal-img');
-document.querySelectorAll('.clickable').forEach(img => {
-  img.onclick = () => {
-    modalImg.src = img.src;
-    modal.style.display = 'flex';
-  };
-});
-function closeModal() {
-  modal.style.display = 'none';
-  modalImg.src = '';
-}
-modal.addEventListener('click', e => {
-  if (e.target === modal) closeModal();
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
-});
-
-// Rotating and flipping logo
-const rotatingLogo = document.getElementById("rotating-logo");
-const spinWrapper = document.querySelector(".spin-wrapper");
-
-const logos = [
-  "images/FIELD5.png",
-  "https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd"
-];
-
-// Preload logos
-logos.forEach(src => {
-  const img = new Image();
-  img.src = src;
-});
-
-let logoIndex = 0;
-setInterval(() => {
-  rotatingLogo.classList.toggle("flipped");
-  setTimeout(() => {
-    logoIndex = (logoIndex + 1) % logos.length;
-    rotatingLogo.src = logos[logoIndex];
-  }, 300);
-}, 3000);
-
-// Click effect for logo
-spinWrapper.addEventListener("mousedown", () => {
-  spinWrapper.classList.add("clicked");
-});
-spinWrapper.addEventListener("mouseup", () => {
-  spinWrapper.classList.remove("clicked");
-});
-</script>
-
 <!-- Rotating Logo -->
 <a href="https://atomatlab.com" target="_blank">
   <div class="spin-wrapper">
-    <img src="images/FIELD5.png" alt="Logo" class="flip-image" id="rotating-logo">
+    <img src="images/FIELD5.png" alt="Atomat Logo" class="flip-image" id="rotating-logo">
   </div>
 </a>
 
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  // Menu toggle
+  const menu = document.getElementById('menu');
+  const overlay = document.getElementById('overlay');
+  function toggleMenu() {
+    const isOpen = menu.classList.contains('open');
+    if (isOpen) {
+      menu.classList.remove('open');
+      overlay.classList.remove('active');
+    } else {
+      menu.classList.add('open');
+      overlay.classList.add('active');
+    }
+  }
+  window.toggleMenu = toggleMenu; // expose to inline onclick
+  overlay.addEventListener('click', () => {
+    if(menu.classList.contains('open')) {
+      menu.classList.remove('open');
+      overlay.classList.remove('active');
+    }
+  });
+
+  // Modal logic
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  document.querySelectorAll('.clickable').forEach(img => {
+    img.onclick = () => {
+      modalImg.src = img.src;
+      modal.style.display = 'flex';
+    };
+  });
+  function closeModal() {
+    modal.style.display = 'none';
+    modalImg.src = '';
+  }
+  window.closeModal = closeModal; // expose to inline onclick
+  modal.addEventListener('click', e => { if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+  // Rotating/flipping logo
+  const rotatingLogo = document.getElementById("rotating-logo");
+  const spinWrapper = document.querySelector(".spin-wrapper");
+  const logos = [
+    "images/FIELD5.png",
+    "https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd"
+  ];
+  let index = 0;
+  // Preload logos
+  logos.forEach(src => { const img = new Image(); img.src = src; });
+
+  setInterval(() => {
+    rotatingLogo.classList.toggle("flipped");
+    setTimeout(() => {
+      index = (index + 1) % logos.length;
+      rotatingLogo.src = logos[index];
+    }, 300);
+  }, 3000);
+
+  spinWrapper.addEventListener("mousedown", () => spinWrapper.classList.add("clicked"));
+  spinWrapper.addEventListener("mouseup", () => spinWrapper.classList.remove("clicked"));
+});
+</script>
 
 </body>
 </html>
