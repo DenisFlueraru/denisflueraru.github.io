@@ -1,408 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Exhibitions - Denis Flueraru</title>
-<link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
-
-<style>
-  @font-face {
-  font-family: '42 Dot Sans';
-  src: url('fonts/42DotSans-Bold.woff2') format('woff2'),
-       url('fonts/42DotSans-Bold.woff') format('woff');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-.dot-sans {
-  font-family: '42 Dot Sans', sans-serif;
-  font-weight: bold;
-  letter-spacing: 0.02em;
-}
-@font-face {
-  font-family: 'Neue Kaine';
-  src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
-       url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-body, h1, h2, h3, h4, h5, h6, p, a, span, li {
-  font-family: 'Neue Kaine', sans-serif;
-}
-* {margin:0; padding:0; box-sizing:border-box;}
-body {background:white; overflow-x:hidden;}
-::-webkit-scrollbar {display:none;} 
-body {-ms-overflow-style:none; scrollbar-width:none;}
-
-/* Header */
-.header {
-  position:fixed; top:0; width:100%;
-  padding:25px 50px;
-  display:flex; justify-content:space-between; align-items:center;
-  background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-  z-index:100;
-}
-.header .logo { font-weight:bold; font-size:20px; text-decoration:none; color:black; }
-.header .section-title { font-weight:400; font-size:22px; text-align:center; flex:1; }
-.header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
-
-/* Main content */
-.main-content { display:flex; justify-content:center; padding-top:120px; min-height:100vh; position:relative; }
-.scroll-container {
-  display:flex;
-  flex-direction:column;
-  gap:60px;
-  max-width:900px;
-  font-size:16px;
-  line-height:1.6;
-  margin:0 auto;
-  padding-bottom:200px;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-.scroll-container.recede { transform:scale(0.97); opacity:0.85; }
-
-Upcoming Exhibition
-.upcoming {
-  border:3px solid #b6d228;
-  padding:30px;
-  border-radius:10px;
-  text-align:center;
-  position:relative;
-  animation: pulseBorder 3s infinite;
-}
-@keyframes pulseBorder {
-  0% { box-shadow:0 0 5px #b6d228; }
-  50% { box-shadow:0 0 50px #b6d228; }
-  100% { box-shadow:0 0 5px #b6d228; }
-}
-.upcoming .title {
-  font-size:22px;
-  font-weight:bold;
-  margin-bottom:20px;
-}
-.upcoming img {
-  display: block;
-  margin: 20px auto 0;
-  width: 60%;
-  max-width: 200px;   /* limits the image’s max size */
-  height: auto;       /* keeps proportions */
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(182, 210, 40, 0.4); /* subtle green glow */
-  object-fit: contain; /* makes sure it scales down nicely */
-}
-
-/* Past exhibitions */
-.past h2 { font-size:20px; font-weight:bold; margin-bottom:10px; border-bottom:2px solid black; padding-bottom:5px; }
-.past p { margin-bottom:20px; }
-.gallery {
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap:30px;
-}
-.gallery img {
-  width:100%;
-  height:250px;
-  object-fit:cover;
-  border-radius:6px;
-  cursor:pointer;
-  transition:transform 0.2s ease;
-}
-.gallery img:hover { transform:scale(1.03); }
-
-/* Modal */
-.modal {
-  display:none; position:fixed; z-index:1000;
-  left:0; top:0; width:100%; height:100%;
-  background-color:rgba(0,0,0,0.9);
-  justify-content:center; align-items:center;
-}
-.modal img {
-  max-width:90%; max-height:80%; border-radius:10px;
-}
-.modal .close {
-  position:absolute; top:20px; right:30px;
-  font-size:2.5em; color:white; cursor:pointer;
-}
-.modal .arrow {
-  position:absolute; top:50%; transform:translateY(-50%);
-  font-size:3em; color:#b6d228; cursor:pointer; user-select:none;
-  background:none; border:none;
-}
-.modal .arrow.left { left:50px; }
-.modal .arrow.right { right:50px; }
-
-/* Menu */
-.menu {
-  position:fixed; top:0; right:-20%; width:20%; height:100%;
-  background-color:rgb(182,210,40); color:black;
-  transition:right 0.4s ease; z-index:200;
-  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
-}
-.menu.open { right:0; }
-.menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
-.menu a:hover { color:#cd6c27; }
-.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
-
-/* Overlay */
-.overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
-.overlay.active { display:block; }
-
-/* Rotating Logo */
-.spin-wrapper { position: fixed; bottom:20px; left:20px; width:120px; animation: spin 20s linear infinite; transform-origin:center; cursor:pointer; z-index:100; }
-.spin-wrapper img { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
-@keyframes spin { from { transform:rotateZ(0deg); } to { transform:rotateZ(360deg); } }
-.flipped { transform: rotateY(180deg); }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .menu {
-    width: 40%;      /* Menu takes more space on mobile */
-    right: -40%;     /* Hidden off-screen by same width */
-  }
-  .menu.open {
-    right: 0;        /* Slides in fully on mobile */
-  }
-}
-@media(max-width:768px){
-  .header { padding:15px; }
-  .header .logo { font-size:18px; }
-  .header .section-title { font-size:20px; }
-  .header .menu-toggle { font-size:18px; }
-  
-  .scroll-container { font-size:15px; gap:30px; padding:0 15px 80px; }
-  .update { flex-direction:column !important; gap:20px; }
-    .update img, .update .video-container {
-    width:85%;           /* smaller width for mobile */
-    aspect-ratio:1/1;    /* force square shape */
-    object-fit:cover;    /* crop and fill nicely */
-    border-radius:4px;
-    margin:0 auto;       /* center horizontally */
-  }
-  .update .text {
-    width:90%;           /* text slightly smaller */
-    text-align:center;   /* center text */
-  }
-    .update { 
-    flex-direction:column !important; 
-    gap:20px; 
-    align-items:center; /* center images and text */
-  }
-  
-  
-  .spin-wrapper { width:70px; bottom:10px; left:10px; }
-}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exhibitions — Denis Flueraru</title>
+<meta name="description" content="Exhibitions featuring Denis Flueraru&#x27;s work in Bucharest, Brașov, Budapest and beyond.">
+<meta property="og:title" content="Exhibitions — Denis Flueraru">
+<meta property="og:description" content="Exhibitions featuring Denis Flueraru&#x27;s work in Bucharest, Brașov, Budapest and beyond.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#cfcec9">
+<link rel="icon" type="image/png" href="media/atomatfavicon.png">
+<link rel="canonical" href="https://denisflueraru.com/exhibitions.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
 </head>
 <body>
-
-<!-- Header -->
-<div class="header">
-  <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
-  <span class="section-title">Exhibitions</span>
-  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
-</div>
-
-<!-- Overlay -->
-<div class="overlay" id="overlay"></div>
-
-<!-- Main content -->
-<div class="main-content">
-  <div class="scroll-container" id="scroll-container">
-
-   <!-- Upcoming Exhibition
-<div class="upcoming">
-  <div class="title">UPCOMING EXHIBITION</div>
-  <p>
-Upcoming show at 
-    <span class="dot-sans">START PENTRU TINEri </span>, Baia Mare, RO<br>
-    <em>10 December – 13 December 2025</em>
-  </p>
-  <img src="https://lh3.googleusercontent.com/d/1FOUeTXq0tcjd_tEWBYUyRt4NQpRbnMoL" 
-       alt="START PENTRU TINEri">
-</div> -->
-
-    <!-- Past Exhibitions -->
-    <div class="past">
-       <h2>2025 - A HORIZONT LÉNYEGE II</h2>
-      <p>November 7 – November 28, MAMŰ Társaság, Budapest, HU</p>
-      <div class="gallery" data-gallery="expo1">
-        <img src="https://lh3.googleusercontent.com/d/1vN3wlfUw4dhy41UIGbQipyyTEaGpuQe9" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1mpPLuPYjQeycvFg_yTtW-cS7bFJprv73" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1HEGJ0PUe0-yfMoM1jx__lzlP2zPaeGz2" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1uR9ZzANRr1IvxCKJaWiTQf6lwv-ysjbe" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1olvdpTB94IlYkPV1zCCYeFEt_KAt2MPa" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/15YRtDi0rT_M6TdaJrArz-sb0AaHsdTiz" onclick="setMainImage(this)">
-      </div>
-<br>
-      <h2>2025 - The Main Point of the Horizon</h2>
-      <p>April 8 – April 28, Cultural Centre Reduta, Brasov, RO</p>
-      <div class="gallery" data-gallery="expo1">
-        <img src="https://lh3.googleusercontent.com/d/1UngB1DGX1qiKS3YfFD6fMhegsXAEA4sd" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1xhbcZRHWSCylVuMMuxWFLDnczQCMku2q" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1iaZrxj2f9RSBLs-YjLIjtQgAZSbBWiSW" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1ZR-TkHW2nj_a-RffhoPxGMCuaGAOW7sW" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1ZBQpxn8CCIcf4bp7icDh9oQYW2VeBUdm" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1sTM3O6V6TaaLNhDa5rb3cg_qooRowW5f" onclick="setMainImage(this)">
-      </div>
-<br>
-      <h2>2024 - Unbound Echoes</h2>
-      <p>November 11 – November 24, WASP Studio, Bucharest, RO</p>
-      <div class="gallery" data-gallery="expo2">
-        <img src="https://lh3.googleusercontent.com/d/1YBjprrQEOX5krHQmuYQpxZa7A8NswcEP" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1rlsJ-RgRMkRv5r48_yi9ZCfO36OX_DeN" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1GkrMP_G2uk5x5tGFJOJcfJNfqpmb1Ups" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1MX6FRimjStYrMqy-uvWj_OpnWyD_nPWR" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1lJOx4jILv9ZfrHvzoDnmKwxVziEncu68" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1M_7Sqe8KfgzFwEZxUVsqC5kFcnrkvY4L" onclick="setMainImage(this)">
-      </div>
-<br>
-      <h2>2024 - Fusion:AIR</h2>
-      <p>September 17 – October 12, /SAC, Bucharest, RO</p>
-      <div class="gallery" data-gallery="expo3">
-        <img src="https://lh3.googleusercontent.com/d/1qw7xHoC1uZCagizpYx85DVgYAeIl2vyO" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1_Nl0PcW9AsNkEhovDwL2IsS9nt4QqMva" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1zw4v1kKucst6edQ0liKZi8io3eafoS-v" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1ntMQLQ3Gwr19WljYjFjHbc2F4rBCqyoe" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1Bh4vcrz3zgvEyKdqDTlF3d_4P9VJi8-Y" onclick="setMainImage(this)">
-        <img src="https://lh3.googleusercontent.com/d/1aNFCr_fW_ivXR78frfs3IBn8SVUMpmyS" onclick="setMainImage(this)">
-      </div>
-<br>
-                  <h2>2024 - Recycle Your Technology</h2>
-      <p>May 18 - Salonul de Arta si Industrie, Resita, RO</p>
-      <p>June 21 - Museum of Arts, Arad, RO</p>
-      <p>August 30 - Centrul Multicultural Brasov, RO</p>
-      <p>October 25 - Rezidenta 9, Bucharest, RO</p>
-      <div class="gallery" data-gallery="expo3">
-        <img src="https://lh3.googleusercontent.com/d/1wDNAtbhVGD-68tYDFg8rVqxoxk5DACzH" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1uOahHKIPcqNVdf1DaUgMRp75AuJVjV9M" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1iReeKkbggVGcojD1RNpvoHr9GZIohSFS" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1R-WvzuAnI1ENzx5Hr7xcaPuFjWMzbRwT" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1ByRvm7mBT0uRQwoSouGbVVSuXiDdV3cx" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1UVbp_shVUbqYvFv5K_csXZuGS6qOuiHd" onclick="setMainImage(this)">
-      </div>
-<br>
-            <h2>2023/4 - Fabulating About a Gelato Machine</h2>
-      <p>November 10 – February 25, Museum of Art Brasov, RO</p>
-      <div class="gallery" data-gallery="expo3">
-        <img src="https://lh3.googleusercontent.com/d/1aS_XelrdGMOKaU6btoq44vFParVuTSHb" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1uFWscQYNEI7P8zrgUrpkY3qyZgUVW5GO" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1akzO-kMoWs4gfdgPR17GDaLI6eQ4UMq_" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1d0jScBDJ6ZS6F5ggh-TctWv4Is-qVd6r" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1F1-qRpNdfw_xlZgFMYFUuH1xGkoM8-UF" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1oiJ-QVkpnip0xMcQ85nLiWIsWGBRoDJP" onclick="setMainImage(this)">
-      </div>
-<br>
-                  <h2>2023 - RADAR</h2>
-      <p>October 27 – October 29, Magazinul Bucuresti, RO</p>
-      <div class="gallery" data-gallery="expo3">
-<img src="https://lh3.googleusercontent.com/d/1oFVrD4qtKl0OPYSM-bvy_YEjFot2Z6Dq" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1zJ5KMfgRKCLSJ8je_Hs4MDW81fpb_S85" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1bweGjt5hxL6fLFzYQa4FdVwvH5NYe0P2" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1zPsEbi3-7jvTbOf0x7kqWDzoZn6rISag" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1Y-HEdxkBIoMNv8-r_GWjpkME5lqYMUHZ" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1UqLbs0AP5pb0l1UJ82Fmz4ng6M17P2pA" onclick="setMainImage(this)">
-      </div>
-
-<br>
-                  <h2>2023 - Un/Living Gallery: A Tangible Art Manifesto</h2>
-      <p>August 16 – October 12, WASP, Bucharest, RO</p>
-      <div class="gallery" data-gallery="expo3">
-<img src="https://lh3.googleusercontent.com/d/1zvNzTOBByMV0Qjjgni2NrwgSvP0Ef0hf" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1cKVGW1l9QkFtK2zRSyCFjfigDwAObKyY" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1K-WfVR0BSNih6loozRfXL55bcSfec8id" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1EYTivBF1INVuhu8dKaxKTLf-0BfYkl3B" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1U4VUUEVdYCg0-7dHsok7yUNbzypkJb_c" onclick="setMainImage(this)">
-<img src="https://lh3.googleusercontent.com/d/1yH1roe8QwsbBu3-IYEn0RsGmV5K7AJCf" onclick="setMainImage(this)">
-      </div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="index.html">Denis Flueraru</a>
+      <nav class="nav" aria-label="Main"><a href="artworks.html">Artworks</a><a href="workshops.html">Workshops</a><a href="sound.html">Sound</a><a href="collabs.html">Collabs</a><a href="exhibitions.html" aria-current="page">Exhibitions</a><a href="services.html">Services</a></nav>
+      <nav class="nav nav-end" aria-label="Secondary"><a class="shop-link" href="https://atomatlab.com" target="_blank" rel="noopener"><span class="dot col" aria-hidden="true"></span>Shop ↗</a><a href="biography.html">Bio</a><a href="contact.html">Contact</a></nav>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
     </div>
-
   </div>
+</header>
+<div class="menu-panel" id="menu" hidden>
+  <div class="bar"><a class="brand" href="index.html">Denis Flueraru</a><button class="menu-btn menu-close" type="button" style="display:inline-flex">Close</button></div>
+  <nav aria-label="Menu"><a href="artworks.html">Artworks<span>01</span></a><a href="workshops.html">Workshops<span>02</span></a><a href="sound.html">Sound<span>03</span></a><a href="collabs.html">Collabs<span>04</span></a><a href="exhibitions.html">Exhibitions<span>05</span></a><a href="services.html">Services<span>06</span></a><a href="biography.html">Bio<span>07</span></a><a href="contact.html">Contact<span>08</span></a><a href="https://atomatlab.com" target="_blank" rel="noopener">Shop ↗<span>ATOMAT LAB</span></a></nav>
+  <div class="foot"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a></div>
 </div>
-
-<!-- Modal -->
-<div id="modal" class="modal">
-  <span class="close" onclick="closeModal()">&times;</span>
-  <button class="arrow left" onclick="prevImage()">&#10094;</button>
-  <img id="modal-img" src="">
-  <button class="arrow right" onclick="nextImage()">&#10095;</button>
-</div>
-
-<!-- Menu -->
-<div class="menu" id="menu">
-  <a href="artworks.html">Artworks</a>
-  <a href="workshops.html">Workshops</a>
-  <a href="sound.html">Sound</a>
-  <a href="collabs.html">Collabs</a>
-  <a href="exhibitions.html">Exhibitions</a>
-  <div style="height:20px;"></div>
-  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
-  <a href="services.html">Services</a>
-  <div style="height:20px;"></div>
-  <a href="biography.html">Biography</a>
-  <a href="contact.html">Contact</a>
-</div>
-
-<!-- Rotating Logo -->
-<a href="https://atomatlab.com" target="_blank" class="spin-wrapper">
-  <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="Logo">
+<main id="main">
+<div class="wrap">
+  <section class="grid12 page-head">
+    <h1 class="rise">Exhibitions</h1>
+    <div class="side mono rise d1"><p>Group and solo shows, 2023 — 2025.</p></div>
+  </section>
+</div><div class="wrap"><article class="grid12 entry ex" id="horizont-2">
+  <div class="meta">
+    <span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition — 2025</span>
+    <h2>A Horizont Lényege II</h2>
+    <span class="mono muted">November 7 – November 28, MAMŰ Társaság, Budapest, HU</span>
+    
+  </div>
+  <div class="media" data-gallery><figure class="frame " data-label="A Horizont Lényege II — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: A Horizont Lényege II — 1"><img src="media/drive/exhibitions-mamu/mamu5.sm.jpg" data-full="media/drive/exhibitions-mamu/mamu5.jpg" alt="A Horizont Lényege II — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="A Horizont Lényege II — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: A Horizont Lényege II — 2"><img src="media/drive/exhibitions-mamu/mamu6.sm.jpg" data-full="media/drive/exhibitions-mamu/mamu6.jpg" alt="A Horizont Lényege II — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="A Horizont Lényege II — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: A Horizont Lényege II — 3"><img src="media/drive/exhibitions-mamu/mamu3.sm.jpg" data-full="media/drive/exhibitions-mamu/mamu3.jpg" alt="A Horizont Lényege II — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="A Horizont Lényege II — 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: A Horizont Lényege II — 4"><img src="media/drive/exhibitions-mamu/mamu4.sm.jpg" data-full="media/drive/exhibitions-mamu/mamu4.jpg" alt="A Horizont Lényege II — 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="A Horizont Lényege II — 5" data-zoom tabindex="0" role="button" aria-label="Enlarge image: A Horizont Lényege II — 5"><img src="media/drive/exhibitions-mamu/mamu2.sm.jpg" data-full="media/drive/exhibitions-mamu/mamu2.jpg" alt="A Horizont Lényege II — 5" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="A Horizont Lényege II — 6" data-zoom tabindex="0" role="button" aria-label="Enlarge image: A Horizont Lényege II — 6"><img src="media/drive/exhibitions-mamu/mamu1.sm.jpg" data-full="media/drive/exhibitions-mamu/mamu1.jpg" alt="A Horizont Lényege II — 6" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article><article class="grid12 entry ex" id="main-point">
+  <div class="meta">
+    <span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition — 2025</span>
+    <h2>The Main Point of the Horizon</h2>
+    <span class="mono muted">April 8 – April 28, Cultural Centre Reduta, Brașov, RO</span>
+    
+  </div>
+  <div class="media" data-gallery><figure class="frame " data-label="The Main Point of the Horizon — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: The Main Point of the Horizon — 1"><img src="media/drive/exhibitions-the-main-point-of-the-horizon/1.sm.jpg" data-full="media/drive/exhibitions-the-main-point-of-the-horizon/1.jpg" alt="The Main Point of the Horizon — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="The Main Point of the Horizon — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: The Main Point of the Horizon — 2"><img src="media/drive/exhibitions-the-main-point-of-the-horizon/2.sm.jpg" data-full="media/drive/exhibitions-the-main-point-of-the-horizon/2.jpg" alt="The Main Point of the Horizon — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="The Main Point of the Horizon — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: The Main Point of the Horizon — 3"><img src="media/drive/exhibitions-the-main-point-of-the-horizon/4.sm.jpg" data-full="media/drive/exhibitions-the-main-point-of-the-horizon/4.jpg" alt="The Main Point of the Horizon — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="The Main Point of the Horizon — 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: The Main Point of the Horizon — 4"><img src="media/drive/exhibitions-the-main-point-of-the-horizon/5.sm.jpg" data-full="media/drive/exhibitions-the-main-point-of-the-horizon/5.jpg" alt="The Main Point of the Horizon — 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="The Main Point of the Horizon — 5" data-zoom tabindex="0" role="button" aria-label="Enlarge image: The Main Point of the Horizon — 5"><img src="media/drive/exhibitions-the-main-point-of-the-horizon/6.sm.jpg" data-full="media/drive/exhibitions-the-main-point-of-the-horizon/6.jpg" alt="The Main Point of the Horizon — 5" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="The Main Point of the Horizon — 6" data-zoom tabindex="0" role="button" aria-label="Enlarge image: The Main Point of the Horizon — 6"><img src="media/drive/exhibitions-the-main-point-of-the-horizon/7.sm.jpg" data-full="media/drive/exhibitions-the-main-point-of-the-horizon/7.jpg" alt="The Main Point of the Horizon — 6" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article><article class="grid12 entry ex" id="unbound-echoes">
+  <div class="meta">
+    <span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition — 2024</span>
+    <h2>Unbound Echoes</h2>
+    <span class="mono muted">November 11 – November 24, WASP Studio, Bucharest, RO</span>
+    
+  </div>
+  <div class="media" data-gallery><figure class="frame " data-label="Unbound Echoes — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Unbound Echoes — 1"><img src="media/drive/exhibitions-unbound-echoes-wasp/poster.sm.jpg" data-full="media/drive/exhibitions-unbound-echoes-wasp/poster.jpg" alt="Unbound Echoes — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Unbound Echoes — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Unbound Echoes — 2"><img src="media/drive/exhibitions-unbound-echoes-wasp/5.sm.jpg" data-full="media/drive/exhibitions-unbound-echoes-wasp/5.jpg" alt="Unbound Echoes — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Unbound Echoes — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Unbound Echoes — 3"><img src="media/drive/exhibitions-unbound-echoes-wasp/4.sm.jpg" data-full="media/drive/exhibitions-unbound-echoes-wasp/4.jpg" alt="Unbound Echoes — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Unbound Echoes — 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Unbound Echoes — 4"><img src="media/drive/exhibitions-unbound-echoes-wasp/3.sm.jpg" data-full="media/drive/exhibitions-unbound-echoes-wasp/3.jpg" alt="Unbound Echoes — 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Unbound Echoes — 5" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Unbound Echoes — 5"><img src="media/drive/exhibitions-unbound-echoes-wasp/2.sm.jpg" data-full="media/drive/exhibitions-unbound-echoes-wasp/2.jpg" alt="Unbound Echoes — 5" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Unbound Echoes — 6" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Unbound Echoes — 6"><img src="media/drive/exhibitions-unbound-echoes-wasp/1.sm.jpg" data-full="media/drive/exhibitions-unbound-echoes-wasp/1.jpg" alt="Unbound Echoes — 6" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article><article class="grid12 entry ex" id="fusion-air">
+  <div class="meta">
+    <span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition — 2024</span>
+    <h2>Fusion: AIR</h2>
+    <span class="mono muted">September 17 – October 12, /SAC, Bucharest, RO</span>
+    
+  </div>
+  <div class="media" data-gallery><figure class="frame " data-label="Fusion: AIR — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Fusion: AIR — 1"><img src="media/drive/exhibitions-fusion-air-sac-2024/1.sm.jpg" data-full="media/drive/exhibitions-fusion-air-sac-2024/1.jpg" alt="Fusion: AIR — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Fusion: AIR — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Fusion: AIR — 2"><img src="media/drive/exhibitions-fusion-air-sac-2024/2.sm.jpg" data-full="media/drive/exhibitions-fusion-air-sac-2024/2.jpg" alt="Fusion: AIR — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Fusion: AIR — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Fusion: AIR — 3"><img src="media/drive/exhibitions-fusion-air-sac-2024/3.sm.jpg" data-full="media/drive/exhibitions-fusion-air-sac-2024/3.jpg" alt="Fusion: AIR — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Fusion: AIR — 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Fusion: AIR — 4"><img src="media/drive/exhibitions-fusion-air-sac-2024/4.sm.jpg" data-full="media/drive/exhibitions-fusion-air-sac-2024/4.jpg" alt="Fusion: AIR — 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Fusion: AIR — 5" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Fusion: AIR — 5"><img src="media/drive/exhibitions-fusion-air-sac-2024/5.sm.jpg" data-full="media/drive/exhibitions-fusion-air-sac-2024/5.jpg" alt="Fusion: AIR — 5" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Fusion: AIR — 6" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Fusion: AIR — 6"><img src="media/drive/exhibitions-fusion-air-sac-2024/6.sm.jpg" data-full="media/drive/exhibitions-fusion-air-sac-2024/6.jpg" alt="Fusion: AIR — 6" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article><article class="grid12 entry ex" id="recycle-your-technology">
+  <div class="meta">
+    <span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition — 2024</span>
+    <h2>Recycle Your Technology</h2>
+    <span class="mono muted">May 18 — Salonul de Artă și Industrie, Reșița, RO</span><span class="mono muted">June 21 — Museum of Arts, Arad, RO</span><span class="mono muted">August 30 — Centrul Multicultural, Brașov, RO</span><span class="mono muted">October 25 — Rezidența 9, Bucharest, RO</span>
+    
+  </div>
+  <div class="media" data-gallery><figure class="frame " data-label="Recycle Your Technology — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Recycle Your Technology — 1"><img src="media/drive/exhibitions-recycle-your-technology/1.sm.jpg" data-full="media/drive/exhibitions-recycle-your-technology/1.jpg" alt="Recycle Your Technology — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Recycle Your Technology — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Recycle Your Technology — 2"><img src="media/drive/exhibitions-recycle-your-technology/2.sm.jpg" data-full="media/drive/exhibitions-recycle-your-technology/2.jpg" alt="Recycle Your Technology — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Recycle Your Technology — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Recycle Your Technology — 3"><img src="media/drive/exhibitions-recycle-your-technology/3.sm.jpg" data-full="media/drive/exhibitions-recycle-your-technology/3.jpg" alt="Recycle Your Technology — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Recycle Your Technology — 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Recycle Your Technology — 4"><img src="media/drive/exhibitions-recycle-your-technology/4.sm.jpg" data-full="media/drive/exhibitions-recycle-your-technology/4.jpg" alt="Recycle Your Technology — 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Recycle Your Technology — 5" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Recycle Your Technology — 5"><img src="media/drive/exhibitions-recycle-your-technology/5.sm.jpg" data-full="media/drive/exhibitions-recycle-your-technology/5.jpg" alt="Recycle Your Technology — 5" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Recycle Your Technology — 6" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Recycle Your Technology — 6"><img src="media/drive/exhibitions-recycle-your-technology/6.sm.jpg" data-full="media/drive/exhibitions-recycle-your-technology/6.jpg" alt="Recycle Your Technology — 6" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article><article class="grid12 entry ex" id="gelato-machine">
+  <div class="meta">
+    <span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition — 2023</span>
+    <h2>Fabulating About a Gelato Machine</h2>
+    <span class="mono muted">November 10, 2023 – February 25, 2024, Museum of Art, Brașov, RO</span>
+    
+  </div>
+  <div class="media" data-gallery><figure class="frame " data-label="Fabulating About a Gelato Machine — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Fabulating About a Gelato Machine — 1"><img src="media/drive/exhibitions-fabulating-about-a-gelato-machine/1.sm.jpg" data-full="media/drive/exhibitions-fabulating-about-a-gelato-machine/1.jpg" alt="Fabulating About a Gelato Machine — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Fabulating About a Gelato Machine — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Fabulating About a Gelato Machine — 2"><img src="media/drive/exhibitions-fabulating-about-a-gelato-machine/2.sm.jpg" data-full="media/drive/exhibitions-fabulating-about-a-gelato-machine/2.jpg" alt="Fabulating About a Gelato Machine — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Fabulating About a Gelato Machine — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Fabulating About a Gelato Machine — 3"><img src="media/drive/exhibitions-fabulating-about-a-gelato-machine/3.sm.jpg" data-full="media/drive/exhibitions-fabulating-about-a-gelato-machine/3.jpg" alt="Fabulating About a Gelato Machine — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Fabulating About a Gelato Machine — 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Fabulating About a Gelato Machine — 4"><img src="media/drive/exhibitions-fabulating-about-a-gelato-machine/4.sm.jpg" data-full="media/drive/exhibitions-fabulating-about-a-gelato-machine/4.jpg" alt="Fabulating About a Gelato Machine — 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Fabulating About a Gelato Machine — 5" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Fabulating About a Gelato Machine — 5"><img src="media/drive/exhibitions-fabulating-about-a-gelato-machine/5.sm.jpg" data-full="media/drive/exhibitions-fabulating-about-a-gelato-machine/5.jpg" alt="Fabulating About a Gelato Machine — 5" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Fabulating About a Gelato Machine — 6" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Fabulating About a Gelato Machine — 6"><img src="media/drive/exhibitions-fabulating-about-a-gelato-machine/6.sm.jpg" data-full="media/drive/exhibitions-fabulating-about-a-gelato-machine/6.jpg" alt="Fabulating About a Gelato Machine — 6" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article><article class="grid12 entry ex" id="radar">
+  <div class="meta">
+    <span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition — 2023</span>
+    <h2>RADAR</h2>
+    <span class="mono muted">October 27 – October 29, Magazinul București, RO</span>
+    
+  </div>
+  <div class="media" data-gallery><figure class="frame " data-label="RADAR — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: RADAR — 1"><img src="media/drive/exhibitions-radar-2023/dsc06698.sm.jpg" data-full="media/drive/exhibitions-radar-2023/dsc06698.jpg" alt="RADAR — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="RADAR — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: RADAR — 2"><img src="media/drive/exhibitions-radar-2023/dsc06705.sm.jpg" data-full="media/drive/exhibitions-radar-2023/dsc06705.jpg" alt="RADAR — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="RADAR — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: RADAR — 3"><img src="media/drive/exhibitions-radar-2023/dsc06707.sm.jpg" data-full="media/drive/exhibitions-radar-2023/dsc06707.jpg" alt="RADAR — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="RADAR — 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: RADAR — 4"><img src="media/drive/exhibitions-radar-2023/copy-of-dsc06669.sm.jpg" data-full="media/drive/exhibitions-radar-2023/copy-of-dsc06669.jpg" alt="RADAR — 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="RADAR — 5" data-zoom tabindex="0" role="button" aria-label="Enlarge image: RADAR — 5"><img src="media/drive/exhibitions-radar-2023/copy-of-dsc06690.sm.jpg" data-full="media/drive/exhibitions-radar-2023/copy-of-dsc06690.jpg" alt="RADAR — 5" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="RADAR — 6" data-zoom tabindex="0" role="button" aria-label="Enlarge image: RADAR — 6"><img src="media/drive/exhibitions-radar-2023/dsc05595.sm.jpg" data-full="media/drive/exhibitions-radar-2023/dsc05595.jpg" alt="RADAR — 6" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article><article class="grid12 entry ex" id="unliving-gallery">
+  <div class="meta">
+    <span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition — 2023</span>
+    <h2>Un/Living Gallery: A Tangible Art Manifesto</h2>
+    <span class="mono muted">August 16 – October 12, WASP, Bucharest, RO</span>
+    
+  </div>
+  <div class="media" data-gallery><figure class="frame " data-label="Un/Living Gallery: A Tangible Art Manifesto — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Un/Living Gallery: A Tangible Art Manifesto — 1"><img src="media/drive/exhibitions-unliving-wasp/364148690-779167507339501-5997696331736230705-n.sm.jpg" data-full="media/drive/exhibitions-unliving-wasp/364148690-779167507339501-5997696331736230705-n.jpg" alt="Un/Living Gallery: A Tangible Art Manifesto — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Un/Living Gallery: A Tangible Art Manifesto — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Un/Living Gallery: A Tangible Art Manifesto — 2"><img src="media/drive/exhibitions-unliving-wasp/369579235-785829896673262-4064231382302195746-n.sm.jpg" data-full="media/drive/exhibitions-unliving-wasp/369579235-785829896673262-4064231382302195746-n.jpg" alt="Un/Living Gallery: A Tangible Art Manifesto — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Un/Living Gallery: A Tangible Art Manifesto — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Un/Living Gallery: A Tangible Art Manifesto — 3"><img src="media/drive/exhibitions-unliving-wasp/369588905-785827920006793-5594756681296887861-n.sm.jpg" data-full="media/drive/exhibitions-unliving-wasp/369588905-785827920006793-5594756681296887861-n.jpg" alt="Un/Living Gallery: A Tangible Art Manifesto — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Un/Living Gallery: A Tangible Art Manifesto — 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Un/Living Gallery: A Tangible Art Manifesto — 4"><img src="media/drive/exhibitions-unliving-wasp/369604434-785829273339991-7778379061501400903-n.sm.jpg" data-full="media/drive/exhibitions-unliving-wasp/369604434-785829273339991-7778379061501400903-n.jpg" alt="Un/Living Gallery: A Tangible Art Manifesto — 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Un/Living Gallery: A Tangible Art Manifesto — 5" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Un/Living Gallery: A Tangible Art Manifesto — 5"><img src="media/drive/exhibitions-unliving-wasp/369634083-785827870006798-6671111488482792764-n.sm.jpg" data-full="media/drive/exhibitions-unliving-wasp/369634083-785827870006798-6671111488482792764-n.jpg" alt="Un/Living Gallery: A Tangible Art Manifesto — 5" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Un/Living Gallery: A Tangible Art Manifesto — 6" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Un/Living Gallery: A Tangible Art Manifesto — 6"><img src="media/drive/exhibitions-unliving-wasp/369605970-785829960006589-7316914190825400740-n.sm.jpg" data-full="media/drive/exhibitions-unliving-wasp/369605970-785829960006589-7316914190825400740-n.jpg" alt="Un/Living Gallery: A Tangible Art Manifesto — 6" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article></div>
+</main>
+<footer class="wrap">
+  <div class="grid12 site-foot">
+    <a class="mail" href="mailto:flueraru.denis@gmail.com">flueraru.denis@gmail.com</a>
+    <div class="links"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a><a class="mono" href="media/Denis_Flueraru_CV.pdf" target="_blank" rel="noopener">CV (PDF) ↓</a></div>
+    <div class="legal mono muted"><span>© Denis Flueraru — Bucharest, RO</span><span>sound · form · code</span></div>
+  </div>
+</footer>
+<a class="spin" href="https://atomatlab.com" target="_blank" rel="noopener" aria-label="ATOMAT LAB shop">
+  <img src="media/atomatlabrotating.png" data-alt="media/field5.png" alt="" referrerpolicy="no-referrer">
 </a>
-
-<script>
-// Menu toggle
-const menu = document.getElementById('menu');
-const scrollContainer = document.getElementById('scroll-container');
-const overlay = document.getElementById('overlay');
-
-function toggleMenu(){
-  const isOpen = menu.classList.contains('open');
-  if(isOpen){
-    menu.classList.remove('open');
-    scrollContainer.classList.remove('recede');
-    overlay.classList.remove('active');
-  } else {
-    menu.classList.add('open');
-    scrollContainer.classList.add('recede');
-    overlay.classList.add('active');
-  }
-}
-
-// Click outside menu closes it
-overlay.addEventListener('click', () => {
-  if(menu.classList.contains('open')){
-    menu.classList.remove('open');
-    scrollContainer.classList.remove('recede');
-    overlay.classList.remove('active');
-  }
-});
-scrollContainer.addEventListener('click', () => {
-  if(menu.classList.contains('open')){
-    menu.classList.remove('open');
-    scrollContainer.classList.remove('recede');
-    overlay.classList.remove('active');
-  }
-});
-
-// Modal gallery
-const modal=document.getElementById("modal");
-const modalImg=document.getElementById("modal-img");
-let currentGallery=[],currentIndex=0;
-
-document.querySelectorAll(".gallery img").forEach(img=>{
-  img.addEventListener("click",()=>{
-    currentGallery=[...img.closest(".gallery").querySelectorAll("img")];
-    currentIndex=currentGallery.indexOf(img);
-    openModal(currentGallery[currentIndex].src);
-  });
-});
-function openModal(src){ modal.style.display="flex"; modalImg.src=src; }
-function closeModal(){ modal.style.display="none"; }
-function nextImage(){ currentIndex=(currentIndex+1)%currentGallery.length; modalImg.src=currentGallery[currentIndex].src; }
-function prevImage(){ currentIndex=(currentIndex-1+currentGallery.length)%currentGallery.length; modalImg.src=currentGallery[currentIndex].src; }
-window.addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeModal(); });
-</script>
-
+<div class="lb" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="top"><span class="lb-count"></span><button class="lb-close" type="button">Close ✕</button></div>
+  <div style="display:flex;min-height:0"><img alt=""></div>
+  <div class="bot"><button class="lb-prev" type="button" aria-label="Previous image">←</button><button class="lb-next" type="button" aria-label="Next image">→</button></div>
+</div>
 </body>
 </html>

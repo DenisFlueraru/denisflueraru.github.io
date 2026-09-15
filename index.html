@@ -1,705 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Denis Flueraru</title>
-<link rel="icon" type="image/png" sizes="32x32" href="images/atomatlabfavicon.png">
-<link rel="icon" type="image/png" sizes="16x16" href="images/atomatlabfavicon.png">
-<link rel="shortcut icon" href="images/atomatlabfavicon.png">
-<style>
-  /* Add this once in your stylesheet */
-  .video-wrapper {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 ratio */
-    height: 0;
-    overflow: hidden;
-    border-radius: 12px;
-    margin-top: 15px;
-    max-width: 480px; /* keeps it compact */
-    box-shadow: 0 0 10px rgba(182,210,40,0.3);
-  }
-  
-.video-container img {
-  width: 100%;
-  height: 360px; /* same as other post images */
-  object-fit: cover;
-  border-radius: 6px;
-  display: block;
-}
-  .video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-</style>
-<style>
-  /* Fonts */
-
-  strong, h1, h2, h3, h4, h5, h6, b {
-  font-family: '42dot Sans', sans-serif;
-  font-weight: bold;
-}
-  @font-face {
-    font-family: 'Neue Kaine';
-    src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
-         url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: '42dot Sans';
-    src: url('fonts/42dot_sans/fonts/ttf/42dotSans-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-  }
-
-  :root{
-    --olive: #b6d228;
-    --brown: #cd6c27;
-    --gap: 28px;
-    --maxwidth: 1100px;
-  }
-
-  html,body{height:100%;}
-  body{
-    font-family: 'Neue Kaine', sans-serif;
-    margin:0;
-    background:#fff;
-    color:#111;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-  }
-  *{box-sizing:border-box;}
-
-  /* Header */
-  .header{
-    position:fixed;
-    top:0; left:0; right:0;
-    height:72px;
-    padding:18px 22px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-    z-index:110;
-  }
-  .header .logo { font-weight:900; font-size:18px; text-decoration:none; color:#000; }
-  .header .title { font-weight:700; font-size:18px; letter-spacing:0.2px; color:#000; text-align:center; flex:1; }
-  .header .menu-toggle { cursor:pointer; font-weight:700; font-size:16px; }
-
-  /* Overlay for menu */
-  .overlay { position:fixed; inset:0; background: rgba(0,0,0,0.18); display:none; z-index:149; }
-  .overlay.active { display:block; }
-
-  /* Main layout */
-  .main-content {
-    padding-top:96px;                 /* space for fixed header */
-    display:flex; justify-content:center;
-    min-height:100vh;
-  }
-  .container {
-    width:100%;
-    max-width:var(--maxwidth);
-    padding: 0 28px 120px;
-  }
-
-  /* Intro block (poetic) */
-  .intro {
-    max-width:820px;
-    margin: 0 auto var(--gap);
-    padding:28px;
-    border-left:4px solid var(--olive);
-    border-radius:6px;
-    background: #fff;
-    box-shadow: 0 6px 22px rgba(10,10,10,0.03);
-    line-height:1.6;
-    color:#111;
-  }
-  .intro p { margin:0; font-size:18px; }
-  .intro small { display:block; margin-top:10px; color:#666; font-size:13px; }
-
-  /* Feed grouped by year */
-  .feed {
-    display:flex; flex-direction:column; gap:36px;
-  }
-  .year-group {
-    display:flex; flex-direction:column; gap:18px;
-  }
-  .year-label {
-    font-family: '42dot Sans', sans-serif;
-    font-weight:700;
-    color:var(--olive);
-    font-size:18px;
-    letter-spacing:1px;
-    padding:6px 0 0 2px;
-  }
-
-  /* Post card */
-  .post {
-    display:grid;
-    grid-template-columns: 380px 1fr;
-    gap:22px;
-    align-items:center;
-    background: #fff;
-    border-radius:8px;
-    padding:18px;
-    box-shadow: 0 6px 20px rgba(15,15,15,0.04);
-    transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s;
-    overflow:hidden;
-  }
-  .post:hover{ transform: translateY(-6px); box-shadow: 0 25px 60px rgba(205,108,39,0.8); }
-
-  .post img {
-    width:100%;
-    height:260px;
-    object-fit:cover;
-    border-radius:6px;
-    display:block;
-  }
-
-  .meta {
-    padding:6px 0;
-    font-size:13px;
-    color:#666;
-  }
-  .post h3 {
-    margin:0 0 8px 0;
-    font-size:18px;
-    color:#000;
-  }
-  .post p { margin:0; color:#222; line-height:1.55; }
-
-  /* small card variant (for short items like videos) */
-  .post.small {
-    grid-template-columns: 1fr;
-  }
-  .post.small img { height:200px; }
-
-  /* subtle accent underline */
-  .accent {
-    display:inline-block;
-    height:6px;
-    width:56px;
-    background: linear-gradient(90deg, var(--olive), var(--brown));
-    border-radius:4px;
-    margin-top:12px;
-  }
-
-  /* Menu (same as index) */
-  .menu {
-    position:fixed; top:0; right:-20%; width:20%; height:100%;
-    background-color:rgb(182,210,40);
-    color:black; transition:right 0.4s ease; z-index:200;
-    padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
-  }
-  .menu.open { right:0; }
-  .menu a { color:black; text-decoration:none; transition:color 0.2s ease; font-weight:900; }
-  .menu a:hover { color:var(--brown); }
-  .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
-
-  /* Rotating logo */
-  .spin-wrapper {
-    position: fixed; bottom:15px; left:15px;
-    width:100px;
-    animation: spin 20s linear infinite;
-    cursor:pointer;
-    z-index:100;
-  }
-  @keyframes spin { from{ transform: rotate(0deg) } to{ transform: rotate(360deg) } }
-  .flip-image { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
-  .flipped { transform: rotateY(180deg); }
-
-  /* Responsive */
-  @media (max-width: 980px) {
-    .post { grid-template-columns: 1fr; }
-    .post img { height:260px; }
-    .post.small img { height:200px; }
-    .container { padding:0 20px 120px; }
-  }
-  @media (max-width: 768px) {
-    .header { padding:14px 16px; height:64px; }
-    .header .logo { font-size:16px; }
-    .header .title { font-size:16px; }
-    .menu { width:40%; right:-40%; }
-    .spin-wrapper { width:76px; bottom:12px; left:12px; }
-    .intro { padding:18px; font-size:16px; }
-    .post img { height:200px; }
-  }
-
-  /* subtle reveal on scroll */
-  .reveal {
-    opacity:0;
-    transform: translateY(10px);
-    transition: opacity .6s ease, transform .6s ease;
-  }
-  .reveal.visible {
-    opacity:1;
-    transform:none;
-  }
-
-  /* small brown accent for links */
-  a.custom-link { color:var(--brown); text-decoration:underline; font-weight:700; }
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Denis Flueraru — an archive of ongoing experiments</title>
+<meta name="description" content="Denis Flueraru — creative technologist in Bucharest. Interactive installations, sound art, custom instruments and workshops.">
+<meta property="og:title" content="Denis Flueraru — an archive of ongoing experiments">
+<meta property="og:description" content="Denis Flueraru — creative technologist in Bucharest. Interactive installations, sound art, custom instruments and workshops.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://denisflueraru.com/media/heartbroken/heartbroken-4.jpg">
+<meta name="theme-color" content="#cfcec9">
+<link rel="icon" type="image/png" href="media/atomatfavicon.png">
+<link rel="canonical" href="https://denisflueraru.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
 </head>
 <body>
-
-  <!-- Header -->
-  <div class="header">
-    <a class="logo" href="https://denisflueraru.github.io/">Denis Flueraru</a>
-    <div class="title">Feed</div>
-    <div class="menu-toggle">Menu</div>
-  </div>
-
-  <!-- Overlay & Menu -->
-  <div id="overlay" class="overlay"></div>
-
-  <nav id="menu" class="menu" aria-hidden="true">
-    <a href="artworks.html">Artworks</a>
-    <a href="workshops.html">Workshops</a>
-    <a href="sound.html">Sound</a>
-    <a href="collabs.html">Collabs</a>
-    <a href="exhibitions.html">Exhibitions</a>
-    <div style="height:18px;"></div>
-    <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" class="menu-icon" alt="logo"></a>
-    <a href="services.html">Services</a>
-    <div style="height:18px;"></div>
-    <a href="biography.html">Biography</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-
-  <!-- Main -->
-  <main class="main-content" role="main">
-    <div class="container">
-
-<!-- Intro Section -->
-<section class="intro" style="text-align:center; max-width:800px; margin:0 auto; padding:60px 20px;">
-  <!-- <p style="font-size:1.1em; line-height:1.6; text-align:left;">
-    Working at the intersection of <b>sound</b>, <b>form</b>, and <b>code</b>.using research, <b>fabrication</b>, and bespoke listening tools to shape <b>installations</b> and live works.  
-    My process moves between disciplines, where <b>experiments</b> often become <b>discoveries</b>.
-  </p> -->
-  <small style="display:block; margin-top:20px; font-weight:1000; letter-spacing:0.5px; text-transform:lowercase;">
-    an archive of ongoing experiments
-  </small>
-</section>
-      <!-- Feed (grouped by year) -->
-      <section class="feed">
-
-        <!-- 2025 -->
-        <div class="year-group">
-          <div class="year-label">2026</div>
-
- <!-- Hush Glitches -->
-<article class="post reveal">
-  <img 
-    src="https://lh3.googleusercontent.com/d/1GDtWfMIZUTAeJXuPVHBchcrKKuIE_I8e=w1000" 
-    alt="HUSH GLITHCES">
-  <div>
-    <div class="meta">Interactive Performance </div>
-    <h3>Caprices Festival, Gstaad, Switzerland</h3>
-    <p>
-     Part of the production team for Sergiu Doroftei's light installations for both Peak and Ridge Stages.
-</p>
-      <br><br>
-      
-    </p>
-  </div>
-</article>  
-
-
-        <!-- 2025 -->
-        <div class="year-group">
-          <div class="year-label">2025</div>
-
- <!-- Hush Glitches -->
-<article class="post reveal">
-  <img 
-    src="https://lh3.googleusercontent.com/d/1Ad460EW2CeIpUMo2Ugt3y237MzFsLXjU" 
-    alt="HUSH GLITHCES">
-  <div>
-    <div class="meta">Interactive Performance </div>
-    <h3>Hush Glitches</h3>
-    <p>
-      Developed within a larger multidisciplinary team in collaboration with the
-        <strong>Bucharest Institute of Biology</strong>, this performance explored the
-        relationship between body, environment, and digital media. I designed a
-        <strong>sensor-rigged shoe</strong> integrating humidity, temperature, pressure,
-        and light sensors, enabling dancers to influence sound and video content in real time.
-</p>
-      <br><br>
-      
-    </p>
-  </div>
-</article>         
-
-
-
-<!-- TECA -->
-<article class="post reveal">
-  <img 
-    src="https://lh3.googleusercontent.com/d/1cFurzbAfnNpt9pkafrv_zAZltE5o2hqH" 
-    alt="IoT in Performative Arts">
-  <div>
-    <div class="meta">Interactivity Workshop - TECA Labs </div>
-    <h3>IoT in Performative Arts</h3>
-    <p>
-      Participants learned how to build a glove-like wearable interface that uses sensors to modify sound in real time, 
-      translating gesture and motion directly into audio transformation.
-</p>
-      <br><br>
-      
-    </p>
-  </div>
-</article>
-
-
-<!-- Contact Mics Targu Lapus -->
-<article class="post reveal">
-  <img 
-    src="https://lh3.googleusercontent.com/d/1LtRd_qzufJse31q3usaBv5ZzEiNonHJZ" 
-    alt="subStejar">
-  <div>
-    <div class="meta">Sound Workshop - subStejar, Maramures </div>
-    <h3>Start Pentru Tineri</h3>
-    <p>
-      In this workshop, children from Târgu Lăpuș, Maramureș learned how to build two types of microphones, EMF and contact Microphones. 
-      By collecting hidden and overlooked sounds from their surroundings, participants later composed a collective audio piece,
-      transforming the subStejar location into a collaborative audio piece.</p> 
-      <br><br>
-      
-    </p>
-  </div>
-</article>
-
-
-<!-- LOOP STUDIES_BUDAPEST -->
-<article class="post reveal">
-  <img 
-    src="https://lh3.googleusercontent.com/d/1hnjBShd3nIb2AJuUqrQTyi_q4AZzpk--" 
-    alt="Loop Studies I-IV">
-  <div>
-    <div class="meta">Exhibition - MAMŰ, Budapest </div>
-    <h3>Loop Studies I-IV</h3>
-    <p>
-      In the search for the perfect loop, is an ongoing series consisting of an in depth sound analysis that takes form in pen plotted
-      visualisations together with N and W coordinates that anchor the sound pieces to the physical world. 
-      <br><br>
-      
-    </p>
-  </div>
-</article>
-
-
-<!-- FIELD5 - Phantom Powered Contact Microphone -->
-<article class="post reveal">
-  <img 
-    src="https://lh3.googleusercontent.com/d/1WDmMW_UM-qyjR7cjaWDEyhzZywgP8WHy" 
-    alt="FIELD5 Contact Microphone">
-  <div>
-    <div class="meta">Contact Listening — ATOMAT LAB</div>
-    <h3>FIELD5 — Phantom Powered Contact Microphone</h3>
-    <p>
-      Designed for adventurous sound explorers, <b>FIELD5</b> is a rugged, waterproof contact microphone that reveals the hidden vibrations of materials and environments.  
-      Its <b>phantom-powered circuit</b> ensures clean, low-noise recordings, while the modular design allows you to attach accessories like spikes, magnets, or suction cups for any surface.  
-      Durable, precise, and built for the field, it’s a reliable tool for discovering sound in unexpected places.  
-      <br><br>
-      For more details, please visit the 
-      <a href="https://atomatlab.com" 
-         target="_blank" 
-         style="font-weight:bold; color:rgb(182,210,40); text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
-         Shop 
-         <img src="images/atomatlab.png" 
-              alt="AtomatLab Logo" 
-              style="height:1em; vertical-align:middle;">
-      </a>.
-    </p>
-  </div>
-</article>
-          <article class="post reveal">
-            <img src="images/WORKSHOP_ATPWT_CAV.jpg" alt="Contact mic workshop">
-            <div>
-              <div class="meta">Workshop — Bucharest</div>
-              <h3>Contact Mics and Preamps workshop at CAV Gallery</h3>
-              <p>I ran a hands-on session inviting participants to build contact microphones and learn simple preamp circuits, tuning listening practice into making.</p>
-              <div class="accent" aria-hidden="true"></div>
-            </div>
-          </article>
-
-          <article class="post reveal">
-            <img src="images/YOKOGAWA1.JPG" alt="Yokogawa collaboration">
-            <div>
-              <div class="meta">Commission — Yokogawa</div>
-              <h3>LED and Sound Programming for a fresh water generator concept</h3>
-              <p>Collaborative prototype work with FabLab Bucharest — translating environmental data into light and sonic behaviour.</p>
-            </div>
-          </article>
-
-          <article class="post reveal">
-            <img src="images/Beyondthenoisetheconcretespeaks2.JPG" alt="Brasov exhibition">
-            <div>
-              <div class="meta">Exhibition — Brasov</div>
-              <h3>The Main Point of the Horizon</h3>
-              <p>Following its run at WASP, the project traveled to Cultural Centre Reduta Brasov, taking form as a second edition where the textures and sounds of Brasov were in focus.   .</p>
-            </div>
-          </article>
-
-<article class="post reveal">
-  <div class="video-wrapper" style="width:100%; height:260px;">
-    <iframe
-      src="https://www.youtube.com/embed/It5iu3jE_kM?si=XP_K8flZtvo3eZU6&controls=0"
-      title="Artists Play with Time — Bespoke Contact Mics and Preamps"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen
-      loading="lazy"
-      style="width:100%; height:100%; border:none; border-radius:6px; object-fit:cover;">
-    </iframe>
-  </div>
-
-  <div>
-    <div class="meta">Commission — Bespoke Contact Mics and Preamps</div>
-    <h3>Artists Play with Time | Series of performances across the EU</h3>
-    <p>
-      Short behind-the-scenes video where I built a series of bespoke contact microphones and preamp boxes 
-      designed to amplify the subtle ticking of clocks as instruments for performers.  
-      From <strong>3D modeling</strong> and <strong>printing</strong> to <strong>soldering</strong>, <strong>shielding</strong>, and <strong>sound testing</strong> — 
-      every detail was tuned to bring time into focus.
-    </p>
-  </div>
-</article>
-
-        </div>
-
-        <!-- 2024 -->
-        <div class="year-group">
-          <div class="year-label">2024</div>
-
-          <article class="post reveal">
-            <img src="images/UDN.jpg" alt="sound design for theater">
-            <div>
-              <div class="meta">Sound design — Theatre</div>
-              <h3>Unul Dintre Noi — Theatre sound design</h3>
-              <p>Composed and performed the sonic environment for a stage production at Teatrul de Comedie, focusing on intimate textures and spatialization.</p>
-            </div>
-          </article>
-
-          <article class="post reveal">
-            <img src="images/BeyondBucharest.jpg" alt="Unbound Echoes">
-            <div>
-              <div class="meta">Exhibition — WASP Bucharest</div>
-              <h3>Unbound Echoes</h3>
-              <p>An exploration of urban memory: casts, field recordings and installations that turn city fragments into tactile sound pieces.</p>
-            </div>
-          </article>
-
-          <article class="post reveal">
-            <img src="images/RuinedResonances_SKG.jpeg" alt="Ruined Resonances">
-            <div>
-              <div class="meta">Publication / Object Book — Thessaloniki</div>
-              <h3>Ruined Resonances — a journey through sound and form</h3>
-              <p><strong>Ruined Resonances</strong> synthesizes each location’s acoustic signature with an alginate imprint, inviting readers to hold and listen to place. With support from <strong>Culture Moves Europe</strong>, the project expanded its archive and practices across new sites.</p>
-              <p style="margin-top:10px;"><a class="custom-link" href="https://ruinedresonances.bandcamp.com/album/thessaloniki" target="_blank">Listen — Thessaloniki (Bandcamp)</a></p>
-            </div>
-          </article>
-
-          <article class="post reveal">
-            <img src="images/SOLARA1.jpeg" alt="Solara project image">
-            <div>
-              <div class="meta">Residency — Fusion Air</div>
-              <h3>Solara — interactive installation</h3>
-              <p>Built with scientists from the Institute for Space Science, Solara used live CME data, custom EMF microphones and generative sound to trace the sun’s rhythms.</p>
-            </div>
-          </article>
-
-          <article class="post small reveal" style="grid-template-columns: 1fr 1fr;">
-            <img src="https://lh3.googleusercontent.com/d/1wDNAtbhVGD-68tYDFg8rVqxoxk5DACzH" alt="Recycle Your Technology">
-            <div>
-              <div class="meta">Residency & Workshops</div>
-              <h3>Recycle Your Technology — open call (BRD)</h3>
-              <p>i:105, an interactive installation and workshop series making recycled-electronics instruments across several Romanian cities.</p>
-            </div>
-          </article>
-
-          <article class="post small reveal" style="grid-template-columns: 1fr 1fr;">
-            <div class="video-container" style="border-radius:6px; overflow:hidden;">
-              <img src="https://lh3.googleusercontent.com/d/1kkEK05SAhgmLcNOA7-VFuZptQG-hGf4N" alt="Metabloom image">
-            </div>
-            <div>
-              <div class="meta">Event — DivAirCity</div>
-              <h3>DivAirCity Bucharest</h3>
-              <p>Generative drawing and air-quality visualizations at Piateta Italiana.</p>
-            </div>
-          </article>
-
-<!-- LESEL (OT001) post -->
-<article class="post small reveal" style="display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px;">
-  <div class="video-container" style="border-radius: 6px; overflow: hidden;">
-    <iframe 
-      width="100%" 
-      height="250" 
-      scrolling="no" 
-      frameborder="no" 
-      allow="autoplay" 
-      src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1772633880&color=%23b6d228&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
-    </iframe>
-  </div>
-
-  <div>
-    <div class="meta">Music Release</div>
-    <h3>LESEL (OT001) EP</h3>
-    <p>
-      I decided to bring up a new artist alias as “LESEL” and released a new EP.  
-      For more infor please visit 
-      <a href="https://soundcloud.com/leselmusic" 
-         target="_blank" 
-         style="font-weight:bold; color:rgb(182,210,40); text-decoration:none;">
-         SoundCloud
-    </a>
-    </p>
-  </div>
-</article>
-
-
- <!-- 2023 -->
-        <div class="year-group">
-          <div class="year-label">2023</div>
-
-<!-- AtomatLab Microphone Post -->
-<article class="post small reveal" style="display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 20px;">
-  <div class="video-container" style="border-radius: 6px; overflow: hidden;">
-    <img 
-      src="https://lh3.googleusercontent.com/d/17wK0hzzT-DF8HEtdLON4NeMHpYHxLc9Q" 
-      alt="AtomatLab Microphone" 
-      style="width:80%; height:400px; border-radius:6px; object-fit:cover;">
-  </div>
-
-  <div>
-    <div class="meta">Electromagnetic Listening — ATOMAT LAB</div>
-    <h3>ERT01</h3>
-    <p>
-      Ever wondered how electricity sounds?  
-      With this microphone, you can explore and discover the hidden tones of everyday electronic circuits around you.  
-      Available to buy in the 
-      <a href="https://atomatlab.com" 
-         target="_blank" 
-         style="font-weight:bold; color:rgb(182,210,40); text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
-         Shop 
-         <img src="images/atomatlab.png" 
-              alt="AtomatLab Logo" 
-              style="height:1em; vertical-align:middle;">
-      </a>.
-    </p>
-  </div>
-</article>
-
-<article class="post reveal">
-  <div class="video-wrapper" style="width:100%; height:260px;">
-    <iframe
-      src="https://www.youtube.com/embed/dJfU8wuCUzI?controls=0"
-      title="Ruined Resonances — Thessaloniki"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-      loading="lazy"
-      style="width:100%; height:100%; border:none; border-radius:6px; object-fit:cover;">
-    </iframe>
-  </div>
-
-  <div>
-    <div class="meta">Workshop - Sonic Exploration at NOVA Festival</div>
-    <h3>Sonic Explorations Workshop</h3>
-    <p>
-      Hands-on session inviting participants to build contact microphones, learn basic recording techniques and also made a collaborative composition with the recordings gathered.
-    </p>
-  </div>
-</article>
-
-
-
-
-        <!-- earlier entries / compact
-        <div class="year-group">
-          <div class="year-label">Earlier work</div> -->
-<!-- 
-          <article class="post small reveal" style="grid-template-columns: 1fr 1fr;">
-            <img src="images/RuinedResonances_SKG.jpeg" alt="Recycle Your Technology">
-            <div>
-              <div class="meta">Residency & Workshops</div>
-              <h3>Recycle Your Technology — open call (BRD)</h3>
-              <p>i:105 — workshop series and recycled-electronics instruments across several Romanian cities.</p>
-            </div>
-          </article>
-
-          <article class="post small reveal" style="grid-template-columns: 1fr 1fr;">
-            <div class="video-container" style="border-radius:6px; overflow:hidden;">
-              <iframe src="https://www.youtube.com/embed/T5UO7QNXiLU" title="DivAirCity video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div>
-              <div class="meta">Event — DivAirCity</div>
-              <h3>DivAirCity Bucharest</h3>
-              <p>Generative drawing and air-quality visualizations at Piateta Italiana.</p>
-            </div>
-          </article>
-
-        </div> -->
-
-      </section>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="index.html">Denis Flueraru</a>
+      <nav class="nav" aria-label="Main"><a href="artworks.html">Artworks</a><a href="workshops.html">Workshops</a><a href="sound.html">Sound</a><a href="collabs.html">Collabs</a><a href="exhibitions.html">Exhibitions</a><a href="services.html">Services</a></nav>
+      <nav class="nav nav-end" aria-label="Secondary"><a class="shop-link" href="https://atomatlab.com" target="_blank" rel="noopener"><span class="dot col" aria-hidden="true"></span>Shop ↗</a><a href="biography.html">Bio</a><a href="contact.html">Contact</a></nav>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
     </div>
-  </main>
+  </div>
+</header>
+<div class="menu-panel" id="menu" hidden>
+  <div class="bar"><a class="brand" href="index.html">Denis Flueraru</a><button class="menu-btn menu-close" type="button" style="display:inline-flex">Close</button></div>
+  <nav aria-label="Menu"><a href="artworks.html">Artworks<span>01</span></a><a href="workshops.html">Workshops<span>02</span></a><a href="sound.html">Sound<span>03</span></a><a href="collabs.html">Collabs<span>04</span></a><a href="exhibitions.html">Exhibitions<span>05</span></a><a href="services.html">Services<span>06</span></a><a href="biography.html">Bio<span>07</span></a><a href="contact.html">Contact<span>08</span></a><a href="https://atomatlab.com" target="_blank" rel="noopener">Shop ↗<span>ATOMAT LAB</span></a></nav>
+  <div class="foot"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a></div>
+</div>
+<main id="main">
+<div class="wrap">
+  <section class="grid12 hero">
+    <h1 class="rise">an archive of ongoing <span class="hl">experiments</span></h1>
+    <div class="hero-side mono rise d1">
+      <p>Creative technologist working across sound, form and code — installations, instruments, workshops. Bucharest, RO.</p>
+      <div class="legend"><span class="cat"><span class="dot art" aria-hidden="true"></span>Artworks</span><span class="cat"><span class="dot ws" aria-hidden="true"></span>Workshops</span><span class="cat"><span class="dot col" aria-hidden="true"></span>Collabs</span><span class="cat"><span class="dot ex" aria-hidden="true"></span>Exhibitions</span><span class="cat"><span class="dot snd" aria-hidden="true"></span>Sound &amp; instruments</span></div>
+    </div>
+  </section>
 
-  <!-- Rotating Logo -->
-  <a href="https://atomatlab.com" target="_blank" class="spin-wrapper" aria-hidden="true">
-    <img id="rotating-logo" class="flip-image" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="logo">
-  </a>
+  <section class="grid12 featured" aria-labelledby="feat-title">
+    <a class="lead pair" href="heartbroken.html" aria-label="Heartbroken — view project"><figure class="frame " data-label="Heartbroken"><img src="media/heartbroken/heartbroken-4.jpg" alt="Heartbroken" fetchpriority="high" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Heartbroken"><img src="media/heartbroken/heartbroken-3.jpg" alt="Heartbroken" fetchpriority="high" decoding="async" referrerpolicy="no-referrer"></figure></a>
+    <div class="copy">
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div class="eyebrow mono"><span class="tag-new">NEW</span><span>Artwork — 2026</span></div>
+        <h2 id="feat-title">Heartbroken</h2>
+        <p>A modified medical stethoscope, fitted with an amplifier and a custom casing. The heartbeats it captures are passed through a distortion pedal and ultimately into a speaker.</p>
+      </div>
+      <dl class="facts"><dt>Materials</dt><dd>Stethoscope, amplifier, distortion pedal, speaker</dd><dt>Year</dt><dd>2026</dd></dl>
+      <a class="link-arrow mono" href="heartbroken.html">View project →</a>
+    </div>
+  </section>
 
-<script>
-  // Elements
-  const menu = document.getElementById('menu');
-  const overlay = document.getElementById('overlay');
-  const menuToggle = document.querySelector('.menu-toggle');
+  <section class="index" aria-labelledby="idx-title">
+    <div class="section-head">
+      <h2 id="idx-title">Index <span class="count"></span></h2>
+      <div class="filters" role="group" aria-label="Filter the index"><button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="art" aria-pressed="false"><span class="dot art" aria-hidden="true"></span>Artworks</button><button type="button" data-filter="ws" aria-pressed="false"><span class="dot ws" aria-hidden="true"></span>Workshops</button><button type="button" data-filter="col" aria-pressed="false"><span class="dot col" aria-hidden="true"></span>Collabs</button><button type="button" data-filter="ex" aria-pressed="false"><span class="dot ex" aria-hidden="true"></span>Exhibitions</button><button type="button" data-filter="snd" aria-pressed="false"><span class="dot snd" aria-hidden="true"></span>Sound</button></div>
+    </div>
+    <ol class="rows"><li class="row" data-cat="art"><a href="heartbroken.html"><span class="n mono">001</span><span class="t">Heartbroken <span class="tag-new">NEW</span></span><span class="y mono">2026</span><span class="cat mono"><span class="dot art" aria-hidden="true"></span>Artwork</span><span class="p mono muted">Sound object</span></a></li><li class="row" data-cat="col"><a href="collabs.html#caprices"><span class="n mono">002</span><span class="t">Caprices Festival</span><span class="y mono">2026</span><span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab</span><span class="p mono muted">Gstaad, CH</span></a></li><li class="row" data-cat="art"><a href="loopstudies.html"><span class="n mono">003</span><span class="t">Loop Studies I–IV</span><span class="y mono">2025</span><span class="cat mono"><span class="dot art" aria-hidden="true"></span>Artwork</span><span class="p mono muted">MAMŰ, Budapest</span></a></li><li class="row" data-cat="col"><a href="collabs.html#hush-glitches"><span class="n mono">004</span><span class="t">Hush Glitches</span><span class="y mono">2025</span><span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab</span><span class="p mono muted">National Dance College, Bucharest</span></a></li><li class="row" data-cat="col"><a href="collabs.html#yokogawa"><span class="n mono">005</span><span class="t">Yokogawa — Fresh Water Generator</span><span class="y mono">2025</span><span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab</span><span class="p mono muted">FabLab Bucharest</span></a></li><li class="row" data-cat="col"><a href="collabs.html#artists-play-with-time"><span class="n mono">006</span><span class="t">Artists Play with Time</span><span class="y mono">2025</span><span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab</span><span class="p mono muted">Performances across the EU</span></a></li><li class="row" data-cat="ex"><a href="exhibitions.html#horizont-2"><span class="n mono">007</span><span class="t">A Horizont Lényege II</span><span class="y mono">2025</span><span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition</span><span class="p mono muted">MAMŰ Társaság, Budapest</span></a></li><li class="row" data-cat="ex"><a href="exhibitions.html#main-point"><span class="n mono">008</span><span class="t">The Main Point of the Horizon</span><span class="y mono">2025</span><span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition</span><span class="p mono muted">Reduta Cultural Centre, Brașov</span></a></li><li class="row" data-cat="ws"><a href="workshops.html#sensors-haptics"><span class="n mono">009</span><span class="t">Sensors &amp; Haptics for Performative Arts</span><span class="y mono">2025</span><span class="cat mono"><span class="dot ws" aria-hidden="true"></span>Workshop</span><span class="p mono muted">NOD Makerspace, Bucharest</span></a></li><li class="row" data-cat="ws"><a href="workshops.html#start-pentru-tineri"><span class="n mono">010</span><span class="t">Start Pentru Tineri</span><span class="y mono">2025</span><span class="cat mono"><span class="dot ws" aria-hidden="true"></span>Workshop</span><span class="p mono muted">subStejar, Târgu Lăpuș</span></a></li><li class="row" data-cat="ws"><a href="workshops.html#contact-mics-preamps"><span class="n mono">011</span><span class="t">Contact Mics &amp; Preamps</span><span class="y mono">2025</span><span class="cat mono"><span class="dot ws" aria-hidden="true"></span>Workshop</span><span class="p mono muted">CAV Gallery, Bucharest</span></a></li><li class="row" data-cat="snd"><a href="https://atomatlab.com" target="_blank" rel="noopener"><span class="n mono">012</span><span class="t">FIELD5 — phantom-powered contact microphone</span><span class="y mono">2025</span><span class="cat mono"><span class="dot snd" aria-hidden="true"></span>Sound</span><span class="p mono muted">ATOMAT LAB ↗</span></a></li><li class="row" data-cat="art"><a href="beyondthenoisetheconcretespeaks.html"><span class="n mono">013</span><span class="t">Beyond the noise, the concrete speaks</span><span class="y mono">2024</span><span class="cat mono"><span class="dot art" aria-hidden="true"></span>Artwork</span><span class="p mono muted">WASP, Bucharest / Reduta, Brașov</span></a></li><li class="row" data-cat="art"><a href="solara.html"><span class="n mono">014</span><span class="t">Solara</span><span class="y mono">2024</span><span class="cat mono"><span class="dot art" aria-hidden="true"></span>Artwork</span><span class="p mono muted">Fusion: AIR, /SAC Bucharest</span></a></li><li class="row" data-cat="art"><a href="ruinedresonances.html"><span class="n mono">015</span><span class="t">Ruined Resonances</span><span class="y mono">2024</span><span class="cat mono"><span class="dot art" aria-hidden="true"></span>Artwork</span><span class="p mono muted">Thessaloniki</span></a></li><li class="row" data-cat="col"><a href="collabs.html#iqos"><span class="n mono">016</span><span class="t">Echoes of Presence × IQOS</span><span class="y mono">2024</span><span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab</span><span class="p mono muted">Romanian Design Week, Bucharest</span></a></li><li class="row" data-cat="col"><a href="collabs.html#eon"><span class="n mono">017</span><span class="t">E-ON Frosted Waves — Electric Castle</span><span class="y mono">2024</span><span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab</span><span class="p mono muted">Rizi Design, Cluj-Napoca</span></a></li><li class="row" data-cat="col"><a href="collabs.html#divaircity"><span class="n mono">018</span><span class="t">DivAirCity Bucharest</span><span class="y mono">2024</span><span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab</span><span class="p mono muted">Piațeta Italiană, Bucharest</span></a></li><li class="row" data-cat="ex"><a href="exhibitions.html#unbound-echoes"><span class="n mono">019</span><span class="t">Unbound Echoes</span><span class="y mono">2024</span><span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition</span><span class="p mono muted">WASP Studio, Bucharest</span></a></li><li class="row" data-cat="ex"><a href="exhibitions.html#fusion-air"><span class="n mono">020</span><span class="t">Fusion: AIR</span><span class="y mono">2024</span><span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition</span><span class="p mono muted">/SAC, Bucharest</span></a></li><li class="row" data-cat="ex"><a href="exhibitions.html#recycle-your-technology"><span class="n mono">021</span><span class="t">Recycle Your Technology</span><span class="y mono">2024</span><span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition</span><span class="p mono muted">Reșița, Arad, Brașov, Bucharest</span></a></li><li class="row" data-cat="ws"><a href="workshops.html#recycle-your-technology"><span class="n mono">022</span><span class="t">Recycle Your Technology</span><span class="y mono">2024</span><span class="cat mono"><span class="dot ws" aria-hidden="true"></span>Workshop</span><span class="p mono muted">Bucharest, Arad, Reșița, Brașov</span></a></li><li class="row" data-cat="snd"><a href="sound.html"><span class="n mono">023</span><span class="t">Unul Dintre Noi — theatre sound design</span><span class="y mono">2024</span><span class="cat mono"><span class="dot snd" aria-hidden="true"></span>Sound</span><span class="p mono muted">Teatrul de Comedie, Bucharest</span></a></li><li class="row" data-cat="snd"><a href="sound.html#lesel"><span class="n mono">024</span><span class="t">LESEL — OT001 EP</span><span class="y mono">2024</span><span class="cat mono"><span class="dot snd" aria-hidden="true"></span>Sound</span><span class="p mono muted">Music release</span></a></li><li class="row" data-cat="art"><a href="metabloom.html"><span class="n mono">025</span><span class="t">Metabloom</span><span class="y mono">2023</span><span class="cat mono"><span class="dot art" aria-hidden="true"></span>Artwork</span><span class="p mono muted">Installation</span></a></li><li class="row" data-cat="art"><a href="auraltopographies.html"><span class="n mono">026</span><span class="t">Aural Topographies</span><span class="y mono">2023</span><span class="cat mono"><span class="dot art" aria-hidden="true"></span>Artwork</span><span class="p mono muted">Interactive installation</span></a></li><li class="row" data-cat="art"><a href="interstatic.html"><span class="n mono">027</span><span class="t">Interstatic</span><span class="y mono">2023</span><span class="cat mono"><span class="dot art" aria-hidden="true"></span>Artwork</span><span class="p mono muted">Interactive installation</span></a></li><li class="row" data-cat="ex"><a href="exhibitions.html#gelato-machine"><span class="n mono">028</span><span class="t">Fabulating About a Gelato Machine</span><span class="y mono">2023</span><span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition</span><span class="p mono muted">Museum of Art, Brașov</span></a></li><li class="row" data-cat="ex"><a href="exhibitions.html#radar"><span class="n mono">029</span><span class="t">RADAR</span><span class="y mono">2023</span><span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition</span><span class="p mono muted">Magazinul București</span></a></li><li class="row" data-cat="ex"><a href="exhibitions.html#unliving-gallery"><span class="n mono">030</span><span class="t">Un/Living Gallery: A Tangible Art Manifesto</span><span class="y mono">2023</span><span class="cat mono"><span class="dot ex" aria-hidden="true"></span>Exhibition</span><span class="p mono muted">WASP, Bucharest</span></a></li><li class="row" data-cat="ws"><a href="workshops.html#nova"><span class="n mono">031</span><span class="t">Contact Microphones &amp; Composition</span><span class="y mono">2023</span><span class="cat mono"><span class="dot ws" aria-hidden="true"></span>Workshop</span><span class="p mono muted">NOVA Festival, Bucharest</span></a></li><li class="row" data-cat="ws"><a href="workshops.html#sonic-explorations"><span class="n mono">032</span><span class="t">Sonic Explorations — Pixels From a Future Past</span><span class="y mono">2023</span><span class="cat mono"><span class="dot ws" aria-hidden="true"></span>Workshop</span><span class="p mono muted">National Museum of Contemporary Art (MNAC), Bucharest</span></a></li><li class="row" data-cat="snd"><a href="https://atomatlab.com" target="_blank" rel="noopener"><span class="n mono">033</span><span class="t">ERT01 — electromagnetic microphone</span><span class="y mono">2023</span><span class="cat mono"><span class="dot snd" aria-hidden="true"></span>Sound</span><span class="p mono muted">ATOMAT LAB ↗</span></a></li><li class="row" data-cat="art"><a href="particlecomposer.html"><span class="n mono">034</span><span class="t">Particle Composer</span><span class="y mono">2022</span><span class="cat mono"><span class="dot art" aria-hidden="true"></span>Artwork</span><span class="p mono muted">Spotlight Festival, Bucharest</span></a></li><li class="row" data-cat="art"><a href="inversesurveillance.html"><span class="n mono">035</span><span class="t">Inverse: Surveillance</span><span class="y mono">2022</span><span class="cat mono"><span class="dot art" aria-hidden="true"></span>Artwork</span><span class="p mono muted">Interactive installation</span></a></li><li class="row" data-cat="art"><a href="rewind.html"><span class="n mono">036</span><span class="t">Rewind</span><span class="y mono">2022</span><span class="cat mono"><span class="dot art" aria-hidden="true"></span>Artwork</span><span class="p mono muted">Interactive audio installation</span></a></li><li class="row" data-cat="col"><a href="collabs.html#nos-utopies"><span class="n mono">037</span><span class="t">Nos Utopies</span><span class="y mono">2022</span><span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab</span><span class="p mono muted">Fête des Lumières × Goethe-Institut, Lyon</span></a></li></ol>
+  </section>
 
-  // Toggle menu open/close
-  function toggleMenu() {
-    menu.classList.toggle('open');
-    overlay.classList.toggle('active');
-  }
-
-  // Wire click events
-  menuToggle.addEventListener('click', toggleMenu);
-  overlay.addEventListener('click', toggleMenu);
-
-  // Rotating / flipping logo
-  const rotatingLogo = document.getElementById('rotating-logo');
-  const logos = [
-    'https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd',
-    'images/FIELD5.png'
-  ];
-  logos.forEach(src => { const img = new Image(); img.src = src; });
-
-  let logoIndex = 0;
-  setInterval(() => {
-    rotatingLogo.classList.toggle('flipped');
-    setTimeout(() => {
-      logoIndex = (logoIndex + 1) % logos.length;
-      rotatingLogo.src = logos[logoIndex];
-    }, 300);
-  }, 3000);
-
-  // Reveal-on-scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if(e.isIntersecting) e.target.classList.add('visible');
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(r => io.observe(r));
-</script>
-
+  <section aria-label="Selected artworks">
+    <div class="tiles"><a class="tile" href="interstatic.html"><figure class="frame " data-label="Interstatic"><img src="media/drive/interstatic/3.sm.jpg" alt="Interstatic" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><span class="cap"><strong>Interstatic</strong><span class="mono">2023</span></span></a><a class="tile" href="solara.html"><figure class="frame " data-label="Solara"><img src="media/drive/solara/solara7.sm.jpg" alt="Solara" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><span class="cap"><strong>Solara</strong><span class="mono">2024</span></span></a><a class="tile" href="loopstudies.html"><figure class="frame " data-label="Loop Studies I–IV"><img src="media/drive/loop-studies/loopstudiesi-iv.sm.jpg" alt="Loop Studies I–IV" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><span class="cap"><strong>Loop Studies I–IV</strong><span class="mono">2025</span></span></a></div>
+    <a class="link-arrow mono" href="artworks.html">All artworks →</a>
+  </section>
+</div>
+</main>
+<footer class="wrap">
+  <div class="grid12 site-foot">
+    <a class="mail" href="mailto:flueraru.denis@gmail.com">flueraru.denis@gmail.com</a>
+    <div class="links"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a><a class="mono" href="media/Denis_Flueraru_CV.pdf" target="_blank" rel="noopener">CV (PDF) ↓</a></div>
+    <div class="legal mono muted"><span>© Denis Flueraru — Bucharest, RO</span><span>sound · form · code</span></div>
+  </div>
+</footer>
+<a class="spin" href="https://atomatlab.com" target="_blank" rel="noopener" aria-label="ATOMAT LAB shop">
+  <img src="media/atomatlabrotating.png" data-alt="media/field5.png" alt="" referrerpolicy="no-referrer">
+</a>
+<div class="lb" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="top"><span class="lb-count"></span><button class="lb-close" type="button">Close ✕</button></div>
+  <div style="display:flex;min-height:0"><img alt=""></div>
+  <div class="bot"><button class="lb-prev" type="button" aria-label="Previous image">←</button><button class="lb-next" type="button" aria-label="Next image">→</button></div>
+</div>
 </body>
 </html>

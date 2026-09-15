@@ -1,296 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Artworks - Denis Flueraru</title>
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
-
-  <!-- Local font -->
-  <style>
-    @font-face {
-      font-family: 'Neue Kaine';
-      src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
-           url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-      font-weight: 100 900;
-      font-style: normal;
-      font-display: swap;
-    }
-    body, h1, h2, h3, h4, h5, h6, p, a, span, li {
-      font-family: 'Neue Kaine', sans-serif;
-    }
-
-    * {margin:0; padding:0; box-sizing:border-box;}
-    body { font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden; }
-
-    /* Header */
-    .header {
-      position:fixed; top:0; width:100%;
-      padding:25px 50px; display:flex;
-      justify-content:space-between; align-items:center;
-      background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-      z-index:100; pointer-events:none;
-    }
-    .header * { pointer-events:auto; }
-    .header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black; }
-    .header .section-title { font-weight:400; font-size:22px; color:black; margin:0 20px; }
-    .header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
-
-    /* Artworks grid */
-    .artworks-grid {
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:40px;
-      max-width:1400px;
-      margin:160px auto 80px auto;
-      padding:0 20px;
-    }
-    .artwork { position:relative; text-align:center; cursor:pointer; overflow:hidden; transition:transform 0.3s ease; }
-    .artwork img { width:100%; height:250px; object-fit:cover; border-radius:8px; transition:transform 0.3s ease; }
-    .artwork::after {
-      content:'';
-      position:absolute; top:0; left:0; width:100%; height:100%; border-radius:8px;
-      background-color:transparent; transition: background-color 0.3s ease;
-    }
-    .artwork:hover { transform:scale(1.05); }
-    .artworks-grid .artwork:nth-child(odd):hover::after { background-color: rgba(182,210,40,0.3); }
-    .artworks-grid .artwork:nth-child(even):hover::after { background-color: rgba(205,108,39,0.3); }
-    .artwork-title { margin-top:10px; font-weight:bold; font-size:18px; position:relative; z-index:1; }
-    a.artwork-link { text-decoration:none; color:inherit; }
-
-    /* Menu */
-    .menu {
-      position:fixed; top:0; right:-20%; width:20%; height:100%;
-      background-color:rgb(182,210,40); color:black;
-      transition:right 0.4s ease; z-index:200;
-      padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
-    }
-    .menu.open { right:0; }
-    .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
-    .menu a:hover { color:#cd6c27; }
-    .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
-
-    /* Overlay */
-    .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
-    .overlay.active { display:block; }
-
-    /* Rotating logo */
-    .spin-wrapper { 
-      position:fixed; bottom:20px; left:20px; 
-      width:120px; 
-      animation:spin 20s linear infinite; 
-      cursor:pointer; 
-      z-index:300; /* higher so it’s always visible */
-    }
-    .flip-image { 
-      width:100%; 
-      transition:transform 0.6s ease, opacity 0.3s ease; 
-      transform-style:preserve-3d; 
-    }
-    .flipped { transform:rotateY(180deg); }
-    .spin-wrapper.clicked { 
-      transform:scale(1.2) rotateZ(var(--angle,0deg)); 
-      transition:transform 0.3s ease; 
-    }
-    @keyframes spin { 
-      from { transform:rotateZ(0deg); } 
-      to { transform:rotateZ(360deg); } 
-    }
-
-    /* Responsive */
-@media (max-width: 768px) {
-  .menu {
-    width: 40%;      /* Menu takes more space on mobile */
-    right: -40%;     /* Hidden off-screen by same width */
-  }
-  .menu.open {
-    right: 0;        /* Slides in fully on mobile */
-  }
-}
-@media(max-width:768px){
-  .header { padding:15px; }
-  .header .logo { font-size:18px; }
-  .header .section-title { font-size:20px; }
-  .header .menu-toggle { font-size:18px; }
-  
-  .scroll-container { font-size:15px; gap:30px; padding:0 15px 80px; }
-  .update { flex-direction:column !important; gap:20px; }
-    .update img, .update .video-container {
-    width:85%;           /* smaller width for mobile */
-    aspect-ratio:1/1;    /* force square shape */
-    object-fit:cover;    /* crop and fill nicely */
-    border-radius:4px;
-    margin:0 auto;       /* center horizontally */
-  }
-  .update .text {
-    width:90%;           /* text slightly smaller */
-    text-align:center;   /* center text */
-  }
-    .update { 
-    flex-direction:column !important; 
-    gap:20px; 
-    align-items:center; /* center images and text */
-  }
-  
-  
-  .spin-wrapper { width:70px; bottom:10px; left:10px; }
-}
-
-    @media(max-width:1200px){ .artworks-grid { grid-template-columns:repeat(3,1fr); gap:30px; } }
-    @media(max-width:900px){ .artworks-grid { grid-template-columns:repeat(2,1fr); gap:25px; } }
-    @media(max-width:600px){
-      .artworks-grid { grid-template-columns:1fr; gap:20px; margin-top:140px; }
-      .header { padding:15px 20px; }
-      .spin-wrapper { width:80px; bottom:15px; left:15px; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artworks — Denis Flueraru</title>
+<meta name="description" content="Artworks by Denis Flueraru — interactive installations, sound objects and series, 2022–2026.">
+<meta property="og:title" content="Artworks — Denis Flueraru">
+<meta property="og:description" content="Artworks by Denis Flueraru — interactive installations, sound objects and series, 2022–2026.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#cfcec9">
+<link rel="icon" type="image/png" href="media/atomatfavicon.png">
+<link rel="canonical" href="https://denisflueraru.com/artworks.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
 </head>
 <body>
-
-  <!-- Header -->
-  <div class="header">
-    <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
-    <span class="section-title">Artworks</span>
-    <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
-  </div>
-
-  <!-- Overlay -->
-  <div class="overlay" id="overlay"></div>
-
-  <!-- Artworks grid -->
-  <div class="artworks-grid">
-     <a href="loopstudies.html" class="artwork-link">
-      <div class="artwork">
-        <img src="https://lh3.googleusercontent.com/d/1hnjBShd3nIb2AJuUqrQTyi_q4AZzpk--" alt="">
-        <div class="artwork-title">Loop Studies (2025)</div>
-      </div>
-    </a>
-    <a href="beyondthenoisetheconcretespeaks.html" class="artwork-link">
-      <div class="artwork">
-        <img src="images/Beyondthenoisetheconcretespeaks2.JPG" alt="">
-        <div class="artwork-title">Beyond the noise, the concrete speaks (2024)</div>
-      </div>
-    </a>
-    <a href="solara.html" class="artwork-link">
-      <div class="artwork">
-        <img src="images/SOLARA1.jpeg" alt="">
-        <div class="artwork-title">Solara (2024)</div>
-      </div>
-    </a>
-    <a href="ruinedresonances.html" class="artwork-link">
-      <div class="artwork">
-        <img src="images/RuinedResonances_SKG.jpeg" alt="">
-        <div class="artwork-title">Ruined Resonances (2024)</div>
-      </div>
-    </a>
-    <a href="metabloom.html" class="artwork-link">
-      <div class="artwork">
-        <img src="images/metabloom.png" alt="">
-        <div class="artwork-title">Metabloom (2023)</div>
-      </div>
-    </a>
-    <a href="auraltopographies.html" class="artwork-link">
-      <div class="artwork">
-        <img src="images/auraltopographies.jpeg" alt="">
-        <div class="artwork-title">Aural Topographies (2023)</div>
-      </div>
-    </a>
-    <a href="interstatic.html" class="artwork-link">
-      <div class="artwork">
-        <img src="images/interstatic.jpg" alt="">
-        <div class="artwork-title">Interstatic (2023)</div>
-      </div>
-    </a>
-    <a href="particlecomposer.html" class="artwork-link">
-      <div class="artwork">
-        <img src="images/PARTICLE1.jpg" alt="">
-        <div class="artwork-title">Particle Composer (2022)</div>
-      </div>
-    </a>
-    <a href="inversesurveillance.html" class="artwork-link">
-      <div class="artwork">
-        <img src="images/Inverse_Surveillance.jpg" alt="">
-        <div class="artwork-title">Inverse: Surveillance (2022)</div>
-      </div>
-    </a>
-    <a href="rewind.html" class="artwork-link">
-      <div class="artwork">
-        <img src="images/REWIND.jpg" alt="">
-        <div class="artwork-title">Rewind (2022)</div>
-      </div>
-    </a>
-  </div>
-
-<!-- Menu -->
-<div class="menu" id="menu">
-  <a href="artworks.html">Artworks</a>
-  <a href="workshops.html">Workshops</a>
-  <a href="sound.html">Sound</a>
-  <a href="collabs.html">Collabs</a>
-  <a href="exhibitions.html">Exhibitions</a> <!-- New link added -->
-  <div style="height:20px;"></div>
-  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
-  <a href="services.html">Services</a>
-  <div style="height:20px;"></div>
-  <a href="biography.html">Biography</a>
-  <a href="contact.html">Contact</a>
-</div>
-
-  <!-- Scripts -->
-  <script>
-    const menu = document.getElementById('menu');
-    const overlay = document.getElementById('overlay');
-
-    function toggleMenu(){
-      const isOpen = menu.classList.contains('open');
-      if(isOpen){
-        menu.classList.remove('open'); overlay.classList.remove('active');
-      } else {
-        menu.classList.add('open'); overlay.classList.add('active');
-      }
-    }
-
-    overlay.addEventListener('click', () => {
-      if(menu.classList.contains('open')){
-        menu.classList.remove('open'); overlay.classList.remove('active');
-      }
-    });
-  </script>
-
-  <!-- Rotating Logo -->
-  <a href="https://atomatlab.com" target="_blank">
-    <div class="spin-wrapper">
-      <img src="images/FIELD5.png" alt="Logo" class="flip-image" id="rotating-logo">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="index.html">Denis Flueraru</a>
+      <nav class="nav" aria-label="Main"><a href="artworks.html" aria-current="page">Artworks</a><a href="workshops.html">Workshops</a><a href="sound.html">Sound</a><a href="collabs.html">Collabs</a><a href="exhibitions.html">Exhibitions</a><a href="services.html">Services</a></nav>
+      <nav class="nav nav-end" aria-label="Secondary"><a class="shop-link" href="https://atomatlab.com" target="_blank" rel="noopener"><span class="dot col" aria-hidden="true"></span>Shop ↗</a><a href="biography.html">Bio</a><a href="contact.html">Contact</a></nav>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
     </div>
-  </a>
-
-  <script>
-// Rotating / flipping logo
-const rotatingLogo = document.getElementById("rotating-logo");
-const spinWrapper = document.querySelector(".spin-wrapper");
-const logos = [
-  "images/FIELD5.png",
-  "https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd"
-  
-];
-let index = 0;
-
-// Preload both images
-logos.forEach(src => { const img = new Image(); img.src = src; });
-
-setInterval(()=>{
-  rotatingLogo.classList.toggle("flipped");
-  setTimeout(()=>{
-    index = (index+1)%logos.length;
-    rotatingLogo.src = logos[index];
-  },300);
-},3000);
-
-spinWrapper.addEventListener("mousedown",()=>{spinWrapper.classList.add("clicked");});
-spinWrapper.addEventListener("mouseup",()=>{spinWrapper.classList.remove("clicked");});
-  </script>
-
+  </div>
+</header>
+<div class="menu-panel" id="menu" hidden>
+  <div class="bar"><a class="brand" href="index.html">Denis Flueraru</a><button class="menu-btn menu-close" type="button" style="display:inline-flex">Close</button></div>
+  <nav aria-label="Menu"><a href="artworks.html">Artworks<span>01</span></a><a href="workshops.html">Workshops<span>02</span></a><a href="sound.html">Sound<span>03</span></a><a href="collabs.html">Collabs<span>04</span></a><a href="exhibitions.html">Exhibitions<span>05</span></a><a href="services.html">Services<span>06</span></a><a href="biography.html">Bio<span>07</span></a><a href="contact.html">Contact<span>08</span></a><a href="https://atomatlab.com" target="_blank" rel="noopener">Shop ↗<span>ATOMAT LAB</span></a></nav>
+  <div class="foot"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a></div>
+</div>
+<main id="main">
+<div class="wrap">
+  <section class="grid12 page-head">
+    <h1 class="rise">Artworks</h1>
+    <div class="side mono rise d1"><p>11 works, 2022 — 2026.</p><p>Installations, sound objects and series.</p></div>
+  </section>
+</div><div class="wrap"><section class="tiles"><a class="tile" href="heartbroken.html"><figure class="frame " data-label="Heartbroken"><img src="media/heartbroken/heartbroken-4.jpg" alt="Heartbroken" fetchpriority="high" decoding="async" referrerpolicy="no-referrer"></figure><span class="cap"><strong>Heartbroken <span class=tag-new>NEW</span></strong><span class="mono">2026</span></span></a><a class="tile" href="loopstudies.html"><figure class="frame " data-label="Loop Studies I–IV"><img src="media/drive/loop-studies/loopstudiesi-iv.sm.jpg" alt="Loop Studies I–IV" fetchpriority="high" decoding="async" referrerpolicy="no-referrer"></figure><span class="cap"><strong>Loop Studies I–IV</strong><span class="mono">2025</span></span></a><a class="tile" href="beyondthenoisetheconcretespeaks.html"><figure class="frame " data-label="Beyond the noise, the concrete speaks"><img src="media/drive/beyond-the-noise/beyondbrasov3.sm.jpg" alt="Beyond the noise, the concrete speaks" fetchpriority="high" decoding="async" referrerpolicy="no-referrer"></figure><span class="cap"><strong>Beyond the noise, the concrete speaks</strong><span class="mono">2024</span></span></a><a class="tile" href="solara.html"><figure class="frame " data-label="Solara"><img src="media/drive/solara/solara7.sm.jpg" alt="Solara" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><span class="cap"><strong>Solara</strong><span class="mono">2024</span></span></a><a class="tile" href="ruinedresonances.html"><figure class="frame " data-label="Ruined Resonances"><img src="media/drive/ruined-resonances-skg/11.sm.jpg" alt="Ruined Resonances" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><span class="cap"><strong>Ruined Resonances</strong><span class="mono">2024</span></span></a><a class="tile" href="metabloom.html"><figure class="frame " data-label="Metabloom"><img src="media/drive/metabloom/2.sm.jpg" alt="Metabloom" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><span class="cap"><strong>Metabloom</strong><span class="mono">2023</span></span></a><a class="tile" href="auraltopographies.html"><figure class="frame " data-label="Aural Topographies"><video src="media/drive/aural-topographies/trt-aural.mp4" poster="media/drive/aural-topographies/trt-aural.sm.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Aural Topographies"></video></figure><span class="cap"><strong>Aural Topographies</strong><span class="mono">2023</span></span></a><a class="tile" href="interstatic.html"><figure class="frame " data-label="Interstatic"><img src="media/drive/interstatic/3.sm.jpg" alt="Interstatic" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><span class="cap"><strong>Interstatic</strong><span class="mono">2023</span></span></a><a class="tile" href="particlecomposer.html"><figure class="frame " data-label="Particle Composer"><img src="media/drive/particle-composer/3.sm.jpg" alt="Particle Composer" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><span class="cap"><strong>Particle Composer</strong><span class="mono">2022</span></span></a><a class="tile" href="inversesurveillance.html"><figure class="frame " data-label="Inverse: Surveillance"><img src="media/drive/inverse/inversesurveillance4.sm.jpg" alt="Inverse: Surveillance" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><span class="cap"><strong>Inverse: Surveillance</strong><span class="mono">2022</span></span></a><a class="tile" href="rewind.html"><figure class="frame " data-label="Rewind"><img src="media/drive/rewind/car1.sm.jpg" alt="Rewind" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><span class="cap"><strong>Rewind</strong><span class="mono">2022</span></span></a></section></div>
+</main>
+<footer class="wrap">
+  <div class="grid12 site-foot">
+    <a class="mail" href="mailto:flueraru.denis@gmail.com">flueraru.denis@gmail.com</a>
+    <div class="links"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a><a class="mono" href="media/Denis_Flueraru_CV.pdf" target="_blank" rel="noopener">CV (PDF) ↓</a></div>
+    <div class="legal mono muted"><span>© Denis Flueraru — Bucharest, RO</span><span>sound · form · code</span></div>
+  </div>
+</footer>
+<a class="spin" href="https://atomatlab.com" target="_blank" rel="noopener" aria-label="ATOMAT LAB shop">
+  <img src="media/atomatlabrotating.png" data-alt="media/field5.png" alt="" referrerpolicy="no-referrer">
+</a>
+<div class="lb" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="top"><span class="lb-count"></span><button class="lb-close" type="button">Close ✕</button></div>
+  <div style="display:flex;min-height:0"><img alt=""></div>
+  <div class="bot"><button class="lb-prev" type="button" aria-label="Previous image">←</button><button class="lb-next" type="button" aria-label="Next image">→</button></div>
+</div>
 </body>
 </html>

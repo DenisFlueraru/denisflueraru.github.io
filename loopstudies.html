@@ -1,228 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loop Studies - Denis Flueraru</title>
-<link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
-
-<style>
-/* Fonts */
-@font-face {
-  font-family: 'Neue Kaine';
-  src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
-       url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: '42dot';
-  src: url('fonts/42dot.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-body, h1, h2, p, a, span { font-family: 'Neue Kaine', sans-serif; }
-b { font-family: '42dot', sans-serif; }
-
-/* General */
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:white; color:black; overflow-x:hidden; }
-
-/* Header */
-.header {
-  position:fixed; top:0; width:100%;
-  padding:25px 50px;
-  display:flex; justify-content:space-between; align-items:center;
-  background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-  z-index:100;
-}
-.header .logo { font-weight:bold; font-size:20px; color:black; text-decoration:none; }
-.header .section-title { font-weight:600; font-size:22px; text-align:center; flex:1; }
-.header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
-
-/* Overlay & Menu */
-.overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); z-index:150; }
-.overlay.active { display:block; }
-
-.menu {
-  position:fixed; top:0; right:-20%; width:20%; height:100%;
-  background-color:rgb(182,210,40); color:black;
-  transition:right 0.4s ease; z-index:200;
-  padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
-}
-.menu.open { right:0; }
-.menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
-.menu a:hover { color:#cd6c27; }
-.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
-
-/* Main content */
-.main-content {
-  padding-top:140px;
-  max-width:1000px;
-  margin:0 auto;
-  padding-bottom:100px;
-  text-align:center;
-  padding-left:20px;
-  padding-right:20px;
-}
-.section-desc {
-  font-size:16px;
-  line-height:1.6;
-  margin-bottom:40px;
-}
-
-/* Hero Image */
-.hero-image {
-  width:100%;
-  max-width:1000px;
-  height:auto;
-  margin:0 auto 40px auto;
-  display:block;
-  border-radius:12px;
-  box-shadow:0 0 20px rgba(182,210,40,0.2);
-  transition:transform 0.3s ease;
-}
-.hero-image:hover { transform:scale(1.01); }
-
-/* Image Grid */
-.image-grid {
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin-bottom:50px;
-}
-.image-grid img {
-  width:100%;
-  border-radius:12px;
-  box-shadow:0 0 15px rgba(182,210,40,0.2);
-  transition:transform 0.3s ease, box-shadow 0.3s ease;
-}
-.image-grid img:hover {
-  transform:scale(1.03);
-  box-shadow:0 0 25px rgba(182,210,40,0.3);
-}
-
-/* Bandcamp embed */
-.bandcamp-wrapper {
-  display:flex;
-  justify-content:center;
-  margin-top:40px;
-}
-iframe {
-  border-radius:8px;
-  box-shadow:0 0 10px rgba(182,210,40,0.3);
-}
-
-/* Rotating logo */
-.spin-wrapper { position:fixed; bottom:15px; left:15px; width:100px; animation: spin 20s linear infinite; cursor:pointer; z-index:100; }
-.spin-wrapper img { width:100%; transition: transform 0.6s ease, opacity 0.3s ease; transform-style: preserve-3d; }
-@keyframes spin { from { transform:rotateZ(0deg); } to { transform:rotateZ(360deg); } }
-.flipped { transform: rotateY(180deg); }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .menu { width: 40%; right: -40%; }
-  .menu.open { right: 0; }
-  .image-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
-}
-@media(max-width:480px){
-  .image-grid { grid-template-columns:1fr; }
-  .spin-wrapper { width:70px; bottom:10px; left:10px; }
-}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loop Studies I–IV (2025) — Denis Flueraru</title>
+<meta name="description" content="Loop Studies is an ongoing series of works exploring the search for the perfect loop. Each piece is based on a 30-second musical loop created through a…">
+<meta property="og:title" content="Loop Studies I–IV (2025) — Denis Flueraru">
+<meta property="og:description" content="Loop Studies is an ongoing series of works exploring the search for the perfect loop. Each piece is based on a 30-second musical loop created through a…">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://denisflueraru.com/media/drive/loop-studies/loopstudiesi-iv.jpg">
+<meta name="theme-color" content="#cfcec9">
+<link rel="icon" type="image/png" href="media/atomatfavicon.png">
+<link rel="canonical" href="https://denisflueraru.com/loopstudies.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
 </head>
 <body>
-
-<!-- Overlay -->
-<div class="overlay" id="overlay"></div>
-
-<!-- Sliding Menu -->
-<div class="menu" id="menu">
-  <a href="artworks.html">Artworks</a>
-  <a href="workshops.html">Workshops</a>
-  <a href="sound.html">Sound</a>
-  <a href="collabs.html">Collabs</a>
-  <a href="exhibitions.html">Exhibitions</a>
-  <div style="height:20px;"></div>
-  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
-  <a href="services.html">Services</a>
-  <div style="height:20px;"></div>
-  <a href="biography.html">Biography</a>
-  <a href="contact.html">Contact</a>
-</div>
-
-<!-- Header -->
-<div class="header">
-  <a href="index.html" class="logo">Denis Flueraru</a>
-  <span class="section-title">Loop Studies</span>
-  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
-</div>
-
-<!-- Main Content -->
-<div class="main-content">
-  <!-- Hero Image -->
-  <img class="hero-image" src="https://lh3.googleusercontent.com/d/1hnjBShd3nIb2AJuUqrQTyi_q4AZzpk--" alt="Loop Studies Hero Image">
-
-  <p class="section-desc">
-    <b>Loop Studies</b> is an ongoing series of works exploring the search for the perfect loop. Each piece
-is based on a 30-second musical loop created through a blend of analog and digital tools,
-combined with field recordings. The sound is then translated into a plotted drawing, where
-frequencies unfold into arcs and gestures. A surface imprint accompanies each plot, anchoring
-the loop in the physical world and connecting the sonic to the tactile.
-
-  </p>
-
-  <!-- Image Grid -->
-  <div class="image-grid">
-    <img src="https://lh3.googleusercontent.com/d/1uRNN5-vI8pFjjcUf7SDuELM8gGhCujtV" alt="Loop Study 1">
-    <img src="https://lh3.googleusercontent.com/d/14j4oiF2yGQ8hyaAAsob5BfvhbxA6E_Z5" alt="Loop Study 2">
-    <img src="https://lh3.googleusercontent.com/d/1WC96n2S3AWlTVplU7QR0GmOzabP0nr0O" alt="Loop Study 3">
-    <img src="https://lh3.googleusercontent.com/d/1btcyhnjH-Pci6qoH7KTpqG3BYU_6AjCI" alt="Loop Study 4">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="index.html">Denis Flueraru</a>
+      <nav class="nav" aria-label="Main"><a href="artworks.html" aria-current="page">Artworks</a><a href="workshops.html">Workshops</a><a href="sound.html">Sound</a><a href="collabs.html">Collabs</a><a href="exhibitions.html">Exhibitions</a><a href="services.html">Services</a></nav>
+      <nav class="nav nav-end" aria-label="Secondary"><a class="shop-link" href="https://atomatlab.com" target="_blank" rel="noopener"><span class="dot col" aria-hidden="true"></span>Shop ↗</a><a href="biography.html">Bio</a><a href="contact.html">Contact</a></nav>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
   </div>
-  <p class="section-desc">
-    Sound visualisation generated in Processing from custom FFT analysis of recorded loops.
-
-
-  </p>
-    <p class="section-desc">
-You can listen to the loops in the player below
-
-  </p>
-  <!-- Bandcamp Embed -->
-  <div class="bandcamp-wrapper">
-    <iframe style="border: 0; width: 350px; height: 470px;" 
-      src="https://bandcamp.com/EmbeddedPlayer/album=696765584/size=large/bgcol=ffffff/linkcol=333333/tracklist=false/transparent=true/" seamless>
-      <a href="https://denisflueraru.bandcamp.com/album/loop-studies-i-iv">Loop Studies (I-IV) by Denis Flueraru</a>
-    </iframe>
-  </div>
+</header>
+<div class="menu-panel" id="menu" hidden>
+  <div class="bar"><a class="brand" href="index.html">Denis Flueraru</a><button class="menu-btn menu-close" type="button" style="display:inline-flex">Close</button></div>
+  <nav aria-label="Menu"><a href="artworks.html">Artworks<span>01</span></a><a href="workshops.html">Workshops<span>02</span></a><a href="sound.html">Sound<span>03</span></a><a href="collabs.html">Collabs<span>04</span></a><a href="exhibitions.html">Exhibitions<span>05</span></a><a href="services.html">Services<span>06</span></a><a href="biography.html">Bio<span>07</span></a><a href="contact.html">Contact<span>08</span></a><a href="https://atomatlab.com" target="_blank" rel="noopener">Shop ↗<span>ATOMAT LAB</span></a></nav>
+  <div class="foot"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a></div>
 </div>
-
-<!-- Rotating Logo -->
-<a href="https://atomatlab.com" target="_blank" class="spin-wrapper">
-  <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="Logo" id="rotatingLogo">
+<main id="main">
+<div class="wrap"><nav class="crumbs mono" aria-label="Breadcrumb"><a href="artworks.html">Artworks</a> <span>/</span> <span>002</span></nav>
+  <section class="grid12 page-head">
+    <h1 class="rise">Loop Studies I–IV</h1>
+    <div class="side mono rise d1"><div class="eyebrow"><span class="cat"><span class="dot art" aria-hidden="true"></span>Artwork — 2025</span></div></div>
+  </section>
+</div>
+<div class="wrap">
+  <div data-gallery>
+    <figure class="frame proj-hero" data-label="Loop Studies I–IV" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Loop Studies I–IV"><img src="media/drive/loop-studies/loopstudiesi-iv.jpg" data-full="media/drive/loop-studies/loopstudiesi-iv.jpg" alt="Loop Studies I–IV" fetchpriority="high" decoding="async" referrerpolicy="no-referrer"></figure>
+    <section class="grid12 proj-body">
+      <dl class="facts"><dt>Year</dt><dd>2025</dd><dt>Type</dt><dd>Ongoing series — sound, pen plots, surface imprints</dd><dt>Shown at</dt><dd>MAMŰ Társaság, Budapest</dd></dl>
+      <div class="text"><p>Loop Studies is an ongoing series of works exploring the search for the perfect loop. Each piece is based on a 30-second musical loop created through a blend of analog and digital tools, combined with field recordings.</p><p>The sound is then translated into a plotted drawing, where frequencies unfold into arcs and gestures. A surface imprint accompanies each plot, anchoring the loop in the physical world and connecting the sonic to the tactile.</p><p>Sound visualisation generated in Processing from custom FFT analysis of recorded loops.</p></div>
+    </section>
+    <section class="gallery two" data-gallery><figure class="frame " data-label="Loop Studies I–IV — image 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Loop Studies I–IV, view 1"><img src="media/drive/loop-studies/loopstudiesi.sm.jpg" data-full="media/drive/loop-studies/loopstudiesi.jpg" alt="Loop Studies I–IV, view 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Loop Studies I–IV — image 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Loop Studies I–IV, view 2"><img src="media/drive/loop-studies/loopstudiesii.sm.jpg" data-full="media/drive/loop-studies/loopstudiesii.jpg" alt="Loop Studies I–IV, view 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Loop Studies I–IV — image 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Loop Studies I–IV, view 3"><img src="media/drive/loop-studies/loopstudiesiii.sm.jpg" data-full="media/drive/loop-studies/loopstudiesiii.jpg" alt="Loop Studies I–IV, view 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Loop Studies I–IV — image 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Loop Studies I–IV, view 4"><img src="media/drive/loop-studies/loopstudiesiv.sm.jpg" data-full="media/drive/loop-studies/loopstudiesiv.jpg" alt="Loop Studies I–IV, view 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></section>
+  </div>
+  <section class="embeds"><div class="embed bc"><span class="mono">Listen to the loops — Loop Studies (I–IV)</span><iframe src="https://bandcamp.com/EmbeddedPlayer/album=696765584/size=large/bgcol=ffffff/linkcol=151515/tracklist=false/transparent=true/" title="Listen to the loops — Loop Studies (I–IV)" loading="lazy" seamless><a href="https://denisflueraru.bandcamp.com/album/loop-studies-i-iv">Listen to the loops — Loop Studies (I–IV)</a></iframe></div></section>
+  <nav class="prevnext mono" aria-label="More artworks">
+    <a href="heartbroken.html"><span>← Previous</span><strong>Heartbroken</strong></a>
+    <a href="beyondthenoisetheconcretespeaks.html"><span>Next →</span><strong>Beyond the noise, the concrete speaks</strong></a>
+  </nav>
+</div>
+</main>
+<footer class="wrap">
+  <div class="grid12 site-foot">
+    <a class="mail" href="mailto:flueraru.denis@gmail.com">flueraru.denis@gmail.com</a>
+    <div class="links"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a><a class="mono" href="media/Denis_Flueraru_CV.pdf" target="_blank" rel="noopener">CV (PDF) ↓</a></div>
+    <div class="legal mono muted"><span>© Denis Flueraru — Bucharest, RO</span><span>sound · form · code</span></div>
+  </div>
+</footer>
+<a class="spin" href="https://atomatlab.com" target="_blank" rel="noopener" aria-label="ATOMAT LAB shop">
+  <img src="media/atomatlabrotating.png" data-alt="media/field5.png" alt="" referrerpolicy="no-referrer">
 </a>
-
-<script>
-// Menu toggle
-const menu = document.getElementById('menu');
-const overlay = document.getElementById('overlay');
-function toggleMenu() {
-  const isOpen = menu.classList.contains('open');
-  if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); } 
-  else { menu.classList.add('open'); overlay.classList.add('active'); }
-}
-overlay.addEventListener('click',()=>{ 
-  if(menu.classList.contains('open')){
-    menu.classList.remove('open'); 
-    overlay.classList.remove('active'); 
-  }
-});
-
-// Rotating logo flip effect
-const rotatingLogo = document.getElementById("rotatingLogo");
-setInterval(()=>{ rotatingLogo.classList.toggle("flipped"); },3000);
-</script>
-
+<div class="lb" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="top"><span class="lb-count"></span><button class="lb-close" type="button">Close ✕</button></div>
+  <div style="display:flex;min-height:0"><img alt=""></div>
+  <div class="bot"><button class="lb-prev" type="button" aria-label="Previous image">←</button><button class="lb-next" type="button" aria-label="Next image">→</button></div>
+</div>
 </body>
 </html>

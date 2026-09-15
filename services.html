@@ -1,585 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Services - Denis Flueraru</title>
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
-
-<style>
-
-   
-@font-face {
-  font-family: 'Neue Kaine';
-  src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
-       url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: '42dot Sans';
-  src: url('fonts/42dot_sans/fonts/ttf/42dotSans-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-body, h1, h2, h3, h4, h5, h6, p, a, span, li {
-  font-family: 'Neue Kaine', sans-serif;
-}
-.highlight {
-  font-family: '42dot Sans', sans-serif;
-  font-weight: bold;
-}
-* {margin:0; padding:0; box-sizing:border-box;}
-body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden;}
-
-/* Header */
-.header {
-  position:fixed;
-  top:0; width:100%;
-  padding:25px 50px;
-  display:flex; justify-content:space-between; align-items:center;
-  background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-  z-index:100;
-}
-.header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
-.header .section-title { font-weight:400; font-size:28px; }
-.header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
-
-/* Service Drawer */
-.service-drawer {
-  position: relative;
-  max-width: 900px;
-  margin: 160px auto 100px auto;
-  padding:0 20px;
-  z-index:10;
-  display:flex;
-  flex-direction:column;
-  gap:25px;
-}
-
-.drawer-tab {
-  position: relative;
-  background: #b6d228; /* green */
-  color: black;
-  cursor:pointer;
-  border-radius:6px;
-  overflow:hidden;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.drawer-tab:hover { transform: scale(1.05); }
-
-.tab-title {
-  padding:25px 30px;
-  font-weight:bold;
-  font-size:22px;
-  transition: color 0.3s ease;
-}
-
-.drawer-tab:hover .tab-title { color:#cd6c27; } /* brown on hover */
-
-.tab-content {
-  max-height:0;
-  padding:0 30px;
-  font-size:18px;
-  line-height:1.5;
-  background:#fff;
-  overflow:hidden;
-  transition:max-height 0.3s ease, padding 0.3s ease;
-}
-
-.drawer-tab:hover .tab-content {
-  max-height:300px;
-  padding:20px 30px;
-}
-
-/* Background image */
-#hover-bg {
-  position: fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background-size: cover;
-  background-position: center;
-  opacity:0;
-  pointer-events:none;
-  transition: opacity 0.5s ease;
-  z-index:1;
-}
-
-/* Dim other tabs when hovered */
-.drawer-tab.hovered ~ .drawer-tab,
-.drawer-tab.hovered ~ .drawer-tab ~ .drawer-tab,
-.drawer-tab.hovered ~ .drawer-tab ~ .drawer-tab ~ .drawer-tab {
-  opacity:0.5;
-  transition: opacity 0.3s ease;
-}
-
-   /* Menu */
-    .menu {
-      position:fixed; top:0; right:-20%; width:20%; height:100%;
-      background-color:rgb(182,210,40); color:black;
-      transition:right 0.4s ease; z-index:1001;
-      padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
-    }
-    .menu.open { right:0; }
-    .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
-    .menu a:hover { color:#cd6c27; }
-    .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
-
-/* Overlay */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(128,128,128,0.2);
-  display: none;
-  z-index: 1000; /* BELOW menu but above header */
-}
-.overlay.active {
-  display: block;
-}
-
-/* Rotating logo */
-.spin-wrapper {
-  position: fixed; bottom:20px; left:20px;
-  width:120px;
-  animation: spin 20s linear infinite;
-  cursor:pointer;
-  z-index:100;
-}
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-.flip-image {
-  width:100%;
-  transition: transform 0.6s ease, opacity 0.3s ease;
-  transform-style: preserve-3d;
-}
-.flipped { transform: rotateY(180deg); }
-.spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .menu {
-    width: 40%;      /* Menu takes more space on mobile */
-    right: -40%;     /* Hidden off-screen by same width */
-  }
-  .menu.open {
-    right: 0;        /* Slides in fully on mobile */
-  }
-}
-@media(max-width:768px){
-  .header { padding:15px; }
-  .header .logo { font-size:18px; }
-  .header .section-title { font-size:20px; }
-  .header .menu-toggle { font-size:18px; }
-  
-  .scroll-container { font-size:15px; gap:30px; padding:0 15px 80px; }
-  .update { flex-direction:column !important; gap:20px; }
-    .update img, .update .video-container {
-    width:85%;           /* smaller width for mobile */
-    aspect-ratio:1/1;    /* force square shape */
-    object-fit:cover;    /* crop and fill nicely */
-    border-radius:4px;
-    margin:0 auto;       /* center horizontally */
-  }
-  .update .text {
-    width:90%;           /* text slightly smaller */
-    text-align:center;   /* center text */
-  }
-    .update { 
-    flex-direction:column !important; 
-    gap:20px; 
-    align-items:center; /* center images and text */
-  }
-  
-  
-  .spin-wrapper { width:70px; bottom:10px; left:10px; }
-}
-@media (max-width: 768px) {
-  .menu {
-    width: 40%;      /* Menu takes more space on mobile */
-    right: -40%;     /* Hidden off-screen by same width */
-  }
-  .menu.open {
-    right: 0;        /* Slides in fully on mobile */
-  }
-}
-@media(max-width:1000px){
-  .service-drawer { margin:140px 20px 80px 20px; }
-  .tab-title { font-size:20px; padding:20px 25px; }
-  .tab-content { font-size:16px; }
-}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services — Denis Flueraru</title>
+<meta name="description" content="Sound design, interactive development, 3D fabrication and creative project development by Denis Flueraru / ATOMAT LAB.">
+<meta property="og:title" content="Services — Denis Flueraru">
+<meta property="og:description" content="Sound design, interactive development, 3D fabrication and creative project development by Denis Flueraru / ATOMAT LAB.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#cfcec9">
+<link rel="icon" type="image/png" href="media/atomatfavicon.png">
+<link rel="canonical" href="https://denisflueraru.com/services.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
 </head>
 <body>
-
-<!-- Header -->
-<div class="header">
-  <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
-  <span class="section-title">Services</span>
-  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
-</div>
-
-<!-- Overlay -->
-<div class="overlay" id="overlay"></div>
-
-<!-- Background Image -->
-<div id="hover-bg"></div>
-
-<!-- Services -->
-<div class="service-drawer">
-
-<div class="drawer-tab" data-category="sound">
-  <div class="tab-title"><b>Sound Design & Composition</b></div>
-  <div class="tab-content">
-    Specializing in <span class="highlight">immersive soundscapes</span>, 
-    <span class="highlight">field recordings</span>, and 
-    <span class="highlight">generative audio</span>, projects include 
-    <span class="highlight">installations</span>, 
-    <span class="highlight">performances</span>, and 
-    <span class="highlight">bespoke compositions</span>. 
-    Audio is crafted using analog media such as tape, organic recordings but also digital tools like 
-    <span class="highlight">Ableton Live</span>, 
-    <span class="highlight">Pro Tools</span>, and 
-    <span class="highlight">Max MSP</span>, with integration of MIDI and live interaction systems involving both human and non-human controllers (buttons, sensors, or other interfaces). 
-    <span class="highlight">Voiceovers</span> and 
-    <span class="highlight">post-production</span> are developed for podcasts, films, jingles, commercials, and music productions, alongside 
-    <span class="highlight">live performances</span>, 
-    <span class="highlight">workshops</span>, and 
-    <span class="highlight">audio repair</span> to deliver polished, professional results. 
-    Additional explorations incorporate 
-    <span class="highlight">contact microphones</span>, 
-    <span class="highlight">electromagnetic sensors</span>, and 
-    <span class="highlight">custom instruments</span> for unique sonic experiences.
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="index.html">Denis Flueraru</a>
+      <nav class="nav" aria-label="Main"><a href="artworks.html">Artworks</a><a href="workshops.html">Workshops</a><a href="sound.html">Sound</a><a href="collabs.html">Collabs</a><a href="exhibitions.html">Exhibitions</a><a href="services.html" aria-current="page">Services</a></nav>
+      <nav class="nav nav-end" aria-label="Secondary"><a class="shop-link" href="https://atomatlab.com" target="_blank" rel="noopener"><span class="dot col" aria-hidden="true"></span>Shop ↗</a><a href="biography.html">Bio</a><a href="contact.html">Contact</a></nav>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
   </div>
+</header>
+<div class="menu-panel" id="menu" hidden>
+  <div class="bar"><a class="brand" href="index.html">Denis Flueraru</a><button class="menu-btn menu-close" type="button" style="display:inline-flex">Close</button></div>
+  <nav aria-label="Menu"><a href="artworks.html">Artworks<span>01</span></a><a href="workshops.html">Workshops<span>02</span></a><a href="sound.html">Sound<span>03</span></a><a href="collabs.html">Collabs<span>04</span></a><a href="exhibitions.html">Exhibitions<span>05</span></a><a href="services.html">Services<span>06</span></a><a href="biography.html">Bio<span>07</span></a><a href="contact.html">Contact<span>08</span></a><a href="https://atomatlab.com" target="_blank" rel="noopener">Shop ↗<span>ATOMAT LAB</span></a></nav>
+  <div class="foot"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a></div>
 </div>
-
-  <div class="drawer-tab" data-category="interactivity">
-  <div class="tab-title"><b>Interactive & Software Development</b></div>
-  <div class="tab-content">
-    <span class="highlight">Dynamic interactive experiences</span> are created through a combination of 
-    <span class="highlight">software development</span>, 
-    <span class="highlight">sensor integration</span>, and 
-    <span class="highlight">generative algorithms</span>. 
-    Tools and languages include 
-    <span class="highlight">C</span>, 
-    <span class="highlight">JavaScript</span>, 
-    <span class="highlight">Processing</span>, 
-    <span class="highlight">Arduino IDE</span>, 
-    <span class="highlight">Max MSP</span>, and 
-    <span class="highlight">machine learning interfaces</span> for human recognition, gesture, and environmental interaction. 
-    Projects span 
-    <span class="highlight">responsive installations</span>, 
-    <span class="highlight">interactive performances</span>, and 
-    <span class="highlight">experimental systems</span>, with a focus on 
-    <span class="highlight">real-time audio-visual feedback</span> and 
-    <span class="highlight">immersive engagement</span>.
+<main id="main">
+<div class="wrap">
+  <section class="grid12 page-head">
+    <h1 class="rise">Services</h1>
+    <div class="side mono rise d1"><p>Available for commissions, productions and workshops.</p><a class="link-arrow" href="mailto:contact@atomatlab.com">contact@atomatlab.com →</a></div>
+  </section>
+</div><div class="wrap"><section class="grid12 service">
+  <span class="n mono">01</span>
+  <h2>Sound Design &amp; Composition</h2>
+  <div class="body"><p>Immersive soundscapes, field recordings and generative audio for installations, performances and bespoke compositions. Audio is crafted with analog media such as tape and organic recordings, and with digital tools, integrating MIDI and live interaction systems driven by human and non-human controllers — buttons, sensors and other interfaces. Voiceovers and post-production for podcasts, films, jingles, commercials and music, alongside live performances, workshops and audio repair. Further explorations use contact microphones, electromagnetic sensors and custom instruments.</p><ul class="chips"><li>Ableton Live</li><li>Pro Tools</li><li>Max MSP</li><li>Field recording</li><li>Voiceover</li><li>Post-production</li><li>Custom instruments</li></ul></div>
+</section><section class="grid12 service">
+  <span class="n mono">02</span>
+  <h2>Interactive &amp; Software Development</h2>
+  <div class="body"><p>Dynamic interactive experiences built through software development, sensor integration and generative algorithms, with machine-learning interfaces for human recognition, gesture and environmental interaction. Projects span responsive installations, interactive performances and experimental systems, with a focus on real-time audio-visual feedback and immersive engagement.</p><ul class="chips"><li>C</li><li>JavaScript</li><li>Processing</li><li>Arduino</li><li>Max MSP</li><li>Machine learning</li><li>Sensors</li></ul></div>
+</section><section class="grid12 service">
+  <span class="n mono">03</span>
+  <h2>3D Design &amp; Fabrication</h2>
+  <div class="body"><p>Models are created digitally for visualisation, planning and production. Physical prototypes and installations are realised through 3D printing, laser cutting, CNC machining and hands-on craftsmanship, then painted and finished so the conceptual, technical and aesthetic sides come together.</p><ul class="chips"><li>Rhinoceros 3D</li><li>Blender</li><li>3D printing</li><li>Laser cutting</li><li>CNC</li><li>Finishing</li></ul></div>
+</section><section class="grid12 service">
+  <span class="n mono">04</span>
+  <h2>Creative &amp; Project Development</h2>
+  <div class="body"><p>Ideas are turned into tangible projects through sketching, research and iterative brainstorming, aligned with the client’s goals or the project’s objectives. Structured planning balances conceptual exploration with practical execution, and collaboration keeps projects moving from initial vision to realised outcome.</p><ul class="chips"><li>Concept</li><li>Research</li><li>Planning</li><li>EU-funded project coordination</li><li>Teamwork</li></ul></div>
+</section><p class="mono" style="padding-top:32px">If you’d like to collaborate, write to <a class="link-arrow" href="mailto:contact@atomatlab.com">contact@atomatlab.com</a></p></div>
+</main>
+<footer class="wrap">
+  <div class="grid12 site-foot">
+    <a class="mail" href="mailto:flueraru.denis@gmail.com">flueraru.denis@gmail.com</a>
+    <div class="links"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a><a class="mono" href="media/Denis_Flueraru_CV.pdf" target="_blank" rel="noopener">CV (PDF) ↓</a></div>
+    <div class="legal mono muted"><span>© Denis Flueraru — Bucharest, RO</span><span>sound · form · code</span></div>
   </div>
-</div>
-
- <div class="drawer-tab" data-category="3d">
-  <div class="tab-title"><b>3D Design & Fabrication</b></div>
-  <div class="tab-content">
-    Models are created digitally in 
-    <span class="highlight">Rhinoceros 3D</span> and 
-    <span class="highlight">Blender</span> for visualization, planning, and production. 
-    Physical prototypes and installations are realized through 
-    <span class="highlight">3D printing</span>, 
-    <span class="highlight">laser cutting</span>, 
-    <span class="highlight">CNC machining</span>, and 
-    <span class="highlight">hands-on craftsmanship</span>. 
-    <span class="highlight">Painting</span>, 
-    <span class="highlight">finishing</span>, and 
-    <span class="highlight">other interdisciplinary methods</span> are applied to refine the work, achieving a cohesive final result that integrates conceptual, technical, and aesthetic considerations.
-  </div>
-</div>
-
- <div class="drawer-tab" data-category="creative">
-  <div class="tab-title"><b>Creative & Project Development</b></div>
-  <div class="tab-content">
-    Ideas are transformed into tangible projects through 
-    <span class="highlight">sketching</span>, 
-    <span class="highlight">research</span>, and 
-    <span class="highlight">iterative brainstorming</span>, aligning with the client’s goals or the project’s objectives. 
-    Creative strategies and structured planning guide the development process, balancing 
-    <span class="highlight">conceptual exploration</span> with 
-    <span class="highlight">practical execution</span>. 
-    <span class="highlight">Collaboration</span> is central, fostering effective 
-    <span class="highlight">teamwork</span>, 
-    <span class="highlight">interdisciplinary problem solving</span>, and 
-    <span class="highlight">adaptive approaches</span> that ensure projects evolve from 
-    <span class="highlight">initial vision</span> to 
-    <span class="highlight">realized outcomes</span>.
-  </div>
-</div>
-
-</div>
-
-<!-- Call-to-action message -->
-<div style="text-align:center; margin:50px 20px; font-size:18px; color:#000000; font-weight:600;">
-  If you’d like to collaborate don’t hesitate to contact me at 
-  <a href="mailto:contact@atomatlab.com" style="color:#cd6c27; text-decoration:none;">contact@atomatlab.com</a>.
-</div>
-
-
-<!-- Rotating Logo -->
-<a href="https://atomatlab.com" target="_blank" class="spin-wrapper">
-  <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="Logo" class="flip-image" id="rotating-logo">
+</footer>
+<a class="spin" href="https://atomatlab.com" target="_blank" rel="noopener" aria-label="ATOMAT LAB shop">
+  <img src="media/atomatlabrotating.png" data-alt="media/field5.png" alt="" referrerpolicy="no-referrer">
 </a>
-
-
-<!-- Menu -->
-<div class="menu" id="menu">
-  <a href="artworks.html">Artworks</a>
-  <a href="workshops.html">Workshops</a>
-  <a href="sound.html">Sound</a>
-  <a href="collabs.html">Collabs</a>
-  <a href="exhibitions.html">Exhibitions</a> <!-- New link added -->
-  <div style="height:20px;"></div>
-  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
-  <a href="services.html">Services</a>
-  <div style="height:20px;"></div>
-  <a href="biography.html">Biography</a>
-  <a href="contact.html">Contact</a>
+<div class="lb" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="top"><span class="lb-count"></span><button class="lb-close" type="button">Close ✕</button></div>
+  <div style="display:flex;min-height:0"><img alt=""></div>
+  <div class="bot"><button class="lb-prev" type="button" aria-label="Previous image">←</button><button class="lb-next" type="button" aria-label="Next image">→</button></div>
 </div>
-
-
-<script>
-// Menu toggle
-const menu = document.getElementById('menu');
-const overlay = document.getElementById('overlay');
-function toggleMenu(){
-  const isOpen = menu.classList.contains('open');
-  if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); }
-  else{ menu.classList.add('open'); overlay.classList.add('active'); }
-}
-overlay.addEventListener('click', () => { if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); } });
-
-// Rotating / flipping logo
-
-
-
-const rotatingLogo = document.getElementById("rotating-logo");
-const spinWrapper = document.querySelector(".spin-wrapper");
-const logos = ["https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd","images/FIELD5.png"];
-let index = 0;
-setInterval(()=>{
-  rotatingLogo.classList.toggle("flipped");
-  setTimeout(()=>{
-    index = (index+1)%logos.length;
-    rotatingLogo.src = logos[index];
-  },300);
-},3000);
-spinWrapper.addEventListener("mousedown",()=>{spinWrapper.classList.add("clicked");});
-spinWrapper.addEventListener("mouseup",()=>{spinWrapper.classList.remove("clicked");});
-
-// Hover background logic
-const hoverBg = document.getElementById("hover-bg");
-const tabs = document.querySelectorAll(".drawer-tab");
-
-// Replace these arrays with your 10 images per category
-const images = {
-  sound: [
-  "https://lh3.googleusercontent.com/d/1gl6WIVJimOKKd6dfDH71fmu6oFkRFxvo",
-  "https://lh3.googleusercontent.com/d/15FZXv3d8NQbw2AVUIswAfx7pvwP7y4RT",
-  "https://lh3.googleusercontent.com/d/10erTBCAkt2Pu-cJxk4YPIOELYZEGW_ZJ",
-  "https://lh3.googleusercontent.com/d/1nhJJRg2ATPdx4K_RrooD1evzj4ONrVr2",
-  "https://lh3.googleusercontent.com/d/16knwLXZyE_sP5c6mTdMIteC6B41C-wAJ",
-  "https://lh3.googleusercontent.com/d/1ibB6o8mdpOzlEji-ZZ3jw4WzHvimQx79",
-  "https://lh3.googleusercontent.com/d/1wWogBzuipC4RXgJAvrrQATOZsXUXG_z-",
-  "https://lh3.googleusercontent.com/d/1mb4H1BFoS8t3vdhA7D-tEnd9K1Rw8p3f",
-  "https://lh3.googleusercontent.com/d/1Kef49vGuW8WJBckgN5D7LumlSh1ZxyEC",
-  "https://lh3.googleusercontent.com/d/1rZOV5jt4Rv6zJUNe7FdnKsj6X1t6AnI3",
-  "https://lh3.googleusercontent.com/d/1auEZ6xIf7vMhQyhGtbVTIjCrw7w5qrzO",
-  "https://lh3.googleusercontent.com/d/1PY9WBULEDdRplTp0qQzmTvHzRPo2ayJ9",
-  "https://lh3.googleusercontent.com/d/1ENydqdObfXrt1e3QPnx9cROaJhVTpdgU"
-],
-  interactivity: [
-  "https://lh3.googleusercontent.com/d/1T3F9rHQYiv25LiiA6dsLEcXZUzTARVtq",
-  "https://lh3.googleusercontent.com/d/1fmthwRjIS1TVinKvRqGpIlTCVXWXy5KQ",
-  "https://lh3.googleusercontent.com/d/1wASpQpMiwSu79kkEccuPMjYdehIeLge_",
-  "https://lh3.googleusercontent.com/d/1d3t07aXBTGdSnTi0T_QGNUMskdFhAv0G",
-  "https://lh3.googleusercontent.com/d/1rSJR4qGFiKUZj3gOUydcE8NMcFuUNwZ3",
-  "https://lh3.googleusercontent.com/d/1GCUsPC-yOVWesfPFBxLrljTAOy8jYxni",
-  "https://lh3.googleusercontent.com/d/1NJpVUDuMjPFVXSxHPn-NqBFYoSk7AiZA",
-  "https://lh3.googleusercontent.com/d/1nhNmXUcLOO5NlX9h5qxbOphmIYcSeuoe",
-  "https://lh3.googleusercontent.com/d/125y_qaFl6s-0HFJBJ3CSdkzcIA0W191y",
-  "https://lh3.googleusercontent.com/d/1keY83DTGN-6tnHV5cHiLS1TsfzudqQ9x"
-],
-  "3d": [
-  "https://lh3.googleusercontent.com/d/192aouyTYUJpJtabHEjiucxQO3RWyE6fM",
-  "https://lh3.googleusercontent.com/d/1kcEeua5M2p6NE39UYJM_2bIQrmoZGi8g",
-  "https://lh3.googleusercontent.com/d/1o3BRzAVKLHKUkcmaSM0HyPyPP8Vlp8N0",
-  "https://lh3.googleusercontent.com/d/1pGMrS7pJ51mJOHrZ9AEDnEP9zBhpksgE",
-  "https://lh3.googleusercontent.com/d/1gXoel-qZPkIFDmvH7qixi_lRK7VIXX8o",
-  "https://lh3.googleusercontent.com/d/1kRjuGEFNaT-M-bkuTsEQyb9w-2GYiEL7",
-  "https://lh3.googleusercontent.com/d/1Wlx7bAZtZ1f70S1bxOdYbAWJag7XUIgx",
-  "https://lh3.googleusercontent.com/d/1BsBXHFvgwpGkuhKr18x_-ySNQ0umv5ky",
-  "https://lh3.googleusercontent.com/d/1eZzHlJaB8i2LnX3BCeUtNB6QF7-kpugl",
-  "https://lh3.googleusercontent.com/d/1y5DDdOxvwzUUNCdiVIPZ8PxJZgyTmf9-",
-  "https://lh3.googleusercontent.com/d/1QHOZKlgwxwp5qxpS795B1Im7nEDchLCG",
-  "https://lh3.googleusercontent.com/d/1NzY-MhJC9-EYM2sLMHiyN8tPfRlM-LuT"
-],
-  creative: [
-  "https://lh3.googleusercontent.com/d/15iA5yTDTjSndJ2o88Wem7FuJZ3gk_3d5",
-  "https://lh3.googleusercontent.com/d/10HoiFCV-70fovjpotw95Uqhwh3KPzN28",
-  "https://lh3.googleusercontent.com/d/1thOnUIvioqiS6Kziv_F2MRgcD8cFgqBt",
-  "https://lh3.googleusercontent.com/d/1fa9O3J6rgA4k_Or6Jtr0dQIhVBtfeosW",
-  "https://lh3.googleusercontent.com/d/1LEiXxf4bdPvVzSeHcOKa9OhqxAQL-Mwy",
-  "https://lh3.googleusercontent.com/d/1RY3SCwcAkjEMnwtge39TS2tMNEBdCYHW",
-  "https://lh3.googleusercontent.com/d/1xtqEPmB7AIFMeGN6-WT1t022q7GyjCH8",
-  "https://lh3.googleusercontent.com/d/10rMmI1Q8lEUS3IGQ_uC9dX0_AxM-M2P8",
-  "https://lh3.googleusercontent.com/d/1aY0bhwYIOyHKwYk9Yjdml3POLkZAMMxS",
-  "https://lh3.googleusercontent.com/d/1mzT0_1w0blDHsZaRxCZjjUfxeRgS0Qtl"
-],
-};
-
-const imageIndex = { sound:0, interactivity:0, "3d":0, creative:0 };
-
-tabs.forEach(tab=>{
-  tab.addEventListener("mouseenter", ()=>{
-    const cat = tab.dataset.category;
-    hoverBg.style.backgroundImage = `url(${images[cat][imageIndex[cat]]})`;
-    hoverBg.style.opacity = 0.5;
-    imageIndex[cat] = (imageIndex[cat]+1)%images[cat].length;
-
-    tabs.forEach(t=>{ if(t!==tab) t.style.opacity="0.5"; });
-    tab.classList.add("hovered");
-  });
-  tab.addEventListener("mouseleave", ()=>{
-    hoverBg.style.opacity = 0;
-    tabs.forEach(t=>t.style.opacity="1");
-    tab.classList.remove("hovered");
-  });
-});
-
-// Hover background and dropdown for manual hover
-tabs.forEach(tab => {
-  tab.addEventListener("mouseenter", () => {
-    // Stop idle mode while interacting
-    stopIdleHover();
-
-    const cat = tab.dataset.category;
-    hoverBg.style.backgroundImage = `url(${images[cat][imageIndex[cat]]})`;
-    hoverBg.style.opacity = 0.5;
-    imageIndex[cat] = (imageIndex[cat]+1) % images[cat].length;
-
-    tabs.forEach(t => { if(t!==tab) t.style.opacity="0.5"; });
-    tab.classList.add("hovered");
-
-    // Open tab content
-    tab.querySelector(".tab-content").style.maxHeight = "300px";
-    tab.querySelector(".tab-content").style.padding = "20px 30px";
-  });
-
-  tab.addEventListener("mouseleave", () => {
-    hoverBg.style.opacity = 0;
-    tabs.forEach(t => t.style.opacity="1");
-    tab.classList.remove("hovered");
-
-    // Close tab content
-    tab.querySelector(".tab-content").style.maxHeight = "0";
-    tab.querySelector(".tab-content").style.padding = "0 30px";
-    
-    // Restart idle mode after 4 seconds of no movement
-    startIdleAfterDelay();
-  });
-});
-
-let idleInterval;
-let idleTimeout;
-let idleActive = true;
-let lastMouseTime = Date.now();
-
-// Track mouse movement anywhere
-document.addEventListener("mousemove", () => {
-  lastMouseTime = Date.now();
-  idleActive = false;
-  clearInterval(idleInterval);
-  clearTimeout(idleTimeout);
-  startIdleAfterDelay();
-});
-
-// Start idle after 4 seconds of no mouse movement
-function startIdleAfterDelay() {
-  clearTimeout(idleTimeout);
-  idleTimeout = setTimeout(() => {
-    idleActive = true;
-    startIdleHover();
-  }, 4000);
-}
-
-// Idle hover function
-function startIdleHover() {
-  idleInterval = setInterval(() => {
-    if (!idleActive) return;
-
-    const randomTab = tabs[Math.floor(Math.random() * tabs.length)];
-    const cat = randomTab.dataset.category;
-
-    // Show background image
-    hoverBg.style.backgroundImage = `url(${images[cat][imageIndex[cat]]})`;
-    hoverBg.style.opacity = 0.5;
-    imageIndex[cat] = (imageIndex[cat]+1) % images[cat].length;
-
-    // Dim other tabs
-    tabs.forEach(t => { if(t!==randomTab) t.style.opacity="0.5"; });
-    randomTab.classList.add("hovered");
-
-    // Open tab content
-    randomTab.querySelector(".tab-content").style.maxHeight = "300px";
-    randomTab.querySelector(".tab-content").style.padding = "20px 30px";
-
-    // Hide after 2s
-    setTimeout(() => {
-      hoverBg.style.opacity = 0;
-      tabs.forEach(t => t.style.opacity="1");
-      randomTab.classList.remove("hovered");
-      randomTab.querySelector(".tab-content").style.maxHeight = "0";
-      randomTab.querySelector(".tab-content").style.padding = "0 30px";
-    }, 2000);
-
-  }, 4000);
-}
-
-// Manual hover still works
-tabs.forEach(tab => {
-  tab.addEventListener("mouseenter", () => {
-    idleActive = false; // stop idle
-    clearInterval(idleInterval);
-    clearTimeout(idleTimeout);
-
-    const cat = tab.dataset.category;
-    hoverBg.style.backgroundImage = `url(${images[cat][imageIndex[cat]]})`;
-    hoverBg.style.opacity = 0.5;
-    imageIndex[cat] = (imageIndex[cat]+1) % images[cat].length;
-
-    tabs.forEach(t => { if(t!==tab) t.style.opacity="0.5"; });
-    tab.classList.add("hovered");
-
-    tab.querySelector(".tab-content").style.maxHeight = "300px";
-    tab.querySelector(".tab-content").style.padding = "20px 30px";
-  });
-
-  tab.addEventListener("mouseleave", () => {
-    hoverBg.style.opacity = 0;
-    tabs.forEach(t => t.style.opacity="1");
-    tab.classList.remove("hovered");
-
-    tab.querySelector(".tab-content").style.maxHeight = "0";
-    tab.querySelector(".tab-content").style.padding = "0 30px";
-
-    startIdleAfterDelay();
-  });
-});
-
-// Initial idle start
-startIdleAfterDelay();
-
-</script>
-
 </body>
 </html>

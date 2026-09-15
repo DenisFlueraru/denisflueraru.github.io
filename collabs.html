@@ -1,405 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Collabs - Denis Flueraru</title>
-
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
-
-<style>
-@font-face {
-  font-family: 'Neue Kaine';
-  src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
-       url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-body, h1, h2, p, a { font-family: 'Neue Kaine', sans-serif; }
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:white; overflow-x:hidden; }
-
-/* Rotating logo */
-.spin-wrapper { 
-  position:fixed; 
-  bottom:15px; 
-  left:15px; 
-  width:100px; 
-  animation:spin 20s linear infinite; 
-  cursor:pointer; 
-  z-index:300;
-}
-.flip-image { 
-  width:100%; 
-  transition:transform 0.6s ease, opacity 0.3s ease; 
-  transform-style:preserve-3d; 
-}
-.flipped { transform:rotateY(180deg); }
-.spin-wrapper.clicked { 
-  transform:scale(1.2); 
-  transition:transform 0.3s ease; 
-}
-@keyframes spin { 
-  from { transform:rotateZ(0deg); } 
-  to { transform:rotateZ(360deg); } 
-}
-
-/* Header */
-.header {
-  position:fixed; top:0; width:100%;
-  padding:25px 50px;
-  display:flex; justify-content:space-between; align-items:center;
-  background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-  z-index:100;
-}
-.header .logo { font-weight:bold; font-size:20px; text-decoration:none; color:black; }
-.header .section-title { font-size:28px; font-weight:400; }
-.header .menu-toggle { font-size:22px; font-weight:bold; cursor:pointer; }
-
-/* Page container */
-.collabs {
-  max-width:1400px;
-  margin:160px auto 80px;
-  padding:0 20px;
-  display:flex;
-  flex-direction:column;
-  gap:100px;
-}
-
-/* Collab row */
-.collab {
-  display:grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap:30px;
-  align-items:center;
-}
-.collab:nth-child(even) { grid-template-columns: 1fr 1fr 2fr; }
-
-/* Images */
-.collab-main img {
-  width:100%;
-  height:280px;
-  object-fit:cover;
-  border-radius:8px;
-  cursor:pointer;
-  transition:transform 0.3s ease;
-}
-.collab-main img:hover { transform:scale(1.03); }
-
-.collab-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-.collab-grid img {
-  width:100%;
-  height:140px;
-  object-fit:cover;
-  border-radius:6px;
-  cursor:pointer;
-  transition:transform 0.3s ease;
-}
-.collab-grid img:hover { transform:scale(1.05); }
-
-/* Text */
-.collab-text { font-size:16px; line-height:1.5; }
-.collab-text h2 { font-size:20px; margin-bottom:10px; font-weight:bold; }
-.collab-text p { margin-bottom:10px; }
-
-/* Modal */
-#modal {
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.8);
-  justify-content:center;
-  align-items:center;
-  z-index:300;
-}
-#modal img { max-width:90%; max-height:90%; border-radius:8px; }
-#modal .close {
-  position:absolute;
-  top:20px;
-  right:30px;
-  font-size:40px;
-  color:white;
-  cursor:pointer;
-}
-
-/* Menu */
-.menu {
-  position:fixed; top:0; right:-20%;
-  width:20%; height:100%;
-  background:rgb(182,210,40);
-  padding:50px 20px;
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-  font-size:20px;
-  transition:right 0.4s ease;
-  z-index:200;
-}
-.menu.open { right:0; }
-.menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
-.menu a:hover { color:#cd6c27; }
-.menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
-
-/* Overlay */
-.overlay {
-  display:none;
-  position:fixed;
-  top:0; left:0; width:100%; height:100%;
-  background: rgba(0,0,0,0.4);
-  z-index:150;
-}
-.overlay.active { display:block; }
-
-/* Responsive */
-@media(max-width:768px){
-  .header { padding:15px; }
-  .header .section-title { font-size:20px; }
-  .collab { grid-template-columns:1fr; }
-  .collab:nth-child(even) { grid-template-columns:1fr; }
-  .collab-main img { height:200px; }
-  .menu { width:40%; right:-40%; }
-  .menu.open { right:0; }
-  .spin-wrapper { width:70px; bottom:10px; left:10px; }
-}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Collabs — Denis Flueraru</title>
+<meta name="description" content="Collaborations and commissions — sound design, LED programming, sensor systems and bespoke instruments.">
+<meta property="og:title" content="Collabs — Denis Flueraru">
+<meta property="og:description" content="Collaborations and commissions — sound design, LED programming, sensor systems and bespoke instruments.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#cfcec9">
+<link rel="icon" type="image/png" href="media/atomatfavicon.png">
+<link rel="canonical" href="https://denisflueraru.com/collabs.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
 </head>
-
 <body>
-
-<!-- Header -->
-<div class="header">
-  <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
-  <span class="section-title">Collabs</span>
-  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="index.html">Denis Flueraru</a>
+      <nav class="nav" aria-label="Main"><a href="artworks.html">Artworks</a><a href="workshops.html">Workshops</a><a href="sound.html">Sound</a><a href="collabs.html" aria-current="page">Collabs</a><a href="exhibitions.html">Exhibitions</a><a href="services.html">Services</a></nav>
+      <nav class="nav nav-end" aria-label="Secondary"><a class="shop-link" href="https://atomatlab.com" target="_blank" rel="noopener"><span class="dot col" aria-hidden="true"></span>Shop ↗</a><a href="biography.html">Bio</a><a href="contact.html">Contact</a></nav>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+  </div>
+</header>
+<div class="menu-panel" id="menu" hidden>
+  <div class="bar"><a class="brand" href="index.html">Denis Flueraru</a><button class="menu-btn menu-close" type="button" style="display:inline-flex">Close</button></div>
+  <nav aria-label="Menu"><a href="artworks.html">Artworks<span>01</span></a><a href="workshops.html">Workshops<span>02</span></a><a href="sound.html">Sound<span>03</span></a><a href="collabs.html">Collabs<span>04</span></a><a href="exhibitions.html">Exhibitions<span>05</span></a><a href="services.html">Services<span>06</span></a><a href="biography.html">Bio<span>07</span></a><a href="contact.html">Contact<span>08</span></a><a href="https://atomatlab.com" target="_blank" rel="noopener">Shop ↗<span>ATOMAT LAB</span></a></nav>
+  <div class="foot"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a></div>
 </div>
-
-<div class="overlay" id="overlay"></div>
-
-<!-- Modal -->
-<div id="modal">
-  <span class="close" onclick="closeModal()">×</span>
-  <img id="modal-img" alt="Modal Image">
-</div>
-
-<!-- Content -->
-<div class="collabs">
-
-  <!-- CAPRICES -->
-  <div class="collab">
-    <div class="collab-grid">
-      <img src="https://lh3.googleusercontent.com/d/1GDtWfMIZUTAeJXuPVHBchcrKKuIE_I8e=w1000" class="clickable" alt="Yokogawa Grid 1">
-      <img src="https://lh3.googleusercontent.com/d/1T1f1vKGGO2OJWanBFhhtD_wn2N5Lmy73=w1000" class="clickable" alt="Yokogawa Grid 2">
-      <img src="https://lh3.googleusercontent.com/d/1UaUuoPS06CLtYfYY0nkC_pUI3gGSEGfw=w1000" class="clickable" alt="Yokogawa Grid 3">
-      <img src="https://lh3.googleusercontent.com/d/14oeMzAfQDgw2KflSM1wVbJjoc9uY5Hea=w1000" class="clickable" alt="Yokogawa Grid 4">
-    </div>
-    <div class="collab-text">
-      <h2>2025 → Caprices Festival, Gstaad, Switzerland</h2>
-      <p>
-        Part of the production team for Sergiu Doroftei's light installations for both Peak and Ridge Stages.
-      </p>
-    </div>
-    <div class="collab-main">
-      <img src="https://lh3.googleusercontent.com/d/1aZWsn_scc48egopfl5gqAGmxJolSzu0e=w1000" class="clickable" alt="Caprices Main">
-    </div>
+<main id="main">
+<div class="wrap">
+  <section class="grid12 page-head">
+    <h1 class="rise">Collabs</h1>
+    <div class="side mono rise d1"><p>Commissions, productions and collaborations — sound design, LED, sensors, bespoke instruments.</p></div>
+  </section>
+</div><div class="wrap"><article class="grid12 entry" id="caprices">
+  <div class="meta">
+    <span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab — 2026</span>
+    <h2>Caprices Festival</h2>
+    <span class="mono muted">Gstaad, CH</span>
+    <p>Part of the production team for Sergiu Doroftei&#x27;s light installations for both Peak and Ridge stages.</p>
   </div>
-
-
-  <!-- HUSH GLITCHES -->
-  <div class="collab">
-    <div class="collab-main">
-      <img src="https://lh3.googleusercontent.com/d/1x8O-HLavFb0hcv_ufYeuEPb_gMrPIIxY" class="clickable" alt="Hush Glitches Main">
-    </div>
-    <div class="collab-text">
-      <h2>2025 → Hush Glitches</h2>
-      <p>
-        Developed within a larger multidisciplinary team in collaboration with the
-        <strong>Bucharest Institute of Biology</strong>, this performance explored the
-        relationship between body, environment, and digital media. I designed a
-        <strong>sensor-rigged shoe</strong> integrating humidity, temperature, pressure,
-        and light sensors, enabling dancers to influence sound and video content in real time.
-      </p>
-    </div>
-    <div class="collab-grid">
-      <img src="https://lh3.googleusercontent.com/d/1Ad460EW2CeIpUMo2Ugt3y237MzFsLXjU" class="clickable" alt="Hush Glitches Grid 1">
-      <img src="https://lh3.googleusercontent.com/d/1r2BdbkQv_1nBWX2V-E9qiWMEQNNul1ot" class="clickable" alt="Hush Glitches Grid 2">
-      <img src="https://lh3.googleusercontent.com/d/1c1vksvZCEmJu4RB_PrE0Gm3iwxPnTNjG" class="clickable" alt="Hush Glitches Grid 3">
-      <img src="https://lh3.googleusercontent.com/d/1mxMMkL_k-_O8mig2klhLpB2K45QFbjB9" class="clickable" alt="Hush Glitches Grid 4">
-    </div>
+  <div class="media g3" data-gallery><figure class="frame main" data-label="Caprices Festival" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Caprices Festival"><img src="media/drive/collabs-caprices/screenshot-2026-03-18-at-14-51-39.jpg" data-full="media/drive/collabs-caprices/screenshot-2026-03-18-at-14-51-39.jpg" alt="Caprices Festival" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Caprices Festival — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Caprices Festival — 1"><img src="media/drive/collabs-caprices/c2cdebb0-d959-4eea-a7b8-cc1beb620bc0.sm.jpg" data-full="media/drive/collabs-caprices/c2cdebb0-d959-4eea-a7b8-cc1beb620bc0.jpg" alt="Caprices Festival — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Caprices Festival — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Caprices Festival — 2"><img src="media/drive/collabs-caprices/img-2831.sm.jpg" data-full="media/drive/collabs-caprices/img-2831.jpg" alt="Caprices Festival — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Caprices Festival — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Caprices Festival — 3"><img src="media/drive/collabs-caprices/125449ab-b547-4f55-b0e6-9e3c812d9886.sm.jpg" data-full="media/drive/collabs-caprices/125449ab-b547-4f55-b0e6-9e3c812d9886.jpg" alt="Caprices Festival — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article><article class="grid12 entry" id="hush-glitches">
+  <div class="meta">
+    <span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab — 2025</span>
+    <h2>Hush Glitches</h2>
+    <span class="mono muted">National Dance College, Bucharest</span>
+    <p>Developed within a larger multidisciplinary team in collaboration with the Bucharest Institute of Biology, this performance explored the relationship between body, environment, and digital media. I designed a sensor-rigged shoe integrating humidity, temperature, pressure, and light sensors, enabling dancers to influence sound and video content in real time.</p>
   </div>
-
-  <!-- YOKOGAWA -->
-  <div class="collab">
-    <div class="collab-grid">
-      <img src="https://lh3.googleusercontent.com/d/1Ga83g032iMIwce7BYzUIeLMvNoNE--mW" class="clickable" alt="Yokogawa Grid 1">
-      <img src="https://lh3.googleusercontent.com/d/1wCdb0xtbB1B4bvHSGPUV9XaIzANif8Pk" class="clickable" alt="Yokogawa Grid 2">
-      <img src="https://lh3.googleusercontent.com/d/14rdTCidSeR7UMpObFf4XtD0ZBGxBE9VF" class="clickable" alt="Yokogawa Grid 3">
-      <img src="https://lh3.googleusercontent.com/d/1YvOfAqHAah-uM2ToCw9yAy60SOcHxUWi" class="clickable" alt="Yokogawa Grid 4">
-    </div>
-    <div class="collab-text">
-      <h2>2025 → YOKOGAWA Fresh Water Generator @ FABLAB</h2>
-      <p>
-        LED installation and programming of five distinct animation states, complemented
-        by sound design for a dynamic technical presentation.
-      </p>
-    </div>
-    <div class="collab-main">
-      <img src="https://lh3.googleusercontent.com/d/1MHFCQ-KB6U12IwIGFWT-LqtEa5l6kZkO" class="clickable" alt="Yokogawa Main">
-    </div>
+  <div class="media" data-gallery><figure class="frame main" data-label="Hush Glitches" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Hush Glitches"><img src="media/drive/collabs-hush-glitches/glitches-2980.jpg" data-full="media/drive/collabs-hush-glitches/glitches-2980.jpg" alt="Hush Glitches" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Hush Glitches — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Hush Glitches — 1"><img src="media/drive/collabs-hush-glitches/img-0506.sm.jpg" data-full="media/drive/collabs-hush-glitches/img-0506.jpg" alt="Hush Glitches — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Hush Glitches — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Hush Glitches — 2"><img src="media/drive/collabs-hush-glitches/glitches-2469.sm.jpg" data-full="media/drive/collabs-hush-glitches/glitches-2469.jpg" alt="Hush Glitches — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Hush Glitches — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Hush Glitches — 3"><img src="media/drive/collabs-hush-glitches/glitches-2654.sm.jpg" data-full="media/drive/collabs-hush-glitches/glitches-2654.jpg" alt="Hush Glitches — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Hush Glitches — 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Hush Glitches — 4"><img src="media/drive/collabs-hush-glitches/glitches-3042.sm.jpg" data-full="media/drive/collabs-hush-glitches/glitches-3042.jpg" alt="Hush Glitches — 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article><article class="grid12 entry" id="yokogawa">
+  <div class="meta">
+    <span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab — 2025</span>
+    <h2>Yokogawa — Fresh Water Generator</h2>
+    <span class="mono muted">FabLab Bucharest</span>
+    <p>LED installation and programming of five distinct animation states, complemented by sound design for a dynamic technical presentation.</p>
   </div>
-
-  <!-- IQOS -->
-  <div class="collab">
-    <div class="collab-main">
-      <img src="https://lh3.googleusercontent.com/d/1OatSKFv22k8QY7MsGcR9i-4BnvksaOFh" class="clickable" alt="IQOS Main">
-    </div>
-    <div class="collab-text">
-      <h2>2024 → Echoes of Presences × IQOS</h2>
-      <p>
-        Creation of the complete sound environment across three interconnected rooms,
-        where visitor movement dynamically triggered and shaped spatial audio.
-      </p>
-    </div>
-    <div class="collab-grid">
-      <img src="https://lh3.googleusercontent.com/d/15w2rN46hEq9N4_WnK9LSLZ4M-IURg1xF" class="clickable" alt="IQOS Grid 1">
-      <img src="https://lh3.googleusercontent.com/d/1Fvz2ECaf9--dDPJfssIbFM4RnrLtp3Sa" class="clickable" alt="IQOS Grid 2">
-      <img src="https://lh3.googleusercontent.com/d/187ao1ubFxbMfAqbBDvInHj04i5JAlCmi" class="clickable" alt="IQOS Grid 3">
-      <img src="https://lh3.googleusercontent.com/d/1vN5LZSgsPu2It-78cB7kg1bNQ7ZdVXfh" class="clickable" alt="IQOS Grid 4">
-    </div>
+  <div class="media" data-gallery><figure class="frame main" data-label="Yokogawa — Fresh Water Generator" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Yokogawa — Fresh Water Generator"><img src="media/drive/collabs/yokogawa1.jpg" data-full="media/drive/collabs/yokogawa1.jpg" alt="Yokogawa — Fresh Water Generator" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Yokogawa — Fresh Water Generator — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Yokogawa — Fresh Water Generator — 1"><img src="media/drive/collabs/yokogawa2.sm.jpg" data-full="media/drive/collabs/yokogawa2.jpg" alt="Yokogawa — Fresh Water Generator — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Yokogawa — Fresh Water Generator — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Yokogawa — Fresh Water Generator — 2"><img src="media/drive/collabs/yokogawa3.sm.jpg" data-full="media/drive/collabs/yokogawa3.jpg" alt="Yokogawa — Fresh Water Generator — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Yokogawa — Fresh Water Generator — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Yokogawa — Fresh Water Generator — 3"><img src="media/drive/collabs/yokogawa4.sm.jpg" data-full="media/drive/collabs/yokogawa4.jpg" alt="Yokogawa — Fresh Water Generator — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Yokogawa — Fresh Water Generator — 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Yokogawa — Fresh Water Generator — 4"><img src="media/drive/collabs/yokogawa5.sm.jpg" data-full="media/drive/collabs/yokogawa5.jpg" alt="Yokogawa — Fresh Water Generator — 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article><article class="grid12 entry" id="artists-play-with-time">
+  <div class="meta">
+    <span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab — 2025</span>
+    <h2>Artists Play with Time</h2>
+    <span class="mono muted">Performances across the EU</span>
+    <p>A series of bespoke contact microphones and preamp boxes designed to amplify the subtle ticking of clocks as instruments for performers. From 3D modeling and printing to soldering, shielding, and sound testing — every detail was tuned to bring time into focus.</p>
   </div>
-
-  <!-- E-ON -->
-  <div class="collab">
-    <div class="collab-grid">
-      <img src="https://lh3.googleusercontent.com/d/1OpOq-fjR1CawgMp69qOB3qwVz2a1l6fi" class="clickable" alt="E-ON Grid 1">
-      <img src="https://lh3.googleusercontent.com/d/1UOVyb8DnNwV7PadqB44oj7b4BRtYJ-lB" class="clickable" alt="E-ON Grid 2">
-      <img src="https://lh3.googleusercontent.com/d/1RkmThQHUOcwLOmg-8uYKGOREEJ5SuRGA" class="clickable" alt="E-ON Grid 3">
-    </div>
-    <div class="collab-text">
-      <h2>2024 → E-ON, Electric Castle @ RIZI DESIGN</h2>
-      <p>
-        Sound design for a large-scale LED scenography installation.
-        <br><strong>Creative Direction:</strong> Alina Rizescu & Bogdan Stefanescu
-      </p>
-    </div>
-    <div class="collab-main">
-      <img src="https://lh3.googleusercontent.com/d/1uNKWTmCn9LdThl8it4Fdid8PAJ017737" class="clickable" alt="E-ON Main">
-    </div>
+  <div class="media" data-gallery><div class="video yt"><a class="yt-btn" href="https://www.youtube.com/watch?v=It5iu3jE_kM" target="_blank" rel="noopener" data-yt="It5iu3jE_kM" aria-label="Play video: Artists Play with Time"><img src="https://i.ytimg.com/vi/It5iu3jE_kM/hqdefault.jpg" alt="" loading="lazy"><span class="yt-play mono">▶ Play</span></a></div></div>
+</article><article class="grid12 entry" id="iqos">
+  <div class="meta">
+    <span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab — 2024</span>
+    <h2>Echoes of Presence × IQOS</h2>
+    <span class="mono muted">Romanian Design Week, Bucharest</span>
+    <p>Creation of the complete sound environment across three interconnected rooms, where visitor movement dynamically triggered and shaped spatial audio.</p>
   </div>
-
-  <!-- NOS UTOPIES -->
-  <div class="collab">
-    <div class="collab-main">
-      <img src="https://lh3.googleusercontent.com/d/1n2eSmJwzC9o8TSeLZ0A_uUemEMX3omP9" class="clickable" alt="Nos Utopies Main">
-    </div>
-    <div class="collab-text">
-      <h2>2022 → Nos Utopies @ Fête des Lumières × Goethe Institut</h2>
-      <p>
-        Interactive performance connecting performers worldwide. I developed a
-        machine-learning-driven system influencing the sound ensemble and performed
-        the musical composition live.
-      </p>
-    </div>
-    <div class="collab-grid">
-      <img src="https://lh3.googleusercontent.com/d/1-UzeeOrRF_ut6qEJOGcIUw95p5nhODHT" class="clickable" alt="Nos Utopies Grid 1">
-      <img src="https://lh3.googleusercontent.com/d/1cf6H_dcBlWFQ24wXc2ccI66EptgnKJeP" class="clickable" alt="Nos Utopies Grid 2">
-      <img src="https://lh3.googleusercontent.com/d/14F2CexeOlSqxtB7zuA4DG15azj3_GeHc" class="clickable" alt="Nos Utopies Grid 3">
-      <img src="https://lh3.googleusercontent.com/d/1QcddbnBbws6ze_LjqIf-Uq5cT10QZOJP" class="clickable" alt="Nos Utopies Grid 4">
-    </div>
+  <div class="media" data-gallery><figure class="frame main" data-label="Echoes of Presence × IQOS" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Echoes of Presence × IQOS"><img src="media/drive/collabs/eop1.jpg" data-full="media/drive/collabs/eop1.jpg" alt="Echoes of Presence × IQOS" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Echoes of Presence × IQOS — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Echoes of Presence × IQOS — 1"><img src="media/drive/collabs/eop2.sm.jpg" data-full="media/drive/collabs/eop2.jpg" alt="Echoes of Presence × IQOS — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Echoes of Presence × IQOS — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Echoes of Presence × IQOS — 2"><img src="media/drive/collabs/eop3.sm.jpg" data-full="media/drive/collabs/eop3.jpg" alt="Echoes of Presence × IQOS — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Echoes of Presence × IQOS — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Echoes of Presence × IQOS — 3"><img src="media/drive/collabs/eop4.sm.jpg" data-full="media/drive/collabs/eop4.jpg" alt="Echoes of Presence × IQOS — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Echoes of Presence × IQOS — 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Echoes of Presence × IQOS — 4"><img src="media/drive/collabs/eop5.sm.jpg" data-full="media/drive/collabs/eop5.jpg" alt="Echoes of Presence × IQOS — 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article><article class="grid12 entry" id="eon">
+  <div class="meta">
+    <span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab — 2024</span>
+    <h2>E-ON Frosted Waves — Electric Castle</h2>
+    <span class="mono muted">Rizi Design, Cluj-Napoca</span>
+    <p>Sound design for a large-scale LED scenography installation. Creative direction: Alina Rizescu &amp; Bogdan Stefanescu.</p>
   </div>
-
-</div>
-
-<!-- Menu -->
-<div class="menu" id="menu">
-  <a href="artworks.html">Artworks</a>
-  <a href="workshops.html">Workshops</a>
-  <a href="sound.html">Sound</a>
-  <a href="collabs.html">Collabs</a>
-  <a href="exhibitions.html">Exhibitions</a>
-  <div style="height:20px;"></div>
-  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
-  <a href="services.html">Services</a>
-  <div style="height:20px;"></div>
-  <a href="biography.html">Biography</a>
-  <a href="contact.html">Contact</a>
-</div>
-
-<!-- Rotating Logo -->
-<a href="https://atomatlab.com" target="_blank">
-  <div class="spin-wrapper">
-    <img src="images/FIELD5.png" alt="Atomat Logo" class="flip-image" id="rotating-logo">
+  <div class="media g3" data-gallery><figure class="frame main" data-label="E-ON Frosted Waves — Electric Castle" data-zoom tabindex="0" role="button" aria-label="Enlarge image: E-ON Frosted Waves — Electric Castle"><img src="media/drive/collabs/eon1.jpg" data-full="media/drive/collabs/eon1.jpg" alt="E-ON Frosted Waves — Electric Castle" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="E-ON Frosted Waves — Electric Castle — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: E-ON Frosted Waves — Electric Castle — 1"><img src="media/drive/collabs/eon2.sm.jpg" data-full="media/drive/collabs/eon2.jpg" alt="E-ON Frosted Waves — Electric Castle — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="E-ON Frosted Waves — Electric Castle — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: E-ON Frosted Waves — Electric Castle — 2"><img src="media/drive/collabs/eon3.sm.jpg" data-full="media/drive/collabs/eon3.jpg" alt="E-ON Frosted Waves — Electric Castle — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="E-ON Frosted Waves — Electric Castle — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: E-ON Frosted Waves — Electric Castle — 3"><img src="media/drive/collabs/eon4.sm.jpg" data-full="media/drive/collabs/eon4.jpg" alt="E-ON Frosted Waves — Electric Castle — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article><article class="grid12 entry" id="divaircity">
+  <div class="meta">
+    <span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab — 2024</span>
+    <h2>DivAirCity Bucharest</h2>
+    <span class="mono muted">Piațeta Italiană, Bucharest</span>
+    <p>Generative drawing and air-quality visualizations.</p>
   </div>
+  <div class="media" data-gallery><figure class="frame main" data-label="DivAirCity Bucharest" data-zoom tabindex="0" role="button" aria-label="Enlarge image: DivAirCity Bucharest"><img src="media/drive/exhibitions-divair-city/1.jpg" data-full="media/drive/exhibitions-divair-city/1.jpg" alt="DivAirCity Bucharest" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article><article class="grid12 entry" id="nos-utopies">
+  <div class="meta">
+    <span class="cat mono"><span class="dot col" aria-hidden="true"></span>Collab — 2022</span>
+    <h2>Nos Utopies</h2>
+    <span class="mono muted">Fête des Lumières × Goethe-Institut, Lyon</span>
+    <p>Interactive performance connecting performers worldwide. I developed a machine-learning-driven system influencing the sound ensemble and performed the musical composition live.</p>
+  </div>
+  <div class="media" data-gallery><figure class="frame main" data-label="Nos Utopies" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Nos Utopies"><img src="media/drive/collabs/nosutopies1.jpg" data-full="media/drive/collabs/nosutopies1.jpg" alt="Nos Utopies" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Nos Utopies — 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Nos Utopies — 1"><img src="media/drive/collabs/nosutopies2.sm.jpg" data-full="media/drive/collabs/nosutopies2.jpg" alt="Nos Utopies — 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Nos Utopies — 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Nos Utopies — 2"><img src="media/drive/collabs/nosutopies3.sm.jpg" data-full="media/drive/collabs/nosutopies3.jpg" alt="Nos Utopies — 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Nos Utopies — 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Nos Utopies — 3"><img src="media/drive/collabs/nosutopies4.sm.jpg" data-full="media/drive/collabs/nosutopies4.jpg" alt="Nos Utopies — 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Nos Utopies — 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Nos Utopies — 4"><img src="media/drive/collabs/nosutopies5.sm.jpg" data-full="media/drive/collabs/nosutopies5.jpg" alt="Nos Utopies — 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></div>
+</article></div>
+</main>
+<footer class="wrap">
+  <div class="grid12 site-foot">
+    <a class="mail" href="mailto:flueraru.denis@gmail.com">flueraru.denis@gmail.com</a>
+    <div class="links"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a><a class="mono" href="media/Denis_Flueraru_CV.pdf" target="_blank" rel="noopener">CV (PDF) ↓</a></div>
+    <div class="legal mono muted"><span>© Denis Flueraru — Bucharest, RO</span><span>sound · form · code</span></div>
+  </div>
+</footer>
+<a class="spin" href="https://atomatlab.com" target="_blank" rel="noopener" aria-label="ATOMAT LAB shop">
+  <img src="media/atomatlabrotating.png" data-alt="media/field5.png" alt="" referrerpolicy="no-referrer">
 </a>
-
-<script>
-window.addEventListener('DOMContentLoaded', () => {
-  // Menu toggle
-  const menu = document.getElementById('menu');
-  const overlay = document.getElementById('overlay');
-  function toggleMenu() {
-    const isOpen = menu.classList.contains('open');
-    if (isOpen) {
-      menu.classList.remove('open');
-      overlay.classList.remove('active');
-    } else {
-      menu.classList.add('open');
-      overlay.classList.add('active');
-    }
-  }
-  window.toggleMenu = toggleMenu; // expose to inline onclick
-  overlay.addEventListener('click', () => {
-    if(menu.classList.contains('open')) {
-      menu.classList.remove('open');
-      overlay.classList.remove('active');
-    }
-  });
-
-  // Modal logic
-  const modal = document.getElementById('modal');
-  const modalImg = document.getElementById('modal-img');
-  document.querySelectorAll('.clickable').forEach(img => {
-    img.onclick = () => {
-      modalImg.src = img.src;
-      modal.style.display = 'flex';
-    };
-  });
-  function closeModal() {
-    modal.style.display = 'none';
-    modalImg.src = '';
-  }
-  window.closeModal = closeModal; // expose to inline onclick
-  modal.addEventListener('click', e => { if(e.target===modal) closeModal(); });
-  document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
-
-  // Rotating/flipping logo
-  const rotatingLogo = document.getElementById("rotating-logo");
-  const spinWrapper = document.querySelector(".spin-wrapper");
-  const logos = [
-    "images/FIELD5.png",
-    "https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd"
-  ];
-  let index = 0;
-  // Preload logos
-  logos.forEach(src => { const img = new Image(); img.src = src; });
-
-  setInterval(() => {
-    rotatingLogo.classList.toggle("flipped");
-    setTimeout(() => {
-      index = (index + 1) % logos.length;
-      rotatingLogo.src = logos[index];
-    }, 300);
-  }, 3000);
-
-  spinWrapper.addEventListener("mousedown", () => spinWrapper.classList.add("clicked"));
-  spinWrapper.addEventListener("mouseup", () => spinWrapper.classList.remove("clicked"));
-});
-</script>
-
+<div class="lb" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="top"><span class="lb-count"></span><button class="lb-close" type="button">Close ✕</button></div>
+  <div style="display:flex;min-height:0"><img alt=""></div>
+  <div class="bot"><button class="lb-prev" type="button" aria-label="Previous image">←</button><button class="lb-next" type="button" aria-label="Next image">→</button></div>
+</div>
 </body>
 </html>

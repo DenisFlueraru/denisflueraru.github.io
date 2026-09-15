@@ -1,290 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inverse:Surveillance - Denis Flueraru</title>
-
-<link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
-
-<style>
-@font-face {
-  font-family: 'Neue Kaine';
-  src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
-       url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: '42dot';
-  src: url('fonts/42dot.ttf') format('truetype');
-  font-weight: bold;
-}
-
-body, p, a, span { font-family:'Neue Kaine', sans-serif; }
-b { font-family:'42dot', sans-serif; }
-
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:white; overflow-x:hidden; }
-
-/* Header */
-.header{
-  position:fixed; top:0; width:100%;
-  padding:25px 50px;
-  display:flex; justify-content:space-between; align-items:center;
-  background:linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-  z-index:100; pointer-events:none;
-}
-.header * { pointer-events:auto; }
-.header .logo{ font-weight:bold; font-size:20px; text-decoration:none; color:black; }
-.header .section-title{ font-size:22px; }
-.header .menu-toggle{ cursor:pointer; font-size:22px; }
-
-/* Menu */
-.menu{
-  position:fixed; top:0; right:-20%;
-  width:20%; height:100%;
-  background:rgb(182,210,40);
-  transition:right .4s ease;
-  z-index:200;
-  padding:50px 20px;
-  display:flex; flex-direction:column; gap:20px;
-  font-size:20px;
-}
-.menu.open{ right:0; }
-.menu a{ color:black; text-decoration:none; }
-.menu a:hover{ color:#cd6c27; }
-.menu-icon{ height:1em; margin-left:5px; }
-
-/* Overlay */
-.overlay{
-  position:fixed; inset:0;
-  background:rgba(128,128,128,.2);
-  display:none; z-index:150;
-}
-.overlay.active{ display:block; }
-
-/* Main */
-.main-content{
-  padding-top:140px;
-  max-width:1000px;
-  margin:0 auto 120px;
-  padding-inline:20px;
-}
-.main-image{
-  width:100%; max-height:500px;
-  object-fit:cover;
-  border-radius:8px;
-  margin-bottom:30px;
-}
-.section-desc{
-  font-size:16px;
-  line-height:1.6;
-  margin-bottom:40px;
-}
-
-/* Gallery */
-.gallery{ margin-top:40px; text-align:center; }
-.gallery h2{ font-size:20px; margin-bottom:20px; }
-.gallery-main{ position:relative; max-width:700px; margin:auto; }
-.gallery-main img{
-  width:100%; height:400px;
-  object-fit:cover;
-  border-radius:8px;
-  cursor:pointer;
-  transition:opacity .6s ease;
-}
-.arrow{
-  position:absolute; top:50%;
-  transform:translateY(-50%);
-  font-size:2.5em;
-  background:none; border:none;
-  color:rgb(182,210,40);
-  cursor:pointer;
-}
-.arrow.left{ left:-40px; }
-.arrow.right{ right:-40px; }
-
-.thumbnails{
-  display:flex; flex-wrap:wrap;
-  justify-content:center;
-  gap:10px; margin-top:20px;
-}
-.thumbnails img{
-  width:120px; height:80px;
-  object-fit:cover;
-  border-radius:4px;
-  cursor:pointer;
-  opacity:.6;
-}
-.thumbnails img.active,
-.thumbnails img:hover{ opacity:1; }
-
-/* Modal */
-.modal{
-  display:none; position:fixed;
-  inset:0; background:rgba(0,0,0,.8);
-  justify-content:center; align-items:center;
-  z-index:300;
-}
-.modal img{ max-width:90%; max-height:90%; }
-.close{
-  position:absolute; top:20px; right:30px;
-  font-size:3em; color:white; cursor:pointer;
-}
-
-/* Rotating logo — EXACT SAME AS ARTWORKS */
-.spin-wrapper{
-  position:fixed; bottom:20px; left:20px;
-  width:120px;
-  animation:spin 20s linear infinite;
-  cursor:pointer;
-  z-index:300;
-}
-.flip-image{
-  width:100%;
-  transition:transform .6s ease, opacity .3s ease;
-  transform-style:preserve-3d;
-}
-.flipped{ transform:rotateY(180deg); }
-.spin-wrapper.clicked{
-  transform:scale(1.2) rotateZ(var(--angle,0deg));
-  transition:transform .3s ease;
-}
-@keyframes spin{
-  from{ transform:rotateZ(0deg); }
-  to{ transform:rotateZ(360deg); }
-}
-
-/* Responsive */
-@media(max-width:768px){
-  .menu{ width:40%; right:-40%; }
-  .menu.open{ right:0; }
-  .spin-wrapper{ width:70px; bottom:10px; left:10px; }
-}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inverse: Surveillance (2022) — Denis Flueraru</title>
+<meta name="description" content="Inverse:Surveillance is an interactive installation that explores panopticism and the act of sousveillance. The work takes the form of a human-scale CCTV,…">
+<meta property="og:title" content="Inverse: Surveillance (2022) — Denis Flueraru">
+<meta property="og:description" content="Inverse:Surveillance is an interactive installation that explores panopticism and the act of sousveillance. The work takes the form of a human-scale CCTV,…">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://denisflueraru.com/media/drive/inverse/inversesurveillance4.jpg">
+<meta name="theme-color" content="#cfcec9">
+<link rel="icon" type="image/png" href="media/atomatfavicon.png">
+<link rel="canonical" href="https://denisflueraru.com/inversesurveillance.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
 </head>
-
 <body>
-
-<div class="header">
-  <a href="index.html" class="logo">Denis Flueraru</a>
-  <span class="section-title">Inverse:Surveillance</span>
-  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
-</div>
-
-<div class="overlay" id="overlay"></div>
-
-<div class="menu" id="menu">
-  <a href="artworks.html">Artworks</a>
-  <a href="workshops.html">Workshops</a>
-  <a href="sound.html">Sound</a>
-  <a href="collabs.html">Collabs</a>
-  <a href="exhibitions.html">Exhibitions</a>
-  <div style="height:20px;"></div>
-  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" class="menu-icon"></a>
-  <a href="services.html">Services</a>
-  <div style="height:20px;"></div>
-  <a href="biography.html">Biography</a>
-  <a href="contact.html">Contact</a>
-</div>
-
-<div class="main-content">
-  <img src="https://lh3.googleusercontent.com/d/1GTc6OVUJEUJd4OnZlNg-XlHI_k174LR5" class="main-image">
-
-  <p class="section-desc">
-    <b>Context & Concept</b><br>
-    Inverse:Surveillance is an interactive installation that explores panopticism and the act of sousveillance.
-    The work takes the form of a human-scale CCTV, allowing participants to look back at systems of power.
-  </p>
-
-  <p class="section-desc">
-    <b>Interaction</b><br>
-    The installation reflects on algorithmic authority, the loss of privacy, and how control systems are reinforced by our own actions.
-    Visitors grab the CCTV antenna and peer through its eye to uncover what lies behind surveillance.
-  </p>
-
-  <div class="gallery">
-    <h2>Gallery</h2>
-    <div class="gallery-main">
-      <button class="arrow left" onclick="prevImage()">&#10094;</button>
-      <img id="mainImage" src="https://lh3.googleusercontent.com/d/1achp2irmrqsm0DSUSEBMj5LA8dmM46Qv" onclick="openModal(this.src)">
-      <button class="arrow right" onclick="nextImage()">&#10095;</button>
-    </div>
-    <div class="thumbnails">
-      <img src="https://lh3.googleusercontent.com/d/1achp2irmrqsm0DSUSEBMj5LA8dmM46Qv" class="active" onclick="setMainImage(this)">
-      <img src="https://lh3.googleusercontent.com/d/1GTc6OVUJEUJd4OnZlNg-XlHI_k174LR5" onclick="setMainImage(this)">
-      <img src="https://lh3.googleusercontent.com/d/1gstR_F4iAkUsTS3DS6aCHHWubqceqFlr" onclick="setMainImage(this)">
-      <img src="https://lh3.googleusercontent.com/d/1UC03WpDAwZPqBG1VqPO5qknEIdradvf7" onclick="setMainImage(this)">
-      <img src="https://lh3.googleusercontent.com/d/182yiTLhqyX4Gc4P7mCkm2DZcDuoC4B-c" onclick="setMainImage(this)">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="index.html">Denis Flueraru</a>
+      <nav class="nav" aria-label="Main"><a href="artworks.html" aria-current="page">Artworks</a><a href="workshops.html">Workshops</a><a href="sound.html">Sound</a><a href="collabs.html">Collabs</a><a href="exhibitions.html">Exhibitions</a><a href="services.html">Services</a></nav>
+      <nav class="nav nav-end" aria-label="Secondary"><a class="shop-link" href="https://atomatlab.com" target="_blank" rel="noopener"><span class="dot col" aria-hidden="true"></span>Shop ↗</a><a href="biography.html">Bio</a><a href="contact.html">Contact</a></nav>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
     </div>
   </div>
+</header>
+<div class="menu-panel" id="menu" hidden>
+  <div class="bar"><a class="brand" href="index.html">Denis Flueraru</a><button class="menu-btn menu-close" type="button" style="display:inline-flex">Close</button></div>
+  <nav aria-label="Menu"><a href="artworks.html">Artworks<span>01</span></a><a href="workshops.html">Workshops<span>02</span></a><a href="sound.html">Sound<span>03</span></a><a href="collabs.html">Collabs<span>04</span></a><a href="exhibitions.html">Exhibitions<span>05</span></a><a href="services.html">Services<span>06</span></a><a href="biography.html">Bio<span>07</span></a><a href="contact.html">Contact<span>08</span></a><a href="https://atomatlab.com" target="_blank" rel="noopener">Shop ↗<span>ATOMAT LAB</span></a></nav>
+  <div class="foot"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a></div>
 </div>
-
-<div class="modal" id="modal">
-  <span class="close" onclick="closeModal()">&times;</span>
-  <img id="modalImg">
+<main id="main">
+<div class="wrap"><nav class="crumbs mono" aria-label="Breadcrumb"><a href="artworks.html">Artworks</a> <span>/</span> <span>010</span></nav>
+  <section class="grid12 page-head">
+    <h1 class="rise">Inverse: Surveillance</h1>
+    <div class="side mono rise d1"><div class="eyebrow"><span class="cat"><span class="dot art" aria-hidden="true"></span>Artwork — 2022</span></div></div>
+  </section>
 </div>
-
-<!-- Rotating logo -->
-<a href="https://atomatlab.com" target="_blank">
-  <div class="spin-wrapper">
-    <img src="images/FIELD5.png" class="flip-image" id="rotating-logo">
+<div class="wrap">
+  <div data-gallery>
+    <figure class="frame proj-hero" data-label="Inverse: Surveillance" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Inverse: Surveillance"><img src="media/drive/inverse/inversesurveillance4.jpg" data-full="media/drive/inverse/inversesurveillance4.jpg" alt="Inverse: Surveillance" fetchpriority="high" decoding="async" referrerpolicy="no-referrer"></figure>
+    <section class="grid12 proj-body">
+      <dl class="facts"><dt>Year</dt><dd>2022</dd><dt>Type</dt><dd>Interactive installation — human-scale CCTV</dd></dl>
+      <div class="text"><p>Inverse:Surveillance is an interactive installation that explores panopticism and the act of sousveillance. The work takes the form of a human-scale CCTV, allowing participants to look back at systems of power.</p><p>The installation reflects on algorithmic authority, the loss of privacy, and how control systems are reinforced by our own actions. Visitors grab the CCTV antenna and peer through its eye to uncover what lies behind surveillance.</p></div>
+    </section>
+    <section class="gallery two" data-gallery><figure class="frame " data-label="Inverse: Surveillance — image 1" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Inverse: Surveillance, view 1"><img src="media/drive/inverse/inversesurveillance.sm.jpg" data-full="media/drive/inverse/inversesurveillance.jpg" alt="Inverse: Surveillance, view 1" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Inverse: Surveillance — image 2" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Inverse: Surveillance, view 2"><img src="media/drive/inverse/inversesurveillance3.sm.jpg" data-full="media/drive/inverse/inversesurveillance3.jpg" alt="Inverse: Surveillance, view 2" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Inverse: Surveillance — image 3" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Inverse: Surveillance, view 3"><img src="media/drive/inverse/inversesurveillance2.sm.jpg" data-full="media/drive/inverse/inversesurveillance2.jpg" alt="Inverse: Surveillance, view 3" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure><figure class="frame " data-label="Inverse: Surveillance — image 4" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Inverse: Surveillance, view 4"><img src="media/drive/inverse/inversesurveillance-1.sm.jpg" data-full="media/drive/inverse/inversesurveillance-1.jpg" alt="Inverse: Surveillance, view 4" loading="lazy" decoding="async" referrerpolicy="no-referrer"></figure></section>
   </div>
+  
+  <nav class="prevnext mono" aria-label="More artworks">
+    <a href="particlecomposer.html"><span>← Previous</span><strong>Particle Composer</strong></a>
+    <a href="rewind.html"><span>Next →</span><strong>Rewind</strong></a>
+  </nav>
+</div>
+</main>
+<footer class="wrap">
+  <div class="grid12 site-foot">
+    <a class="mail" href="mailto:flueraru.denis@gmail.com">flueraru.denis@gmail.com</a>
+    <div class="links"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a><a class="mono" href="media/Denis_Flueraru_CV.pdf" target="_blank" rel="noopener">CV (PDF) ↓</a></div>
+    <div class="legal mono muted"><span>© Denis Flueraru — Bucharest, RO</span><span>sound · form · code</span></div>
+  </div>
+</footer>
+<a class="spin" href="https://atomatlab.com" target="_blank" rel="noopener" aria-label="ATOMAT LAB shop">
+  <img src="media/atomatlabrotating.png" data-alt="media/field5.png" alt="" referrerpolicy="no-referrer">
 </a>
-
-<script>
-const menu = document.getElementById('menu');
-const overlay = document.getElementById('overlay');
-function toggleMenu(){
-  menu.classList.toggle('open');
-  overlay.classList.toggle('active');
-}
-overlay.onclick = toggleMenu;
-
-/* Gallery */
-const thumbs = document.querySelectorAll('.thumbnails img');
-const mainImage = document.getElementById('mainImage');
-let idx = 0;
-function setMainImage(img){
-  mainImage.src = img.src;
-  thumbs.forEach(t=>t.classList.remove('active'));
-  img.classList.add('active');
-  idx = [...thumbs].indexOf(img);
-}
-function nextImage(){ idx=(idx+1)%thumbs.length; setMainImage(thumbs[idx]); }
-function prevImage(){ idx=(idx-1+thumbs.length)%thumbs.length; setMainImage(thumbs[idx]); }
-
-/* Modal */
-const modal=document.getElementById('modal');
-const modalImg=document.getElementById('modalImg');
-function openModal(src){ modal.style.display='flex'; modalImg.src=src; }
-function closeModal(){ modal.style.display='none'; }
-modal.onclick=e=>{ if(e.target===modal) closeModal(); };
-window.onkeydown=e=>{ if(e.key==='Escape') closeModal(); };
-
-/* Rotating logo — IDENTICAL LOGIC */
-const rotatingLogo = document.getElementById("rotating-logo");
-const spinWrapper = document.querySelector(".spin-wrapper");
-const logos = [
-  "images/FIELD5.png",
-  "https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd"
-];
-let logoIndex = 0;
-logos.forEach(src => { const i = new Image(); i.src = src; });
-
-setInterval(()=>{
-  rotatingLogo.classList.toggle("flipped");
-  setTimeout(()=>{
-    logoIndex = (logoIndex + 1) % logos.length;
-    rotatingLogo.src = logos[logoIndex];
-  },300);
-},3000);
-
-spinWrapper.addEventListener("mousedown",()=>spinWrapper.classList.add("clicked"));
-spinWrapper.addEventListener("mouseup",()=>spinWrapper.classList.remove("clicked"));
-</script>
-
+<div class="lb" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="top"><span class="lb-count"></span><button class="lb-close" type="button">Close ✕</button></div>
+  <div style="display:flex;min-height:0"><img alt=""></div>
+  <div class="bot"><button class="lb-prev" type="button" aria-label="Previous image">←</button><button class="lb-next" type="button" aria-label="Next image">→</button></div>
+</div>
 </body>
 </html>

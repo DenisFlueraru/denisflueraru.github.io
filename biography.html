@@ -1,259 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Biography - Denis Flueraru</title>
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images/atomatlabfavicon.png">
-<style>
-       
-    @font-face {
-  font-family: 'Neue Kaine';
-  src: url('fonts/neue_kaine_variable-webfont.woff2') format('woff2'),
-       url('fonts/neue_kaine_variable-webfont.woff') format('woff');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-body, h1, h2, h3, h4, h5, h6, p, a, span, li {
-  font-family: 'Neue Kaine', sans-serif;
-}
-* {margin:0; padding:0; box-sizing:border-box;}
-body {font-family:'Neue Kaine', sans-serif; background:white; overflow-x:hidden; color:black;}
-
-/* Header */
-.header {
-  position:fixed;
-  top:0; width:100%;
-  padding:25px 50px;
-  display:flex; justify-content:space-between; align-items:center;
-  background: linear-gradient(to bottom, white 0%, rgba(255,255,255,0) 100%);
-  z-index:100;
-}
-.header .logo { font-weight:bold; font-size:20px; cursor:pointer; text-decoration:none; color:black;}
-.header .section-title { font-weight:400; font-size:28px; }
-.header .menu-toggle { cursor:pointer; font-weight:bold; font-size:22px; }
-
-   /* Menu */
-    .menu {
-      position:fixed; top:0; right:-20%; width:20%; height:100%;
-      background-color:rgb(182,210,40); color:black;
-      transition:right 0.4s ease; z-index:200;
-      padding:50px 20px; display:flex; flex-direction:column; gap:20px; font-size:20px;
-    }
-    .menu.open { right:0; }
-    .menu a { color:black; text-decoration:none; transition:color 0.2s ease; }
-    .menu a:hover { color:#cd6c27; }
-    .menu-icon { height:1em; margin-left:5px; vertical-align:middle; }
-
-/* Grey overlay */
-.overlay { position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(128,128,128,0.2); display:none; z-index:150; }
-
-/* Rotating logo */
-.spin-wrapper {
-  position: fixed; bottom:20px; left:20px;
-  width:120px;
-  animation: spin 20s linear infinite;
-  cursor:pointer;
-  z-index:100;
-}
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-.flip-image {
-  width:100%;
-  transition: transform 0.6s ease, opacity 0.3s ease;
-  transform-style: preserve-3d;
-}
-.flipped { transform: rotateY(180deg); }
-.spin-wrapper.clicked { transform: scale(1.2) rotateZ(var(--angle,0deg)); transition: transform 0.3s ease; }
-
-.bio-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 160px;
-}
-
-.bio-portrait img {
-  width: 220px;
-  border-radius: 6px;
-  display: block;
-}
-
-.bio-text {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 0 20px;
-  line-height: 1.6;
-  font-size: 18px;
-}
-
-.bio-cv {
-  display: flex;
-  justify-content: center;
-  margin: 30px 0 80px;
-}
-
-.bio-cv a {
-  padding: 14px 24px;
-  background: #b6d228;
-  color: black;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 6px;
-  display: inline-block;
-}
-
-.bio-cv a:hover {
-  background: #a0bf1f;
-}
-/* Headings */
-.bio-text h2 { font-size:22px; margin-bottom:15px; font-weight:700; }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .menu {
-    width: 40%;      /* Menu takes more space on mobile */
-    right: -40%;     /* Hidden off-screen by same width */
-  }
-  .menu.open {
-    right: 0;        /* Slides in fully on mobile */
-  }
-}
-@media(max-width:768px){
-  .header { padding:15px; }
-  .header .logo { font-size:18px; }
-  .header .section-title { font-size:20px; }
-  .header .menu-toggle { font-size:18px; }
-  
-  .scroll-container { font-size:15px; gap:30px; padding:0 15px 80px; }
-  .update { flex-direction:column !important; gap:20px; }
-    .update img, .update .video-container {
-    width:85%;           /* smaller width for mobile */
-    aspect-ratio:1/1;    /* force square shape */
-    object-fit:cover;    /* crop and fill nicely */
-    border-radius:4px;
-    margin:0 auto;       /* center horizontally */
-  }
-  .update .text {
-    width:90%;           /* text slightly smaller */
-    text-align:center;   /* center text */
-  }
-    .update { 
-    flex-direction:column !important; 
-    gap:20px; 
-    align-items:center; /* center images and text */
-  }
-  
-  
-  .spin-wrapper { width:70px; bottom:10px; left:10px; }
-}
-@media (max-width: 768px) {
-  .menu {
-    width: 40%;      /* Menu takes more space on mobile */
-    right: -40%;     /* Hidden off-screen by same width */
-  }
-  .menu.open {
-    right: 0;        /* Slides in fully on mobile */
-  }
-}
-@media (max-width: 768px) {
-  .bio-portrait img {
-    width: 180px;
-  }
-  .bio-text {
-    font-size: 16px;
-  }
-}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biography — Denis Flueraru</title>
+<meta name="description" content="Denis Flueraru — creative technologist, founder of ATOMAT LAB, based in Bucharest. Experience, education and skills.">
+<meta property="og:title" content="Biography — Denis Flueraru">
+<meta property="og:description" content="Denis Flueraru — creative technologist, founder of ATOMAT LAB, based in Bucharest. Experience, education and skills.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#cfcec9">
+<link rel="icon" type="image/png" href="media/atomatfavicon.png">
+<link rel="canonical" href="https://denisflueraru.com/biography.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
 </head>
 <body>
-
-<!-- Header -->
-<div class="header">
-  <a href="https://denisflueraru.github.io/" class="logo">Denis Flueraru</a>
-  <span class="section-title">Biography</span>
-  <span class="menu-toggle" onclick="toggleMenu()">Menu</span>
-</div>
-
-<!-- Overlay -->
-<div class="overlay" id="overlay"></div>
-
-<!-- Bio header -->
-<div class="bio-header">
-  <div class="bio-portrait">
-    <img src="images/PortraitDF.jpg" alt="Denis Flueraru Portrait">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="index.html">Denis Flueraru</a>
+      <nav class="nav" aria-label="Main"><a href="artworks.html">Artworks</a><a href="workshops.html">Workshops</a><a href="sound.html">Sound</a><a href="collabs.html">Collabs</a><a href="exhibitions.html">Exhibitions</a><a href="services.html">Services</a></nav>
+      <nav class="nav nav-end" aria-label="Secondary"><a class="shop-link" href="https://atomatlab.com" target="_blank" rel="noopener"><span class="dot col" aria-hidden="true"></span>Shop ↗</a><a href="biography.html" aria-current="page">Bio</a><a href="contact.html">Contact</a></nav>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
   </div>
+</header>
+<div class="menu-panel" id="menu" hidden>
+  <div class="bar"><a class="brand" href="index.html">Denis Flueraru</a><button class="menu-btn menu-close" type="button" style="display:inline-flex">Close</button></div>
+  <nav aria-label="Menu"><a href="artworks.html">Artworks<span>01</span></a><a href="workshops.html">Workshops<span>02</span></a><a href="sound.html">Sound<span>03</span></a><a href="collabs.html">Collabs<span>04</span></a><a href="exhibitions.html">Exhibitions<span>05</span></a><a href="services.html">Services<span>06</span></a><a href="biography.html">Bio<span>07</span></a><a href="contact.html">Contact<span>08</span></a><a href="https://atomatlab.com" target="_blank" rel="noopener">Shop ↗<span>ATOMAT LAB</span></a></nav>
+  <div class="foot"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a></div>
 </div>
-
-<!-- Bio texts -->
-<div class="bio-text">
-  <p>
-    “Even if my background is not really linked with electronics, I formed a tight bond that manifested in a growing interest for technological skills. Now it is always part of my work. This bond unveils itself in a modernist-like, interdisciplinary manner and is either interactivity as it attempts to start a dialogue between the viewer and artwork or the result of the interaction between the inhabited space and technology."
-  </p>
+<main id="main">
+<div class="wrap">
+  <section class="grid12 page-head">
+    <h1 class="rise">Biography</h1>
+    <div class="side mono rise d1"><p>Creative technologist — interactive installations, sound &amp; experience design.</p><a class="link-arrow" href="media/Denis_Flueraru_CV.pdf" target="_blank" rel="noopener">Download CV (PDF) ↓</a></div>
+  </section>
 </div>
-
-<!-- CV Button -->
-<div class="bio-cv">
-  <a href="https://drive.google.com/file/d/1Vf3u85QoDdjmiy8I71eOX8zHAKCnxQMj/view?usp=drive_link" target="_blank">
-    VIEW EUROPASS CV
-  </a>
+<div class="wrap">
+  <section class="grid12 bio-top">
+    <figure class="frame " data-label="Portrait" data-zoom tabindex="0" role="button" aria-label="Enlarge image: Portrait of Denis Flueraru"><img src="media/portrait-bw.jpg" data-full="media/portrait-bw.jpg" alt="Portrait of Denis Flueraru" fetchpriority="high" decoding="async" referrerpolicy="no-referrer"></figure>
+    <blockquote>“Even if my background is not really linked with electronics, I formed a tight bond that manifested in a growing interest for technological skills. Now it is always part of my work. This bond unveils itself in a modernist-like, interdisciplinary manner and is either interactivity as it attempts to start a dialogue between the viewer and artwork or the result of the interaction between the inhabited space and technology.”</blockquote>
+  </section>
+  <section class="grid12 cv"><h2>Experience</h2><div class="list"><div class="item"><span class="mono">2026 —</span><div><h3>HexagonX — BTL Experience Manager</h3><span class="mono muted">Bucharest</span><ul><li>Program interactive installations and experiences for brand activations and live events</li><li>Lead setup, teardown and on-site technical management, including power distribution and equipment logistics</li><li>Develop concepts and prototypes for installations, scenography and event experiences</li></ul></div></div><div class="item"><span class="mono">2021 —</span><div><h3>ATOMAT LAB — Founder</h3><span class="mono muted">Bucharest</span><ul><li>Design and build interactive audiovisual installations using creative coding, custom hardware and sound</li><li>Coordinate EU-funded cultural projects (Culture Moves Europe) from concept through production</li><li>Design and deliver DIY workshops on sound and interaction</li><li>Run an online shop, manufacturing contact microphones and other electronic devices</li></ul></div></div><div class="item"><span class="mono">2019 — 2021</span><div><h3>Animotion Production — Sound Designer &amp; Music Producer</h3><span class="mono muted">Bucharest</span><ul><li>Composed music and designed sound for advertising campaigns</li><li>Recorded, edited and mixed voice-over for TV, radio and digital channels</li><li>Synchronised and mastered audio for national and international productions</li></ul></div></div></div></section>
+  <section class="grid12 cv"><h2>Education</h2><div class="list"><div class="item"><span class="mono">2023</span><div><h3>MA — Interactive Technologies for Performing &amp; Media Arts</h3><span class="mono muted">UNATC “I.L. Caragiale”, Bucharest — thesis: Designing a Recording Tool for Representing Physical Textures in Sound</span></div></div><div class="item"><span class="mono">2017</span><div><h3>BTEC — Music Technology</h3><span class="mono muted">Catalyst Institute (dBs Music), Berlin</span></div></div><div class="item"><span class="mono">2016</span><div><h3>BA — Film Studies, Television &amp; New Broadcasting Media</h3><span class="mono muted">Kingston University, London</span></div></div></div></section>
+  <section class="grid12 cv"><h2>Skills</h2><div class="list"><div class="item"><span class="mono">Audio &amp; video</span><p>Sound design, music production, spatial audio, custom instruments, live recording, circuit bending. Ableton Live, Pro Tools, Premiere Pro.</p></div><div class="item"><span class="mono">Code &amp; interaction</span><p>Max/MSP, Processing, microcontrollers, IoT, MIDI, electronics. JavaScript, C, HTML, Sonic Pi, TinyML, TensorFlow.</p></div><div class="item"><span class="mono">Fabrication</span><p>3D printing, laser cutting, CNC, power tools. Rhino 3D, Illustrator, UGS.</p></div><div class="item"><span class="mono">Languages</span><p>Romanian (native), English (fluent), French (elementary).</p></div></div></section>
+  <section class="grid12 cv"><h2>Selected work</h2><div class="list"><div class="item"><span class="mono">Index</span><p>Every project, workshop, collab and exhibition is listed on the <a class="link-arrow" href="index.html#idx-title">home page index →</a></p></div></div></section>
 </div>
-
-
-<!-- Menu -->
-<div class="menu" id="menu">
-  <a href="artworks.html">Artworks</a>
-  <a href="workshops.html">Workshops</a>
-  <a href="sound.html">Sound</a>
-  <a href="collabs.html">Collabs</a>
-  <a href="exhibitions.html">Exhibitions</a> <!-- New link added -->
-  <div style="height:20px;"></div>
-  <a href="https://atomatlab.com/">Shop <img src="images/atomatlab.png" alt="Atomat Logo" class="menu-icon"></a>
-  <a href="services.html">Services</a>
-  <div style="height:20px;"></div>
-  <a href="biography.html">Biography</a>
-  <a href="contact.html">Contact</a>
+</main>
+<footer class="wrap">
+  <div class="grid12 site-foot">
+    <a class="mail" href="mailto:flueraru.denis@gmail.com">flueraru.denis@gmail.com</a>
+    <div class="links"><a class="mono" href="https://www.instagram.com/denisflueraru/" target="_blank" rel="noopener">Instagram</a><a class="mono" href="https://www.linkedin.com/in/denisflueraru/" target="_blank" rel="noopener">LinkedIn</a><a class="mono" href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">YouTube</a><a class="mono" href="https://soundcloud.com/leselmusic" target="_blank" rel="noopener">SoundCloud</a><a class="mono" href="https://atomatlab.com" target="_blank" rel="noopener">ATOMAT LAB ↗</a><a class="mono" href="media/Denis_Flueraru_CV.pdf" target="_blank" rel="noopener">CV (PDF) ↓</a></div>
+    <div class="legal mono muted"><span>© Denis Flueraru — Bucharest, RO</span><span>sound · form · code</span></div>
+  </div>
+</footer>
+<a class="spin" href="https://atomatlab.com" target="_blank" rel="noopener" aria-label="ATOMAT LAB shop">
+  <img src="media/atomatlabrotating.png" data-alt="media/field5.png" alt="" referrerpolicy="no-referrer">
+</a>
+<div class="lb" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="top"><span class="lb-count"></span><button class="lb-close" type="button">Close ✕</button></div>
+  <div style="display:flex;min-height:0"><img alt=""></div>
+  <div class="bot"><button class="lb-prev" type="button" aria-label="Previous image">←</button><button class="lb-next" type="button" aria-label="Next image">→</button></div>
 </div>
-
-
-<script>
-// Menu toggle
-const menu = document.getElementById('menu');
-const overlay = document.getElementById('overlay');
-function toggleMenu(){
-  const isOpen = menu.classList.contains('open');
-  if(isOpen){ menu.classList.remove('open'); overlay.classList.remove('active'); }
-  else{ menu.classList.add('open'); overlay.classList.add('active'); }
-}
-overlay.addEventListener('click', () => { if(menu.classList.contains('open')){ menu.classList.remove('open'); overlay.classList.remove('active'); } });
-
-
-</script>
-
-</script>
-<!-- Rotating Logo -->
-  <a href="https://atomatlab.com" target="_blank">
-    <div class="spin-wrapper">
-<img src="images/FIELD5.png" alt="Logo" class="flip-image" id="rotating-logo">    </div>
-  </a>
-  <script>
-    const rotatingLogo = document.getElementById("rotating-logo");
-    const spinWrapper = document.querySelector(".spin-wrapper");
-    const logos = ["https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd","images/FIELD5.png"];
-    let index=0;
-
-    setInterval(()=>{
-      rotatingLogo.classList.toggle("flipped");
-      setTimeout(()=>{
-        index = (index+1)%logos.length;
-        rotatingLogo.src = logos[index];
-      },300);
-    },3000);
-
-    spinWrapper.addEventListener("mousedown",()=>{ spinWrapper.classList.add("clicked"); });
-    spinWrapper.addEventListener("mouseup",()=>{ spinWrapper.classList.remove("clicked"); });
-  </script>
-
 </body>
 </html>
