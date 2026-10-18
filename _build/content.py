@@ -12,14 +12,18 @@ CATS = {
 HB_TEXT = [
     "A modified medical stethoscope, fitted with an amplifier and a custom casing. "
     "The heartbeats it captures are passed through a distortion pedal and ultimately into a speaker.",
+    "A collaboration with Michelle Bressan, who came up with the concept. I handled the design, production "
+    "and electronics — from the casing to the amplifier and the signal chain.",
 ]
 
 # ---------------------------------------------------------------- artworks
 ARTWORKS = [
-    dict(slug="heartbroken", title="Heartbroken", year="2026", new=True,
+    dict(slug="heartbroken", title="Heartbroken", year="2026", new=True, cat="col",
+         place="Collab with Michelle Bressan",
          hero="heartbroken/heartbroken-4.jpg", pair=["heartbroken/heartbroken-4.jpg", "heartbroken/heartbroken-3.jpg"],
          portrait=True,
-         facts=[("Year", "2026"), ("Type", "Sound object"),
+         facts=[("Year", "2026"), ("Type", "Sound object — collaboration"),
+                ("Concept", "Michelle Bressan"), ("Design, production & electronics", "Denis Flueraru"),
                 ("Materials", "Modified medical stethoscope, amplifier, custom casing, distortion pedal, speaker")],
          text=HB_TEXT,
          gallery=["heartbroken/heartbroken-1.jpg", "heartbroken/heartbroken-2.jpg",
@@ -188,6 +192,24 @@ ARTWORKS = [
 
 # ---------------------------------------------------------------- workshops
 WORKSHOPS = [
+    dict(id="dambovita-delivery", title="about:sound", year="2026",
+         place="Dâmbovița Delivery — Regie, Bucharest",
+         text="Selected through an open call for Dâmbovița Delivery (3–4 October, Regie), about:sound was an open-air table "
+              "where passers-by got hands-on with contact and electromagnetic microphones — listening to the hidden vibrations "
+              "of objects and the electromagnetic hum of everyday devices, learning how the technology works and trying out "
+              "basic ways to shape and manipulate the sounds they captured.",
+         main="workshops/dambovita-1.jpg",
+         grid=["workshops/dambovita-2.jpg", "workshops/dambovita-3.jpg", "workshops/dambovita-4.jpg"]),
+    dict(id="libra-bank", title="Microphones, Code & Pen Plotter", year="2026",
+         place="Libra Bank Cultural Programme, Bucharest",
+         text="A two-part workshop for Libra Bank employees, part of the bank's cultural programme. In the first sessions "
+              "participants built their own contact and electromagnetic microphones, gathered sounds from around the bank, and "
+              "composed an audio piece using only what they had recorded. In the second part they used p5.js and AI to develop "
+              "a generative art algorithm that turned their composition into sound-reactive plots, which were then drawn on "
+              "paper with a pen plotter.",
+         main="workshops/libra-1.jpg",
+         clips=["workshops/libra-clip-1.mp4", "workshops/libra-clip-2.mp4"],
+         grid=["workshops/libra-2.jpg", "workshops/libra-3.jpg"]),
     dict(id="sensors-haptics", title="Sensors & Haptics for Performative Arts", year="2025",
          place="NOD Makerspace, Bucharest",
          text="Participants learned how to build a glove-like wearable interface that uses sensors to modify sound in real time, "
@@ -319,7 +341,7 @@ EXHIBITIONS = [
 def _index():
     rows = []
     for a in ARTWORKS:
-        rows.append((a["title"], a["year"], "art", a.get("place") or dict(a["facts"])["Type"].split(" — ")[0], f'{a["slug"]}.html'))
+        rows.append((a["title"], a["year"], a.get("cat", "art"), a.get("place") or dict(a["facts"])["Type"].split(" — ")[0], f'{a["slug"]}.html'))
     for w in WORKSHOPS:
         rows.append((w["title"], w["year"], "ws", w["place"], f'workshops.html#{w["id"]}'))
     for c in COLLABS:

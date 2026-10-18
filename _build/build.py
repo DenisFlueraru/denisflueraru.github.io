@@ -39,8 +39,10 @@ def src(ref, w=1600):
         return f"https://lh3.googleusercontent.com/d/{ref[4:]}=w{w}"
     if path.endswith(".mp4"):
         path = path[:-4] + ".jpg"
-    if w <= 1200 and path.startswith("media/drive/"):
-        path = path[:-4] + ".sm.jpg"
+    if w <= 1200:
+        small = path[:-4] + ".sm.jpg"
+        if (OUT / small).exists():
+            path = small
     return path
 
 
@@ -183,11 +185,11 @@ def build_index():
     <a class="lead pair" href="heartbroken.html" aria-label="Heartbroken — view project">{"".join(frame(r, "Heartbroken", zoom=False, eager=True, w=1000) for r in hb["pair"])}</a>
     <div class="copy">
       <div style="display:flex;flex-direction:column;gap:20px">
-        <div class="eyebrow mono"><span class="tag-new">NEW</span><span>Artwork — 2026</span></div>
+        <div class="eyebrow mono"><span class="tag-new">NEW</span><span>Collab — 2026</span></div>
         <h2 id="feat-title">Heartbroken</h2>
         <p>{E(HB_TEXT[0])}</p>
       </div>
-      <dl class="facts"><dt>Materials</dt><dd>Stethoscope, amplifier, distortion pedal, speaker</dd><dt>Year</dt><dd>2026</dd></dl>
+      <dl class="facts"><dt>Concept</dt><dd>Michelle Bressan</dd><dt>Design &amp; production</dt><dd>Denis Flueraru</dd><dt>Materials</dt><dd>Stethoscope, amplifier, distortion pedal, speaker</dd><dt>Year</dt><dd>2026</dd></dl>
       <a class="link-arrow mono" href="heartbroken.html">View project →</a>
     </div>
   </section>
@@ -221,6 +223,53 @@ def build_artworks():
         f'<div class="wrap"><section class="tiles">{tiles}</section></div>'
     write("artworks.html", page("artworks.html", "Artworks",
         "Artworks by Denis Flueraru — interactive installations, sound objects and series, 2022–2026.", body, current="artworks.html"))
+
+
+def jpeg_size(path):
+    """Width and height of a JPEG, without needing PIL at build time."""
+    try:
+        with open(path, "rb") as f:
+            if f.read(2) != b"\xff\xd8":
+                return None
+            while True:
+                b = f.read(1)
+                while b and b != b"\xff":
+                    b = f.read(1)
+                marker = f.read(1)
+                while marker == b"\xff":
+                    marker = f.read(1)
+                if not marker:
+                    return None
+                if marker[0] in (0xD8, 0xD9) or 0xD0 <= marker[0] <= 0xD7:
+                    continue
+                length = int.from_bytes(f.read(2), "big")
+                if marker[0] in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7,
+                                 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+                    f.read(1)
+                    h = int.from_bytes(f.read(2), "big")
+                    w = int.from_bytes(f.read(2), "big")
+                    return w, h
+                f.read(length - 2)
+    except OSError:
+        return None
+
+
+def clip_player(ref, title, cls="video"):
+    """A local video file with controls and sound — imported by _build/import_photos.py.
+    Nothing downloads until the visitor presses play. The box takes the clip's own
+    shape, read off the poster frame, so a phone video stays portrait."""
+    path = local(ref)
+    poster = path[:-4] + ".jpg"
+    size = jpeg_size(OUT / poster)
+    shape, style = "", ""
+    if size:
+        w, h = size
+        style = f' style="aspect-ratio: {w} / {h}"'
+        if h > w:
+            shape = " portrait"
+    return (f'<figure class="frame contain {cls} clip{shape}" data-label="{E(title)}"{style}>'
+            f'<video src="{path}" poster="{poster}" controls playsinline preload="none" '
+            f'aria-label="{E(title)} — video"></video></figure>')
 
 
 def yt_player(vid, title, cls="video"):
@@ -299,10 +348,16 @@ def entry(e, cat, label, ex=False):
     media = ""
     if e.get("main"):
         media += frame(e["main"], e["title"], cls="main", w=1600)
+    if e.get("clip"):
+        media += clip_player(e["clip"], e["title"])
+    if e.get("clips"):
+        # several clips sit side by side in one full-width row
+        media += '<div class="clips">' + "".join(clip_player(c, e["title"]) for c in e["clips"]) + "</div>"
     if e.get("video"):
         media += yt_player(e["video"], e["title"])
     imgs = e.get("grid", []) if not ex else ["lh3:" + x for x in e["imgs"]]
     media += "".join(frame(g, f'{e["title"]} — {k+1}', w=900) for k, g in enumerate(imgs))
+    gcls = {2: " g2", 3: " g3"}.get(len(imgs), "")
     return f"""<article class="grid12 entry{' ex' if ex else ''}" id="{e["id"]}">
   <div class="meta">
     <span class="cat mono">{dot(cat)}{label} — {e["year"]}</span>
@@ -310,7 +365,7 @@ def entry(e, cat, label, ex=False):
     {meta_extra}
     {text}
   </div>
-  <div class="media{' g3' if len(imgs) == 3 else ''}" data-gallery>{media}</div>
+  <div class="media{gcls}" data-gallery>{media}</div>
 </article>"""
 
 
