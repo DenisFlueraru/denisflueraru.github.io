@@ -257,6 +257,7 @@ body.menu-open { overflow: hidden; }
 .entry .media .clip.portrait { max-width: 380px; justify-self: center; }
 .entry .media .clips { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: start; }
 .entry .media .clips .clip { grid-column: auto; max-width: none; }
+.entry .media .frame.tall { aspect-ratio: 3 / 4; }
 .entry.ex .media, .entry .media.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .entry .media.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .entry.ex .media .frame { aspect-ratio: 4 / 3; }

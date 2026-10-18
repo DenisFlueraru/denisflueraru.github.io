@@ -200,13 +200,15 @@ WORKSHOPS = [
               "basic ways to shape and manipulate the sounds they captured.",
          main="workshops/dambovita-1.jpg",
          grid=["workshops/dambovita-2.jpg", "workshops/dambovita-3.jpg", "workshops/dambovita-4.jpg"]),
-    dict(id="libra-bank", title="Microphones, Code & Pen Plotter", year="2026",
+    dict(id="libra-bank", title="Microphones, Code & Pen Plotters", year="2026",
          place="Libra Bank Cultural Programme, Bucharest",
-         text="A two-part workshop for Libra Bank employees, part of the bank's cultural programme. In the first sessions "
+         text="Part of the about:sound series — a two-part workshop for Libra Bank employees within the bank's cultural "
+              "programme. In the first sessions "
               "participants built their own contact and electromagnetic microphones, gathered sounds from around the bank, and "
               "composed an audio piece using only what they had recorded. In the second part they used p5.js and AI to develop "
               "a generative art algorithm that turned their composition into sound-reactive plots, which were then drawn on "
               "paper with a pen plotter.",
+         portrait=True,
          main="workshops/libra-1.jpg",
          clips=["workshops/libra-clip-1.mp4", "workshops/libra-clip-2.mp4"],
          grid=["workshops/libra-2.jpg", "workshops/libra-3.jpg"]),

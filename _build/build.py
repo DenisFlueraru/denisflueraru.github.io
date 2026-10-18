@@ -346,17 +346,24 @@ def entry(e, cat, label, ex=False):
         f'<span class="mono muted">{E(e["place"])}</span>'
     text = f'<p>{E(e["text"])}</p>' if e.get("text") else ""
     media = ""
-    if e.get("main"):
-        media += frame(e["main"], e["title"], cls="main", w=1600)
+    clips = ""
     if e.get("clip"):
-        media += clip_player(e["clip"], e["title"])
+        clips += clip_player(e["clip"], e["title"])
     if e.get("clips"):
         # several clips sit side by side in one full-width row
-        media += '<div class="clips">' + "".join(clip_player(c, e["title"]) for c in e["clips"]) + "</div>"
-    if e.get("video"):
-        media += yt_player(e["video"], e["title"])
+        clips += '<div class="clips">' + "".join(clip_player(c, e["title"]) for c in e["clips"]) + "</div>"
     imgs = e.get("grid", []) if not ex else ["lh3:" + x for x in e["imgs"]]
-    media += "".join(frame(g, f'{e["title"]} — {k+1}', w=900) for k, g in enumerate(imgs))
+    if e.get("portrait"):
+        # all-portrait shoots: photos in one row at their own 3:4 shape, clips underneath
+        imgs = ([e["main"]] if e.get("main") else []) + imgs
+        media += "".join(frame(g, f'{e["title"]} — {k+1}', cls="tall", w=900) for k, g in enumerate(imgs)) + clips
+    else:
+        if e.get("main"):
+            media += frame(e["main"], e["title"], cls="main", w=1600)
+        media += clips
+        if e.get("video"):
+            media += yt_player(e["video"], e["title"])
+        media += "".join(frame(g, f'{e["title"]} — {k+1}', w=900) for k, g in enumerate(imgs))
     gcls = {2: " g2", 3: " g3"}.get(len(imgs), "")
     return f"""<article class="grid12 entry{' ex' if ex else ''}" id="{e["id"]}">
   <div class="meta">
