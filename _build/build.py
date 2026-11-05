@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Builds the portfolio into ../out. Run: python3 build.py"""
-import html, pathlib, sys
+import html, pathlib, re, sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from content import ARTWORKS, WORKSHOPS, COLLABS, EXHIBITIONS, INDEX, SERVICES, CATS, HB_TEXT
 
@@ -146,8 +146,49 @@ def page_head(title, side="", crumbs=None, h1_extra=""):
 </div>"""
 
 
+WRITTEN = {}
+
+
 def write(name, content):
     (OUT / name).write_text(content, encoding="utf-8")
+    WRITTEN[name] = content
+
+
+def lastmod(name):
+    """Date the page last changed: today if this build changed it, else its last commit."""
+    import datetime, subprocess
+    today = datetime.date.today().isoformat()
+    try:
+        if subprocess.run(["git", "diff", "--quiet", "HEAD", "--", name], cwd=OUT).returncode != 0:
+            return today
+        out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", name], cwd=OUT,
+                             capture_output=True, text=True).stdout.strip()
+        return out or today
+    except OSError:
+        return today
+
+
+def build_sitemap():
+    """sitemap.xml (every page except 404, with its local photos) + robots.txt pointing to it."""
+    rows = []
+    for name in sorted(WRITTEN, key=lambda n: (n != "index.html", n)):
+        if name == "404.html":
+            continue
+        imgs = []
+        for src in re.findall(r'<img[^>]+src="(media/[^"]+)"', WRITTEN[name]):
+            full = src.replace(".sm.", ".")
+            src = full if (OUT / full).exists() else src
+            if src not in imgs and (OUT / src).exists():
+                imgs.append(src)
+        img_xml = "".join(f"\n    <image:image><image:loc>{DOMAIN}{E(i)}</image:loc></image:image>" for i in imgs[:30])
+        loc = DOMAIN + ("" if name == "index.html" else name)
+        rows.append(f"  <url>\n    <loc>{loc}</loc>\n    <lastmod>{lastmod(name)}</lastmod>{img_xml}\n  </url>\n")
+    (OUT / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
+        '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n'
+        + "".join(rows) + "</urlset>\n", encoding="utf-8")
+    (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {DOMAIN}sitemap.xml\n", encoding="utf-8")
 
 
 # ------------------------------------------------------------------ home
@@ -561,4 +602,5 @@ if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     build_index(); build_artworks(); build_projects(); build_entries()
     build_sound(); build_services(); build_bio(); build_contact(); build_404()
+    build_sitemap()
     print("built", sorted(p.name for p in OUT.glob("*.html")))
