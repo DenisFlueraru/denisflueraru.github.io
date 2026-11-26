@@ -19,8 +19,10 @@ its sound kept, so every browser can play it, plus a poster frame. Phone videos 
 often HEVC, which Safari plays and most other browsers do not — this fixes that.
 """
 import pathlib
+import shutil
 import subprocess
 import sys
+import tempfile
 from PIL import Image, ImageOps
 
 Image.MAX_IMAGE_PIXELS = None
@@ -34,6 +36,17 @@ FULL, SMALL, Q = 1800, 900, 80
 EXTS = {".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff", ".heic"}
 VID_EXTS = {".mov", ".mp4", ".m4v", ".avi", ".mkv"}
 VID_W = 1280
+
+
+def encode_with_avconvert(src, dst, poster):
+    """No ffmpeg on this Mac: use macOS's own converter (H.264 + AAC, fits 960x540 either way round)
+    and Quick Look for the poster frame."""
+    subprocess.run(["avconvert", "-s", str(src), "-p", "Preset960x540", "-o", str(dst), "--replace"],
+                   check=True, stdout=subprocess.DEVNULL)
+    with tempfile.TemporaryDirectory() as tmp:
+        subprocess.run(["qlmanage", "-t", "-s", str(VID_W), "-o", tmp, str(dst)],
+                       check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        Image.open(next(pathlib.Path(tmp).glob("*.png"))).convert("RGB").save(poster, "JPEG", quality=80)
 
 
 def main():
@@ -92,6 +105,10 @@ def main():
             print(f"  skip  {rel}  (already imported — use --force to redo)")
             continue
         print(f"  ...   {rel}  (re-encoding {v.name}, this takes a moment)", flush=True)
+        if not shutil.which("ffmpeg"):
+            encode_with_avconvert(v, dst, poster)
+            print(f"  ok    {rel}  {dst.stat().st_size // 1024} KB   <- {v.name}")
+            continue
         subprocess.run([
             "ffmpeg", "-y", "-loglevel", "error", "-i", str(v),
             # cap the LONG edge, so portrait phone clips come out portrait and small

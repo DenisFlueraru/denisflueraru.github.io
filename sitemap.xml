@@ -3,9 +3,9 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://denisflueraru.com/</loc>
-    <lastmod>2026-10-18</lastmod>
-    <image:image><image:loc>https://denisflueraru.com/media/heartbroken/heartbroken-4.jpg</image:loc></image:image>
-    <image:image><image:loc>https://denisflueraru.com/media/heartbroken/heartbroken-3.jpg</image:loc></image:image>
+    <lastmod>2026-11-26</lastmod>
+    <image:image><image:loc>https://denisflueraru.com/media/artworks/morningcameingrey-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://denisflueraru.com/media/artworks/morningcameingrey-3.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/interstatic/3.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/solara/solara7.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/loop-studies/loopstudiesi-iv.jpg</image:loc></image:image>
@@ -13,7 +13,8 @@
   </url>
   <url>
     <loc>https://denisflueraru.com/artworks.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-11-26</lastmod>
+    <image:image><image:loc>https://denisflueraru.com/media/artworks/morningcameingrey-4.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/heartbroken/heartbroken-4.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/loop-studies/loopstudiesi-iv.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/beyond-the-noise/beyondbrasov3.jpg</image:loc></image:image>
@@ -28,7 +29,7 @@
   </url>
   <url>
     <loc>https://denisflueraru.com/auraltopographies.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://denisflueraru.com/media/drive/aural-topographies/at-user-interaction-1.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/aural-topographies/369604434-785829273339991-7778379061501400903-n.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/aural-topographies/369605970-785829960006589-7316914190825400740-n.jpg</image:loc></image:image>
@@ -40,7 +41,7 @@
   </url>
   <url>
     <loc>https://denisflueraru.com/beyondthenoisetheconcretespeaks.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://denisflueraru.com/media/drive/beyond-the-noise/beyondbrasov3.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/beyond-the-noise/beyondbrasov1.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/beyond-the-noise/beyondbrasov2.jpg</image:loc></image:image>
@@ -133,7 +134,7 @@
   </url>
   <url>
     <loc>https://denisflueraru.com/heartbroken.html</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://denisflueraru.com/media/heartbroken/heartbroken-4.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/heartbroken/heartbroken-3.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/heartbroken/heartbroken-1.jpg</image:loc></image:image>
@@ -142,7 +143,7 @@
   </url>
   <url>
     <loc>https://denisflueraru.com/interstatic.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://denisflueraru.com/media/drive/interstatic/3.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/interstatic/4.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/interstatic/2.jpg</image:loc></image:image>
@@ -151,7 +152,7 @@
   </url>
   <url>
     <loc>https://denisflueraru.com/inversesurveillance.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://denisflueraru.com/media/drive/inverse/inversesurveillance4.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/inverse/inversesurveillance.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/inverse/inversesurveillance3.jpg</image:loc></image:image>
@@ -161,7 +162,7 @@
   </url>
   <url>
     <loc>https://denisflueraru.com/loopstudies.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://denisflueraru.com/media/drive/loop-studies/loopstudiesi-iv.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/loop-studies/loopstudiesi.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/loop-studies/loopstudiesii.jpg</image:loc></image:image>
@@ -171,7 +172,7 @@
   </url>
   <url>
     <loc>https://denisflueraru.com/metabloom.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://denisflueraru.com/media/drive/metabloom/2.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/metabloom/1.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/metabloom/3.jpg</image:loc></image:image>
@@ -181,7 +182,7 @@
   </url>
   <url>
     <loc>https://denisflueraru.com/particlecomposer.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://denisflueraru.com/media/drive/particle-composer/3.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/particle-composer/5.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/particle-composer/4.jpg</image:loc></image:image>
@@ -191,7 +192,7 @@
   </url>
   <url>
     <loc>https://denisflueraru.com/rewind.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://denisflueraru.com/media/drive/rewind/car1.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/rewind/car5.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/rewind/car7.jpg</image:loc></image:image>
@@ -200,7 +201,7 @@
   </url>
   <url>
     <loc>https://denisflueraru.com/ruinedresonances.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://denisflueraru.com/media/drive/ruined-resonances-skg/11.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/ruined-resonances-skg/10.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/ruined-resonances-skg/7.jpg</image:loc></image:image>
@@ -220,7 +221,7 @@
   </url>
   <url>
     <loc>https://denisflueraru.com/solara.html</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://denisflueraru.com/media/drive/solara/solara7.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/solara/solara1.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/drive/solara/solara2.jpg</image:loc></image:image>
@@ -248,6 +249,16 @@
     <image:image><image:loc>https://denisflueraru.com/media/sound/lesel3.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/sound/lesel4.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/udn.jpg</image:loc></image:image>
+    <image:image><image:loc>https://denisflueraru.com/media/atomatlabrotating.png</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://denisflueraru.com/themorningcameingrey.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <image:image><image:loc>https://denisflueraru.com/media/artworks/morningcameingrey-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://denisflueraru.com/media/artworks/morningcameingrey-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://denisflueraru.com/media/artworks/morningcameingrey-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://denisflueraru.com/media/artworks/morningcameingrey-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://denisflueraru.com/media/artworks/morningcameingrey-5.jpg</image:loc></image:image>
     <image:image><image:loc>https://denisflueraru.com/media/atomatlabrotating.png</image:loc></image:image>
   </url>
   <url>

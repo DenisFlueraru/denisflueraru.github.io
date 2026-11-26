@@ -18,7 +18,29 @@ HB_TEXT = [
 
 # ---------------------------------------------------------------- artworks
 ARTWORKS = [
-    dict(slug="heartbroken", title="Heartbroken", year="2026", new=True, cat="col",
+    dict(slug="themorningcameingrey", title="the morning came in grey", year="2026", new=True,
+         place="Primitiv Plants, Bucharest",
+         hero="artworks/morningcameingrey-4.jpg",
+         pair=["artworks/morningcameingrey-4.jpg", "artworks/morningcameingrey-3.jpg"],
+         facts=[("Year", "2026"), ("Type", "Sound installation — generative listening post"),
+                ("Shown at", "Extraterestru — Piața de Artă și Design, Primitiv Plants greenhouse, Bucharest"),
+                ("Event", "PAD X, Mezanin"),
+                ("Materials", "Exciter, Raspberry Pi, sound card, FIELD5 contact microphone (ATOMAT LAB), water, glass"),
+                ("Size", "40 × 40 × 40 cm — mixed media")],
+         text=[
+             "the morning came in grey is a generative listening post. It plays multi-layered ambients that slowly "
+             "oscillate on their own, and turns the quakes and ripples it causes into sonic artifacts.",
+             "An exciter sends ripples and small earthquakes through a bowl of water. They work like an LFO on the whole "
+             "ambience, and the resonances they leave behind are picked up by a FIELD5 contact microphone from ATOMAT LAB "
+             "and folded back into the sound.",
+             "Shown in the Extraterestru exhibition by Piața de Artă și Design, in the greenhouse of Primitiv Plants in "
+             "Bucharest, during PAD X at Mezanin. Visitors were welcome to interact with the microphones.",
+         ],
+         gallery=["artworks/morningcameingrey-1.jpg", "artworks/morningcameingrey-2.jpg",
+                  "artworks/morningcameingrey-3.jpg", "artworks/morningcameingrey-5.jpg"],
+         clips=["artworks/morningcameingrey-clip-1.mp4", "artworks/morningcameingrey-clip-2.mp4",
+                "artworks/morningcameingrey-clip-3.mp4"]),
+    dict(slug="heartbroken", title="Heartbroken", year="2026", cat="col",
          place="Collab with Michelle Bressan",
          hero="heartbroken/heartbroken-4.jpg", pair=["heartbroken/heartbroken-4.jpg", "heartbroken/heartbroken-3.jpg"],
          portrait=True,
@@ -359,8 +381,9 @@ def _index():
     ]
     order = {"art": 0, "col": 1, "ex": 2, "ws": 3, "snd": 4}
     rows.sort(key=lambda r: (-int(r[1]), order[r[2]]))
-    # keep Heartbroken first
-    rows.sort(key=lambda r: r[0] != "Heartbroken")
+    # newest pieces first, in this order
+    pinned = ["the morning came in grey", "Heartbroken"]
+    rows.sort(key=lambda r: pinned.index(r[0]) if r[0] in pinned else len(pinned))
     return rows
 
 INDEX = _index()

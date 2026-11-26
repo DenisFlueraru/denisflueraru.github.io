@@ -3,6 +3,7 @@
 import html, pathlib, re, sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from content import ARTWORKS, WORKSHOPS, COLLABS, EXHIBITIONS, INDEX, SERVICES, CATS, HB_TEXT
+BY_SLUG = {a["slug"]: a for a in ARTWORKS}
 
 OUT = pathlib.Path(__file__).parent.parent
 E = html.escape
@@ -212,7 +213,9 @@ def build_index():
     tiles = "".join(
         f'<a class="tile" href="{a["slug"]}.html">{frame(a["hero"], a["title"], zoom=False, w=1000)}'
         f'<span class="cap"><strong>{E(a["title"])}</strong><span class="mono">{a["year"]}</span></span></a>'
-        for a in [ARTWORKS[i] for i in (7, 3, 1)])
+        for a in [BY_SLUG[s] for s in ("interstatic", "solara", "loopstudies")])
+    hb_cat = CATS[hb.get("cat", "art")][0]
+    hb_facts = "".join(f"<dt>{E(k)}</dt><dd>{E(v)}</dd>" for k, v in hb["facts"] if k not in ("Type",))
     body = f"""<div class="wrap">
   <section class="grid12 hero">
     <h1 class="rise">an archive of ongoing <span class="hl">experiments</span></h1>
@@ -223,15 +226,15 @@ def build_index():
   </section>
 
   <section class="grid12 featured" aria-labelledby="feat-title">
-    <a class="lead pair" href="heartbroken.html" aria-label="Heartbroken — view project">{"".join(frame(r, "Heartbroken", zoom=False, eager=True, w=1000) for r in hb["pair"])}</a>
+    <a class="lead pair" href="{hb["slug"]}.html" aria-label="{E(hb["title"])} — view project">{"".join(frame(r, hb["title"], zoom=False, eager=True, w=1000) for r in hb["pair"])}</a>
     <div class="copy">
       <div style="display:flex;flex-direction:column;gap:20px">
-        <div class="eyebrow mono"><span class="tag-new">NEW</span><span>Collab — 2026</span></div>
-        <h2 id="feat-title">Heartbroken</h2>
-        <p>{E(HB_TEXT[0])}</p>
+        <div class="eyebrow mono">{"<span class=tag-new>NEW</span>" if hb.get("new") else ""}<span>{hb_cat} — {hb["year"]}</span></div>
+        <h2 id="feat-title">{E(hb["title"])}</h2>
+        <p>{E(hb["text"][0])}</p>
       </div>
-      <dl class="facts"><dt>Concept</dt><dd>Michelle Bressan</dd><dt>Design &amp; production</dt><dd>Denis Flueraru</dd><dt>Materials</dt><dd>Stethoscope, amplifier, distortion pedal, speaker</dd><dt>Year</dt><dd>2026</dd></dl>
-      <a class="link-arrow mono" href="heartbroken.html">View project →</a>
+      <dl class="facts">{hb_facts}</dl>
+      <a class="link-arrow mono" href="{hb["slug"]}.html">View project →</a>
     </div>
   </section>
 
@@ -357,6 +360,9 @@ def build_projects():
         for title, imgs in a.get("sections", []):
             gal += f'<h2 class="sub-head">{E(title)}</h2><section class="gallery two" data-gallery>' + "".join(
                 frame(g, f'{a["title"]} — {title}', alt=f'{a["title"]}, {title}', w=1200) for g in imgs) + "</section>"
+        if a.get("clips"):
+            gal += '<section class="art-clips">' + "".join(
+                clip_player(c, f'{a["title"]} — video {k+1}') for k, c in enumerate(a["clips"])) + "</section>"
         emb = ""
         if a.get("embeds"):
             emb = '<section class="embeds">' + "".join(embed_html(*e) for e in a["embeds"]) + "</section>"
