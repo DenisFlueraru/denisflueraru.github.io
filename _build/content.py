@@ -36,10 +36,10 @@ ARTWORKS = [
              "Shown in the Extraterestru exhibition by Piața de Artă și Design, in the greenhouse of Primitiv Plants in "
              "Bucharest, during PAD X at Mezanin. Visitors were welcome to interact with the microphones.",
          ],
-         gallery=["artworks/morningcameingrey-1.jpg", "artworks/morningcameingrey-2.jpg",
-                  "artworks/morningcameingrey-3.jpg", "artworks/morningcameingrey-5.jpg"],
-         clips=["artworks/morningcameingrey-clip-1.mp4", "artworks/morningcameingrey-clip-2.mp4",
-                "artworks/morningcameingrey-clip-3.mp4"]),
+         compact=True,  # smaller hero; photos and videos share one 3-column grid
+         mix=["artworks/morningcameingrey-1.jpg", "artworks/morningcameingrey-clip-1.mp4",
+              "artworks/morningcameingrey-2.jpg", "artworks/morningcameingrey-3.jpg",
+              "artworks/morningcameingrey-clip-2.mp4", "artworks/morningcameingrey-5.jpg"]),
     dict(slug="heartbroken", title="Heartbroken", year="2026", cat="col",
          place="Collab with Michelle Bressan",
          hero="heartbroken/heartbroken-4.jpg", pair=["heartbroken/heartbroken-4.jpg", "heartbroken/heartbroken-3.jpg"],

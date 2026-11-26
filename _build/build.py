@@ -338,10 +338,11 @@ def embed_html(kind, ident, label, link):
 
 
 def hero_html(a):
-    if a.get("pair"):
+    if a.get("pair") and not a.get("compact"):  # compact pages: one smaller hero (the pair stays on the home page)
         return '<div class="proj-hero pair">' + "".join(
             frame(r, a["title"], eager=True, alt=f'{a["title"]}, view {k+1}', w=1200) for k, r in enumerate(a["pair"])) + "</div>"
-    return frame(a["hero"], a["title"], cls="proj-hero", eager=True, alt=a["title"])
+    cls = "proj-hero compact" if a.get("compact") else "proj-hero"
+    return frame(a["hero"], a["title"], cls=cls, eager=True, alt=a["title"])
 
 
 def build_projects():
@@ -360,6 +361,12 @@ def build_projects():
         for title, imgs in a.get("sections", []):
             gal += f'<h2 class="sub-head">{E(title)}</h2><section class="gallery two" data-gallery>' + "".join(
                 frame(g, f'{a["title"]} — {title}', alt=f'{a["title"]}, {title}', w=1200) for g in imgs) + "</section>"
+        if a.get("mix"):
+            # photos and clips in one grid; clips keep their controls and sound
+            gal += '<section class="gallery mix" data-gallery>' + "".join(
+                clip_player(r, f'{a["title"]} — video') if r.endswith(".mp4")
+                else frame(r, f'{a["title"]} — image {k+1}', alt=f'{a["title"]}, view {k+1}', w=900)
+                for k, r in enumerate(a["mix"])) + "</section>"
         if a.get("clips"):
             gal += '<section class="art-clips">' + "".join(
                 clip_player(c, f'{a["title"]} — video {k+1}') for k, c in enumerate(a["clips"])) + "</section>"

@@ -259,6 +259,11 @@ body.menu-open { overflow: hidden; }
 .entry .media .clips .clip { grid-column: auto; max-width: none; }
 .art-clips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; align-items: start; max-width: 720px; margin: 12px auto 0; }
 .art-clips .clip { max-width: none; }
+.proj-hero.compact { max-width: 960px; margin-inline: auto; aspect-ratio: 3 / 2; }
+.gallery.mix { max-width: 960px; margin-inline: auto; gap: 10px; }
+.gallery.mix .frame { aspect-ratio: 4 / 5 !important; max-width: none; }
+.gallery.mix .clip video { object-fit: cover; }
+@media (max-width: 700px) { .gallery.mix { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
 .entry .media .frame.tall { aspect-ratio: 3 / 4; }
 .entry.ex .media, .entry .media.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .entry .media.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
