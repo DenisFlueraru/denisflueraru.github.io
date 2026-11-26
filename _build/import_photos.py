@@ -35,7 +35,7 @@ DRIVE = next((d for d in (SITE.parent / "DRIVE-IMAGES", SITE.parent / "DENISFLUE
 FULL, SMALL, Q = 1800, 900, 80
 EXTS = {".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff", ".heic"}
 VID_EXTS = {".mov", ".mp4", ".m4v", ".avi", ".mkv"}
-VID_W = 1280
+VID_W = 640    # long edge; keeps clips well under 1 MB
 
 
 def encode_with_avconvert(src, dst, poster):
@@ -114,8 +114,8 @@ def main():
             # cap the LONG edge, so portrait phone clips come out portrait and small
             "-vf", (f"scale=w='min({VID_W},iw)':h='min({VID_W},ih)'"
                     f":force_original_aspect_ratio=decrease:force_divisible_by=2:flags=lanczos"),
-            "-c:v", "libx264", "-preset", "slow", "-crf", "23", "-pix_fmt", "yuv420p",
-            "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", str(dst)], check=True)
+            "-c:v", "libx264", "-preset", "slow", "-crf", "28", "-pix_fmt", "yuv420p",
+            "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart", str(dst)], check=True)
         subprocess.run([
             "ffmpeg", "-y", "-loglevel", "error", "-i", str(dst),
             "-ss", "0.5", "-frames:v", "1", "-q:v", "4", str(poster)], check=True)
