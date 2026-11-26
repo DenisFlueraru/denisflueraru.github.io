@@ -328,18 +328,6 @@ EXHIBITIONS = [
     dict(id="extraterestru", place="Primitiv Plants, Bucharest", title="PAD X — Extraterestru", year="2026",
          dates=["November 20 – November 22, Primitiv Plants greenhouse, Bucharest, RO",
                 "Opening & party — Friday, November 20, 18:00"],
-         text=[
-             "Extraterestru — imaginary worlds and characters, viewfinders into other realities, pop representations "
-             "and sounds from beyond the limits of hearing. Between the fascination with the unknown and the feeling "
-             "of alienation. A Piața de Artă și Design exhibition during PAD X at Mezanin.",
-             "I showed the morning came in grey, a generative listening post. It plays multi-layered ambients that "
-             "slowly oscillate on their own, while an exciter sends ripples and small earthquakes through a bowl of "
-             "water. They work like an LFO on the whole ambience, and the resonances they leave behind are picked up "
-             "by a FIELD5 contact microphone from ATOMAT LAB and folded back into the sound.",
-             "With Ana Ionescu, Ana Pascu, Apparatus 22, Lorena Cocioni, Mara Verhooght, Marian Pălie, "
-             "Matei Alexandrescu, Matei Emanuel, Otilia Efros and Radu Măldărescu.",
-         ],
-         link=("themorningcameingrey.html", "the morning came in grey"),
          imgs=["artworks/morningcameingrey-4.jpg", "artworks/morningcameingrey-1.jpg", "artworks/morningcameingrey-2.jpg",
                "artworks/morningcameingrey-3.jpg", "artworks/morningcameingrey-5.jpg"]),
     dict(id="horizont-2", place="MAMŰ Társaság, Budapest", title="A Horizont Lényege II", year="2025",
