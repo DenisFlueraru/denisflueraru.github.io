@@ -202,7 +202,7 @@ def build_index():
     rows = []
     for i, (t, y, c, p, href) in enumerate(INDEX, 1):
         ext = href.startswith("http")
-        new = ' <span class="tag-new">NEW</span>' if t == "Heartbroken" else ""
+        new = ""
         label = CATS[c][0]
         inner = (f'<span class="n mono">{i:03d}</span><span class="t">{E(t)}{new}</span>'
                  f'<span class="y mono">{y}</span><span class="cat mono">{dot(c)}{label}</span>'
@@ -398,7 +398,10 @@ def build_projects():
 def entry(e, cat, label, ex=False):
     meta_extra = "".join(f'<span class="mono muted">{E(d)}</span>' for d in e.get("dates", [])) if ex else \
         f'<span class="mono muted">{E(e["place"])}</span>'
-    text = f'<p>{E(e["text"])}</p>' if e.get("text") else ""
+    paras = e.get("text") or []
+    text = "".join(f"<p>{E(p)}</p>" for p in ([paras] if isinstance(paras, str) else paras))
+    if e.get("link"):
+        text += f'<a class="link-arrow mono" href="{e["link"][0]}">{E(e["link"][1])} →</a>'
     media = ""
     clips = ""
     if e.get("clip"):
@@ -406,7 +409,8 @@ def entry(e, cat, label, ex=False):
     if e.get("clips"):
         # several clips sit side by side in one full-width row
         clips += '<div class="clips">' + "".join(clip_player(c, e["title"]) for c in e["clips"]) + "</div>"
-    imgs = e.get("grid", []) if not ex else ["lh3:" + x for x in e["imgs"]]
+    # exhibition photos: Google Drive ids, or local files under media/ (anything with a "/")
+    imgs = e.get("grid", []) if not ex else [x if "/" in x else "lh3:" + x for x in e["imgs"]]
     if e.get("portrait"):
         # all-portrait shoots: photos in one row at their own 3:4 shape, clips underneath
         imgs = ([e["main"]] if e.get("main") else []) + imgs
@@ -441,7 +445,7 @@ def build_entries():
     write("collabs.html", page("collabs.html", "Collabs",
         "Collaborations and commissions — sound design, LED programming, sensor systems and bespoke instruments.", body, current="collabs.html"))
 
-    body = page_head("Exhibitions", "<p>Group and solo shows, 2023 — 2025.</p>") + \
+    body = page_head("Exhibitions", "<p>Group and solo shows, 2023 — 2026.</p>") + \
         '<div class="wrap">' + "".join(entry(x, "ex", "Exhibition", ex=True) for x in EXHIBITIONS) + "</div>"
     write("exhibitions.html", page("exhibitions.html", "Exhibitions",
         "Exhibitions featuring Denis Flueraru's work in Bucharest, Brașov, Budapest and beyond.", body, current="exhibitions.html"))

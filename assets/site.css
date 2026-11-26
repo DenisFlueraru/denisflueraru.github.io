@@ -246,7 +246,7 @@ body.menu-open { overflow: hidden; }
 .entry .meta { grid-column: 1 / span 4; display: flex; flex-direction: column; gap: 16px; align-self: start; position: sticky; top: calc(var(--head) + 24px); }
 .entry .meta h2 { font-weight: 800; font-size: clamp(30px, 3vw, 44px); line-height: 1; letter-spacing: -0.03em; }
 .entry .meta p { font-size: 17px; line-height: 1.5; max-width: 42ch; }
-.entry .media { grid-column: 5 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.entry .media { grid-column: 5 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-content: start; }
 .entry .media .main { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
 .entry .media .frame:not(.main) { aspect-ratio: 1; }
 .entry .media .video { grid-column: 1 / -1; aspect-ratio: 16 / 9; background: var(--ink); }
